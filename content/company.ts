@@ -20,6 +20,19 @@ export const company = {
   tagline: "We build moments.",
   description:
     "We design, build, and deliver large-scale event spaces and experiences — turning ambitious ideas into unforgettable realities.",
+  /** Verbatim from Raja's own published positioning. */
+  legacyStatement:
+    "Raja Enterprises has been delivering experiential event solutions across India for over four decades.",
+  positioning:
+    "Experts in organising government programs, trade fairs, exhibitions, conferences, roadshows and business forums across India.",
+  disciplines: [
+    "Government programmes",
+    "Trade fairs",
+    "Exhibitions",
+    "Conferences",
+    "Roadshows",
+    "Business forums",
+  ],
 } as const;
 
 export interface Stat extends Sourced {
@@ -48,11 +61,13 @@ export const stats: Stat[] = [
  * Fill these in and every CTA and the footer wire themselves up automatically.
  */
 export const contact = {
-  email: null as string | null,
-  phone: null as string | null,
-  addressLines: [] as string[],
-  status: "pending" as const,
-  note: "No footer, address, phone, email or social links exist in the Figma file. Required before launch.",
+  email: "raju@rajaenterprises.co" as string | null,
+  /** Primary number shown in CTAs; the full list appears on the contact page. */
+  phone: "+91 98450 44177" as string | null,
+  landlines: ["080-26609751", "080-26609753", "080-26602958", "080-26602962"],
+  addressLines: ['"Venkat", #145, 5th Main Road', "Bengaluru 560018", "Karnataka, India"] as string[],
+  status: "approved" as const,
+  note: "Recovered from Raja's own published sites (rajaenterprises.co and the previous implementation). Confirm these are current before launch.",
 };
 
 export const hasContactDetails = Boolean(contact.email || contact.phone || contact.addressLines.length);

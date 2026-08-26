@@ -8,6 +8,7 @@ import { DUR, STAGGER, MOTION_OK } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { stats } from "@/content/company";
+import { resourcesOverlay } from "@/content/site";
 import { SECTION_IDS } from "@/content/navigation";
 import { clsx } from "@/lib/clsx";
 
@@ -47,9 +48,9 @@ export function Resources() {
         fadeUp(tl, q(scope, "[data-statement]"), { duration: DUR.statement }, 0.2);
 
         // Per row: rule grows, label slides in, figure rises. 0.16s apart.
-        growRule(tl, q(scope, "[data-row-rule]"), { stagger: STAGGER.stats }, 0.6);
-        fadeIn(tl, q(scope, "[data-row-label]"), { stagger: STAGGER.stats, distance: 20 }, 0.66);
-        fadeUp(tl, q(scope, "[data-row-value]"), { stagger: STAGGER.stats, distance: 26 }, 0.7);
+        growRule(tl, q(scope, "[data-row-rule]"), { stagger: STAGGER.stats, staggerEase: "power1.inOut" }, 0.6);
+        fadeIn(tl, q(scope, "[data-row-label]"), { stagger: STAGGER.stats, staggerEase: "power1.inOut", distance: 20 }, 0.66);
+        fadeUp(tl, q(scope, "[data-row-value]"), { stagger: STAGGER.stats, staggerEase: "power1.inOut", distance: 26 }, 0.7);
 
         riseCard(tl, q(scope, "[data-overlap]"), { scaleFrom: 0.9 }, 0.9);
       });
@@ -79,8 +80,8 @@ export function Resources() {
           className="pointer-events-none absolute left-1/2 top-[18%] z-10 hidden aspect-[323/175] w-[22.4%] -translate-x-1/2 overflow-hidden rounded-[10px] lg:block"
         >
           <Image
-            src="/media/legacy-uttarakhand-gis.webp"
-            alt=""
+            src={resourcesOverlay.src}
+            alt={resourcesOverlay.alt}
             fill
             sizes="23vw"
             className="object-cover"

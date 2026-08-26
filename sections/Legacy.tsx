@@ -54,6 +54,7 @@ export function Legacy() {
         // Photographs land: opacity + y + rotate + scale, 0.09s apart.
         land(tl, q(scope, "[data-collage]"), {
           stagger: STAGGER.collage,
+          staggerEase: "power1.inOut",
           rotate: (i: number) => (i % 2 === 0 ? -5 : 5),
         }, 1.25);
       });

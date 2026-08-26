@@ -10,7 +10,8 @@
     "assets": "node scripts/prepare-assets.mjs",
     "inspect": "node scripts/inspect.mjs",
     "check:fallbacks": "node scripts/check-a11y-fallbacks.mjs",
-    "audit:content": "node scripts/content-audit.mjs"
+    "audit:content": "node scripts/content-audit.mjs",
+    "inspect:routes": "node scripts/inspect-routes.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -27,7 +28,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.2",
     "lightningcss-linux-x64-gnu": "^1.33.0",
-    "playwright": "^1.62.1",
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5"

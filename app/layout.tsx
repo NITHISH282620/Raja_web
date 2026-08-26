@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins, Roboto_Mono } from "next/font/google";
 import { MotionProvider } from "@/motion/MotionProvider";
+import { SiteNav } from "@/components/SiteNav";
+import { SiteFooter } from "@/sections/SiteFooter";
 import { company, FOUNDED_YEAR } from "@/content/company";
 import "./globals.css";
 
@@ -104,7 +106,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <SiteNav />
+          {children}
+          <SiteFooter />
+        </MotionProvider>
       </body>
     </html>
   );

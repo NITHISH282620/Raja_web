@@ -51,7 +51,7 @@ export function Inventory() {
         });
 
         // Card rises; artwork rotates and scales into place 0.11s behind it.
-        riseCard(tl, q(scope, "[data-tile]"), { stagger: STAGGER.bento, distance: 52, scaleFrom: 0.93 }, 0);
+        riseCard(tl, q(scope, "[data-tile]"), { stagger: STAGGER.bento, staggerEase: "power1.inOut", distance: 52, scaleFrom: 0.93 }, 0);
 
         const art = q(scope, "[data-tile-image]");
         if (art.length) {
@@ -62,7 +62,7 @@ export function Inventory() {
             0.05,
           );
         }
-        fadeUp(tl, q(scope, "[data-tile-copy]"), { stagger: STAGGER.bento, distance: 22 }, 0.22);
+        fadeUp(tl, q(scope, "[data-tile-copy]"), { stagger: STAGGER.bento, staggerEase: "power1.inOut", distance: 22 }, 0.22);
         riseCard(tl, q(scope, "[data-inventory-cta]"), { distance: 24, scaleFrom: 0.9 }, 0.9);
       });
 

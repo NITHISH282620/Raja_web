@@ -8,6 +8,21 @@ export interface RevealOptions {
   /** Rotation applied per index — used by the collage landing. */
   rotate?: number | ((index: number) => number);
   scaleFrom?: number;
+  /**
+   * Distributes a multi-element stagger on a curve instead of a fixed
+   * interval. A flat interval reads as mechanical once more than about four
+   * elements are involved; easing the distribution makes the group arrive as
+   * one move. Figma authored the interval, not the distribution — this is a
+   * smoothness refinement, applied only to the large groups.
+   */
+  staggerEase?: string;
+}
+
+/** Builds the stagger value, eased across the group when asked for. */
+function staggerOf(o: RevealOptions): number | gsap.StaggerVars {
+  const each = o.stagger ?? 0;
+  if (!each || !o.staggerEase) return each;
+  return { each, ease: o.staggerEase, from: "start" };
 }
 
 type Targets = Element[] | Element | null | undefined;
@@ -42,7 +57,7 @@ export function fadeUp(tl: gsap.core.Timeline, targets: Targets, o: RevealOption
       opacity: 1,
       y: 0,
       duration: o.duration ?? DUR.reveal,
-      stagger: o.stagger ?? 0,
+      stagger: staggerOf(o),
       ease: EASE.primary,
     },
     at,
@@ -60,7 +75,7 @@ export function fadeIn(tl: gsap.core.Timeline, targets: Targets, o: RevealOption
       opacity: 1,
       x: 0,
       duration: o.duration ?? DUR.reveal,
-      stagger: o.stagger ?? 0,
+      stagger: staggerOf(o),
       ease: EASE.primary,
     },
     at,
@@ -79,7 +94,7 @@ export function riseCard(tl: gsap.core.Timeline, targets: Targets, o: RevealOpti
       y: 0,
       scale: 1,
       duration: o.duration ?? DUR.statement,
-      stagger: o.stagger ?? 0,
+      stagger: staggerOf(o),
       ease: EASE.primary,
     },
     at,
@@ -104,7 +119,7 @@ export function land(tl: gsap.core.Timeline, targets: Targets, o: RevealOptions 
       scale: 1,
       rotate: 0,
       duration: o.duration ?? DUR.land,
-      stagger: o.stagger ?? 0,
+      stagger: staggerOf(o),
       ease: EASE.primary,
     },
     at,
@@ -122,7 +137,7 @@ export function growRule(tl: gsap.core.Timeline, targets: Targets, o: RevealOpti
       scaleX: 1,
       transformOrigin: "left center",
       duration: o.duration ?? DUR.rule,
-      stagger: o.stagger ?? 0,
+      stagger: staggerOf(o),
       ease: EASE.primary,
     },
     at,
@@ -139,7 +154,7 @@ export function settle(tl: gsap.core.Timeline, targets: Targets, o: RevealOption
     {
       scale: 1,
       duration: o.duration ?? DUR.image,
-      stagger: o.stagger ?? 0,
+      stagger: staggerOf(o),
       ease: EASE.spring,
     },
     at,
@@ -155,6 +170,10 @@ export const entranceTrigger = (trigger: Element): ScrollTrigger.Vars => ({
   trigger,
   start: "top 78%",
   once: true,
+  // On a fast scroll the reveal would otherwise still be mid-flight when the
+  // section has already left the viewport, so the visitor arrives to a section
+  // that is visibly catching up. fastScrollEnd lets it settle immediately.
+  fastScrollEnd: true,
 });
 
 /** Query helper scoped to a section root. */

@@ -6,6 +6,7 @@ import { gsap, riseCard, entranceTrigger, q } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
 import { Placeholder } from "@/components/Placeholder";
 import { navItems } from "@/content/navigation";
+import Link from "next/link";
 import { company, contact, FOUNDED_YEAR, hasContactDetails, yearsInOperation } from "@/content/company";
 
 /**
@@ -58,9 +59,9 @@ export function SiteFooter() {
           <ul className="flex flex-col gap-2">
             {navItems.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="t-body text-body-light transition-colors hover:text-accent">
+                <Link href={item.href} className="t-body text-body-light transition-colors hover:text-accent">
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

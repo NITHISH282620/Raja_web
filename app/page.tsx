@@ -6,7 +6,6 @@ import { Works } from "@/sections/Works";
 import { Process } from "@/sections/Process";
 import { Inventory } from "@/sections/Inventory";
 import { Clients } from "@/sections/Clients";
-import { SiteFooter } from "@/sections/SiteFooter";
 
 /**
  * The nine sections of the Figma `main` frame, in artboard order.
@@ -26,7 +25,6 @@ export default function Home() {
       <Process />
       <Inventory />
       <Clients />
-      <SiteFooter />
     </main>
   );
 }

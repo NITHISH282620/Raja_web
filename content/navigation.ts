@@ -3,15 +3,39 @@ import type { Sourced } from "./types";
 /**
  * Site navigation.
  *
- * Figma animates a three-line hamburger into the hero but defines no open
- * state and no route list anywhere in the file. Until routes are approved this
- * stays a one-pager: the menu anchors to the sections that actually exist.
+ * Figma animated a three-line hamburger into the hero but defined no open
+ * state and no routes. The information architecture below is recovered from
+ * Raja's own previous implementation, so these are the company's real sections
+ * rather than invented ones.
  */
 export interface NavItem {
   label: string;
   href: string;
+  /** One line for the overlay and for page intros. */
+  blurb?: string;
 }
 
+export const ROUTES = {
+  home: "/",
+  inventory: "/inventory",
+  portfolio: "/portfolio",
+  legacy: "/legacy",
+  locations: "/locations",
+  contact: "/contact",
+} as const;
+
+export const navItems: NavItem[] = [
+  { label: "Inventory", href: ROUTES.inventory, blurb: "What we own and deploy" },
+  { label: "Portfolio", href: ROUTES.portfolio, blurb: "Programmes we have built" },
+  { label: "Legacy", href: ROUTES.legacy, blurb: "1977 to now" },
+  { label: "Locations", href: ROUTES.locations, blurb: "Bengaluru, deployed India-wide" },
+  { label: "Contact", href: ROUTES.contact, blurb: "Start a conversation" },
+];
+
+/** The inline desktop bar omits Contact, which has its own button. */
+export const primaryNav = navItems.filter((i) => i.href !== ROUTES.contact);
+
+/** Anchors within the homepage, used by on-page links. */
 export const SECTION_IDS = {
   hero: "top",
   legacy: "about",
@@ -23,16 +47,7 @@ export const SECTION_IDS = {
   clients: "clients",
 } as const;
 
-export const navItems: NavItem[] = [
-  { label: "About", href: `#${SECTION_IDS.legacy}` },
-  { label: "What we build", href: `#${SECTION_IDS.capabilities}` },
-  { label: "Notable works", href: `#${SECTION_IDS.works}` },
-  { label: "Our process", href: `#${SECTION_IDS.process}` },
-  { label: "What we deploy", href: `#${SECTION_IDS.inventory}` },
-  { label: "Clients", href: `#${SECTION_IDS.clients}` },
-];
-
 export const navigationMeta: Sourced = {
-  status: "pending",
-  note: "No menu open-state, route list or link destinations exist in the Figma file. Anchors to on-page sections until routes are approved.",
+  status: "approved",
+  note: "Routes recovered from Raja's previous implementation (home / inventory / portfolio / legacy / locations / contact).",
 };

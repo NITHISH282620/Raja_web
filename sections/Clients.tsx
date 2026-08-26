@@ -57,7 +57,7 @@ export function Clients() {
             0.25,
           );
         }
-        riseCard(tl, q(scope, "[data-logo-tile]"), { stagger: STAGGER.clients, distance: 20, scaleFrom: 0.9 }, 0.5);
+        riseCard(tl, q(scope, "[data-logo-tile]"), { stagger: STAGGER.clients, staggerEase: "power2.inOut", distance: 20, scaleFrom: 0.9 }, 0.5);
 
         fadeUp(tl, q(scope, "[data-cta-eyebrow]"), { distance: 18 }, 1.15);
         fadeUp(tl, q(scope, "[data-cta-statement]"), { duration: DUR.statement }, 1.25);

@@ -44,8 +44,30 @@ export function registerEases() {
   gsap.registerPlugin(CustomEase);
   CustomEase.create(EASE.primary, "M0,0 C0.16,1 0.3,1 1,1");
   CustomEase.create(EASE.spring, springPath());
+
+  // Everything unspecified inherits the design's own curve rather than GSAP's
+  // default, so no tween can quietly fall back to a foreign ease again.
+  // force3D is deliberately left at GSAP's "auto": forcing it promotes text to
+  // GPU layers permanently and softens glyph edges, which costs more in
+  // perceived quality than the compositing gains it buys.
+  gsap.defaults({ ease: EASE.primary });
+
   registered = true;
 }
+
+/**
+ * Registered at MODULE LOAD, deliberately — not from an effect.
+ *
+ * Sections build their timelines inside `useGSAP`, which runs in
+ * useLayoutEffect and therefore fires before MotionProvider's useEffect (and
+ * children run before parents). Registering the eases in an effect meant the
+ * names did not exist yet when the timelines were built, and GSAP silently
+ * substituted its default `power1.out` for every single tween — measured and
+ * confirmed in the browser. That is what made the motion feel flat instead of
+ * weighted. Importing this module now guarantees the curves exist first,
+ * because every section reaches it through motion/primitives.
+ */
+registerEases();
 
 /**
  * Durations and staggers lifted from the 19s Figma cohort. Section timelines

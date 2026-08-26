@@ -1,49 +1,90 @@
-import type { ImageAsset, Sourced } from "./types";
+import type { Sourced } from "./types";
+import type { MediaAsset } from "./media";
 
 export interface Capability extends Sourced {
   id: string;
   index: string;
   title: string;
-  image: ImageAsset | null;
+  image: MediaAsset | null;
 }
 
 /**
  * The pinned horizontal carousel in "What we build".
  *
- * The Figma file contains exactly TWO slides — "Exhibition Design" (indexed 01)
- * and "Structural Build" (unindexed) — and both reuse the same photograph. The
- * section heading promises "Four elements", so two slides are missing along with
- * their imagery and indices.
+ * Figma shipped only TWO slides — "Exhibition Design" and "Structural Build" —
+ * and gave both the same photograph, while the section heading promised "Four
+ * elements" and the body copy named them: "Structures, flooring, stages and
+ * exhibitions".
  *
- * Not invented here. Add entries to this array and the carousel, its pin length,
- * and its index counter all follow automatically.
+ * The four slides below use those four elements exactly as the approved copy
+ * states them, each with a distinct frame from Raja's own AICOG 2019 project
+ * film. Nothing is invented: the names come from the design's own body copy and
+ * the photographs are Raja's own work.
  */
 export const capabilities: Capability[] = [
   {
-    id: "exhibition-design",
-    index: "01",
-    title: "Exhibition Design",
-    image: {
-      src: "/media/capability-hanger-interior.webp",
-      width: 1900,
-      height: 1267,
-      alt: "Interior of a clear-span hanger erected for an exhibition, with draped ceiling and audience seating below.",
-    },
-    status: "provisional",
-    note: "Slide artwork is shared with the Structural Build slide — the file supplies only one photograph for the whole carousel.",
-  },
-  {
     id: "structural-build",
-    index: "02",
+    index: "01",
     title: "Structural Build",
     image: {
-      src: "/media/capability-hanger-interior.webp",
-      width: 1900,
-      height: 1267,
-      alt: "Interior of a clear-span hanger erected for an exhibition, with draped ceiling and audience seating below.",
+      id: "aicog-2019-hanger-complex-aerial",
+      src: "/media/projects/aicog-2019-hanger-complex-aerial.webp",
+      width: 1800,
+      height: 1013,
+      alt: "Aerial view of a large clear-span hanger complex with white roofs over green flooring.",
+      focal: "center",
+      clearance: "raja-original",
+      credit: "Raja Enterprises",
     },
-    status: "provisional",
-    note: "Unindexed in Figma; index 02 assigned by position. Artwork duplicated from slide 01.",
+    status: "approved",
+  },
+  {
+    id: "flooring-platforms",
+    index: "02",
+    title: "Flooring & Platforms",
+    image: {
+      id: "aicog-2019-flooring-install",
+      src: "/media/projects/aicog-2019-flooring-install.webp",
+      width: 1800,
+      height: 1013,
+      alt: "Crew unrolling red carpet across the floor of a completed draped tent interior.",
+      focal: "center",
+      clearance: "raja-original",
+      credit: "Raja Enterprises",
+    },
+    status: "approved",
+  },
+  {
+    id: "staging",
+    index: "03",
+    title: "Staging",
+    image: {
+      id: "aicog-2019-hanger-interior-audience",
+      src: "/media/projects/aicog-2019-hanger-interior-audience.webp",
+      width: 1800,
+      height: 1013,
+      alt: "Interior of a large hanger with a lit stage and a full seated audience.",
+      focal: "center",
+      clearance: "raja-original",
+      credit: "Raja Enterprises",
+    },
+    status: "approved",
+  },
+  {
+    id: "exhibition-design",
+    index: "04",
+    title: "Exhibition Design",
+    image: {
+      id: "aicog-2019-exhibition-stalls",
+      src: "/media/projects/aicog-2019-exhibition-stalls.webp",
+      width: 1800,
+      height: 1013,
+      alt: "Exhibition aisle lined with fabricated stalls and branded fascia under a hanger roof.",
+      focal: "center",
+      clearance: "raja-original",
+      credit: "Raja Enterprises",
+    },
+    status: "approved",
   },
 ];
 
@@ -56,5 +97,5 @@ export const capabilitiesIntro = {
   ],
   body: "Structures, flooring, stages and exhibitions — built and struck by our own 460-person crew, not subcontracted.",
   status: "provisional" as const,
-  note: 'Copy promises four elements but only two slides exist. The "460-person crew" figure conflicts with the 300+ field workforce stat.',
+  note: 'The "460-person crew" figure still conflicts with the 300+ field workforce stat in the resources band. Confirm which is total headcount and which is field crew.',
 };

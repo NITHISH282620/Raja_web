@@ -8,7 +8,7 @@ import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { CircleButton } from "@/components/Buttons";
 import { WorkCard } from "@/components/WorkCard";
-import { works, worksIntro } from "@/content/works";
+import { publishedProjects, worksIntro } from "@/content/works";
 import { SECTION_IDS } from "@/content/navigation";
 
 /**
@@ -73,7 +73,7 @@ export function Works() {
       </div>
 
       <ul className="frame flex flex-col gap-[clamp(24px,3vw,40px)]">
-        {works.map((work, i) => (
+        {publishedProjects().map((work, i) => (
           <li
             key={work.id}
             data-work

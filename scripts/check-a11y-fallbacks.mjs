@@ -8,7 +8,20 @@
  *
  * Run: node scripts/check-a11y-fallbacks.mjs [url]
  */
-import { chromium } from "playwright";
+/**
+ * Playwright is intentionally NOT a dependency of this project: its postinstall
+ * downloads ~300MB of browsers, which would run on every Vercel build for
+ * tooling that never executes in a deploy.
+ *
+ * To run this script:  npm i playwright --no-save && npx playwright install chromium
+ */
+let chromium;
+try {
+  ({ chromium } = await import("playwright"));
+} catch {
+  console.error("Playwright is not installed. Run:\n  npm i playwright --no-save && npx playwright install chromium");
+  process.exit(1);
+}
 import { mkdir } from "node:fs/promises";
 
 const URL = process.argv[2] ?? "http://localhost:4321/";

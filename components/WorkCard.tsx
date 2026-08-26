@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { Pill } from "@/components/Buttons";
 import { Placeholder, PlaceholderImage } from "@/components/Placeholder";
-import type { Work } from "@/content/works";
+import type { Project } from "@/content/works";
 import { clsx } from "@/lib/clsx";
 
-const TINT: Record<Work["tint"], string> = {
+const TINT: Record<Project["tint"], string> = {
   pink: "bg-tint-pink",
   yellow: "bg-tint-yellow",
   blue: "bg-tint-blue",
@@ -21,15 +21,16 @@ const TINT: Record<Work["tint"], string> = {
  * has nowhere to go on a phone, and shrinking both produces a card where
  * neither the photograph nor the copy is legible.
  */
-export function WorkCard({ work }: { work: Work }) {
-  const media = work.image ? (
+export function WorkCard({ work }: { work: Project }) {
+  const media = work.hero ? (
     <div data-work-image className="absolute inset-0">
       <Image
-        src={work.image.src}
-        alt={work.image.alt}
+        src={work.hero.src}
+        alt={work.hero.alt}
         fill
         sizes="(max-width: 1023px) 100vw, 44vw"
         className="object-cover"
+        style={work.hero?.focal ? { objectPosition: work.hero.focal } : undefined}
       />
     </div>
   ) : (
