@@ -1,0 +1,117 @@
+{
+  "id": "24-dam-safety-conference",
+  "organization": "Karnataka State Marketing Communication and Advertisement Ltd (client of record). Conference convened by the Ministry of Jal Shakti, Central Water Commission, Government of Karnataka Water Resources Department, IISc Bengaluru and the World Bank.",
+  "event": "International Conference on Dam Safety 2026 (ICDS 2026), under DRIP Phase II & III",
+  "year": "2026",
+  "location": "J.N. Tata Auditorium, Indian Institute of Science (IISc), Bengaluru",
+  "identityConfidence": "HIGH \u2014 fully resolved. 13\u201314 February 2026 at the J.N. Tata Auditorium, IISc Bengaluru. Inaugurated by Chief Minister Siddaramaiah. Delegates from 12 countries including Japan, Australia, France and the United States. Featured the launch of DAMCHAT and the Jal Shakti Data Management Platform. Confirmed by two separate PIB releases.",
+  "eventEvidence": [
+    {
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2228649&reg=3&lang=2",
+      "label": "PIB concluding release",
+      "rank": "B",
+      "provides": "Definitive government confirmation of the conference, venue, dates and participation."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://icds2026.in/",
+      "label": "icds2026.in \u2014 official conference site",
+      "rank": "A",
+      "provides": "Dedicated official event site. First place to look for a gallery, programme and organiser contacts."
+    },
+    {
+      "url": "https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2227912&reg=3&lang=1",
+      "label": "PIB \u2014 International Conference on Dam Safety convened in Bengaluru",
+      "rank": "B",
+      "provides": "Government of India press release announcing the conference under DRIP Phase II & III."
+    },
+    {
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2228649&reg=3&lang=2",
+      "label": "PIB \u2014 ICDS 2026 successfully concludes in Bengaluru",
+      "rank": "B",
+      "provides": "Concluding official release with outcomes and participation figures."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2228649&reg=3&lang=2",
+      "label": "Press Information Bureau \u2014 ICDS 2026 releases",
+      "rank": "B",
+      "type": "government press office",
+      "contains": "PIB releases for ministerial events are routinely accompanied by official photographs of the inauguration, dais and hall.",
+      "quality": "BEST RIGHTS POSITION ON THE ENTIRE LIST. PIB material is Government of India content and is generally reproducible with attribution, unlike the commercial news photography that dominates every other record. Pursue this first."
+    },
+    {
+      "url": "https://icds2026.in/",
+      "label": "Official conference site",
+      "rank": "A",
+      "type": "first-party",
+      "contains": "Likely gallery and programme.",
+      "quality": "Inspect for an official gallery."
+    },
+    {
+      "url": "https://ommcomnews.com/india-news/karnataka-cm-inaugurates-international-conference-on-dam-safety-2026-calls-for-national-security-approach-to-water-infra/",
+      "label": "Ommcom News \u2014 CM inaugurates ICDS 2026",
+      "rank": "C",
+      "type": "news",
+      "contains": "Inauguration coverage, typically with a dais photograph.",
+      "quality": "Secondary; rights reserved."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://icds2026.in/",
+      "label": "ICDS 2026 event mark",
+      "rank": "A",
+      "provides": "Conference lock-up."
+    }
+  ],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://www.newsage.in/international-conference-dam-safety-bengaluru-2026/",
+      "label": "NewsAge \u2014 ICDS held in Bengaluru",
+      "rank": "C",
+      "provides": "Independent coverage.",
+      "credit": "NewsAge"
+    },
+    {
+      "url": "https://www.drishtiias.com/daily-updates/daily-news-analysis/international-conference-on-dam-safety-2026",
+      "label": "Drishti IAS \u2014 ICDS 2026 analysis",
+      "rank": "E",
+      "provides": "Detailed factual summary; useful for accurate case-study copy.",
+      "credit": "Drishti IAS"
+    }
+  ],
+  "rights": [
+    {
+      "name": "PIB photographs and releases",
+      "owner": "Press Information Bureau, Government of India",
+      "classification": "official \u2014 generally reproducible with attribution",
+      "contact": "PIB; verify the current reuse terms before publishing"
+    },
+    {
+      "name": "icds2026.in imagery",
+      "owner": "Conference organising committee",
+      "classification": "official / permission likely required",
+      "contact": "Via the conference site"
+    },
+    {
+      "name": "News coverage",
+      "owner": "Respective publishers",
+      "classification": "media copyrighted",
+      "contact": "Publisher desks"
+    }
+  ],
+  "needFromRaja": [
+    "What does '(KLN)' mean on the source record?",
+    "Confirm engagement was through Karnataka State Marketing Communication and Advertisement Ltd",
+    "Scope: stage and dais, backdrop, branding, registration, delegate lounges?",
+    "Raja's own photographs of the dais and backdrop at the J.N. Tata Auditorium",
+    "Whether Raja also handled any exhibition or breakout areas outside the auditorium"
+  ],
+  "priority": "high",
+  "status": "complete"
+}

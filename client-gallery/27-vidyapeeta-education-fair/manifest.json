@@ -1,0 +1,90 @@
+{
+  "id": "27-vidyapeeta-education-fair",
+  "organization": "ABS Business Solutions (client of record). NOTE: the fair itself is owned and hosted by Public TV.",
+  "event": "Vidhyapeeta Education Expo \u2014 Karnataka's largest education expo",
+  "year": "",
+  "location": "Palace Grounds, Bengaluru",
+  "identityConfidence": "EVENT: HIGH. 'Vidhyapeeta' is Karnataka's largest education expo, hosted by the Kannada news channel Public TV, staged at Palace Grounds, Bengaluru, with 120+ participating institutions. YEAR: UNRESOLVED \u2014 the expo is annual and editions are documented across several years (an 8th edition ran 26\u201327 April in association with Ad6; other editions ran on 3\u20134 June and 27\u201328 April).",
+  "eventEvidence": [
+    {
+      "url": "https://english.publictv.in/vidhyapeeta-karnatakas-biggest-education-expo-hosted-by-public-tv-to-be-held-on-april-26-27/",
+      "label": "Public TV host announcement",
+      "rank": "A",
+      "provides": "Definitive: host broadcaster confirms edition, dates, venue and scale."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://english.publictv.in/vidhyapeeta-karnatakas-biggest-education-expo-hosted-by-public-tv-to-be-held-on-april-26-27/",
+      "label": "Public TV \u2014 8th edition announcement (26\u201327 April, Palace Grounds)",
+      "rank": "A",
+      "provides": "Host broadcaster's own announcement. Edition number, dates, venue, 120+ institutions, named participating universities, and organiser contact numbers (99000 60815 / 99000 60891)."
+    },
+    {
+      "url": "https://english.publictv.in/vidhyapeeta-karnatakas-biggest-education-expo-to-be-held-on-june-3-and-4/",
+      "label": "Public TV \u2014 a June 3\u20134 edition",
+      "rank": "A",
+      "provides": "A different edition. Useful for pinning which year Raja worked."
+    },
+    {
+      "url": "https://english.publictv.in/vidhyapeeta-karnatakas-biggest-education-expo-hosted-by-public-tv-to-be-held-on-april-27-28/",
+      "label": "Public TV \u2014 an April 27\u201328 edition",
+      "rank": "A",
+      "provides": "Another edition; confirms the annual pattern."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://english.publictv.in/",
+      "label": "Public TV \u2014 newsroom and broadcast archive",
+      "rank": "C",
+      "type": "broadcaster",
+      "contains": "Public TV both hosts and broadcasts the expo, so it holds full video and stills coverage of every edition.",
+      "quality": "BEST SOURCE BY FAR, and unusually accessible: the host is a television channel, so professional wide coverage of the hall, stall rows and inauguration certainly exists. Approach via the organiser contact numbers published in their own announcements."
+    },
+    {
+      "url": "https://www.careerindia.com/news/vidhyapeeta-largest-education-expo-in-karnataka-035571.html",
+      "label": "CareerIndia \u2014 Vidhyapeeta coverage",
+      "rank": "C",
+      "type": "education media",
+      "contains": "Independent coverage.",
+      "quality": "Secondary; check for usable stills."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://english.publictv.in/",
+      "label": "Public TV and Vidhyapeeta marks",
+      "rank": "A",
+      "provides": "Host broadcaster and event lock-ups."
+    }
+  ],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://www.careerindia.com/news/vidhyapeeta-largest-education-expo-in-karnataka-035571.html",
+      "label": "CareerIndia",
+      "rank": "C",
+      "provides": "Independent event confirmation.",
+      "credit": "CareerIndia"
+    }
+  ],
+  "rights": [
+    {
+      "name": "Public TV broadcast stills and site imagery",
+      "owner": "Public TV",
+      "classification": "media copyrighted",
+      "contact": "Organiser numbers published by Public TV: 99000 60815 / 99000 60891"
+    }
+  ],
+  "needFromRaja": [
+    "WHICH EDITION/YEAR \u2014 the expo is annual and at least three distinct editions are publicly documented",
+    "Confirm the contracting chain: was Raja engaged by ABS Business Solutions, and ABS by Public TV?",
+    "Stall count and covered area built at Palace Grounds",
+    "Setup photographs of the stall grid, entrance arch and branding",
+    "Whether records #07 and #27 are the same job or two different fairs"
+  ],
+  "priority": "high",
+  "status": "partial"
+}

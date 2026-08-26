@@ -1,0 +1,84 @@
+{
+  "id": "16-pourakarmika-samavesha",
+  "organization": "Karnataka State Marketing Communication & Advertising Ltd (KSMCAL), Government of Karnataka",
+  "event": "Pourakarmika Samavesha \u2014 state-level convention of municipal sanitation workers",
+  "year": "2025 (most likely)",
+  "location": "Bengaluru \u2014 exact venue not established",
+  "identityConfidence": "MEDIUM-HIGH. A state-level pourakarmika convention was held in Bengaluru on 7 April 2025, addressed by Deputy Chief Minister D. K. Shivakumar, who announced a \u20b9730 crore BBMP welfare allocation (\u20b9500 cr salaries, \u20b9107 cr pensions, \u20b95 cr protective gear). Delegates came from city corporations, town municipalities and other local bodies. This is the strongest match for 'Pourakarmika Samavesha'.",
+  "eventEvidence": [
+    {
+      "url": "https://theprint.in/india/bbmp-has-earmarked-rs-730-cr-for-welfare-of-sanitation-workers/2581656/",
+      "label": "ThePrint report of the convention",
+      "rank": "C",
+      "provides": "Independent confirmation that a state-level convention took place in Bengaluru with the Deputy CM present."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://theprint.in/india/bbmp-has-earmarked-rs-730-cr-for-welfare-of-sanitation-workers/2581656/",
+      "label": "ThePrint \u2014 BBMP earmarks \u20b9730 cr, Shivakumar addresses convention",
+      "rank": "C",
+      "provides": "Reports the 7 April 2025 state-level convention, the Deputy CM's address and the delegate composition. Best single account of the likely event."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/sanitation-workers-celebrate-abolition-of-contract-labour-3718217",
+      "label": "Deccan Herald \u2014 Sanitation workers celebrate abolition of contract labour",
+      "rank": "C",
+      "type": "news",
+      "contains": "Coverage of a mass pourakarmika celebration in Bengaluru; national dailies illustrate these with wide crowd photography.",
+      "quality": "Strong lead for wide audience imagery. Confirm which gathering it covers before use. Rights reserved to Deccan Herald."
+    },
+    {
+      "url": "https://www.thenewsminute.com/karnataka/bengaluru-pourakarmikas-hold-victory-event-to-celebrate-permanent-worker-status",
+      "label": "The News Minute \u2014 pourakarmikas' victory event",
+      "rank": "C",
+      "type": "news",
+      "contains": "Reporting on the permanent-status celebration attended by thousands.",
+      "quality": "Good for scale confirmation; verify it is the right gathering."
+    }
+  ],
+  "logoSources": [],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/behind-the-regularisation-of-pourakarmikas-3533882",
+      "label": "Deccan Herald \u2014 Behind the regularisation of pourakarmikas",
+      "rank": "C",
+      "provides": "Background on the policy context.",
+      "credit": "Deccan Herald"
+    },
+    {
+      "url": "https://thesouthfirst.com/karnataka/security-and-dignity-karnataka-regularises-over-12000-pourakarmikas-after-years-of-struggle/",
+      "label": "The South First \u2014 Karnataka regularises 12,000+ pourakarmikas",
+      "rank": "C",
+      "provides": "Scale of the workforce involved \u2014 useful for case-study copy.",
+      "credit": "The South First"
+    }
+  ],
+  "rights": [
+    {
+      "name": "Newspaper photography",
+      "owner": "Deccan Herald / ThePrint / The News Minute",
+      "classification": "media copyrighted",
+      "contact": "Publisher syndication desks"
+    },
+    {
+      "name": "Government event imagery",
+      "owner": "Government of Karnataka / BBMP",
+      "classification": "official / permission likely required",
+      "contact": "KSMCAL \u2014 Raja's own client of record"
+    }
+  ],
+  "needFromRaja": [
+    "WHICH GATHERING AND WHICH DATE \u2014 at least three qualifying events happened in Bengaluru in this period",
+    "The venue",
+    "The KSMCAL work order \u2014 the cleanest execution evidence available",
+    "Seating capacity provided and covered area built",
+    "Raja's own photographs of the dais and the covered seating"
+  ],
+  "priority": "medium",
+  "status": "partial"
+}

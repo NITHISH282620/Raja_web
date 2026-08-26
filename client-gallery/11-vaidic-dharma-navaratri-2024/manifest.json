@@ -1,0 +1,107 @@
+{
+  "id": "11-vaidic-dharma-navaratri-2024",
+  "organization": "Vaidic Dharma Sansthan Trust",
+  "event": "Navaratri Function 2024",
+  "year": "2024",
+  "location": "The Art of Living International Center, 21st KM Kanakapura Road, Udayapura, Bengaluru",
+  "identityConfidence": "ORGANISATION: HIGH \u2014 Vaidic Dharma Sansthan Trust, based at the Art of Living International Center, Kanakapura Road, Bengaluru; it advances religious and spiritual education and runs the Vedic ritual programme at the ashram. EVENT: MEDIUM \u2014 the year is given but no specific dates or scope.",
+  "eventEvidence": [
+    {
+      "url": "https://vaidicpujas.org/navaratri/",
+      "label": "Official Navaratri programme",
+      "rank": "A",
+      "provides": "First-party confirmation that the trust runs Navaratri at this venue."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://vaidicpujas.org/",
+      "label": "vaidicpujas.org \u2014 Vaidic Dharma Sansthan official",
+      "rank": "A",
+      "provides": "The trust's own live site. Fully accessible, unlike the main Art of Living properties."
+    },
+    {
+      "url": "https://vaidicpujas.org/navaratri/",
+      "label": "Vaidic Dharma Sansthan \u2014 Navaratri",
+      "rank": "A",
+      "provides": "Dedicated Navaratri programme page: Samvardhan packages, Mahalaya Amavasya opening, the homas and yagyas performed on each day. The best description found anywhere of what actually happens at these Navaratri events \u2014 i.e. what Raja had to build for."
+    },
+    {
+      "url": "https://vaidicpujas.org/bangaloreashramsevas/",
+      "label": "Bangalore Ashram pujas & homas",
+      "rank": "A",
+      "provides": "Venue-specific ritual listing \u2014 indicates the number and type of ritual stations requiring structures."
+    },
+    {
+      "url": "https://vaidicpujas.org/national-events-2/",
+      "label": "Festivals",
+      "rank": "A",
+      "provides": "Festival calendar across years \u2014 the route to pinning which editions ran when."
+    },
+    {
+      "url": "https://www.artofliving.org/vaidicdharmasansthan",
+      "label": "Art of Living \u2014 Vaidic Dharma Sansthan",
+      "rank": "A",
+      "provides": "Confirms the trust's relationship to the Art of Living organisation and the shared venue."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.facebook.com/Vaidicpujas/",
+      "label": "Facebook \u2014 Vaidic Dharma Sansthan Trust (@Vaidicpujas)",
+      "rank": "D",
+      "type": "official social",
+      "contains": "The trust's own page, focused on pujas and yagnas at the Bangalore ashram.",
+      "quality": "BEST LEAD FOR THIS CLUSTER. A smaller, ritual-focused page is far more likely to carry dated albums of the actual yagna shala, mandap and seating than the main Art of Living channels, which run to editorial stock. Check it for all three years at once."
+    },
+    {
+      "url": "https://vaidicpujas.org/navaratri/",
+      "label": "Official Navaratri page",
+      "rank": "A",
+      "type": "first-party",
+      "contains": "Programme imagery.",
+      "quality": "Inspect for past-edition photography."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://vaidicpujas.org/",
+      "label": "Vaidic Dharma Sansthan mark",
+      "rank": "A",
+      "provides": "Trust logo from the official site."
+    }
+  ],
+  "socialSources": [
+    {
+      "url": "https://www.facebook.com/Vaidicpujas/",
+      "label": "Facebook",
+      "rank": "D",
+      "provides": "Official trust page \u2014 primary imagery prospect"
+    }
+  ],
+  "mediaSources": [],
+  "rights": [
+    {
+      "name": "vaidicpujas.org imagery",
+      "owner": "Vaidic Dharma Sansthan Trust",
+      "classification": "official / permission likely required",
+      "contact": "Trust via vaidicpujas.org"
+    },
+    {
+      "name": "Facebook page content",
+      "owner": "Vaidic Dharma Sansthan Trust",
+      "classification": "social media / permission required",
+      "contact": "Page admin"
+    }
+  ],
+  "needFromRaja": [
+    "CONFIRM THE YEARS across records #01, #11 and #18 \u2014 and whether #18 duplicates #11",
+    "Whether the client was billed as The Art of Living Trust or Vaidic Dharma Sansthan in each year",
+    "What was built each year: yagna shalas, mandaps, seating, dining, tenting \u2014 and whether scope grew year on year",
+    "Raja's own photographs from each edition",
+    "Approach the trust ONCE for permission covering all three years"
+  ],
+  "priority": "medium",
+  "status": "partial"
+}

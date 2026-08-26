@@ -1,0 +1,82 @@
+{
+  "id": "08-collegedunia-education-fair",
+  "organization": "Collegedunia Web Private Limited",
+  "event": "Collegedunia Mega Career Carnival \u2014 Bengaluru Edition (Collegedunia Education Fair)",
+  "year": "2024",
+  "location": "Gate 4, Gayatri Vihar, Palace Grounds, Bengaluru",
+  "identityConfidence": "HIGH \u2014 Collegedunia Mega Career Carnival, Bengaluru edition, 25\u201326 May 2024, Gayatri Vihar, Palace Grounds. 75+ participating colleges, on-the-spot admissions. Note the 2026 edition runs 23\u201324 May at the same venue, so always qualify by year.",
+  "eventEvidence": [
+    {
+      "url": "https://collegedunia.com/news/college-dunia-to-conduct-india-biggest-career-carnival-alertid-123001",
+      "label": "Collegedunia official announcement",
+      "rank": "A",
+      "provides": "First-party confirmation of the event, dates and venue."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://collegeduniacarnival.com/bengaluru-edition",
+      "label": "Collegedunia Carnival \u2014 Bengaluru edition (official)",
+      "rank": "A",
+      "provides": "Dedicated event site for the Bengaluru edition. Venue, dates, participating institutions."
+    },
+    {
+      "url": "https://collegedunia.com/news/college-dunia-to-conduct-india-biggest-career-carnival-alertid-123001",
+      "label": "Collegedunia newsroom \u2014 Career Carnival Bangalore",
+      "rank": "A",
+      "provides": "First-party announcement naming the venue (Gate 4, Gayatri Vihar, Palace Grounds) and format."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.facebook.com/collegedunia/videos/1365959770761994/",
+      "label": "Facebook \u2014 'Bengaluru's Biggest Education Fair' (official Collegedunia video)",
+      "rank": "D",
+      "type": "official social video",
+      "contains": "Promotional/coverage video of the Bengaluru fair.",
+      "quality": "STRONGEST CONFIRMED LEAD. Collegedunia is a large digital-first company with an active content team, so its social channels are the most likely home of real fair photography \u2014 stall rows, entrance arch, crowd. Auth-walled; review manually."
+    },
+    {
+      "url": "https://collegeduniacarnival.com/bengaluru-edition",
+      "label": "Official Carnival site",
+      "rank": "A",
+      "type": "first-party",
+      "contains": "Event site likely carrying past-edition imagery.",
+      "quality": "Check for a gallery or past-editions section."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://collegedunia.com/",
+      "label": "Collegedunia logo",
+      "rank": "A",
+      "provides": "Official mark. Already held locally as /public/media/client-collegedunia-learn.webp from the Figma export."
+    }
+  ],
+  "socialSources": [
+    {
+      "url": "https://www.facebook.com/collegedunia/",
+      "label": "Facebook",
+      "rank": "D",
+      "provides": "Active; confirmed carrying Bengaluru fair video"
+    }
+  ],
+  "mediaSources": [],
+  "rights": [
+    {
+      "name": "Collegedunia site and social imagery",
+      "owner": "Collegedunia Web Pvt Ltd",
+      "classification": "official / permission likely required",
+      "contact": "Collegedunia marketing team"
+    }
+  ],
+  "needFromRaja": [
+    "Confirm the edition year \u2014 2024 is the best public match but the fair recurs annually",
+    "Stall count and covered area built at Gayatri Vihar",
+    "Setup photographs of the stall grid and entrance structure",
+    "Client contact at Collegedunia \u2014 they are an existing client and already appear in the site's logo strip, so permission should be obtainable"
+  ],
+  "priority": "high",
+  "status": "complete"
+}

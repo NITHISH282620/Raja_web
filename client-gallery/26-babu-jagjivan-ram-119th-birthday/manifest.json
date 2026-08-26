@@ -1,0 +1,62 @@
+{
+  "id": "26-babu-jagjivan-ram-119th-birthday",
+  "organization": "Karnataka State Marketing Communication and Advertisement Ltd (KSMCAL), Government of Karnataka",
+  "event": "119th birth anniversary of Dr Babu Jagjivan Ram",
+  "year": "2026 (most likely)",
+  "location": "Bengaluru \u2014 presumed; venue not established",
+  "identityConfidence": "OCCASION: HIGH \u2014 Babu Jagjivan Ram was born on 5 April 1908, and his Jayanti is observed on 5 April each year. He was a freedom fighter, long-serving union minister and Deputy Prime Minister, and a leading advocate for the scheduled castes. In Karnataka the anniversary is observed by district administrations together with Zilla Panchayats, the Department of Social Welfare and the Dr B R Ambedkar Development Corporation. YEAR: MEDIUM \u2014 see the counting note below. VENUE: UNRESOLVED.",
+  "eventEvidence": [],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://publicholidays.in/babu-jagjivan-ram-jayanti/",
+      "label": "PublicHolidays.in \u2014 Babu Jagjivan Ram Jayanti dates",
+      "rank": "E",
+      "provides": "Confirms the 5 April date and forward-year listings \u2014 useful for resolving the ordinal question."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://starofmysore.com/tag/dr-babu-jagjivan-ram/",
+      "label": "Star of Mysore \u2014 Dr Babu Jagjivan Ram archive",
+      "rank": "C",
+      "type": "regional press archive",
+      "contains": "A standing tag archive of the paper's coverage of these anniversaries in Karnataka.",
+      "quality": "Best located lead \u2014 a dedicated regional archive is well suited to finding the specific year's function once the date and district are known."
+    }
+  ],
+  "logoSources": [],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://www.deccanherald.com/amp/story/india%2Fkarnataka%2Farchitect-constitution-remembered-2484173",
+      "label": "Deccan Herald \u2014 Karnataka anniversary observance coverage",
+      "rank": "C",
+      "provides": "Example of how these state observances are reported; establishes the institutional pattern.",
+      "credit": "Deccan Herald"
+    }
+  ],
+  "rights": [
+    {
+      "name": "Regional press photography",
+      "owner": "Star of Mysore / Deccan Herald",
+      "classification": "media copyrighted",
+      "contact": "Publisher desks"
+    },
+    {
+      "name": "Government function imagery",
+      "owner": "Government of Karnataka \u2014 Social Welfare Department / district administration",
+      "classification": "official / permission likely required",
+      "contact": "Via KSMCAL"
+    }
+  ],
+  "needFromRaja": [
+    "THE DATE \u2014 5 April 2026 or 5 April 2027 \u2014 which resolves the 118th/119th ordinal question",
+    "THE VENUE and district: Bengaluru, or a district headquarters?",
+    "The KSMCAL work order",
+    "What was built: dais, stage, seating, backdrop?",
+    "Raja's own photographs"
+  ],
+  "priority": "low",
+  "status": "unresolved"
+}

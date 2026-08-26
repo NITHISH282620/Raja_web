@@ -1,0 +1,95 @@
+{
+  "id": "10-central-silk-board-conference",
+  "organization": "CSB \u2014 National Silkworm Seed Organisation (NSSO), Central Silk Board, Ministry of Textiles",
+  "event": "Central Silk Board conference \u2014 most likely the CSB-NSSO Golden Jubilee Celebration",
+  "year": "2025 (probable)",
+  "location": "NIMHANS Convention Centre, Bengaluru (for the Golden Jubilee)",
+  "identityConfidence": "ORGANISATION: HIGH \u2014 CSB-NSSO, Bengaluru, the Central Silk Board body responsible for silkworm seed, under the Ministry of Textiles. EVENT: MEDIUM \u2014 the strongest candidate is the CSB-NSSO Golden Jubilee Celebration marking five decades of service, held 24 October 2025 at 10:30 am at the NIMHANS Convention Centre, Bengaluru, announced by PIB.",
+  "eventEvidence": [
+    {
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2181810",
+      "label": "PIB Golden Jubilee announcement",
+      "rank": "B",
+      "provides": "Official confirmation of the event, date and venue."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2181810",
+      "label": "PIB \u2014 Golden Jubilee Celebration of CSB-NSSO, Bengaluru",
+      "rank": "B",
+      "provides": "Government of India press release: date (24 October 2025), time, venue (NIMHANS Convention Centre) and occasion. The single most useful document for this record."
+    },
+    {
+      "url": "https://nssocsb.org.in/",
+      "label": "nssocsb.org.in \u2014 NSSO official site",
+      "rank": "A",
+      "provides": "The organisation's own site \u2014 check for event pages and galleries."
+    },
+    {
+      "url": "https://csb.gov.in/",
+      "label": "Central Silk Board \u2014 official",
+      "rank": "B",
+      "provides": "Parent body under the Ministry of Textiles."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2181810",
+      "label": "PIB release and accompanying official photography",
+      "rank": "B",
+      "type": "government press office",
+      "contains": "PIB routinely publishes official photographs of ministerial and jubilee functions.",
+      "quality": "BEST RIGHTS POSITION for this record, as with #24 \u2014 PIB material is Government of India content, generally reproducible with attribution. Pursue before any commercial source."
+    },
+    {
+      "url": "https://x.com/nssocsb",
+      "label": "X \u2014 @nssocsb (NSSO, Central Silk Board, Bengaluru)",
+      "rank": "B",
+      "type": "official government social",
+      "contains": "The organisation's own account, likely posting function photography.",
+      "quality": "Good and unusually direct \u2014 an official government account is both a source and a permission route."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://csb.gov.in/",
+      "label": "Central Silk Board emblem",
+      "rank": "B",
+      "provides": "Government body emblem \u2014 official insignia usage restrictions apply."
+    }
+  ],
+  "socialSources": [
+    {
+      "url": "https://x.com/nssocsb",
+      "label": "X / Twitter",
+      "rank": "B",
+      "provides": "Official NSSO account"
+    }
+  ],
+  "mediaSources": [],
+  "rights": [
+    {
+      "name": "PIB photographs",
+      "owner": "Press Information Bureau, Government of India",
+      "classification": "official \u2014 generally reproducible with attribution",
+      "contact": "PIB; verify current terms"
+    },
+    {
+      "name": "NSSO / CSB material",
+      "owner": "Central Silk Board, Ministry of Textiles",
+      "classification": "official / permission likely required",
+      "contact": "NSSO Bengaluru; @nssocsb"
+    }
+  ],
+  "needFromRaja": [
+    "CLARIFY THE RECORD \u2014 what does 'Costing of Central Silk Board Conference' actually refer to?",
+    "Was this the Golden Jubilee (24 October 2025, NIMHANS Convention Centre) or a different CSB conference?",
+    "Scope: stage, backdrop, branding, registration?",
+    "The work order from CSB-NSSO \u2014 a central government body, so documentation will exist",
+    "Raja's own photographs"
+  ],
+  "priority": "medium",
+  "status": "partial"
+}

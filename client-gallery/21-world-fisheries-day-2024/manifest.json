@@ -1,0 +1,69 @@
+{
+  "id": "21-world-fisheries-day-2024",
+  "organization": "Skyblue Event Management India Private Limited (client of record). The event is staged by the Karnataka Department of Fisheries.",
+  "event": "World Fisheries Day 2024 \u2014 Matsya Mela (Fish Fair), Bengaluru",
+  "year": "2024",
+  "location": "Bengaluru \u2014 exact venue not established",
+  "identityConfidence": "MEDIUM-HIGH. World Fisheries Day falls on 21 November; the 2024 national theme was 'India's Blue Transformation: Strengthening Small-Scale and Sustainable Fisheries'. Karnataka's Department of Fisheries marks it with a three-day Matsya Mela (Fish Fair) in Bengaluru featuring roughly 52 stalls, exhibits, discussions and food stalls. The Bengaluru venue for the 2024 edition has not been confirmed.",
+  "eventEvidence": [
+    {
+      "url": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2074882",
+      "label": "PIB release",
+      "rank": "B",
+      "provides": "Confirms the 2024 observance nationally, though not the Bengaluru fair specifically."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2074882",
+      "label": "Press Information Bureau \u2014 World Fisheries Day 2024 celebration",
+      "rank": "B",
+      "provides": "Government of India release. Confirms the 2024 national observance and theme, and is the reference point for distinguishing the Delhi ceremony from the Karnataka Matsya Mela."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.etvbharat.com/amp/en/state/bengaluru-fish-fair-opens-to-public-with-exhibits-discussions-and-food-stalls-enn25112105768",
+      "label": "ETV Bharat \u2014 Bengaluru Fish Fair opens to public",
+      "rank": "C",
+      "type": "broadcast news",
+      "contains": "Coverage of the Matsya Mela with stall counts and public timings; ETV Bharat is a video-first outlet so footage of the stall rows will exist.",
+      "quality": "Most relevant item found \u2014 but VERIFY THE YEAR before use (article id suggests Nov 2025)."
+    }
+  ],
+  "logoSources": [],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://www.etvbharat.com/amp/en/state/bengaluru-fish-fair-opens-to-public-with-exhibits-discussions-and-food-stalls-enn25112105768",
+      "label": "ETV Bharat",
+      "rank": "C",
+      "provides": "Stall count and format detail.",
+      "credit": "ETV Bharat"
+    }
+  ],
+  "rights": [
+    {
+      "name": "ETV Bharat coverage",
+      "owner": "ETV Bharat",
+      "classification": "media copyrighted",
+      "contact": "ETV Bharat desk"
+    },
+    {
+      "name": "Department of Fisheries material",
+      "owner": "Government of Karnataka",
+      "classification": "official / permission likely required",
+      "contact": "Karnataka Department of Fisheries"
+    }
+  ],
+  "needFromRaja": [
+    "The venue in Bengaluru \u2014 nothing else can be pinned without it",
+    "Confirm the year: November 2024, or the 2025 Matsya Mela",
+    "Confirm the contracting chain via Skyblue Event Management",
+    "Stall count actually fabricated by Raja",
+    "Raja's own setup photographs \u2014 likely the only imagery that will ever exist for this record"
+  ],
+  "priority": "low",
+  "status": "partial"
+}

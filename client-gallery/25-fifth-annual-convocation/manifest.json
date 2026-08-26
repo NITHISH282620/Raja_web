@@ -1,0 +1,32 @@
+{
+  "id": "25-fifth-annual-convocation",
+  "organization": "Karnataka State Marketing Communication and Advertisement Ltd (KSMCAL), Government of Karnataka",
+  "event": "5th Annual Convocation \u2014 institution not named in the source record",
+  "year": "",
+  "location": "Not established",
+  "identityConfidence": "CLIENT: HIGH \u2014 KSMCAL is the Government of Karnataka's marketing and advertising corporation, and appears as Raja's client of record on four rows (#16, #24, #25, #26), indicating it is the procurement route for state event work. EVENT: UNRESOLVED \u2014 '5th Annual Convocation' names no institution, no year and no venue.",
+  "eventEvidence": [],
+  "rajaExecutionEvidence": [],
+  "officialSources": [],
+  "photoSources": [],
+  "logoSources": [],
+  "socialSources": [],
+  "mediaSources": [],
+  "rights": [
+    {
+      "name": "Whatever the host institution holds",
+      "owner": "Unknown pending identification",
+      "classification": "unclear",
+      "contact": "Via KSMCAL"
+    }
+  ],
+  "needFromRaja": [
+    "WHICH INSTITUTION \u2014 the single blocking question",
+    "The year and venue",
+    "The KSMCAL work order, which will name the end client",
+    "What was built: stage, dais, seating, backdrop, weather cover?",
+    "Graduand and guest numbers"
+  ],
+  "priority": "low",
+  "status": "unresolved"
+}

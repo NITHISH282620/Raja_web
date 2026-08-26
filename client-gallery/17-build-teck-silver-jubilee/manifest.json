@@ -1,0 +1,82 @@
+{
+  "id": "17-build-teck-silver-jubilee",
+  "organization": "Buildtek Polymers Private Limited, Bengaluru (CIN U25190KA2012PTC063214), formerly Buildtech Inc",
+  "event": "Silver Jubilee Celebration \u2014 company 25th anniversary",
+  "year": "2024 (inferred)",
+  "location": "Bengaluru \u2014 venue not established",
+  "identityConfidence": "ORGANISATION: MEDIUM-HIGH. The source record's 'BUILD TECK POLYMER PRIVATE LIMITED' best matches Buildtek Polymers Private Limited, Bengaluru \u2014 established 1999, headquartered in Bangalore, a leading dealer and distributor of ASTRAL CPVC and PVC products and a manufacturer of AAGAM-brand FRP products, with 500+ dealers and branches in Bangalore, Hosur, Coimbatore, Chennai, Cochin and Mumbai. EVENT: MEDIUM \u2014 a silver jubilee is a 25th anniversary, and 1999 + 25 = 2024, which fits well but is an inference.",
+  "eventEvidence": [],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://www.zaubacorp.com/company/BUILDTEK-POLYMERS-PRIVATE-LIMITED/U25190KA2012PTC063214",
+      "label": "ZaubaCorp \u2014 Buildtek Polymers Private Limited",
+      "rank": "B",
+      "provides": "Registered entity details, CIN and directors \u2014 the way to confirm this is the right company."
+    },
+    {
+      "url": "http://buildtechinc.in/AboutUs",
+      "label": "Buildtek Polymer \u2014 About Us",
+      "rank": "A",
+      "provides": "Company's own history: established 1999, formerly Buildtech Inc, product lines and branch network. The founding date underpinning the silver-jubilee inference."
+    },
+    {
+      "url": "http://www.buildtechinc.com/",
+      "label": "Buildtech Polymers \u2014 Bangalore",
+      "rank": "A",
+      "provides": "Related corporate site."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.facebook.com/Buildtekpolymers1991/",
+      "label": "Facebook \u2014 Buildtek Polymers, Bangalore",
+      "rank": "D",
+      "type": "official social",
+      "contains": "Company page; SME anniversary functions are almost always posted to Facebook.",
+      "quality": "BEST AND PROBABLY ONLY REALISTIC LEAD. A private company's silver jubilee will not attract press, so the company's own page is where any photography lives. Two pages exist \u2014 check both."
+    },
+    {
+      "url": "https://www.facebook.com/p/Buildtek-Polymers-Private-Limited-100067315393467/",
+      "label": "Facebook \u2014 Buildtek Polymers Private Limited (second page)",
+      "rank": "D",
+      "type": "official social",
+      "contains": "Alternate company page.",
+      "quality": "Check alongside the first."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "http://buildtechinc.in/",
+      "label": "Buildtek Polymers / AAGAM marks",
+      "rank": "A",
+      "provides": "Company and product-brand logos."
+    }
+  ],
+  "socialSources": [
+    {
+      "url": "https://www.facebook.com/Buildtekpolymers1991/",
+      "label": "Facebook",
+      "rank": "D",
+      "provides": "Company page"
+    }
+  ],
+  "mediaSources": [],
+  "rights": [
+    {
+      "name": "Company site and social imagery",
+      "owner": "Buildtek Polymers Private Limited",
+      "classification": "official / permission likely required",
+      "contact": "Company directly \u2014 and as an SME client they are likely to be cooperative"
+    }
+  ],
+  "needFromRaja": [
+    "CONFIRM THE ENTITY \u2014 match the invoice against CIN U25190KA2012PTC063214",
+    "Confirm the year, and that 'Silver Jubilee' means the 25th anniversary rather than the Silver Jubilee Park Road premises",
+    "The venue and guest count",
+    "What was built: stage, backdrop, dining, decor?",
+    "Raja's own photographs \u2014 realistically the only ones that will ever exist"
+  ],
+  "priority": "low",
+  "status": "partial"
+}

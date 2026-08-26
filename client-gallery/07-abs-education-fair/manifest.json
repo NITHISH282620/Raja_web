@@ -1,0 +1,31 @@
+{
+  "id": "07-abs-education-fair",
+  "organization": "ABS Business Solutions, Bengaluru",
+  "event": "Education Fair \u2014 not further named in the source record",
+  "year": "",
+  "location": "Presumed Bengaluru",
+  "identityConfidence": "ORGANISATION: MEDIUM. A Bengaluru entity trading as ABS Solutions appears in the Dun & Bradstreet directory (Kammanahalli Main Road, Maruthisevanagar, Bengaluru), but this has not been confirmed as the same ABS Business Solutions on Raja's client list. EVENT: UNRESOLVED \u2014 'Education Fair' with no name, year or venue.",
+  "eventEvidence": [],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://www.dnb.com/business-directory/company-profiles.abs_solutions.24da704ae49c85a92571985118eef565.html",
+      "label": "Dun & Bradstreet \u2014 ABS Solutions, Bengaluru",
+      "rank": "E",
+      "provides": "Directory listing with a Bengaluru address. UNCONFIRMED as the same entity \u2014 no website located and the trading name differs slightly."
+    }
+  ],
+  "photoSources": [],
+  "logoSources": [],
+  "socialSources": [],
+  "mediaSources": [],
+  "rights": [],
+  "needFromRaja": [
+    "Is this the same job as record #27 (Vidyapeeta), a different edition of it, or a genuinely separate fair?",
+    "The event name, year and venue",
+    "ABS Business Solutions' full legal entity name and contact, so the right company can be identified",
+    "Whether ABS was the end client or an event manager acting for a media owner"
+  ],
+  "priority": "low",
+  "status": "unresolved"
+}

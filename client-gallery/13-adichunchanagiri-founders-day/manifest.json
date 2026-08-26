@@ -1,0 +1,66 @@
+{
+  "id": "13-adichunchanagiri-founders-day",
+  "organization": "Sri Adichunchanagiri Shikshana Trust (Sri Adichunchanagiri Mahasamsthana Math)",
+  "event": "Founder's Day",
+  "year": "",
+  "location": "Presumed Adichunchanagiri, Nagamangala Taluk, Mandya District, Karnataka \u2014 or one of the Trust's Bengaluru campuses",
+  "identityConfidence": "ORGANISATION: HIGH. Sri Adichunchanagiri Shikshana Trust was established in 1973 by Sri Sri Sri Ramanandanatha Mahaswamiji, peethadhikari of the Sri Adichunchanagiri Mahasamsthana Math, Nagamangala Taluk, Mandya District. It runs a large network of medical, engineering, nursing, pharmacy, Ayurvedic, management and general-education institutions, and Nirmalananda Swamiji is its current President and Chancellor of Adichunchanagiri University. EVENT: UNRESOLVED \u2014 'Founder Day' with no year, date or venue.",
+  "eventEvidence": [],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://www.bgscollege.com/ourtrust",
+      "label": "BGS Group of Institutions \u2014 About the Trust",
+      "rank": "B",
+      "provides": "Trust history and institutional network."
+    },
+    {
+      "url": "https://bim.edu.in/page/sri-adichunchanagiri-shikshana-trust",
+      "label": "BIM \u2014 Sri Adichunchanagiri Shikshana Trust",
+      "rank": "B",
+      "provides": "Founding date, founder and objectives."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Nirmalananda_Swamiji",
+      "label": "Wikipedia \u2014 Nirmalananda Swamiji",
+      "rank": "E",
+      "provides": "Current head of the math and Trust; useful for identifying the presiding figure at any Founder's Day."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.bgscollege.com/",
+      "label": "BGS Group of Institutions \u2014 campus news",
+      "rank": "B",
+      "type": "institutional",
+      "contains": "Individual colleges in the group publish event galleries on their own sites.",
+      "quality": "Best available approach: once Raja names the campus, that institution's own news/gallery page is the likeliest source of photography \u2014 and colleges grant permission readily."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://www.bgscollege.com/",
+      "label": "Sri Adichunchanagiri Shikshana Trust / BGS marks",
+      "rank": "B",
+      "provides": "Trust and institutional emblems."
+    }
+  ],
+  "socialSources": [],
+  "mediaSources": [],
+  "rights": [
+    {
+      "name": "Trust and institutional imagery",
+      "owner": "Sri Adichunchanagiri Shikshana Trust",
+      "classification": "official / permission likely required",
+      "contact": "Trust administration; the relevant campus principal"
+    }
+  ],
+  "needFromRaja": [
+    "WHICH CAMPUS AND WHICH YEAR \u2014 this alone unblocks the record",
+    "Whether this was a campus function or a mass gathering at the Nagamangala math",
+    "Approximate audience size and what was built: stage, pandal, seating, dining",
+    "Raja's own photographs"
+  ],
+  "priority": "low",
+  "status": "unresolved"
+}

@@ -1,0 +1,104 @@
+{
+  "id": "15-krishi-mela-2024-25",
+  "organization": "University of Agricultural Sciences, Bangalore (The Comptroller, UAS)",
+  "event": "Krishimela 2024 \u2014 UAS Bangalore agricultural fair",
+  "year": "2024",
+  "location": "Gandhi Krishi Vignana Kendra (GKVK) campus, Bengaluru",
+  "identityConfidence": "HIGH \u2014 14\u201317 November 2024 at GKVK, Bengaluru, themed 'Climate Smart Digital Agriculture'. Around 700 stalls reported at opening, with UAS itself citing ~740 agricultural exhibition stalls erected. Opening-day footfall reported at 1.31 lakh; Deccan Herald reported the fair concluding with 54.16 lakh visitors.",
+  "eventEvidence": [
+    {
+      "url": "https://www.uasbangalore.edu.in/en/krishimela-2024/",
+      "label": "UAS Bangalore official edition page",
+      "rank": "B",
+      "provides": "Institutional confirmation of the 2024 edition."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://www.uasbangalore.edu.in/en/krishimela-2024/",
+      "label": "UAS Bangalore \u2014 Krishimela 2024 (official)",
+      "rank": "B",
+      "provides": "The university's own edition page. INSPECTED: carries only a poster (Krishimela-2024-Poster1-scaled.jpg) \u2014 no event photography whatsoever."
+    },
+    {
+      "url": "https://rawe2020.in/2024/07/02/krishimela-2024/",
+      "label": "UAS Dept. of Agricultural Extension \u2014 Krishimela 2024",
+      "rank": "B",
+      "provides": "Departmental page with dates and organisational detail."
+    },
+    {
+      "url": "https://rawe2020.in/wp-content/uploads/2024/09/Krishimela-2024-Stall-Booking-and-Sponsorship-Forms.pdf",
+      "label": "Krishimela 2024 stall booking & sponsorship forms (PDF)",
+      "rank": "B",
+      "provides": "HIGH VALUE FOR SCOPE. Official stall booking documentation \u2014 stall sizes, categories and layout, i.e. the specification of the fabrication job. Better evidence of built scale than any photograph."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/krishi-mela-concludes-with-5416-lakh-visitors-showcases-tech-driven-growth-3800279",
+      "label": "Deccan Herald \u2014 Krishi Mela concludes with 54.16 lakh visitors",
+      "rank": "C",
+      "type": "news",
+      "contains": "Concluding report with attendance figures; national dailies illustrate these with wide crowd/stall photography.",
+      "quality": "Best media lead. Rights reserved to Deccan Herald."
+    },
+    {
+      "url": "https://agrinews.in/gandhi-krishi-vignana-kendra-gkvk-krishi-mela-kickstarts-with-1-31-lakh-visitors/",
+      "label": "AgriNews \u2014 GKVK Krishi Mela kickstarts with 1.31 lakh visitors",
+      "rank": "C",
+      "type": "trade news",
+      "contains": "Opening-day coverage.",
+      "quality": "Secondary; check credits."
+    },
+    {
+      "url": "https://en.channeliam.com/2024/10/30/krishi-mela-2024-bangalore/",
+      "label": "Channel I'M \u2014 Future-Ready Farming at Krishi Mela 2024",
+      "rank": "C",
+      "type": "news",
+      "contains": "Feature coverage of the 2024 edition.",
+      "quality": "Secondary."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://www.uasbangalore.edu.in/",
+      "label": "UAS Bangalore emblem",
+      "rank": "B",
+      "provides": "University mark; institutional usage restrictions apply."
+    }
+  ],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/krishi-mela-concludes-with-5416-lakh-visitors-showcases-tech-driven-growth-3800279",
+      "label": "Deccan Herald",
+      "rank": "C",
+      "provides": "Attendance and scale figures \u2014 excellent case-study copy even without images.",
+      "credit": "Deccan Herald"
+    }
+  ],
+  "rights": [
+    {
+      "name": "Deccan Herald / AgriNews photography",
+      "owner": "Respective publishers",
+      "classification": "media copyrighted",
+      "contact": "Publisher desks"
+    },
+    {
+      "name": "UAS Bangalore material",
+      "owner": "University of Agricultural Sciences, Bangalore",
+      "classification": "official / permission likely required",
+      "contact": "The Comptroller's office \u2014 already Raja's named client contact"
+    }
+  ],
+  "needFromRaja": [
+    "Which edition \u2014 November 2024, 2025, or both",
+    "How many of the ~740 stalls Raja fabricated, and total covered area",
+    "The work order from the Comptroller, UAS Bangalore",
+    "Setup photographs of the stall grid going up on the GKVK grounds",
+    "Whether the same GKVK relationship produced the EIMA Agrimach job (record #05) \u2014 if so, that is a strong repeat-venue story"
+  ],
+  "priority": "high",
+  "status": "complete"
+}

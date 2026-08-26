@@ -1,0 +1,96 @@
+{
+  "id": "22-biffes-17th-bengaluru-film-festival",
+  "organization": "Karnataka Chalanachitra Academy, with the Department of Information and Public Relations, Government of Karnataka",
+  "event": "17th Bengaluru International Film Festival (BIFFes)",
+  "year": "2026",
+  "location": "Bengaluru \u2014 inaugural ceremony on the steps of Vidhana Soudha; screenings at Cin\u00e9polis, Lulu Mall, Rajajinagar (11 screens), Dr. Rajkumar Bhavana, Kalavidara Sangha (Chamarajapete) and Suchitra Film Society (Banashankari)",
+  "identityConfidence": "HIGH \u2014 17th edition, 29 January to 6 February 2026, over 200 films from 60 countries. Organised by the Karnataka Chalanachitra Academy and the Department of Information and Public Relations for the Government of Karnataka.",
+  "eventEvidence": [
+    {
+      "url": "https://biffes.org/",
+      "label": "Official festival site",
+      "rank": "A",
+      "provides": "Definitive confirmation of the edition."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://biffes.org/",
+      "label": "biffes.org \u2014 official festival site",
+      "rank": "A",
+      "provides": "Live official site for the festival."
+    },
+    {
+      "url": "https://www.biffes.org/archive",
+      "label": "BIFFes \u2014 Archives",
+      "rank": "A",
+      "provides": "HIGH VALUE. A dedicated per-edition archive section, which is precisely where official 17th-edition photography would sit. Inspect first."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Bengaluru_International_Film_Festival",
+      "label": "Wikipedia \u2014 BIFFes",
+      "rank": "E",
+      "provides": "Edition history and organiser background."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.biffes.org/archive",
+      "label": "Official BIFFes archive",
+      "rank": "A",
+      "type": "first-party archive",
+      "contains": "Per-edition material; the likeliest home of official inaugural and venue photography.",
+      "quality": "BEST LEAD \u2014 a government-backed festival with a standing archive is far more likely to hold and share official images than a private organiser."
+    },
+    {
+      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/17th-biffes-to-be-held-from-january-29-and-february-6-over-200-films-to-be-screened-3840527",
+      "label": "Deccan Herald \u2014 17th BIFFes at a new venue",
+      "rank": "C",
+      "type": "news",
+      "contains": "Announcement coverage naming venues and the Vidhana Soudha inauguration.",
+      "quality": "Good for confirming particulars; images rights-reserved."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://biffes.org/",
+      "label": "BIFFes festival logo",
+      "rank": "A",
+      "provides": "Official event mark."
+    }
+  ],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://www.thehansindia.com/news/cities/bengaluru/17th-bengaluru-international-film-festival-from-jan-29-to-feb-6-1033368",
+      "label": "The Hans India \u2014 17th BIFFes",
+      "rank": "C",
+      "provides": "Independent confirmation of dates and format.",
+      "credit": "The Hans India"
+    }
+  ],
+  "rights": [
+    {
+      "name": "biffes.org imagery",
+      "owner": "Karnataka Chalanachitra Academy / Government of Karnataka",
+      "classification": "official / permission likely required",
+      "contact": "Karnataka Chalanachitra Academy; Dept. of Information and Public Relations"
+    },
+    {
+      "name": "Newspaper photography",
+      "owner": "Deccan Herald / The Hans India",
+      "classification": "media copyrighted",
+      "contact": "Publisher desks"
+    }
+  ],
+  "needFromRaja": [
+    "PRIORITY QUESTION: is the Vidhana Soudha hanger photograph already used in the Figma design taken from this project? If so, Raja already owns a flagship image and simply needs to say so",
+    "Photographs of the Vidhana Soudha steps inaugural stage \u2014 build and finished",
+    "The government work order via the Karnataka Chalanachitra Academy",
+    "Scope across the multiple venues: was Raja engaged only for the inaugural, or for the screening venues too",
+    "Stage dimensions, seating capacity and build/strike duration \u2014 a fast turnaround in front of Vidhana Soudha is a strong engineering story"
+  ],
+  "priority": "high",
+  "status": "complete"
+}

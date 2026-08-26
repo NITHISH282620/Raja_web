@@ -1,0 +1,58 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Inspection artefacts (regenerate with `node scripts/inspect.mjs`)
+/_inspection
+# Raw Figma exports — optimised copies live in public/media and public/vector
+/_figma_assets
+
+# Client-gallery research imagery — THIRD-PARTY, RIGHTS UNRESOLVED.
+# This repository is public. These files were gathered for a licensing
+# decision, not for distribution, so the image binaries stay out of git
+# while all the research text (sources.md / manifest.json) is committed.
+# To include them, delete these three lines and re-add.
+/client-gallery/**/photos/*.jpg
+/client-gallery/**/photos/*.jpeg
+/client-gallery/**/photos/*.png
+/client-gallery/**/photos/*.webp
+/client-gallery/**/_mismatched/
+/client-gallery/_reference/

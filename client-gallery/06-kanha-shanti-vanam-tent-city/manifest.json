@@ -1,0 +1,93 @@
+{
+  "id": "06-kanha-shanti-vanam-tent-city",
+  "organization": "Kanha Shanti Vanam \u2014 Heartfulness Institute / Shri Ram Chandra Mission",
+  "event": "Setting up tent city at Bangalore",
+  "year": "",
+  "location": "CONFLICT \u2014 record says Bangalore; Kanha Shanti Vanam is in Telangana",
+  "identityConfidence": "ORGANISATION: HIGH. Kanha Shanti Vanam is the world headquarters of the Heartfulness Institute (Shri Ram Chandra Mission), a 1,400-acre campus at Kanha village, Nandigama mandal, Ranga Reddy district, Telangana, roughly 50 km from Hyderabad and about 11 km off the Hyderabad-Bangalore national highway. Campus capacity is quoted at 100,000 participants and its accommodation already includes permanent tents. EVENT: UNRESOLVED.",
+  "eventEvidence": [],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://heartfulness.org/kanha/",
+      "label": "Heartfulness \u2014 Kanha Shanti Vanam",
+      "rank": "A",
+      "provides": "Official campus site: facilities, capacity, event calendar."
+    },
+    {
+      "url": "https://www.sahajmarg.org/smww/kanha/accommodation",
+      "label": "Sahaj Marg \u2014 Kanha accommodation",
+      "rank": "A",
+      "provides": "IMPORTANT FOR THIS RECORD. Documents the campus accommodation model explicitly including permanent tents, alongside dorms and a hotel \u2014 the closest official description of tented accommodation at scale."
+    },
+    {
+      "url": "https://preceptor.heartfulness.org/en/smww/ashrams/kanha/accommodation",
+      "label": "Heartfulness preceptor portal \u2014 Kanha accommodation",
+      "rank": "A",
+      "provides": "Secondary official accommodation detail."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://heartfulness.org/kanha/",
+      "label": "Official Heartfulness campus imagery",
+      "rank": "A",
+      "type": "first-party",
+      "contains": "Campus, canopy structures, mass-assembly photography. Two examples are already in this folder's photos/ directory.",
+      "quality": "Visually excellent, but shows PERMANENT campus architecture \u2014 a tensile-membrane canopy on steel masts \u2014 not temporary tenting. Strong for atmosphere, weak as evidence of a Raja tent-city build."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Global_Spirituality_Mahotsav",
+      "label": "Global Spirituality Mahotsav (14-17 March 2024, Kanha Shanti Vanam)",
+      "rank": "E",
+      "type": "encyclopaedic",
+      "contains": "A four-day Ministry of Culture event at the campus.",
+      "quality": "WORTH CHASING. An event of this scale at this campus is precisely the sort that requires a temporary tent city. If Raja's job was for this Mahotsav, that gives a firm name, date and a large public documentation trail. Ask Raja to confirm."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://heartfulness.org/",
+      "label": "Heartfulness Institute logo",
+      "rank": "A",
+      "provides": "Official mark."
+    }
+  ],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://www.telangana360.com/2023/07/kanha-shanti-vanam.html",
+      "label": "Telangana360 \u2014 Kanha Shanti Vanam",
+      "rank": "E",
+      "provides": "Regional coverage of the campus.",
+      "credit": "Telangana360"
+    }
+  ],
+  "rights": [
+    {
+      "name": "heartfulness.org campus imagery",
+      "owner": "Heartfulness Institute / Shri Ram Chandra Mission",
+      "classification": "official / permission likely required",
+      "contact": "Heartfulness communications via heartfulness.org"
+    }
+  ],
+  "needFromRaja": [
+    "RESOLVE THE LOCATION FIRST \u2014 was the tent city at the Telangana campus, or at a Heartfulness event in Bengaluru?",
+    "The event name and dates. If it was the Global Spirituality Mahotsav (March 2024), say so \u2014 that unlocks a large public record",
+    "Number of tents erected, covered area and accommodation capacity delivered \u2014 a tent city is a headline capability and the figures matter more than photographs",
+    "Raja's own photographs of the tents being erected and the completed tent city",
+    "Whether the scope included flooring, lighting, sanitation blocks or catering as well as the tents"
+  ],
+  "priority": "medium",
+  "status": "partial",
+  "suppliedPhotos": {
+    "batch": "client-supplied, 26 Aug 2026",
+    "selected": [
+      "01-wide-tensile-canopy-night-assembly.jpg",
+      "02-aerial-covered-assembly-and-stage.png"
+    ],
+    "mismatched": [],
+    "provenance": "MIXED / UNCONFIRMED \u2014 some files are camera or phone originals, others show signs of web download. Confirm which are Raja's own before any publication.",
+    "assessment": "06-kanha-shanti-vanam-tent-city/photos/intake.md"
+  }
+}

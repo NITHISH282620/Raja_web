@@ -1,0 +1,68 @@
+{
+  "id": "20-male-mahadeshwara-hills",
+  "organization": "Sri Male Mahadeshwara Swamy (temple / Muzrai Department trust committee, Government of Karnataka)",
+  "event": "MM Hills \u2014 event not named in the source record",
+  "year": "",
+  "location": "Male Mahadeshwara Hills, Chamarajanagar District, Karnataka (~210 km from Bengaluru, ~150 km from Mysuru, in Eastern Ghats forest at 900\u20131,500 m)",
+  "identityConfidence": "LOCATION: HIGH. Sri Male Mahadeshwara Temple at MM Hills is a major Shaiva pilgrimage centre in Chamarajanagar district, administered by a trust committee appointed by the Karnataka Government under the Muzrai Department. EVENT: UNRESOLVED \u2014 the source record reads only 'mm hills'.",
+  "eventEvidence": [],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://chamrajnagar.nic.in/en/tourist-place/mm-hills/",
+      "label": "Chamarajanagar District Administration \u2014 MM Hills",
+      "rank": "B",
+      "provides": "Official district government page for the temple. The district administration is also the right institutional contact for any event held there."
+    },
+    {
+      "url": "https://karnatakatourism.org/en/destinations/male-mahadeshwara-hills-mm-hills",
+      "label": "Karnataka Tourism \u2014 Male Mahadeshwara Hills",
+      "rank": "B",
+      "provides": "State tourism board record with official photography of the site."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://karnatakatourism.org/en/destinations/male-mahadeshwara-hills-mm-hills",
+      "label": "Karnataka Tourism official imagery",
+      "rank": "B",
+      "type": "government tourism board",
+      "contains": "Official destination photography of the temple and surroundings.",
+      "quality": "Good for establishing/context shots of the location, but shows the permanent temple rather than any Raja build. Useful only as scene-setting once the actual event is identified."
+    },
+    {
+      "url": "https://chamrajnagar.nic.in/en/tourist-place/mm-hills/",
+      "label": "District administration imagery",
+      "rank": "B",
+      "type": "government",
+      "contains": "Site photography.",
+      "quality": "As above \u2014 context only."
+    }
+  ],
+  "logoSources": [],
+  "socialSources": [],
+  "mediaSources": [],
+  "rights": [
+    {
+      "name": "Karnataka Tourism imagery",
+      "owner": "Department of Tourism, Government of Karnataka",
+      "classification": "official / permission likely required",
+      "contact": "Karnataka Tourism"
+    },
+    {
+      "name": "District administration imagery",
+      "owner": "Chamarajanagar District Administration",
+      "classification": "official / permission likely required",
+      "contact": "District administration"
+    }
+  ],
+  "needFromRaja": [
+    "WHAT WAS THE EVENT \u2014 Mahashivaratri, the Jathra Mahotsava, or something else \u2014 and in which year",
+    "What was built: pandals, queue barricading, dining halls, accommodation, stage?",
+    "Devotee numbers catered for",
+    "Logistics detail \u2014 transporting structures 210 km to a remote hill temple inside a wildlife sanctuary is a genuinely differentiating story if it happened",
+    "Raja's own photographs, which will almost certainly be the only ones in existence"
+  ],
+  "priority": "medium",
+  "status": "unresolved"
+}

@@ -1,0 +1,116 @@
+{
+  "id": "14-fc-expo-2025",
+  "organization": "First Circle Biztech Private Limited / First Circle Society",
+  "event": "FC Expo 2025 \u2014 Udyami Vokkaliga Business & Entrepreneurship Expo",
+  "year": "2025",
+  "location": "Bengaluru \u2014 exact venue unconfirmed",
+  "identityConfidence": "HIGH for the organiser and the expo; MEDIUM for the 2025 edition's dates and venue. FC Expo 2025 was being promoted in late December 2024 under the framing 'A Platform to Empower Vokkaliga Entrepreneurs', which places the edition in 2025.",
+  "eventEvidence": [
+    {
+      "url": "https://citytoday.media/2024/12/28/fc-expo-2025-a-platform-to-empower-vokkaliga-entrepreneurs/",
+      "label": "City Today News, Dec 2024",
+      "rank": "C",
+      "provides": "Documents the 2025 edition being promoted."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://fcexpo.in/",
+      "label": "fcexpo.in \u2014 official expo site",
+      "rank": "A",
+      "provides": "Official site. Unreachable to automation (Cloudflare error 1001 and a TLS handshake failure) \u2014 browse manually."
+    },
+    {
+      "url": "https://firstcircleindia.com/",
+      "label": "First Circle Society \u2014 organiser",
+      "rank": "A",
+      "provides": "Organiser body; describes the expo format. Bot-protected."
+    },
+    {
+      "url": "https://firstcircle.jumbow.net/events/details/37224e17-ebf0-417b-9822-36f09f4b7859",
+      "label": "FC Next \u2014 event details portal",
+      "rank": "A",
+      "provides": "Organiser's event-management portal \u2014 likely holds the 2025 edition's venue, dates and stall data."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.instagram.com/firstcirclenetworking/",
+      "label": "Instagram @firstcirclenetworking",
+      "rank": "D",
+      "type": "official social",
+      "contains": "Active organiser account posting expo reels and district-circle launches.",
+      "quality": "Primary social archive \u2014 filter to the 2025 edition window. Auth-walled."
+    },
+    {
+      "url": "https://www.facebook.com/firstcirclecnetworking/",
+      "label": "Facebook \u2014 First Circle Networking",
+      "rank": "D",
+      "type": "official social",
+      "contains": "Dated video posts.",
+      "quality": "Facebook retains dated albums better than Instagram; best route to separating 2024 from 2025 material."
+    },
+    {
+      "url": "https://citytoday.media/2024/12/28/fc-expo-2025-a-platform-to-empower-vokkaliga-entrepreneurs/",
+      "label": "City Today News \u2014 FC Expo 2025",
+      "rank": "C",
+      "type": "city press",
+      "contains": "The only 2025-specific press item located. Returns 403 to automated fetch.",
+      "quality": "Read manually \u2014 it should confirm the 2025 venue and dates."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://firstcircleindia.com/",
+      "label": "First Circle / FC Expo marks",
+      "rank": "A",
+      "provides": "Organiser and event lock-ups."
+    }
+  ],
+  "socialSources": [
+    {
+      "url": "https://www.instagram.com/firstcirclenetworking/",
+      "label": "Instagram",
+      "rank": "D",
+      "provides": "Active"
+    },
+    {
+      "url": "https://www.facebook.com/firstcirclecnetworking/",
+      "label": "Facebook",
+      "rank": "D",
+      "provides": "Dated archive"
+    }
+  ],
+  "mediaSources": [
+    {
+      "url": "https://citytoday.media/2024/12/28/fc-expo-2025-a-platform-to-empower-vokkaliga-entrepreneurs/",
+      "label": "City Today News",
+      "rank": "C",
+      "provides": "2025 edition framing and promotion.",
+      "credit": "City Today News"
+    }
+  ],
+  "rights": [
+    {
+      "name": "First Circle official and social imagery",
+      "owner": "First Circle Biztech Pvt Ltd / First Circle Society",
+      "classification": "official / permission likely required",
+      "contact": "Organiser directly \u2014 Raja is an existing vendor"
+    },
+    {
+      "name": "City Today News",
+      "owner": "City Today News",
+      "classification": "media copyrighted",
+      "contact": "Publisher"
+    }
+  ],
+  "needFromRaja": [
+    "The 2025 venue and dates",
+    "Stall count and covered area for 2025, and how it compared with 2024",
+    "Setup photographs distinguishable from the 2024 edition",
+    "Whether the same First Circle contact covers both years \u2014 one approach should secure photography for both"
+  ],
+  "priority": "high",
+  "status": "partial"
+}

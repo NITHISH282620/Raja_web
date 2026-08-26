@@ -1,0 +1,96 @@
+{
+  "id": "19-valmiki-jayanti-2025",
+  "organization": "Tribal Welfare Department, Government of Karnataka (related body: Karnataka Maharshi Valmiki Scheduled Tribes Development Corporation Ltd)",
+  "event": "Maharishi Valmiki Jayanti 2025 \u2014 state celebration",
+  "year": "2025",
+  "location": "Presumed Bengaluru \u2014 venue not established",
+  "identityConfidence": "EVENT AND DATE: HIGH. Maharishi Valmiki Jayanti 2025 fell on 7 October 2025 (Ashwin Purnima). It is a state-observed occasion in Karnataka and appears on the Karnataka government holiday list. CLIENT: MEDIUM \u2014 Karnataka's relevant machinery is the Scheduled Tribes welfare apparatus, including the Karnataka Maharshi Valmiki Scheduled Tribes Development Corporation Ltd under the Department of Social Welfare; 'Tribal Welfare Department' on the source record is a plausible but not exact match to a department name.",
+  "eventEvidence": [
+    {
+      "url": "https://www.datocms-assets.com/40521/1732687207-karnataka-state-list-of-holidays-2025.pdf",
+      "label": "Karnataka 2025 holiday list",
+      "rank": "B",
+      "provides": "Confirms official observance in Karnataka in 2025."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://www.facebook.com/KMVSTDCLGOK/",
+      "label": "Karnataka Maharshi Valmiki Scheduled Tribes Development Corporation (official page)",
+      "rank": "B",
+      "provides": "The state corporation most directly associated with Valmiki commemorations. Its own page is the best institutional route to both confirmation and imagery."
+    },
+    {
+      "url": "https://www.datocms-assets.com/40521/1732687207-karnataka-state-list-of-holidays-2025.pdf",
+      "label": "Karnataka state holiday list 2025 (PDF)",
+      "rank": "B",
+      "provides": "Documents Valmiki Jayanti's official status in Karnataka for 2025."
+    },
+    {
+      "url": "https://www.incredibleindia.gov.in/en/festivals-and-events/valmiki-jayanti",
+      "label": "Incredible India \u2014 Valmiki Jayanti",
+      "rank": "B",
+      "provides": "Government of India festival record."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.facebook.com/BangaloreTimesOfficial/posts/1027320360762630/",
+      "label": "Bangalore Times \u2014 'Bengaluru celebrates Valmiki Jayanti'",
+      "rank": "C",
+      "type": "city media social",
+      "contains": "Bengaluru-specific Valmiki Jayanti coverage.",
+      "quality": "MOST DIRECTLY RELEVANT ITEM FOUND \u2014 Bengaluru-specific and likely photographic. Verify the year before use."
+    },
+    {
+      "url": "https://www.facebook.com/KMVSTDCLGOK/",
+      "label": "KMVSTDCL official page",
+      "rank": "B",
+      "type": "government social",
+      "contains": "Corporation event posts.",
+      "quality": "Government bodies post function photography including stage and dais views. Good permission prospects."
+    }
+  ],
+  "logoSources": [],
+  "socialSources": [
+    {
+      "url": "https://www.facebook.com/KMVSTDCLGOK/",
+      "label": "Facebook \u2014 KMVSTDCL",
+      "rank": "B",
+      "provides": "Official corporation channel"
+    }
+  ],
+  "mediaSources": [
+    {
+      "url": "https://www.facebook.com/BangaloreTimesOfficial/posts/1027320360762630/",
+      "label": "Bangalore Times",
+      "rank": "C",
+      "provides": "Bengaluru celebration coverage.",
+      "credit": "Bangalore Times"
+    }
+  ],
+  "rights": [
+    {
+      "name": "Government department imagery",
+      "owner": "Government of Karnataka",
+      "classification": "official / permission likely required",
+      "contact": "Tribal/Scheduled Tribes Welfare Department; KMVSTDCL"
+    },
+    {
+      "name": "Bangalore Times coverage",
+      "owner": "Bennett, Coleman & Co.",
+      "classification": "media copyrighted",
+      "contact": "Publisher desk"
+    }
+  ],
+  "needFromRaja": [
+    "The venue in Bengaluru \u2014 the single missing fact",
+    "The exact commissioning department name as it appears on the work order",
+    "Confirm the date was 7 October 2025",
+    "What was built: dais, stage, pandal, seating, barricading \u2014 and audience size",
+    "Raja's own photographs"
+  ],
+  "priority": "medium",
+  "status": "partial"
+}

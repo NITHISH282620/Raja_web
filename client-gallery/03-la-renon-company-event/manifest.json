@@ -1,0 +1,130 @@
+{
+  "id": "03-la-renon-company-event",
+  "organization": "La Renon Healthcare Private Limited (CIN U24233GJ2007PTC051467)",
+  "event": "Company Event \u2014 not named in the source record",
+  "year": "",
+  "location": "Unresolved \u2014 presumed Bengaluru (Raja's operating base); La Renon is headquartered in Ahmedabad",
+  "identityConfidence": "ORGANISATION: HIGH \u2014 La Renon Healthcare Pvt. Ltd., founded 2007 by Pankaj Singh, Ahmedabad, top-40 Indian pharma, >\u20b91,000 Cr revenue FY2025, therapy areas including nephrology, gastroenterology, critical care. EVENT: UNRESOLVED \u2014 the source record says only 'COMPANY EVENT', with no name, year or venue.",
+  "eventEvidence": [],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://www.larenon.com/",
+      "label": "La Renon Healthcare \u2014 official site",
+      "rank": "A",
+      "provides": "Corporate site. Bot-protected against automated access (returns a JS verification challenge) \u2014 must be browsed manually."
+    },
+    {
+      "url": "https://www.larenon.com/event-participation/",
+      "label": "La Renon \u2014 Event & Participation",
+      "rank": "A",
+      "provides": "THE KEY PAGE FOR THIS RECORD. Company's own listing of the events it attends and exhibits at. Manual browsing should reveal which event matches, and may carry stall photography. Blocked to automated fetch."
+    },
+    {
+      "url": "https://www.larenon.com/news/esicon-2025/",
+      "label": "La Renon \u2014 ESICON 2025 news post",
+      "rank": "A",
+      "provides": "Shows the company publishes per-event posts with imagery \u2014 the pattern to look for on an older, matching event."
+    },
+    {
+      "url": "https://www.zaubacorp.com/LA-RENON-HEALTHCARE-PRIVATE-LIMITED-U24233GJ2007PTC051467",
+      "label": "ZaubaCorp \u2014 company registration",
+      "rank": "B",
+      "provides": "Confirms exact legal entity and CIN, so the client name on Raja's paperwork can be matched precisely."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://in.linkedin.com/company/larenon-healthcare",
+      "label": "LinkedIn \u2014 La Renon Healthcare",
+      "rank": "D",
+      "type": "official social",
+      "contains": "B2B pharma companies post conference-stand and corporate-event photography to LinkedIn more reliably than anywhere else.",
+      "quality": "BEST PROSPECT for this record. Search the company feed by year once the event is identified. Auth-walled to automated access."
+    },
+    {
+      "url": "https://www.facebook.com/LaRenon/",
+      "label": "Facebook \u2014 La Renon Healthcare",
+      "rank": "D",
+      "type": "official social",
+      "contains": "Corporate page; likely event albums.",
+      "quality": "Secondary to LinkedIn for a pharma B2B account, but worth checking for dated albums."
+    },
+    {
+      "url": "https://www.larenon.com/event-participation/",
+      "label": "Official event page",
+      "rank": "A",
+      "type": "first-party",
+      "contains": "Unknown until browsed manually.",
+      "quality": "Would be the A-grade source if it carries stall imagery."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://www.larenon.com/",
+      "label": "La Renon corporate logo",
+      "rank": "A",
+      "provides": "From the official site header. Trademark \u2014 permission required."
+    }
+  ],
+  "socialSources": [
+    {
+      "url": "https://in.linkedin.com/company/larenon-healthcare",
+      "label": "LinkedIn",
+      "rank": "D",
+      "provides": "Primary B2B channel \u2014 best event photography prospect"
+    },
+    {
+      "url": "https://www.facebook.com/LaRenon/",
+      "label": "Facebook",
+      "rank": "D",
+      "provides": "Corporate page"
+    }
+  ],
+  "mediaSources": [
+    {
+      "url": "https://medicaldialogues.in/manufacturer/la-renon-healthcare-pvt-ltd-2721892",
+      "label": "Medical Dialogues \u2014 company profile",
+      "rank": "C",
+      "provides": "Trade-press profile; may carry event coverage.",
+      "credit": "Medical Dialogues"
+    }
+  ],
+  "rights": [
+    {
+      "name": "larenon.com imagery",
+      "owner": "La Renon Healthcare Pvt. Ltd.",
+      "classification": "official / permission likely required",
+      "contact": "Corporate communications via larenon.com"
+    },
+    {
+      "name": "LinkedIn / Facebook posts",
+      "owner": "La Renon Healthcare Pvt. Ltd.",
+      "classification": "social media / permission required",
+      "contact": "Company page admin"
+    }
+  ],
+  "needFromRaja": [
+    "THE EVENT NAME, DATE AND VENUE \u2014 nothing else can proceed without this. Check the work order or invoice raised to La Renon Healthcare",
+    "Confirmation of which job type this was: exhibition stall at a third-party congress, or a standalone La Renon corporate function",
+    "Whether this row and record #02 (ISGCON 2023) describe the same job",
+    "Original setup and finished-stand photographs",
+    "Client-side contact at La Renon who could authorise use of their event photography"
+  ],
+  "priority": "low",
+  "status": "partial",
+  "suppliedPhotos": {
+    "batch": "client-supplied, 26 Aug 2026",
+    "selected": [
+      "01-stand-wood-and-red-illuminated-empty.jpg",
+      "02-stand-white-curved-convention-hall.jpg",
+      "03-stand-in-use-with-delegates.jpg",
+      "04-stand-red-white-slat-wall.jpg",
+      "05-stand-supporting-view.jpg",
+      "06-stand-supporting-view-2.jpg"
+    ],
+    "mismatched": [],
+    "provenance": "MIXED / UNCONFIRMED \u2014 some files are camera or phone originals, others show signs of web download. Confirm which are Raja's own before any publication.",
+    "assessment": "03-la-renon-company-event/photos/intake.md"
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "id": "04-fc-expo-2024",
+  "organization": "First Circle Biztech Private Limited / First Circle Society",
+  "event": "FC Expo 2024 \u2014 First Circle Business Expo, 'Udyami Vokkaliga'",
+  "year": "2024",
+  "location": "Bengaluru \u2014 exact venue unconfirmed",
+  "identityConfidence": "HIGH for the event and organiser. FC Expo is the Udyami Vokkaliga Business & Entrepreneurship Expo run by First Circle Society / First Circle Biztech Pvt Ltd, a Bengaluru business-networking body for the Vokkaliga community. The 2024 edition was inaugurated by the Chief Minister of Karnataka together with Vokkaliga ministers from the Union and State cabinets. Venue not yet confirmed.",
+  "eventEvidence": [
+    {
+      "url": "https://www.youtube.com/watch?v=U57q81PNAOE",
+      "label": "Kannada news coverage of First Circle Expo 2024",
+      "rank": "C",
+      "provides": "Independent broadcast confirmation that the 2024 edition took place."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://fcexpo.in/",
+      "label": "fcexpo.in \u2014 official expo site",
+      "rank": "A",
+      "provides": "Official event site with a Visitors section. UNREACHABLE TO AUTOMATION \u2014 Cloudflare error 1001 plus a TLS handshake failure. Browse manually."
+    },
+    {
+      "url": "https://firstcircleindia.com/",
+      "label": "First Circle Society \u2014 organiser site",
+      "rank": "A",
+      "provides": "Organiser body. Describes the expo format: exhibitions, Udyami Samaveshas, agri meets, MSME sessions, startup forums. Bot-protected (JS verification challenge)."
+    },
+    {
+      "url": "https://firstcircle.jumbow.net/events/details/9eec8480-4d1d-4dbd-be05-9cbfc23b2f2b",
+      "label": "FC Next \u2014 event details portal",
+      "rank": "A",
+      "provides": "The organiser's event-management portal. Likely holds per-edition particulars including venue and stall counts."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.youtube.com/watch?v=U57q81PNAOE",
+      "label": "YouTube \u2014 'Udyami Vokkaliga \u2026 First Circle Expo 2024' (Kannada news)",
+      "rank": "C",
+      "type": "broadcast news video",
+      "contains": "Kannada-language television coverage of the 2024 edition.",
+      "quality": "STRONGEST CONFIRMED 2024 VISUAL SOURCE. Broadcast footage will carry wide hall, stall rows, inauguration dais and crowd. Extractable as stills, but it is a broadcaster's copyright \u2014 identify the channel and licence."
+    },
+    {
+      "url": "https://www.instagram.com/firstcirclenetworking/",
+      "label": "Instagram @firstcirclenetworking",
+      "rank": "D",
+      "type": "official social",
+      "contains": "Active organiser account, confirmed posting expo reels and district-circle launches.",
+      "quality": "Best first-party social archive. Filter to the 2024 edition window. Auth-walled."
+    },
+    {
+      "url": "https://www.facebook.com/firstcirclecnetworking/",
+      "label": "Facebook \u2014 First Circle Networking",
+      "rank": "D",
+      "type": "official social",
+      "contains": "Confirmed carrying dated video posts (e.g. Chickaballapur circle launch, 21 Dec 2024).",
+      "quality": "Good \u2014 Facebook retains dated albums better than Instagram. Prime source for the 2024 build."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://firstcircleindia.com/",
+      "label": "First Circle Society / FC Expo marks",
+      "rank": "A",
+      "provides": "Organiser and event lock-ups; manual capture required due to bot protection."
+    }
+  ],
+  "socialSources": [
+    {
+      "url": "https://www.instagram.com/firstcirclenetworking/",
+      "label": "Instagram",
+      "rank": "D",
+      "provides": "Active, expo-focused"
+    },
+    {
+      "url": "https://www.facebook.com/firstcirclecnetworking/",
+      "label": "Facebook",
+      "rank": "D",
+      "provides": "Dated video archive \u2014 best for pinning the 2024 edition"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=U57q81PNAOE",
+      "label": "YouTube",
+      "rank": "C",
+      "provides": "2024 news coverage"
+    }
+  ],
+  "mediaSources": [
+    {
+      "url": "https://citytoday.media/2024/12/28/fc-expo-2025-a-platform-to-empower-vokkaliga-entrepreneurs/",
+      "label": "City Today News \u2014 FC Expo (Dec 2024 article)",
+      "rank": "C",
+      "provides": "Trade/city press covering the expo. Published Dec 2024 but headlined for the 2025 edition \u2014 read carefully to avoid attributing it to 2024. Returns 403 to automated fetch.",
+      "credit": "City Today News"
+    }
+  ],
+  "rights": [
+    {
+      "name": "Kannada news YouTube coverage",
+      "owner": "Broadcasting channel (identify from the video)",
+      "classification": "media copyrighted",
+      "contact": "Channel's licensing desk"
+    },
+    {
+      "name": "First Circle social channels",
+      "owner": "First Circle Society / First Circle Biztech Pvt Ltd",
+      "classification": "social media / permission required",
+      "contact": "Page admin; organiser via firstcircleindia.com"
+    },
+    {
+      "name": "fcexpo.in site imagery",
+      "owner": "First Circle Biztech Pvt Ltd",
+      "classification": "official / permission likely required",
+      "contact": "Organiser directly \u2014 and Raja already has this relationship as a vendor"
+    }
+  ],
+  "needFromRaja": [
+    "Confirm the 2024 venue and dates \u2014 not established from public sources",
+    "Stall fabrication photographs: octonorm rows during build and completed",
+    "The inauguration dais and CM stage \u2014 the single most valuable frame from this event",
+    "Wide hall photograph showing the full stall grid, to communicate scale",
+    "Stall count and total covered area, for the case-study caption",
+    "Organiser contact at First Circle \u2014 as an existing client they are the easiest party on this whole list to obtain licensed photography from"
+  ],
+  "priority": "high",
+  "status": "complete",
+  "suppliedPhotos": {
+    "batch": "client-supplied, 26 Aug 2026",
+    "selected": [
+      "01-audience-banquet-rounds.jpg",
+      "02-audience-theatre-seating.jpg"
+    ],
+    "mismatched": [],
+    "provenance": "MIXED / UNCONFIRMED \u2014 some files are camera or phone originals, others show signs of web download. Confirm which are Raja's own before any publication.",
+    "assessment": "04-fc-expo-2024/photos/intake.md"
+  }
+}

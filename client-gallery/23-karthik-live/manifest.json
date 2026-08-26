@@ -1,0 +1,97 @@
+{
+  "id": "23-karthik-live",
+  "organization": "TribeVibe Entertainment Private Ltd (a BookMyShow enterprise)",
+  "event": "Karthik Live! \u2014 multi-city concert tour, Bengaluru show",
+  "year": "2026",
+  "location": "Phoenix Market City, Whitefield, Bengaluru",
+  "identityConfidence": "HIGH \u2014 resolved to a specific show. 'Karthik Live!' is a TribeVibe Entertainment concert tour featuring playback singer Karthik, spanning ten to eleven South Indian cities (Tirupati, Vizag, Coimbatore, Cochin, Rajahmundry, Bengaluru, Hyderabad, Vijayawada, Chennai, Madurai, Warangal), opening 30 November 2025. The BENGALURU show is listed for 7 February 2026, 7:30\u20139:30 pm, at Phoenix Market City, Whitefield. Ticketing exclusively via BookMyShow.",
+  "eventEvidence": [
+    {
+      "url": "https://www.district.in/events/karthik/artist",
+      "label": "BookMyShow/District listing",
+      "rank": "A",
+      "provides": "Definitive confirmation of the Bengaluru show, venue, date and time."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://www.district.in/events/karthik/artist",
+      "label": "District (BookMyShow) \u2014 Karthik events",
+      "rank": "A",
+      "provides": "Ticketing platform owned by the same group as the promoter. Authoritative for show dates, venue and timings."
+    },
+    {
+      "url": "https://www.gigx.in/newx/entertainment/tribevibe-entertainment-unveils-karthik-live-multi-city-concert-tour",
+      "label": "GIGX \u2014 TribeVibe unveils Karthik Live tour",
+      "rank": "C",
+      "provides": "Tour announcement with the full city list and promoter detail."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.dazzlerr.com/events/karthik-live-bengaluru-2/",
+      "label": "Dazzlerr \u2014 Karthik Live Bengaluru",
+      "rank": "E",
+      "type": "event listing",
+      "contains": "Bengaluru-specific listing.",
+      "quality": "Listing only; useful for confirming the Bengaluru date, not for photography."
+    },
+    {
+      "url": "https://www.district.in/events/karthik/artist",
+      "label": "District / BookMyShow event pages",
+      "rank": "A",
+      "type": "promoter platform",
+      "contains": "Promoter-supplied event imagery and, after the show, occasionally gallery content.",
+      "quality": "BEST ROUTE. TribeVibe is Raja's direct client and a BookMyShow enterprise \u2014 a professional promoter that certainly commissioned show photography. Ask the client rather than scraping."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://www.district.in/events/karthik/artist",
+      "label": "Karthik Live tour artwork",
+      "rank": "A",
+      "provides": "Tour branding."
+    }
+  ],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://telanganatoday.com/tribevibe-brings-karthiks-musical-magic-to-fans-in-south-india-this-november",
+      "label": "Telangana Today \u2014 TribeVibe brings Karthik to South India",
+      "rank": "C",
+      "provides": "Tour launch coverage.",
+      "credit": "Telangana Today"
+    },
+    {
+      "url": "https://smestreet.in/limelight/book-tickets-for-karthik-live-2025-across-10-cities-in-south-india-10550521",
+      "label": "SMEStreet \u2014 Karthik Live across 10 cities",
+      "rank": "E",
+      "provides": "Tour scope.",
+      "credit": "SMEStreet"
+    }
+  ],
+  "rights": [
+    {
+      "name": "Promoter and ticketing imagery",
+      "owner": "TribeVibe Entertainment / BookMyShow",
+      "classification": "official / permission likely required",
+      "contact": "TribeVibe \u2014 Raja's direct client"
+    },
+    {
+      "name": "News coverage",
+      "owner": "Respective publishers",
+      "classification": "media copyrighted",
+      "contact": "Publisher desks"
+    }
+  ],
+  "needFromRaja": [
+    "Confirm Raja worked the BENGALURU date (7 February 2026) and not another city on the tour",
+    "Scope: stage, truss and rigging, lighting, barricading, seating?",
+    "Stage dimensions and rigging load \u2014 concert rigging is a strong technical credential",
+    "Raja's own photographs, ideally the lit stage at showtime",
+    "TribeVibe contact \u2014 as a professional promoter they will hold commissioned show photography and are a realistic licensing prospect"
+  ],
+  "priority": "medium",
+  "status": "complete"
+}

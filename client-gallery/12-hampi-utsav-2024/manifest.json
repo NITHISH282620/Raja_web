@@ -1,0 +1,90 @@
+{
+  "id": "12-hampi-utsav-2024",
+  "organization": "Karnataka State Habitat Centre (client of record). The festival itself is staged by the Government of Karnataka with the Vijayanagara district administration.",
+  "event": "Hampi Utsav 2024 (Hampi Festival / Vijaya Utsav)",
+  "year": "2024",
+  "location": "Hampi, Vijayanagara district, Karnataka \u2014 UNESCO World Heritage Site",
+  "identityConfidence": "EVENT: HIGH. Three-day state festival at Hampi in early February 2024, staged by the Government of Karnataka against the UNESCO-listed ruins, with parades, elephants, cultural stages, fireworks and a light-and-sound show. CLIENT ROLE: MEDIUM \u2014 the Karnataka State Habitat Centre is named as Raja's client but is not the festival's public organiser; it is presumably the implementing or procuring agency.",
+  "eventEvidence": [
+    {
+      "url": "https://hospet.online/hampi-utsav-2024-events-list-and-invitation-released/",
+      "label": "Official 2024 invitation and programme",
+      "rank": "B",
+      "provides": "Edition-specific confirmation."
+    }
+  ],
+  "rajaExecutionEvidence": [],
+  "officialSources": [
+    {
+      "url": "https://utsav.gov.in/view-event/hampi-utsava-1",
+      "label": "utsav.gov.in \u2014 Hampi Utsava (Government of India)",
+      "rank": "B",
+      "provides": "Central government's official festivals portal. Institutional confirmation of the festival's status and character."
+    },
+    {
+      "url": "https://hospet.online/hampi-utsav-2024-events-list-and-invitation-released/",
+      "label": "Hampi Utsav 2024 events list and official invitation",
+      "rank": "B",
+      "provides": "Reproduces the official invitation and programme for the 2024 edition \u2014 the most edition-specific document found, and it names the stages/venues used."
+    }
+  ],
+  "photoSources": [
+    {
+      "url": "https://www.deccanherald.com/india/karnataka/hampi-utsav-construction-of-main-stage-begins-3402871",
+      "label": "Deccan Herald \u2014 'Hampi Utsav: Construction of main stage begins'",
+      "rank": "C",
+      "type": "news",
+      "contains": "A press photograph of the main stage under construction \u2014 thematically the single most valuable image type for Raja on this whole list.",
+      "quality": "HIGH RELEVANCE, WRONG YEAR RISK. Verify the publication date first (image path suggests Feb 2025). If it is the 2025 edition and Raja also worked that year, it becomes evidence for a new record rather than this one."
+    },
+    {
+      "url": "https://www.holidify.com/places/hampi/hampi-utsav-sightseeing-1253602.html",
+      "label": "Holidify \u2014 Hampi Utsav dates and photos",
+      "rank": "E",
+      "type": "travel aggregator",
+      "contains": "Festival photography.",
+      "quality": "Aggregated and poorly credited \u2014 use only to locate images, never as a source of record."
+    }
+  ],
+  "logoSources": [
+    {
+      "url": "https://utsav.gov.in/view-event/hampi-utsava-1",
+      "label": "Hampi Utsava / Government of Karnataka marks",
+      "rank": "B",
+      "provides": "Official emblems. Government insignia carries its own usage restrictions."
+    }
+  ],
+  "socialSources": [],
+  "mediaSources": [
+    {
+      "url": "https://www.deccanchronicle.com/lifestyle/vijayanagara-gears-up-for-hampi-utsav-2024-880788",
+      "label": "Deccan Chronicle \u2014 'Vijayanagara gears up for Hampi Utsav 2024'",
+      "rank": "C",
+      "provides": "Preview coverage describing the city dressed with decorative lighting, arches and LED walls at key circles \u2014 a direct description of the temporary infrastructure scope.",
+      "credit": "Deccan Chronicle"
+    }
+  ],
+  "rights": [
+    {
+      "name": "Deccan Herald / Deccan Chronicle photography",
+      "owner": "Respective publishers",
+      "classification": "media copyrighted",
+      "contact": "Publisher syndication desks"
+    },
+    {
+      "name": "Government festival imagery",
+      "owner": "Government of Karnataka / Vijayanagara district administration",
+      "classification": "official / permission likely required",
+      "contact": "District administration; Karnataka Dept. of Tourism"
+    }
+  ],
+  "needFromRaja": [
+    "Confirm the edition year \u2014 and whether Raja worked 2024, 2025, or both",
+    "The government work order via Karnataka State Habitat Centre \u2014 a government paper trail is the strongest execution evidence available on this list",
+    "Raja's own photographs of the main stage build at Hampi",
+    "Scope and figures: stage dimensions, seating capacity, barricading run, lighting",
+    "Clarify what role Karnataka State Habitat Centre played, since it is not the public organiser"
+  ],
+  "priority": "high",
+  "status": "complete"
+}
