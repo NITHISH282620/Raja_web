@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Raja Enterprises
 
-## Getting Started
+Large-scale event infrastructure — Bengaluru, since 1977.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Next.js 16 · React 19 · Tailwind CSS 4 · GSAP 3.15
+
+## Layout
+
+```
+app/         layout, page, globals.css (the whole token layer)
+sections/    the nine sections of the Figma `main` frame
+components/  Eyebrow · Statement · WorkCard · InventoryTile · Buttons · Placeholder
+motion/      ease.ts (the two Figma curves) · primitives.ts · MotionProvider
+content/     typed content modules — all unresolved copy lives here, not in markup
+scripts/     asset pipeline, visual inspection, fallback checks, content audit
+client-gallery/  research dossier for the 27 client events
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Commands
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| | |
+|---|---|
+| `npm run dev` | dev server |
+| `npm run build` | production build |
+| `npm run assets` | re-run the Figma asset pipeline into `public/` |
+| `npm run inspect` | screenshot the running site at 4 viewports, report overflow + console errors |
+| `npm run check:fallbacks` | verify reduced-motion and no-JS remain fully readable |
+| `npm run audit:content` | list every unresolved content record |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`inspect` and `check:fallbacks` need Playwright browsers:
+`npx playwright install chromium`
 
-## Learn More
+## Content status
 
-To learn more about Next.js, take a look at the following resources:
+The Figma design is **semi-approved**. Copy that was duplicated, contradictory
+or absent in the file is not invented here — it lives in `content/` marked
+`provisional` or `pending` and renders through a visible `<Placeholder>`.
+Run `npm run audit:content` for the current list.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Before launch, four things need real content: the case studies, the
+build-sequence photography, the client list, and contact details.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Motion
 
-## Deploy on Vercel
+The Figma file holds a real keyframe timeline — 150 animated nodes on one
+19-second cohort. It is decomposed into nine per-section GSAP timelines in
+`motion/`, preserving the authored staggers and both easing curves. Every
+timeline is gated behind `prefers-reduced-motion`, and the page is fully
+readable with JavaScript disabled.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## client-gallery
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Research only. Third-party image binaries are gitignored — this repository is
+public and those rights are unresolved. `client-gallery/index.md` is the master
+index; each event folder holds `sources.md` and `manifest.json`.
+
+Event evidence and Raja execution evidence are tracked separately, on purpose:
+a photograph of an event never proves who built it.
