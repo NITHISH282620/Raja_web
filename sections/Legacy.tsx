@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, fadeUp, fadeIn, growRule, land, entranceTrigger, q } from "@/motion/primitives";
-import { DUR, EASE, STAGGER, MOTION_OK, MOTION_DESKTOP } from "@/motion/ease";
+import { DUR, EASE, STAGGER, MOTION_DESKTOP } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { arcs, legacyIntro } from "@/content/legacy";
@@ -13,7 +13,6 @@ import { SECTION_IDS } from "@/content/navigation";
 
 const pct = (n: number) => `${n}%`;
 
-/** Responsive mobile coordinates providing wide landscape cards */
 const mobilePositions = [
   { left: 4, top: 7, width: 36, height: 13.5 },
   { left: 60, top: 9, width: 36, height: 13.5 },
@@ -26,12 +25,9 @@ const mobilePositions = [
 /**
  * Legacy Section (Since 1977)
  *
- * Uses `position: sticky` to pin the section while the user scrolls.
- * The next section (Capabilities / "What We Build") scrolls OVER this
- * section, creating the scroll-over curtain reveal effect.
- *
- * On desktop: parallax drift on cards while pinned.
- * On mobile: entrance animations only (no sticky to avoid touch jank).
+ * Sticky pinned: stays in place while subsequent sections scroll over it.
+ * Fast entrance animations for immediate visual impact.
+ * Desktop parallax drift on cards while section is in view.
  */
 export function LegacyView({ collage }: { collage: any[] }) {
   const root = useRef<HTMLElement>(null);
@@ -43,35 +39,43 @@ export function LegacyView({ collage }: { collage: any[] }) {
 
       const mm = gsap.matchMedia();
 
-      /* Desktop: entrance + parallax drift while pinned */
+      /* Desktop: fast entrance + parallax drift */
       mm.add(MOTION_DESKTOP, () => {
-        const entranceTl = gsap.timeline({ scrollTrigger: entranceTrigger(scope) });
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: scope, start: "top 85%", once: true },
+        });
 
+        // Arcs fade in quickly
         const arcNodes = q(scope, "[data-arc]");
         if (arcNodes.length) {
-          entranceTl.fromTo(
+          tl.fromTo(
             arcNodes,
-            { opacity: 0, scale: 0.55 },
-            { opacity: 1, scale: 1, duration: 1.7, stagger: STAGGER.arcs, ease: EASE.spring },
+            { opacity: 0, scale: 0.7 },
+            { opacity: 1, scale: 1, duration: 0.8, stagger: 0.06, ease: EASE.spring },
             0,
           );
         }
 
-        growRule(entranceTl, q(scope, "[data-reveal-rule]"), {}, 0.7);
-        fadeIn(entranceTl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.04 }, 0.7);
-        fadeUp(entranceTl, q(scope, "[data-statement]"), { duration: DUR.statement }, 0.95);
+        // Text appears fast
+        growRule(tl, q(scope, "[data-reveal-rule]"), { duration: 0.5 }, 0.2);
+        fadeIn(tl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.03, duration: 0.4 }, 0.2);
+        fadeUp(tl, q(scope, "[data-statement]"), { duration: 0.6, distance: 16 }, 0.3);
 
-        land(entranceTl, q(scope, "[data-collage]"), {
-          stagger: STAGGER.collage,
+        // Cards land FAST - staggered but quick
+        land(tl, q(scope, "[data-collage]"), {
+          stagger: 0.08,
+          duration: 0.6,
+          distance: 30,
+          scaleFrom: 0.92,
           staggerEase: "power1.inOut",
-          rotate: (i: number) => (i % 2 === 0 ? -3.5 : 3.5),
-        }, 1.2);
+          rotate: (i: number) => (i % 2 === 0 ? -3 : 3),
+        }, 0.35);
 
-        // Slow parallax drift on cards while section is in view
+        // Subtle parallax drift while pinned
         const cards = q(scope, "[data-collage]");
         cards.forEach((card, i) => {
           const dir = i % 2 === 0 ? 1 : -1;
-          const amount = 5 + (i % 3) * 3;
+          const amount = 4 + (i % 3) * 2.5;
           gsap.to(card, {
             yPercent: dir * amount,
             ease: "none",
@@ -79,35 +83,40 @@ export function LegacyView({ collage }: { collage: any[] }) {
               trigger: scope,
               start: "top bottom",
               end: "bottom top",
-              scrub: 0.8,
+              scrub: 0.5,
             },
           });
         });
       });
 
-      /* Mobile/Tablet: entrance only */
+      /* Mobile/Tablet: fast entrance only, no sticky */
       mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
-        const entranceTl = gsap.timeline({ scrollTrigger: entranceTrigger(scope) });
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: scope, start: "top 85%", once: true },
+        });
 
         const arcNodes = q(scope, "[data-arc]");
         if (arcNodes.length) {
-          entranceTl.fromTo(
+          tl.fromTo(
             arcNodes,
-            { opacity: 0, scale: 0.55 },
-            { opacity: 1, scale: 1, duration: 1.7, stagger: STAGGER.arcs, ease: EASE.spring },
+            { opacity: 0, scale: 0.7 },
+            { opacity: 1, scale: 1, duration: 0.8, stagger: 0.06, ease: EASE.spring },
             0,
           );
         }
 
-        growRule(entranceTl, q(scope, "[data-reveal-rule]"), {}, 0.7);
-        fadeIn(entranceTl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.04 }, 0.7);
-        fadeUp(entranceTl, q(scope, "[data-statement]"), { duration: DUR.statement }, 0.95);
+        growRule(tl, q(scope, "[data-reveal-rule]"), { duration: 0.5 }, 0.2);
+        fadeIn(tl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.03, duration: 0.4 }, 0.2);
+        fadeUp(tl, q(scope, "[data-statement]"), { duration: 0.6, distance: 16 }, 0.3);
 
-        land(entranceTl, q(scope, "[data-collage]"), {
-          stagger: STAGGER.collage,
+        land(tl, q(scope, "[data-collage]"), {
+          stagger: 0.08,
+          duration: 0.6,
+          distance: 30,
+          scaleFrom: 0.92,
           staggerEase: "power1.inOut",
-          rotate: (i: number) => (i % 2 === 0 ? -3.5 : 3.5),
-        }, 1.2);
+          rotate: (i: number) => (i % 2 === 0 ? -3 : 3),
+        }, 0.35);
       });
 
       return () => mm.revert();
@@ -138,7 +147,7 @@ export function LegacyView({ collage }: { collage: any[] }) {
           </div>
         ))}
 
-        {/* 6 Floating Event Photo Cards */}
+        {/* 6 Event Photo Cards */}
         {collage.map((photo, i) => {
           const mob = mobilePositions[i] || photo;
           return (
