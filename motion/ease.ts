@@ -1,28 +1,12 @@
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
-import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-/**
- * The two easing curves authored in the Figma timeline, reproduced exactly
- * rather than approximated. Every motion in the design uses one of them —
- * there is no third curve, and none should be added.
- */
 export const EASE = {
-  /** cubic-bezier(0.16, 1, 0.3, 1) — expo-out. Carries opacity and position. */
   primary: "raja-expo",
-  /** Damped spring. Carries scale, and is why scale-ins overshoot slightly. */
   spring: "raja-spring",
 } as const;
 
-/**
- * Figma exports the scale easing as a closed-form damped oscillator:
- *
- *   f(t) = 1 - e^(-7.6657t) * (cos(6.7605t) + 1.1339 * sin(6.7605t))
- *
- * CustomEase takes an SVG path, so the curve is sampled into a polyline. 96
- * samples keeps the overshoot and the settle visually identical to Figma while
- * staying cheap to parse.
- */
 const DAMPING = 7.6657;
 const OMEGA = 6.7605;
 const PHASE = 1.1339;
@@ -42,56 +26,25 @@ let registered = false;
 
 export function registerEases() {
   if (registered) return;
-  // SplitText is registered here rather than in MotionProvider for the same
-  // reason the eases are: sections build their timelines in useLayoutEffect,
-  // which runs before any provider effect.
-  gsap.registerPlugin(CustomEase, SplitText);
-  CustomEase.create(EASE.primary, "M0,0 C0.16,1 0.3,1 1,1");
-  CustomEase.create(EASE.spring, springPath());
-
-  // Everything unspecified inherits the design's own curve rather than GSAP's
-  // default, so no tween can quietly fall back to a foreign ease again.
-  // force3D is deliberately left at GSAP's "auto": forcing it promotes text to
-  // GPU layers permanently and softens glyph edges, which costs more in
-  // perceived quality than the compositing gains it buys.
-  gsap.defaults({ ease: EASE.primary });
-
-  registered = true;
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(CustomEase, ScrollTrigger);
+    CustomEase.create(EASE.primary, "M0,0 C0.16,1 0.3,1 1,1");
+    CustomEase.create(EASE.spring, springPath());
+    gsap.defaults({ ease: EASE.primary });
+    registered = true;
+  }
 }
 
-/**
- * Registered at MODULE LOAD, deliberately — not from an effect.
- *
- * Sections build their timelines inside `useGSAP`, which runs in
- * useLayoutEffect and therefore fires before MotionProvider's useEffect (and
- * children run before parents). Registering the eases in an effect meant the
- * names did not exist yet when the timelines were built, and GSAP silently
- * substituted its default `power1.out` for every single tween — measured and
- * confirmed in the browser. That is what made the motion feel flat instead of
- * weighted. Importing this module now guarantees the curves exist first,
- * because every section reaches it through motion/primitives.
- */
 registerEases();
 
-/**
- * Durations and staggers lifted from the 19s Figma cohort. Section timelines
- * reference these instead of hardcoding numbers, so the whole choreography can
- * be retimed from one place without restructuring any timeline.
- */
 export const DUR = {
-  /** Standard text/element entrance — 0.55s in Figma. */
   reveal: 0.55,
-  /** Longer entrance used for headline statements — 0.85s. */
   statement: 0.85,
-  /** Hairline rules growing from zero width — 0.5s. */
   rule: 0.5,
-  /** Image scale settling inside a card — 1.3s. */
   image: 1.3,
-  /** Collage photographs landing — 0.8s. */
   land: 0.8,
 } as const;
 
-/** Stagger intervals, measured between consecutive nodes in the Figma export. */
 export const STAGGER = {
   navRules: 0.06,
   arcs: 0.2,
@@ -104,22 +57,12 @@ export const STAGGER = {
   clients: 0.045,
 } as const;
 
-/** Distances, in px at 1440. Kept small — the design moves things, not far. */
 export const SHIFT = {
   y: 40,
   yLarge: 64,
   x: 28,
 } as const;
 
-/**
- * Media conditions every section registers its timelines under.
- *
- * Reduced motion is handled here, once, rather than in eight places: when the
- * visitor has asked for it, no timeline is ever built and no pin is ever
- * created. `[data-reveal]` is never pre-hidden in that state either (the
- * inline script in the layout skips the `motion-ready` class), so the page
- * renders complete and static.
- */
 export const MOTION_OK = "(prefers-reduced-motion: no-preference)";
 export const MOTION_DESKTOP = "(min-width: 1024px) and (prefers-reduced-motion: no-preference)";
 export const MOTION_COMPACT = "(max-width: 1023px) and (prefers-reduced-motion: no-preference)";
