@@ -103,13 +103,13 @@ function FlatHex({
           className="transition-colors duration-300 group-hover:stroke-accent/50"
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center p-3">
+      <div className="absolute inset-0 flex items-center justify-center p-1.5">
         <Image
           src={client.logo.src}
           alt={client.name}
           width={client.logo.width}
           height={client.logo.height}
-          className="max-h-[40px] max-w-[68px] object-contain transition-transform duration-300 group-hover:scale-110"
+          className="max-h-[58px] max-w-[86px] object-contain transition-transform duration-300 group-hover:scale-110"
         />
       </div>
     </div>
@@ -223,7 +223,7 @@ export function ClientsView({
 
             {/* -------- DESKTOP: Pixel-Perfect Honeycomb Grid -------- */}
             <div
-              className="relative mx-auto my-auto hidden lg:block lg:scale-[0.82] xl:scale-100 origin-center"
+              className="relative mx-auto my-auto hidden lg:block lg:scale-[1.05] xl:scale-[1.25] origin-center"
               style={{ width: GRID_W, height: GRID_H }}
             >
               {/* Left Wing */}
@@ -330,14 +330,14 @@ export function ClientsView({
                   key={c.id}
                   data-logo-tile
                   data-reveal
-                  className="group flex h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] items-center justify-center rounded-2xl bg-white border border-ink/8 shadow-sm p-3 transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-md"
+                  className="group flex h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] items-center justify-center rounded-2xl bg-white border border-ink/8 shadow-sm p-2 transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-md"
                 >
                   <Image
                     src={c.logo.src}
                     alt={c.name}
                     width={c.logo.width}
                     height={c.logo.height}
-                    className="max-h-[40px] max-w-[60px] object-contain"
+                    className="max-h-[50px] max-w-[70px] object-contain"
                   />
                 </div>
               ))}
@@ -357,14 +357,14 @@ export function ClientsView({
                   key={c.id}
                   data-logo-tile
                   data-reveal
-                  className="group flex h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] items-center justify-center rounded-2xl bg-white border border-ink/8 shadow-sm p-3 transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-md"
+                  className="group flex h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] items-center justify-center rounded-2xl bg-white border border-ink/8 shadow-sm p-2 transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-md"
                 >
                   <Image
                     src={c.logo.src}
                     alt={c.name}
                     width={c.logo.width}
                     height={c.logo.height}
-                    className="max-h-[40px] max-w-[60px] object-contain"
+                    className="max-h-[50px] max-w-[70px] object-contain"
                   />
                 </div>
               ))}
