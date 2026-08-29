@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
-import { gsap, fadeUp, fadeIn, growRule, land, parallax, entranceTrigger, q } from "@/motion/primitives";
+import { gsap, fadeUp, fadeIn, growRule, land, entranceTrigger, q } from "@/motion/primitives";
 import { DUR, EASE, STAGGER, MOTION_OK, MOTION_DESKTOP } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
@@ -26,13 +26,15 @@ const mobilePositions = [
 /**
  * Legacy Section (Since 1977)
  *
- * Preserves the exact signature 4-arc & 6-card scatter composition on all screen sizes.
- * On mobile/tablet, cards have wide landscape proportions (16:10 / 4:3) so images are never squeezed.
- * Desktop gets a scroll-driven parallax float effect on the photo cards.
+ * Uses `position: sticky` to pin the section while the user scrolls.
+ * The next section (Capabilities / "What We Build") scrolls OVER this
+ * section, creating the scroll-over curtain reveal effect.
+ *
+ * On desktop: parallax drift on cards while pinned.
+ * On mobile: entrance animations only (no sticky to avoid touch jank).
  */
 export function LegacyView({ collage }: { collage: any[] }) {
   const root = useRef<HTMLElement>(null);
-  const container = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -41,9 +43,8 @@ export function LegacyView({ collage }: { collage: any[] }) {
 
       const mm = gsap.matchMedia();
 
-      /* -- Desktop: Entrance + Parallax -- */
+      /* Desktop: entrance + parallax drift while pinned */
       mm.add(MOTION_DESKTOP, () => {
-        // Entrance reveal timeline
         const entranceTl = gsap.timeline({ scrollTrigger: entranceTrigger(scope) });
 
         const arcNodes = q(scope, "[data-arc]");
@@ -60,53 +61,32 @@ export function LegacyView({ collage }: { collage: any[] }) {
         fadeIn(entranceTl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.04 }, 0.7);
         fadeUp(entranceTl, q(scope, "[data-statement]"), { duration: DUR.statement }, 0.95);
 
-        // Photographs landing
         land(entranceTl, q(scope, "[data-collage]"), {
           stagger: STAGGER.collage,
           staggerEase: "power1.inOut",
           rotate: (i: number) => (i % 2 === 0 ? -3.5 : 3.5),
         }, 1.2);
 
-        // Scroll-driven parallax float on each photo card (desktop only)
+        // Slow parallax drift on cards while section is in view
         const cards = q(scope, "[data-collage]");
         cards.forEach((card, i) => {
-          const direction = i % 2 === 0 ? 1 : -1;
-          const intensity = 6 + (i % 3) * 4; // varied float amounts
+          const dir = i % 2 === 0 ? 1 : -1;
+          const amount = 5 + (i % 3) * 3;
           gsap.to(card, {
-            yPercent: direction * intensity,
+            yPercent: dir * amount,
             ease: "none",
             scrollTrigger: {
               trigger: scope,
               start: "top bottom",
               end: "bottom top",
               scrub: 0.8,
-              invalidateOnRefresh: true,
-            },
-          });
-        });
-
-        // Subtle scale-down parallax on arcs
-        arcNodes.forEach((arc) => {
-          gsap.to(arc, {
-            scale: 0.92,
-            yPercent: 5,
-            ease: "none",
-            scrollTrigger: {
-              trigger: scope,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
             },
           });
         });
       });
 
-      /* -- Mobile/Tablet: Entrance only, no parallax -- */
-      mm.add(MOTION_OK, () => {
-        // Only apply entrance on mobile (no desktop check needed - MOTION_DESKTOP handles desktop)
-        // Check if we are on mobile by checking viewport
-        if (window.innerWidth >= 1024) return; // Desktop handled above
-
+      /* Mobile/Tablet: entrance only */
+      mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
         const entranceTl = gsap.timeline({ scrollTrigger: entranceTrigger(scope) });
 
         const arcNodes = q(scope, "[data-arc]");
@@ -141,12 +121,9 @@ export function LegacyView({ collage }: { collage: any[] }) {
     <section
       ref={root}
       id={SECTION_IDS.legacy}
-      className="relative z-10 w-full h-screen min-h-[660px] max-h-[1050px] overflow-hidden bg-paper flex items-center justify-center px-3 sm:px-6 lg:px-8"
+      className="lg:sticky lg:top-0 relative z-10 w-full h-screen min-h-[660px] max-h-[1050px] overflow-hidden bg-paper flex items-center justify-center px-3 sm:px-6 lg:px-8"
     >
-      <div
-        ref={container}
-        className="relative w-full max-w-[1480px] h-[92vh] max-h-[880px] aspect-[1440/884] mx-auto flex items-center justify-center"
-      >
+      <div className="relative w-full max-w-[1480px] h-[92vh] max-h-[880px] aspect-[1440/884] mx-auto flex items-center justify-center">
         {/* 4 Background Arcs */}
         {arcs.map((arc) => (
           <div
@@ -161,7 +138,7 @@ export function LegacyView({ collage }: { collage: any[] }) {
           </div>
         ))}
 
-        {/* 6 Harmonious Floating Event Photo Cards */}
+        {/* 6 Floating Event Photo Cards */}
         {collage.map((photo, i) => {
           const mob = mobilePositions[i] || photo;
           return (
@@ -203,7 +180,7 @@ export function LegacyView({ collage }: { collage: any[] }) {
           );
         })}
 
-        {/* Central Eyebrow & Clean Statement Design */}
+        {/* Central Text */}
         <div
           data-statement-wrap
           className="absolute left-1/2 top-[27%] sm:top-[28.5%] w-[66%] sm:w-[60%] -translate-x-1/2 text-center z-20 pointer-events-none"
