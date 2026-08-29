@@ -12,10 +12,61 @@ import { SECTION_IDS } from "@/content/navigation";
 import { clsx } from "@/lib/clsx";
 
 /**
- * Modern Constellation Logo Section:
- * - Glowing Central Raja Enterprises Hexagonal Shield Emblem with hover animation
- * - Symmetrical left & right floating partner logo clusters with float micro-animations
- * - Closing CTA: "Start a build / Let's build the ground your event stands on."
+ * Reusable Rounded Hexagon Partner Badge
+ */
+function HexagonPartnerBadge({
+  client,
+  className,
+  isDelayed = false,
+}: {
+  client: Client;
+  className?: string;
+  isDelayed?: boolean;
+}) {
+  return (
+    <div
+      data-logo-tile
+      data-reveal
+      className={clsx(
+        "group relative flex items-center justify-center transition-all duration-500 hover:scale-110 hover:-translate-y-2 hover:z-30 cursor-pointer",
+        isDelayed ? "animate-float-delayed" : "animate-float",
+        className,
+      )}
+      style={{ filter: "drop-shadow(0 10px 22px rgba(0, 0, 0, 0.06))" }}
+    >
+      {/* Crisp Vector Hexagon Background */}
+      <svg
+        viewBox="0 0 140 160"
+        className="w-[110px] h-[126px] sm:w-[125px] sm:h-[143px] md:w-[136px] md:h-[156px] transition-all duration-300 group-hover:scale-105"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M70 8 L130 42.5 L130 117.5 L70 152 L10 117.5 L10 42.5 Z"
+          fill="#FFFFFF"
+          stroke="#E5E7EB"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+          className="transition-colors duration-300 group-hover:stroke-accent/60 group-hover:fill-white"
+        />
+      </svg>
+
+      {/* Partner Logo Centered Inside Hexagon */}
+      <div className="absolute inset-0 flex items-center justify-center p-5">
+        <Image
+          src={client.logo.src}
+          alt={client.name}
+          width={client.logo.width}
+          height={client.logo.height}
+          className="max-h-[44px] max-w-[76px] sm:max-h-[50px] sm:max-w-[88px] object-contain transition-transform duration-300 group-hover:scale-110"
+        />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Full-Screen Constellation Logo Section with Honeycomb Hexagons
  */
 export function ClientsView({
   clients,
@@ -41,8 +92,8 @@ export function ClientsView({
 
         growRule(tl, q(scope, "[data-divider]"), { duration: 0.9 }, 0);
         fadeUp(tl, q(scope, "[data-clients-header]"), { distance: 20 }, 0.15);
-        riseCard(tl, q(scope, "[data-center-shield]"), { distance: 35, scaleFrom: 0.82 }, 0.35);
-        fadeUp(tl, q(scope, "[data-logo-tile]"), { stagger: 0.04, distance: 24, scaleFrom: 0.9 }, 0.45);
+        riseCard(tl, q(scope, "[data-center-hexagon]"), { distance: 35, scaleFrom: 0.8 }, 0.35);
+        fadeUp(tl, q(scope, "[data-logo-tile]"), { stagger: 0.04, distance: 24, scaleFrom: 0.88 }, 0.45);
         fadeUp(tl, q(scope, "[data-cta-eyebrow]"), { distance: 18 }, 0.8);
         riseCard(tl, q(scope, "[data-cta-button]"), { distance: 18, scaleFrom: 0.9 }, 1.0);
 
@@ -62,116 +113,135 @@ export function ClientsView({
   const rightClients = clients.slice(6, 12);
 
   return (
-    <section ref={root} id={SECTION_IDS.clients} className="relative w-full overflow-hidden bg-paper py-[clamp(64px,8vw,110px)]">
-      <div className="frame">
-        <span data-divider aria-hidden className="block h-px w-full origin-left bg-ink/12 mb-[clamp(48px,6vw,80px)]" />
+    <section
+      ref={root}
+      id={SECTION_IDS.clients}
+      className="relative w-full min-h-screen bg-paper py-[clamp(64px,8vw,110px)] flex flex-col justify-between"
+    >
+      <div className="w-full">
+        <div className="frame">
+          <span data-divider aria-hidden className="block h-px w-full origin-left bg-ink/12 mb-[clamp(40px,5vw,70px)]" />
+        </div>
 
         {/* ====================================================================
-            Modern Dribbble-Style Constellation Hub Card
+            Full-Bleed Modern Constellation Hub Container
            ==================================================================== */}
-        <div className="relative w-full overflow-hidden rounded-[28px] sm:rounded-[36px] lg:rounded-[48px] bg-gradient-to-b from-white via-[#fbfcfd] to-[#f2f4f7] border border-ink/8 shadow-[0_24px_70px_-16px_rgba(0,0,0,0.07)] p-6 sm:p-10 md:p-14 lg:p-16">
-          {/* Subtle Ambient Background Gradient Glows */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-brand-blue/5 blur-3xl"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent/5 blur-3xl"
-          />
+        <div className="frame w-full">
+          <div className="relative w-full min-h-[85vh] lg:min-h-[90vh] rounded-[32px] sm:rounded-[44px] lg:rounded-[56px] bg-gradient-to-b from-white via-[#fafbfe] to-[#f0f3f7] border border-ink/8 shadow-[0_28px_80px_-20px_rgba(0,0,0,0.08)] p-6 sm:p-10 md:p-14 lg:p-20 flex flex-col items-center justify-center overflow-hidden">
+            {/* Ambient Radial Color Halos */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -left-28 top-1/4 h-96 w-96 rounded-full bg-brand-blue/6 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-28 top-1/4 h-96 w-96 rounded-full bg-accent/6 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[450px] w-[450px] rounded-full bg-brand-blue/5 blur-[120px]"
+            />
 
-          {/* Section Header */}
-          <div data-clients-header data-reveal className="mx-auto max-w-[700px] text-center mb-10 md:mb-14">
-            <p className="t-eyebrow text-accent font-mono tracking-[0.18em] uppercase text-xs sm:text-sm mb-3">
-              Institutional &amp; Enterprise Trust
-            </p>
-            <h2 className="text-[clamp(1.75rem,4.5vw,2.75rem)] font-bold text-ink tracking-tight leading-[1.12]">
-              Partners &amp; Clients with Raja Enterprises
-            </h2>
-            <p className="mt-3 text-body-light text-sm sm:text-base leading-relaxed max-w-[54ch] mx-auto">
-              From state and federal governments to premier universities and global trade forums ’ we build the ground where leaders gather.
-            </p>
-          </div>
-
-          {/* ====================================================================
-              Constellation Layout: Left Cluster + Center Raja Emblem + Right Cluster
-             ==================================================================== */}
-          <div className="relative flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8 xl:gap-10">
-            {/* Left Partner Cluster (6 Logos) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 w-full lg:w-auto shrink-0 justify-items-center">
-              {leftClients.map((client, idx) => (
-                <div
-                  key={client.id}
-                  data-logo-tile
-                  data-reveal
-                  className={clsx(
-                    "group relative flex h-[76px] w-[130px] sm:h-[84px] sm:w-[150px] md:h-[90px] md:w-[160px] items-center justify-center rounded-[18px] sm:rounded-[22px] bg-white/90 backdrop-blur-md p-3.5 shadow-[0_6px_20px_rgba(0,0,0,0.04)] ring-1 ring-black/[0.06] transition-all duration-300 hover:scale-110 hover:-translate-y-1.5 hover:shadow-[0_16px_32px_rgba(0,0,0,0.12)] hover:ring-accent/40",
-                    idx % 2 === 0 ? "animate-float" : "animate-float-delayed",
-                  )}
-                >
-                  <Image
-                    src={client.logo.src}
-                    alt={client.name}
-                    width={client.logo.width}
-                    height={client.logo.height}
-                    className="max-h-[48px] max-w-[115px] object-contain transition-all duration-300 group-hover:scale-105"
-                  />
-                </div>
-              ))}
+            {/* Section Header */}
+            <div data-clients-header data-reveal className="mx-auto max-w-[760px] text-center mb-12 sm:mb-16 lg:mb-20">
+              <p className="t-eyebrow text-accent font-mono tracking-[0.2em] uppercase text-xs sm:text-sm mb-3.5 font-medium">
+                Institutional &amp; Enterprise Trust
+              </p>
+              <h2 className="text-[clamp(2rem,5vw,3.25rem)] font-bold text-ink tracking-tight leading-[1.08]">
+                Partners &amp; Clients with Raja Enterprises
+              </h2>
+              <p className="mt-4 text-body-light text-sm sm:text-base md:text-lg leading-relaxed max-w-[58ch] mx-auto">
+                From government mega-summits to global corporate forums and trade exhibitions ’ we build the ground where leaders gather.
+              </p>
             </div>
 
-            {/* Central Elevated Raja Enterprises Shield Emblem */}
-            <div
-              data-center-shield
-              data-reveal
-              className="group relative my-4 lg:my-0 flex h-[160px] w-[160px] sm:h-[185px] sm:w-[185px] md:h-[205px] md:w-[205px] shrink-0 items-center justify-center rounded-[32px] sm:rounded-[40px] md:rounded-[48px] bg-gradient-to-br from-[#0c2333] via-[#063c5a] to-[#041c2c] p-6 shadow-[0_0_50px_rgba(6,60,90,0.4),0_20px_40px_rgba(0,0,0,0.25)] ring-2 ring-white/20 transition-all duration-500 hover:scale-110 hover:rotate-3 hover:shadow-[0_0_70px_rgba(235,85,87,0.5),0_25px_50px_rgba(6,60,90,0.45)] hover:ring-accent cursor-pointer"
-            >
-              {/* Internal glowing radial backdrop */}
-              <div
-                aria-hidden
-                className="absolute inset-0 rounded-[inherit] bg-[radial-gradient(circle_at_50%_30%,rgba(235,85,87,0.25),transparent_70%)] opacity-80 transition-opacity duration-500 group-hover:opacity-100"
-              />
+            {/* ====================================================================
+                Hexagonal Honeycomb Constellation
+               ==================================================================== */}
+            <div className="relative w-full flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-4 xl:gap-8 my-auto">
+              {/* Left Wing (6 Hexagons in Honeycomb Formation) */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4 lg:-space-x-4 items-center justify-items-center">
+                {leftClients.map((client, idx) => (
+                  <HexagonPartnerBadge
+                    key={client.id}
+                    client={client}
+                    isDelayed={idx % 2 === 1}
+                    className={clsx(
+                      idx === 1 || idx === 4 ? "lg:translate-y-6" : "lg:-translate-y-3",
+                    )}
+                  />
+                ))}
+              </div>
 
-              <div className="relative z-10 flex flex-col items-center justify-center text-center">
-                {/* Clean RE Monogram Emblem */}
-                <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-md ring-1 ring-white/30 shadow-inner mb-2 transition-transform duration-500 group-hover:scale-110 group-hover:bg-accent group-hover:ring-accent">
-                  <span className="font-mono text-lg sm:text-xl font-black text-white tracking-tighter">
-                    RE
+              {/* Central Elevated Raja Enterprises Glowing Hexagon Shield */}
+              <div
+                data-center-hexagon
+                data-reveal
+                className="group relative my-6 lg:my-0 flex items-center justify-center shrink-0 cursor-pointer transition-all duration-500 hover:scale-110 hover:rotate-2 hover:z-40"
+                style={{ filter: "drop-shadow(0 0 45px rgba(6, 60, 90, 0.4))" }}
+              >
+                {/* Vector Dark Hexagon with Gradient and Glow */}
+                <svg
+                  viewBox="0 0 200 230"
+                  className="w-[180px] h-[207px] sm:w-[200px] sm:h-[230px] md:w-[220px] md:h-[253px] transition-all duration-500 group-hover:scale-105"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <linearGradient id="reDarkHex" x1="100" y1="0" x2="100" y2="230" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#0c2333" />
+                      <stop offset="50%" stopColor="#063c5a" />
+                      <stop offset="100%" stopColor="#031622" />
+                    </linearGradient>
+                    <linearGradient id="reBorderGlow" x1="0" y1="0" x2="200" y2="230" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
+                      <stop offset="50%" stopColor="#eb5557" stopOpacity="0.6" />
+                      <stop offset="100%" stopColor="#ffffff" stopOpacity="0.2" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M100 10 L190 62 L190 168 L100 220 L10 168 L10 62 Z"
+                    fill="url(#reDarkHex)"
+                    stroke="url(#reBorderGlow)"
+                    strokeWidth="2.5"
+                    strokeLinejoin="round"
+                    className="transition-all duration-500 group-hover:stroke-accent"
+                  />
+                </svg>
+
+                {/* Content Inside Central Hexagon */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+                  {/* Monogram Badge */}
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/30 backdrop-blur-md mb-2 transition-transform duration-500 group-hover:scale-110 group-hover:bg-accent group-hover:ring-accent">
+                    <span className="font-mono text-lg sm:text-xl font-black text-white tracking-tighter">
+                      RE
+                    </span>
+                  </div>
+                  <span className="font-display font-bold text-xs sm:text-sm tracking-wider text-white uppercase leading-tight">
+                    RAJA
+                  </span>
+                  <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-white/70 uppercase">
+                    ENTERPRISES
+                  </span>
+                  <span className="mt-1 font-mono text-[8px] sm:text-[9px] tracking-widest text-accent font-bold">
+                    EST. 1977
                   </span>
                 </div>
-                <span className="font-display font-bold text-xs sm:text-sm tracking-wider text-white uppercase leading-tight">
-                  RAJA
-                </span>
-                <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-white/70 uppercase">
-                  ENTERPRISES
-                </span>
-                <span className="mt-1 font-mono text-[8px] sm:text-[9px] tracking-widest text-accent font-semibold">
-                  EST. 1977
-                </span>
               </div>
-            </div>
 
-            {/* Right Partner Cluster (6 Logos) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 w-full lg:w-auto shrink-0 justify-items-center">
-              {rightClients.map((client, idx) => (
-                <div
-                  key={client.id}
-                  data-logo-tile
-                  data-reveal
-                  className={clsx(
-                    "group relative flex h-[76px] w-[130px] sm:h-[84px] sm:w-[150px] md:h-[90px] md:w-[160px] items-center justify-center rounded-[18px] sm:rounded-[22px] bg-white/90 backdrop-blur-md p-3.5 shadow-[0_6px_20px_rgba(0,0,0,0.04)] ring-1 ring-black/[0.06] transition-all duration-300 hover:scale-110 hover:-translate-y-1.5 hover:shadow-[0_16px_32px_rgba(0,0,0,0.12)] hover:ring-accent/40",
-                    idx % 2 === 0 ? "animate-float-delayed" : "animate-float",
-                  )}
-                >
-                  <Image
-                    src={client.logo.src}
-                    alt={client.name}
-                    width={client.logo.width}
-                    height={client.logo.height}
-                    className="max-h-[48px] max-w-[115px] object-contain transition-all duration-300 group-hover:scale-105"
+              {/* Right Wing (6 Hexagons in Honeycomb Formation) */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4 lg:-space-x-4 items-center justify-items-center">
+                {rightClients.map((client, idx) => (
+                  <HexagonPartnerBadge
+                    key={client.id}
+                    client={client}
+                    isDelayed={idx % 2 === 0}
+                    className={clsx(
+                      idx === 1 || idx === 4 ? "lg:translate-y-6" : "lg:-translate-y-3",
+                    )}
                   />
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -179,7 +249,7 @@ export function ClientsView({
         {/* ====================================================================
             The Closing CTA
            ==================================================================== */}
-        <div className="flex flex-col items-center gap-[clamp(16px,1.9vw,26px)] pt-[clamp(64px,9vw,120px)] text-center">
+        <div className="frame flex flex-col items-center gap-[clamp(16px,1.9vw,26px)] pt-[clamp(72px,10vw,140px)] text-center">
           <p data-cta-eyebrow data-reveal className="t-eyebrow text-accent font-mono tracking-[0.16em] uppercase">
             {closingCta.eyebrow}
           </p>
