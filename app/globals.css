@@ -202,25 +202,45 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Marquee Animation
+   Animations
 --------------------------------------------------------------------------- */
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
   }
-  100% {
-    transform: translateX(-50%);
+  50% {
+    transform: translateY(-5px);
   }
 }
 
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 30s linear infinite;
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
 }
 
-.animate-marquee:hover {
-  animation-play-state: paused;
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 45px rgba(6, 60, 90, 0.35), 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 65px rgba(235, 85, 87, 0.3), 0 15px 40px rgba(6, 60, 90, 0.4);
+  }
+}
+
+.animate-float {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 6s ease-in-out infinite 1s;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -233,11 +253,10 @@
     transform: none;
   }
 
-  .animate-marquee {
+  .animate-float,
+  .animate-float-delayed,
+  .animate-pulse-glow {
     animation: none;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
   }
 
   [data-capability-track] {
