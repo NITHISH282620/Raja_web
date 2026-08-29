@@ -12,9 +12,9 @@ import { SECTION_IDS } from "@/content/navigation";
 import { clsx } from "@/lib/clsx";
 
 /**
- * Pointy-Topped Rounded Hexagon Partner Badge
+ * Precision Smooth-Corner Rounded Hexagon Partner Badge
  */
-function HoneycombBadge({
+function SmoothHoneycombBadge({
   client,
   className,
   isDelayed = false,
@@ -32,33 +32,32 @@ function HoneycombBadge({
         isDelayed ? "animate-float-delayed" : "animate-float",
         className,
       )}
-      style={{ filter: "drop-shadow(0 10px 22px rgba(0, 0, 0, 0.05))" }}
+      style={{ filter: "drop-shadow(0 10px 24px rgba(0, 0, 0, 0.05))" }}
     >
-      {/* Precision Vector Pointy Hexagon */}
+      {/* Precision Smooth-Corner Vector Hexagon */}
       <svg
         viewBox="0 0 140 160"
-        className="w-[105px] h-[120px] sm:w-[120px] sm:h-[137px] md:w-[130px] md:h-[148px] xl:w-[140px] xl:h-[160px] transition-all duration-300 group-hover:scale-105"
+        className="w-[96px] h-[110px] sm:w-[114px] sm:h-[130px] md:w-[126px] md:h-[144px] lg:w-[134px] lg:h-[153px] xl:w-[142px] xl:h-[162px] transition-all duration-300 group-hover:scale-105"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M70 8 L130 42.5 L130 117.5 L70 152 L10 117.5 L10 42.5 Z"
+          d="M60 16 Q70 10 80 16 L120 39 Q128 43.5 128 55 L128 105 Q128 116.5 120 121 L80 144 Q70 150 60 144 L20 121 Q12 116.5 12 105 L12 55 Q12 43.5 20 39 Z"
           fill="#FFFFFF"
           stroke="#EAECEF"
           strokeWidth="1.5"
-          strokeLinejoin="round"
           className="transition-colors duration-300 group-hover:stroke-accent/60 group-hover:fill-white"
         />
       </svg>
 
       {/* Centered Partner Logo */}
-      <div className="absolute inset-0 flex items-center justify-center p-4">
+      <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-5">
         <Image
           src={client.logo.src}
           alt={client.name}
           width={client.logo.width}
           height={client.logo.height}
-          className="max-h-[42px] max-w-[72px] sm:max-h-[48px] sm:max-w-[82px] md:max-h-[52px] md:max-w-[90px] object-contain transition-transform duration-300 group-hover:scale-110"
+          className="max-h-[38px] max-w-[66px] sm:max-h-[46px] sm:max-w-[78px] md:max-h-[50px] md:max-w-[86px] object-contain transition-transform duration-300 group-hover:scale-110"
         />
       </div>
     </div>
@@ -66,7 +65,7 @@ function HoneycombBadge({
 }
 
 /**
- * Modern Interlocking Honeycomb Client Hub (Dribbble Design)
+ * Modern Interlocking Honeycomb Client Hub (Dribbble Design with Smooth Rounded Vertices)
  */
 export function ClientsView({
   clients,
@@ -125,7 +124,7 @@ export function ClientsView({
            ==================================================================== */}
         <div className="frame w-full">
           <div className="relative w-full min-h-[85vh] lg:min-h-[90vh] rounded-[32px] sm:rounded-[44px] lg:rounded-[56px] bg-gradient-to-b from-white via-[#fafbfe] to-[#f0f3f7] border border-ink/8 shadow-[0_28px_80px_-20px_rgba(0,0,0,0.08)] p-6 sm:p-10 md:p-14 lg:p-20 flex flex-col items-center justify-center overflow-hidden">
-            {/* Ambient Radial Color Halos (Soft Lilac & Brand Blue) */}
+            {/* Atmospheric Gradient Blur Halos */}
             <div
               aria-hidden
               className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-brand-blue/8 blur-3xl"
@@ -136,58 +135,58 @@ export function ClientsView({
             />
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-brand-blue/5 blur-[100px]"
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[420px] w-[420px] rounded-full bg-brand-blue/5 blur-[110px]"
             />
 
             {/* Section Header */}
-            <div data-clients-header data-reveal className="mx-auto max-w-[760px] text-center mb-12 sm:mb-16 lg:mb-20">
-              <p className="t-eyebrow text-accent font-mono tracking-[0.2em] uppercase text-xs sm:text-sm mb-3.5 font-medium">
+            <div data-clients-header data-reveal className="mx-auto max-w-[760px] text-center mb-10 sm:mb-14 lg:mb-16">
+              <p className="t-eyebrow text-accent font-mono tracking-[0.2em] uppercase text-xs sm:text-sm mb-3 font-medium">
                 Institutional &amp; Enterprise Trust
               </p>
               <h2 className="text-[clamp(2rem,5vw,3.25rem)] font-bold text-ink tracking-tight leading-[1.08]">
                 Partners &amp; Clients with Raja Enterprises
               </h2>
-              <p className="mt-4 text-body-light text-sm sm:text-base md:text-lg leading-relaxed max-w-[58ch] mx-auto">
+              <p className="mt-3.5 text-body-light text-sm sm:text-base md:text-lg leading-relaxed max-w-[58ch] mx-auto">
                 From government mega-summits to global corporate forums and trade exhibitions ’ we build the ground where leaders gather.
               </p>
             </div>
 
             {/* ====================================================================
-                Interlocking Honeycomb Matrix Layout (Bilateral Wings + Center Shield)
+                Interlocking Honeycomb Matrix (Tight Geometry with Smooth Rounded Vertices)
                ==================================================================== */}
-            <div className="relative w-full flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-0 my-auto">
-              {/* Left Honeycomb Wing (3 Columns x 2 Rows with 50% Vertical Interlocking Stagger) */}
-              <div className="flex items-center justify-center -space-x-3 sm:-space-x-4 md:-space-x-5 lg:-space-x-6 xl:-space-x-7">
+            <div className="relative w-full flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-0 my-auto py-4">
+              {/* Left Honeycomb Wing (3 Interlocked Columns) */}
+              <div className="flex items-center justify-center -space-x-5 sm:-space-x-6 md:-space-x-7 lg:-space-x-8 xl:-space-x-9">
                 {/* Column 1 (Outer Left) */}
-                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
-                  <HoneycombBadge client={clients[0]} />
-                  <HoneycombBadge client={clients[1]} isDelayed />
+                <div className="flex flex-col gap-2 sm:gap-2.5 md:gap-3">
+                  <SmoothHoneycombBadge client={clients[0]} />
+                  <SmoothHoneycombBadge client={clients[1]} isDelayed />
                 </div>
 
-                {/* Column 2 (Middle Left - Staggered Down) */}
-                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 translate-y-8 sm:translate-y-10 md:translate-y-12">
-                  <HoneycombBadge client={clients[2]} isDelayed />
-                  <HoneycombBadge client={clients[3]} />
+                {/* Column 2 (Middle Left - Staggered by Half Hexagon Height) */}
+                <div className="flex flex-col gap-2 sm:gap-2.5 md:gap-3 translate-y-[58px] sm:translate-y-[68px] md:translate-y-[76px] lg:translate-y-[80px] xl:translate-y-[85px]">
+                  <SmoothHoneycombBadge client={clients[2]} isDelayed />
+                  <SmoothHoneycombBadge client={clients[3]} />
                 </div>
 
                 {/* Column 3 (Inner Left - Near Center) */}
-                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
-                  <HoneycombBadge client={clients[4]} />
-                  <HoneycombBadge client={clients[5]} isDelayed />
+                <div className="flex flex-col gap-2 sm:gap-2.5 md:gap-3">
+                  <SmoothHoneycombBadge client={clients[4]} />
+                  <SmoothHoneycombBadge client={clients[5]} isDelayed />
                 </div>
               </div>
 
-              {/* Central Elevated Raja Enterprises Glowing Hexagon Shield */}
+              {/* Central Elevated Raja Enterprises Glowing Hexagon Shield (Smooth Corners) */}
               <div
                 data-center-hexagon
                 data-reveal
-                className="group relative my-6 lg:my-0 lg:-mx-2 xl:-mx-3 flex items-center justify-center shrink-0 cursor-pointer transition-all duration-500 hover:scale-110 hover:rotate-2 hover:z-40"
+                className="group relative my-6 lg:my-0 lg:-mx-4 xl:-mx-5 flex items-center justify-center shrink-0 cursor-pointer transition-all duration-500 hover:scale-110 hover:rotate-2 hover:z-40"
                 style={{ filter: "drop-shadow(0 0 50px rgba(6, 60, 90, 0.45))" }}
               >
-                {/* Vector Dark Hexagon with Gradient and Glow */}
+                {/* Smooth Vector Dark Hexagon */}
                 <svg
                   viewBox="0 0 200 230"
-                  className="w-[175px] h-[201px] sm:w-[195px] sm:h-[224px] md:w-[215px] md:h-[247px] xl:w-[230px] xl:h-[265px] transition-all duration-500 group-hover:scale-105"
+                  className="w-[165px] h-[190px] sm:w-[185px] sm:h-[212px] md:w-[205px] md:h-[235px] xl:w-[225px] xl:h-[258px] transition-all duration-500 group-hover:scale-105"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -204,11 +203,10 @@ export function ClientsView({
                     </linearGradient>
                   </defs>
                   <path
-                    d="M100 10 L190 62 L190 168 L100 220 L10 168 L10 62 Z"
+                    d="M86 18 Q100 10 114 18 L176 54 Q188 61 188 77 L188 153 Q188 169 176 176 L114 212 Q100 220 86 212 L24 176 Q12 169 12 153 L12 77 Q12 61 24 54 Z"
                     fill="url(#reDarkHex)"
                     stroke="url(#reBorderGlow)"
                     strokeWidth="2.5"
-                    strokeLinejoin="round"
                     className="transition-all duration-500 group-hover:stroke-accent"
                   />
                 </svg>
@@ -233,24 +231,24 @@ export function ClientsView({
                 </div>
               </div>
 
-              {/* Right Honeycomb Wing (3 Columns x 2 Rows with 50% Vertical Interlocking Stagger) */}
-              <div className="flex items-center justify-center -space-x-3 sm:-space-x-4 md:-space-x-5 lg:-space-x-6 xl:-space-x-7">
+              {/* Right Honeycomb Wing (3 Interlocked Columns) */}
+              <div className="flex items-center justify-center -space-x-5 sm:-space-x-6 md:-space-x-7 lg:-space-x-8 xl:-space-x-9">
                 {/* Column 4 (Inner Right - Near Center) */}
-                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
-                  <HoneycombBadge client={clients[6]} />
-                  <HoneycombBadge client={clients[7]} isDelayed />
+                <div className="flex flex-col gap-2 sm:gap-2.5 md:gap-3">
+                  <SmoothHoneycombBadge client={clients[6]} />
+                  <SmoothHoneycombBadge client={clients[7]} isDelayed />
                 </div>
 
-                {/* Column 5 (Middle Right - Staggered Down) */}
-                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 translate-y-8 sm:translate-y-10 md:translate-y-12">
-                  <HoneycombBadge client={clients[8]} isDelayed />
-                  <HoneycombBadge client={clients[9]} />
+                {/* Column 5 (Middle Right - Staggered by Half Hexagon Height) */}
+                <div className="flex flex-col gap-2 sm:gap-2.5 md:gap-3 translate-y-[58px] sm:translate-y-[68px] md:translate-y-[76px] lg:translate-y-[80px] xl:translate-y-[85px]">
+                  <SmoothHoneycombBadge client={clients[8]} isDelayed />
+                  <SmoothHoneycombBadge client={clients[9]} />
                 </div>
 
                 {/* Column 6 (Outer Right) */}
-                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
-                  <HoneycombBadge client={clients[10]} />
-                  <HoneycombBadge client={clients[11]} isDelayed />
+                <div className="flex flex-col gap-2 sm:gap-2.5 md:gap-3">
+                  <SmoothHoneycombBadge client={clients[10]} />
+                  <SmoothHoneycombBadge client={clients[11]} isDelayed />
                 </div>
               </div>
             </div>
