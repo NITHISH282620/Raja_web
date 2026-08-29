@@ -291,21 +291,14 @@ export function ClientsView({
                     className="transition-all duration-500 group-hover:stroke-accent"
                   />
                 </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/30 backdrop-blur-md mb-2 transition-transform duration-500 group-hover:scale-110 group-hover:bg-accent group-hover:ring-accent">
-                    <span className="font-mono text-lg font-black text-white tracking-tighter">
-                      RE
-                    </span>
-                  </div>
-                  <span className="font-display font-bold text-xs tracking-wider text-white uppercase leading-tight">
-                    RAJA
-                  </span>
-                  <span className="font-mono text-[9px] tracking-[0.2em] text-white/70 uppercase">
-                    ENTERPRISES
-                  </span>
-                  <span className="mt-1 font-mono text-[8px] tracking-widest text-accent font-bold">
-                    EST. 1977
-                  </span>
+                <div className="absolute inset-0 flex items-center justify-center p-8">
+                  <Image
+                    src="/media/brand-raja-logo.webp"
+                    alt="Raja Enterprises Logo"
+                    width={180}
+                    height={80}
+                    className="max-h-[60px] w-auto object-contain transition-transform duration-500 group-hover:scale-110 brightness-0 invert drop-shadow-sm"
+                  />
                 </div>
               </div>
 
@@ -347,9 +340,13 @@ export function ClientsView({
                 data-reveal
                 className="group col-span-1 flex h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] items-center justify-center rounded-2xl bg-brand-blue shadow-md p-3 transition-all duration-300 hover:scale-110"
               >
-                <span className="font-mono text-sm font-black text-white tracking-tighter">
-                  RE
-                </span>
+                <Image
+                  src="/media/brand-raja-logo.webp"
+                  alt="Raja Enterprises Logo"
+                  width={160}
+                  height={50}
+                  className="max-h-[30px] w-auto object-contain brightness-0 invert drop-shadow-sm"
+                />
               </div>
 
               {clients.slice(6, 12).map((c) => (
