@@ -12,9 +12,9 @@ import { SECTION_IDS } from "@/content/navigation";
 import { clsx } from "@/lib/clsx";
 
 /**
- * Reusable Rounded Hexagon Partner Badge
+ * Pointy-Topped Rounded Hexagon Partner Badge
  */
-function HexagonPartnerBadge({
+function HoneycombBadge({
   client,
   className,
   isDelayed = false,
@@ -32,33 +32,33 @@ function HexagonPartnerBadge({
         isDelayed ? "animate-float-delayed" : "animate-float",
         className,
       )}
-      style={{ filter: "drop-shadow(0 10px 22px rgba(0, 0, 0, 0.06))" }}
+      style={{ filter: "drop-shadow(0 10px 22px rgba(0, 0, 0, 0.05))" }}
     >
-      {/* Crisp Vector Hexagon Background */}
+      {/* Precision Vector Pointy Hexagon */}
       <svg
         viewBox="0 0 140 160"
-        className="w-[110px] h-[126px] sm:w-[125px] sm:h-[143px] md:w-[136px] md:h-[156px] transition-all duration-300 group-hover:scale-105"
+        className="w-[105px] h-[120px] sm:w-[120px] sm:h-[137px] md:w-[130px] md:h-[148px] xl:w-[140px] xl:h-[160px] transition-all duration-300 group-hover:scale-105"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M70 8 L130 42.5 L130 117.5 L70 152 L10 117.5 L10 42.5 Z"
           fill="#FFFFFF"
-          stroke="#E5E7EB"
+          stroke="#EAECEF"
           strokeWidth="1.5"
           strokeLinejoin="round"
           className="transition-colors duration-300 group-hover:stroke-accent/60 group-hover:fill-white"
         />
       </svg>
 
-      {/* Partner Logo Centered Inside Hexagon */}
-      <div className="absolute inset-0 flex items-center justify-center p-5">
+      {/* Centered Partner Logo */}
+      <div className="absolute inset-0 flex items-center justify-center p-4">
         <Image
           src={client.logo.src}
           alt={client.name}
           width={client.logo.width}
           height={client.logo.height}
-          className="max-h-[44px] max-w-[76px] sm:max-h-[50px] sm:max-w-[88px] object-contain transition-transform duration-300 group-hover:scale-110"
+          className="max-h-[42px] max-w-[72px] sm:max-h-[48px] sm:max-w-[82px] md:max-h-[52px] md:max-w-[90px] object-contain transition-transform duration-300 group-hover:scale-110"
         />
       </div>
     </div>
@@ -66,7 +66,7 @@ function HexagonPartnerBadge({
 }
 
 /**
- * Full-Screen Constellation Logo Section with Honeycomb Hexagons
+ * Modern Interlocking Honeycomb Client Hub (Dribbble Design)
  */
 export function ClientsView({
   clients,
@@ -109,9 +109,6 @@ export function ClientsView({
     { scope: root },
   );
 
-  const leftClients = clients.slice(0, 6);
-  const rightClients = clients.slice(6, 12);
-
   return (
     <section
       ref={root}
@@ -124,22 +121,22 @@ export function ClientsView({
         </div>
 
         {/* ====================================================================
-            Full-Bleed Modern Constellation Hub Container
+            Full-Screen Constellation Card Container
            ==================================================================== */}
         <div className="frame w-full">
           <div className="relative w-full min-h-[85vh] lg:min-h-[90vh] rounded-[32px] sm:rounded-[44px] lg:rounded-[56px] bg-gradient-to-b from-white via-[#fafbfe] to-[#f0f3f7] border border-ink/8 shadow-[0_28px_80px_-20px_rgba(0,0,0,0.08)] p-6 sm:p-10 md:p-14 lg:p-20 flex flex-col items-center justify-center overflow-hidden">
-            {/* Ambient Radial Color Halos */}
+            {/* Ambient Radial Color Halos (Soft Lilac & Brand Blue) */}
             <div
               aria-hidden
-              className="pointer-events-none absolute -left-28 top-1/4 h-96 w-96 rounded-full bg-brand-blue/6 blur-3xl"
+              className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-brand-blue/8 blur-3xl"
             />
             <div
               aria-hidden
-              className="pointer-events-none absolute -right-28 top-1/4 h-96 w-96 rounded-full bg-accent/6 blur-3xl"
+              className="pointer-events-none absolute -right-20 top-1/4 h-80 w-80 rounded-full bg-purple-500/8 blur-3xl"
             />
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[450px] w-[450px] rounded-full bg-brand-blue/5 blur-[120px]"
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-brand-blue/5 blur-[100px]"
             />
 
             {/* Section Header */}
@@ -156,34 +153,41 @@ export function ClientsView({
             </div>
 
             {/* ====================================================================
-                Hexagonal Honeycomb Constellation
+                Interlocking Honeycomb Matrix Layout (Bilateral Wings + Center Shield)
                ==================================================================== */}
-            <div className="relative w-full flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-4 xl:gap-8 my-auto">
-              {/* Left Wing (6 Hexagons in Honeycomb Formation) */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4 lg:-space-x-4 items-center justify-items-center">
-                {leftClients.map((client, idx) => (
-                  <HexagonPartnerBadge
-                    key={client.id}
-                    client={client}
-                    isDelayed={idx % 2 === 1}
-                    className={clsx(
-                      idx === 1 || idx === 4 ? "lg:translate-y-6" : "lg:-translate-y-3",
-                    )}
-                  />
-                ))}
+            <div className="relative w-full flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-0 my-auto">
+              {/* Left Honeycomb Wing (3 Columns x 2 Rows with 50% Vertical Interlocking Stagger) */}
+              <div className="flex items-center justify-center -space-x-3 sm:-space-x-4 md:-space-x-5 lg:-space-x-6 xl:-space-x-7">
+                {/* Column 1 (Outer Left) */}
+                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
+                  <HoneycombBadge client={clients[0]} />
+                  <HoneycombBadge client={clients[1]} isDelayed />
+                </div>
+
+                {/* Column 2 (Middle Left - Staggered Down) */}
+                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 translate-y-8 sm:translate-y-10 md:translate-y-12">
+                  <HoneycombBadge client={clients[2]} isDelayed />
+                  <HoneycombBadge client={clients[3]} />
+                </div>
+
+                {/* Column 3 (Inner Left - Near Center) */}
+                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
+                  <HoneycombBadge client={clients[4]} />
+                  <HoneycombBadge client={clients[5]} isDelayed />
+                </div>
               </div>
 
               {/* Central Elevated Raja Enterprises Glowing Hexagon Shield */}
               <div
                 data-center-hexagon
                 data-reveal
-                className="group relative my-6 lg:my-0 flex items-center justify-center shrink-0 cursor-pointer transition-all duration-500 hover:scale-110 hover:rotate-2 hover:z-40"
-                style={{ filter: "drop-shadow(0 0 45px rgba(6, 60, 90, 0.4))" }}
+                className="group relative my-6 lg:my-0 lg:-mx-2 xl:-mx-3 flex items-center justify-center shrink-0 cursor-pointer transition-all duration-500 hover:scale-110 hover:rotate-2 hover:z-40"
+                style={{ filter: "drop-shadow(0 0 50px rgba(6, 60, 90, 0.45))" }}
               >
                 {/* Vector Dark Hexagon with Gradient and Glow */}
                 <svg
                   viewBox="0 0 200 230"
-                  className="w-[180px] h-[207px] sm:w-[200px] sm:h-[230px] md:w-[220px] md:h-[253px] transition-all duration-500 group-hover:scale-105"
+                  className="w-[175px] h-[201px] sm:w-[195px] sm:h-[224px] md:w-[215px] md:h-[247px] xl:w-[230px] xl:h-[265px] transition-all duration-500 group-hover:scale-105"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -229,18 +233,25 @@ export function ClientsView({
                 </div>
               </div>
 
-              {/* Right Wing (6 Hexagons in Honeycomb Formation) */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4 lg:-space-x-4 items-center justify-items-center">
-                {rightClients.map((client, idx) => (
-                  <HexagonPartnerBadge
-                    key={client.id}
-                    client={client}
-                    isDelayed={idx % 2 === 0}
-                    className={clsx(
-                      idx === 1 || idx === 4 ? "lg:translate-y-6" : "lg:-translate-y-3",
-                    )}
-                  />
-                ))}
+              {/* Right Honeycomb Wing (3 Columns x 2 Rows with 50% Vertical Interlocking Stagger) */}
+              <div className="flex items-center justify-center -space-x-3 sm:-space-x-4 md:-space-x-5 lg:-space-x-6 xl:-space-x-7">
+                {/* Column 4 (Inner Right - Near Center) */}
+                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
+                  <HoneycombBadge client={clients[6]} />
+                  <HoneycombBadge client={clients[7]} isDelayed />
+                </div>
+
+                {/* Column 5 (Middle Right - Staggered Down) */}
+                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 translate-y-8 sm:translate-y-10 md:translate-y-12">
+                  <HoneycombBadge client={clients[8]} isDelayed />
+                  <HoneycombBadge client={clients[9]} />
+                </div>
+
+                {/* Column 6 (Outer Right) */}
+                <div className="flex flex-col gap-3 sm:gap-4 md:gap-5">
+                  <HoneycombBadge client={clients[10]} />
+                  <HoneycombBadge client={clients[11]} isDelayed />
+                </div>
               </div>
             </div>
           </div>
