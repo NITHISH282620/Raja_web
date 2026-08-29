@@ -7,22 +7,24 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "assets": "node scripts/prepare-assets.mjs",
     "inspect": "node scripts/inspect.mjs",
     "check:fallbacks": "node scripts/check-a11y-fallbacks.mjs",
     "audit:content": "node scripts/content-audit.mjs",
-    "inspect:routes": "node scripts/inspect-routes.mjs"
+    "inspect:routes": "node scripts/inspect-routes.mjs",
+    "photos": "node scripts/source-photography.mjs",
+    "sheet": "node scripts/contact-sheet.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "gsap": "^3.15.0",
     "next": "16.3.2",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^24.13.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

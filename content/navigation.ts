@@ -2,11 +2,6 @@ import type { Sourced } from "./types";
 
 /**
  * Site navigation.
- *
- * Figma animated a three-line hamburger into the hero but defined no open
- * state and no routes. The information architecture below is recovered from
- * Raja's own previous implementation, so these are the company's real sections
- * rather than invented ones.
  */
 export interface NavItem {
   label: string;
@@ -17,23 +12,30 @@ export interface NavItem {
 
 export const ROUTES = {
   home: "/",
+  about: "/about",
   inventory: "/inventory",
   portfolio: "/portfolio",
   legacy: "/legacy",
   locations: "/locations",
+  careers: "/careers",
   contact: "/contact",
 } as const;
 
 export const navItems: NavItem[] = [
+  { label: "About", href: ROUTES.about, blurb: "Who we are and how we work" },
   { label: "Inventory", href: ROUTES.inventory, blurb: "What we own and deploy" },
-  { label: "Portfolio", href: ROUTES.portfolio, blurb: "Programmes we have built" },
+  { label: "Notable Events", href: ROUTES.portfolio, blurb: "Programmes we have built" },
   { label: "Legacy", href: ROUTES.legacy, blurb: "1977 to now" },
-  { label: "Locations", href: ROUTES.locations, blurb: "Bengaluru, deployed India-wide" },
+  { label: "Careers", href: ROUTES.careers, blurb: "Work with the crew" },
   { label: "Contact", href: ROUTES.contact, blurb: "Start a conversation" },
 ];
 
-/** The inline desktop bar omits Contact, which has its own button. */
-export const primaryNav = navItems.filter((i) => i.href !== ROUTES.contact);
+/**
+ * The inline desktop bar.
+ */
+export const primaryNav = navItems.filter(
+  (i) => i.href !== ROUTES.contact && i.href !== ROUTES.careers && i.href !== ROUTES.locations,
+);
 
 /** Anchors within the homepage, used by on-page links. */
 export const SECTION_IDS = {
@@ -49,5 +51,5 @@ export const SECTION_IDS = {
 
 export const navigationMeta: Sourced = {
   status: "approved",
-  note: "Routes recovered from Raja's previous implementation (home / inventory / portfolio / legacy / locations / contact).",
+  note: "Routes updated with Notable Events (Locations removed from navbar).",
 };

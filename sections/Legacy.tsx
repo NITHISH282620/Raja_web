@@ -7,24 +7,24 @@ import { gsap, fadeUp, fadeIn, growRule, land, entranceTrigger, q } from "@/moti
 import { DUR, EASE, STAGGER, MOTION_OK } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
-import { arcs, collage, legacyIntro, LEGACY_BOX } from "@/content/legacy";
+import { arcs, legacyIntro, LEGACY_BOX } from "@/content/legacy";
 import { yearsInOperation } from "@/content/company";
 import { SECTION_IDS } from "@/content/navigation";
 
 const pct = (n: number) => `${n}%`;
 
 /**
- * Figma 898–1782px. Four coral arcs sweep in behind the statement, then six
- * photographs land along them with a rotation settle.
+ * Legacy Section (Since 1977)
  *
- * Desktop reproduces the absolute composition inside a 1440 x 884 box that
- * scales as a single unit. Below 1024 that scatter stops working — at any
- * readable type size the photographs collide with the statement — so the same
- * six images become a snap rail beneath it. The section's point (a long, dense
- * body of work) survives; the unreadable overlap does not.
+ * Pinned curtain composition:
+ * - On entrance, the arcs sweep in and photo cards land into place.
+ * - As the user scrolls, Legacy stays PINNED (pin: true, pinSpacing: false)
+ *   while the incoming section ("What We Build", on z-30) slides upward directly over it.
+ * - During this upward curtain slide, the 6 cards disperse outward with 3D rotation and parallax.
  */
-export function Legacy() {
+export function LegacyView({ collage }: { collage: any[] }) {
   const root = useRef<HTMLElement>(null);
+  const container = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -33,13 +33,12 @@ export function Legacy() {
 
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
+        // 1. Entrance reveal timeline
+        const entranceTl = gsap.timeline({ scrollTrigger: entranceTrigger(scope) });
 
-        const tl = gsap.timeline({ scrollTrigger: entranceTrigger(scope) });
-
-        // Arcs scale up on the damped spring — 1.20s to 3.45s, 0.20s apart.
         const arcNodes = q(scope, "[data-arc]");
         if (arcNodes.length) {
-          tl.fromTo(
+          entranceTl.fromTo(
             arcNodes,
             { opacity: 0, scale: 0.55 },
             { opacity: 1, scale: 1, duration: 1.7, stagger: STAGGER.arcs, ease: EASE.spring },
@@ -47,16 +46,53 @@ export function Legacy() {
           );
         }
 
-        growRule(tl, q(scope, "[data-reveal-rule]"), {}, 0.7);
-        fadeIn(tl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.04 }, 0.7);
-        fadeUp(tl, q(scope, "[data-statement]"), { duration: DUR.statement }, 0.95);
+        growRule(entranceTl, q(scope, "[data-reveal-rule]"), {}, 0.7);
+        fadeIn(entranceTl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.04 }, 0.7);
+        fadeUp(entranceTl, q(scope, "[data-statement]"), { duration: DUR.statement }, 0.95);
 
-        // Photographs land: opacity + y + rotate + scale, 0.09s apart.
-        land(tl, q(scope, "[data-collage]"), {
+        // Photographs initial landing
+        land(entranceTl, q(scope, "[data-collage]"), {
           stagger: STAGGER.collage,
           staggerEase: "power1.inOut",
-          rotate: (i: number) => (i % 2 === 0 ? -5 : 5),
-        }, 1.25);
+          rotate: (i: number) => (i % 2 === 0 ? -3.5 : 3.5),
+        }, 1.2);
+
+        // 2. Scroll-scrubbed Pinning & 3D Card Reactivity
+        const cards = q(scope, "[data-collage]");
+        const statementWrap = q(scope, "[data-statement-wrap]");
+
+        // Bulletproof GSAP Pinning: Scope remains pinned at top:0 while next section slides over it
+        const pinTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: scope,
+            start: "top top",
+            end: "+=100%",
+            pin: true,
+            pinSpacing: false,
+            scrub: 0.6,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        // Dynamic outward card tilt & parallax dispersion while section is covered
+        if (cards.length >= 6) {
+          pinTl
+            .to(cards[0], { xPercent: -18, yPercent: -15, rotate: -8, scale: 0.94, ease: "none" }, 0)
+            .to(cards[1], { xPercent: 18, yPercent: -15, rotate: 8, scale: 0.94, ease: "none" }, 0)
+            .to(cards[2], { xPercent: -22, yPercent: 4, rotate: -7, scale: 0.94, ease: "none" }, 0)
+            .to(cards[3], { xPercent: 22, yPercent: 4, rotate: 7, scale: 0.94, ease: "none" }, 0)
+            .to(cards[4], { xPercent: -15, yPercent: 20, rotate: -6, scale: 0.92, ease: "none" }, 0)
+            .to(cards[5], { xPercent: 15, yPercent: 20, rotate: 6, scale: 0.92, ease: "none" }, 0);
+        }
+
+        if (arcNodes.length) {
+          pinTl.to(arcNodes, { scale: 1.18, opacity: 0.3, ease: "none" }, 0);
+        }
+
+        if (statementWrap.length) {
+          pinTl.to(statementWrap, { yPercent: -10, opacity: 0.5, scale: 0.98, ease: "none" }, 0);
+        }
       });
 
       return () => mm.revert();
@@ -67,79 +103,66 @@ export function Legacy() {
   const eyebrow = [`${yearsInOperation()} years`, legacyIntro.eyebrow[1]] as const;
 
   return (
-    <section ref={root} id={SECTION_IDS.legacy} className="relative w-full overflow-hidden bg-paper">
-      {/* ---------- Desktop: the authored composition ---------- */}
+    <section
+      ref={root}
+      id={SECTION_IDS.legacy}
+      className="relative z-10 w-full h-screen min-h-[680px] max-h-[1050px] overflow-hidden bg-paper flex items-center justify-center px-4 sm:px-6 lg:px-8"
+    >
       <div
-        className="relative mx-auto hidden w-full max-w-[1440px] lg:block"
-        style={{ aspectRatio: `${LEGACY_BOX.width} / ${LEGACY_BOX.height}` }}
+        ref={container}
+        className="relative w-full max-w-[1480px] h-[92vh] max-h-[880px] aspect-[1440/884] mx-auto flex items-center justify-center"
       >
+        {/* 4 Background Arcs */}
         {arcs.map((arc) => (
           <div
             key={arc.src}
             data-arc
             aria-hidden
-            className="absolute"
+            className="absolute pointer-events-none opacity-80"
             style={{ left: pct(arc.left), top: pct(arc.top), width: pct(arc.width), height: pct(arc.height) }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element -- decorative vector stretched to a non-intrinsic box */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={arc.src} alt="" className="h-full w-full" />
           </div>
         ))}
 
+        {/* 6 Harmonious Floating Event Photo Cards */}
         {collage.map((photo) => (
           <div
             key={photo.id}
             data-collage
             data-reveal
-            className="absolute overflow-hidden rounded-[10px] shadow-[15px_15px_18.9px_0_rgba(0,0,0,0.05)]"
+            className="group absolute overflow-hidden rounded-[8px] sm:rounded-[10px] md:rounded-[14px] bg-ink/5 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.1),0_16px_36px_-8px_rgba(0,0,0,0.08)] ring-1 ring-black/[0.05] transition-all duration-500 hover:scale-[1.04] hover:z-30 hover:shadow-[0_20px_48px_-10px_rgba(0,0,0,0.18)]"
             style={{ left: pct(photo.left), top: pct(photo.top), width: pct(photo.width), height: pct(photo.height) }}
           >
             <Image
               src={photo.image.src}
               alt={photo.image.alt}
               fill
-              sizes="(max-width: 1440px) 25vw, 340px"
-              className="object-cover"
-              style={photo.flip ? { transform: "scaleX(-1)" } : undefined}
+              sizes="(max-width: 768px) 30vw, (max-width: 1440px) 25vw, 340px"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         ))}
 
-        <div className="absolute left-1/2 top-[33%] w-[62%] -translate-x-1/2 text-center">
-          <div data-eyebrow>
-            <Eyebrow items={eyebrow} align="center" />
-          </div>
-          <div data-statement data-reveal className="mt-[3.5%]">
-            <Statement segments={legacyIntro.statement} className="t-intro" />
-          </div>
-        </div>
-      </div>
-
-      {/* ---------- Below 1024: statement first, evidence as a rail ---------- */}
-      <div className="lg:hidden">
-        <div className="frame flex flex-col items-center gap-5 py-[clamp(72px,14vw,120px)] text-center">
-          <div data-eyebrow>
-            <Eyebrow items={eyebrow} align="center" />
-          </div>
-          <div data-statement data-reveal>
-            <Statement segments={legacyIntro.statement} className="t-intro" />
-          </div>
-        </div>
-        <ul
-          className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-[clamp(20px,5.55vw,80px)] pb-[clamp(56px,12vw,96px)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          aria-label="Recent builds"
+        {/* Central Eyebrow & Clean Statement Design */}
+        <div
+          data-statement-wrap
+          className="absolute left-1/2 top-[28.5%] w-[60%] -translate-x-1/2 text-center z-20 pointer-events-none"
         >
-          {collage.map((photo) => (
-            <li
-              key={photo.id}
-              data-collage
-              data-reveal
-              className="relative aspect-[16/10] w-[76vw] max-w-[420px] shrink-0 snap-center overflow-hidden rounded-[10px]"
-            >
-              <Image src={photo.image.src} alt={photo.image.alt} fill sizes="76vw" className="object-cover" />
-            </li>
-          ))}
-        </ul>
+          <div data-eyebrow className="pointer-events-auto mb-[2%] flex justify-center">
+            <Eyebrow
+              items={eyebrow}
+              align="center"
+            />
+          </div>
+          <div data-statement data-reveal className="pointer-events-auto">
+            <Statement
+              segments={legacyIntro.statement}
+              className="t-intro"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

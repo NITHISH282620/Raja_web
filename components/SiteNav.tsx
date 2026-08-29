@@ -1,45 +1,50 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { clsx } from "@/lib/clsx";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/motion/primitives";
 import { EASE } from "@/motion/ease";
+import { primaryNav, navItems } from "@/content/navigation";
+import { company, FOUNDED_YEAR } from "@/content/company";
+import type { ContactSettings } from "@/lib/store";
 import { brand } from "@/content/site";
-import { company, contact, FOUNDED_YEAR } from "@/content/company";
-import { navItems, primaryNav } from "@/content/navigation";
-import { clsx } from "@/lib/clsx";
 
-/**
- * The site header.
- *
- * Figma authored only a logo and a three-line hamburger floating over the hero,
- * which reads as decoration rather than navigation. The routes are made
- * explicit here at 1024 and above — set in the design's own mono label style so
- * the aesthetic is unchanged — while the overlay is kept for narrower screens.
- *
- * The header is transparent over the homepage hero and solid everywhere else,
- * because on an interior page there is no dark photograph to sit against.
- */
-export function SiteNav() {
+export function SiteNav({ contact }: { contact: ContactSettings }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const overlay = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const progress = useRef<HTMLSpanElement>(null);
 
   const overHero = pathname === "/";
 
+  /**
+   * One passive scroll listener drives both the pill's solid state and the
+   * progress rail. The progress is written straight to a style property rather
+   * than to state - at 60fps a setState here would re-render the whole header
+   * on every frame of every scroll.
+   */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const bar = progress.current;
+      if (bar) bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
-  // Escape, focus trap and scroll lock while the overlay is open.
   useEffect(() => {
     if (!open) return;
     const previous = document.body.style.overflow;
@@ -72,8 +77,6 @@ export function SiteNav() {
     };
   }, [open]);
 
-  // GSAP owns the overlay so the links arrive as one orchestrated move rather
-  // than a CSS fade. Same expo curve as the rest of the site.
   useGSAP(
     () => {
       const node = overlay.current;
@@ -105,33 +108,67 @@ export function SiteNav() {
 
   return (
     <>
-      <header
-        className={clsx(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500",
-          solid
-            ? "border-b border-white/10 bg-ink/90 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent",
-        )}
-      >
-        <div className="frame flex items-center justify-between gap-6 py-[clamp(14px,1.5vw,20px)]">
+      <header className="fixed top-6 inset-x-0 z-50 flex justify-center w-full px-4 lg:px-8 pointer-events-none">
+        <div
+          className={clsx(
+            "pointer-events-auto relative flex items-center justify-between rounded-full transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500",
+            // 75% viewport width on desktop, strictly capped, creating the compact floating pill effect
+            "w-full max-w-[1100px] lg:w-[75vw]",
+            // Fixed height to ensure perfect geometric proportions
+            "h-[64px] lg:h-[76px]",
+            // Asymmetric padding: generous on the left for the logo, tight on the right to hug the CTA
+            "pl-6 pr-2 lg:pl-10 lg:pr-3",
+            // On scroll / solid: sleek white pill with soft shadow and subtle border
+            // Over hero at top: translucent glass pill
+            solid
+              ? "bg-white/95 border border-ink/10 shadow-[0_10px_34px_-12px_rgba(16,16,20,0.15)] backdrop-blur-md"
+              : "border border-white/15 bg-white/[0.06] shadow-none backdrop-blur-[6px]"
+          )}
+        >
+          {/* LOGO: Sized to match reference scale, vertically centered */}
           <Link
             href="/"
             data-hero-logo
-            className="block w-[clamp(96px,9vw,131px)] shrink-0"
-            aria-label={`${company.name} — home`}
+            className="block w-[100px] lg:w-[125px] shrink-0"
+            aria-label={`${company.name} - home`}
           >
-            <Image
-              src={brand.logo.src}
-              alt={company.name}
-              width={brand.logo.width}
-              height={brand.logo.height}
-              priority
-              className="h-auto w-full"
+            <div 
+              className={clsx(
+                "w-full h-[24px] lg:h-[28px] transition-colors duration-500",
+                solid ? "bg-brand-blue" : "bg-white"
+              )}
+              style={{
+                WebkitMaskImage: `url(${brand.logo.src})`,
+                WebkitMaskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                WebkitMaskPosition: "center left",
+                maskImage: `url(${brand.logo.src})`,
+                maskSize: "contain",
+                maskRepeat: "no-repeat",
+                maskPosition: "center left",
+              }}
             />
+            <span className="sr-only">{company.name}</span>
           </Link>
 
-          {/* Desktop: the routes, stated plainly. */}
-          <nav aria-label="Primary" className="hidden lg:flex lg:items-center lg:gap-[clamp(18px,2.2vw,34px)]">
+          {/* Reading progress. Inside the pill's own radius so it reads as part
+              of the component rather than as a bar stuck to the viewport. */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px] overflow-hidden rounded-full lg:inset-x-10"
+          >
+            <span
+              ref={progress}
+              className={clsx(
+                "block h-full origin-left rounded-full transition-colors duration-500",
+                solid ? "bg-brand-blue/60" : "bg-white/60",
+              )}
+              style={{ transform: "scaleX(0)" }}
+            />
+          </span>
+
+          {/* NAVIGATION: Absolutely centered within the pill to ensure perfect balance */}
+          <nav aria-label="Primary" className="hidden lg:flex lg:items-center lg:gap-[clamp(24px,2.5vw,40px)] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             {primaryNav.map((item) => {
               const active = pathname === item.href;
               return (
@@ -139,16 +176,23 @@ export function SiteNav() {
                   key={item.href}
                   href={item.href}
                   className={clsx(
-                    "t-eyebrow relative py-2 text-white/70 transition-colors duration-300 hover:text-white",
-                    active && "text-white",
+                    "group relative px-2 py-2 text-[14px] font-medium tracking-wide capitalize transition-colors duration-300",
+                    solid
+                      ? active
+                        ? "text-brand-blue font-semibold"
+                        : "text-brand-blue/80 hover:text-brand-blue"
+                      : active
+                        ? "text-white font-medium"
+                        : "text-white/85 hover:text-white"
                   )}
                 >
                   {item.label}
                   <span
                     aria-hidden
                     className={clsx(
-                      "absolute inset-x-0 -bottom-0.5 h-px origin-left bg-accent transition-transform duration-300",
-                      active ? "scale-x-100" : "scale-x-0",
+                      "absolute inset-x-2 -bottom-1 h-[1.5px] origin-left transition-transform duration-300",
+                      solid ? "bg-brand-blue" : "bg-white",
+                      active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                     )}
                   />
                 </Link>
@@ -156,30 +200,48 @@ export function SiteNav() {
             })}
           </nav>
 
-          <div className="flex items-center gap-4">
+          {/* CONTACT BUTTON & MOBILE TOGGLE */}
+          <div className="flex items-center gap-3">
+            {/* CTA: Large, fully rounded pill hugging the right edge of the navbar */}
             <Link
               href="/contact"
-              className="t-pill hidden shrink-0 rounded-full bg-white px-5 py-2 text-ink transition-colors duration-300 hover:bg-accent hover:text-white sm:inline-flex"
+              className={clsx(
+                "hidden shrink-0 items-center justify-center rounded-full px-8 h-[52px] text-[15px] font-medium capitalize tracking-wide transition-colors duration-300 lg:inline-flex",
+                solid
+                  ? "bg-brand-blue text-white hover:bg-brand-blue/90 shadow-sm"
+                  : "bg-white text-ink hover:bg-white/90"
+              )}
             >
               Contact
             </Link>
 
-            {/* The overlay trigger — labelled, not a bare icon. */}
             <button
               ref={trigger}
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="site-menu"
-              className="group flex items-center gap-3 py-2 lg:hidden"
+              className={clsx(
+                "group flex items-center gap-3 h-[48px] px-5 rounded-full lg:hidden transition-colors duration-300"
+              )}
             >
-              <span className="t-eyebrow text-white">{open ? "Close" : "Menu"}</span>
-              <span aria-hidden className="flex w-[26px] flex-col gap-[6px]">
+              <span
+                className={clsx(
+                  "text-[13px] font-medium tracking-wide uppercase transition-colors duration-300",
+                  solid ? "text-brand-blue" : "text-white"
+                )}
+              >
+                {open ? "Close" : "Menu"}
+              </span>
+              <span aria-hidden className="flex w-[24px] flex-col gap-[5px]">
                 {[0, 1, 2].map((i) => (
                   <span
                     key={i}
                     data-reveal-rule
-                    className="block h-px w-full origin-right bg-white transition-transform duration-300 group-hover:scale-x-75"
+                    className={clsx(
+                      "block h-[1.5px] w-full origin-right transition-transform duration-300 group-hover:scale-x-75",
+                      solid ? "bg-brand-blue" : "bg-white"
+                    )}
                   />
                 ))}
               </span>
@@ -188,7 +250,7 @@ export function SiteNav() {
         </div>
       </header>
 
-      {/* ---------- Overlay (below 1024) ---------- */}
+      {/* MOBILE MENU FULLSCREEN */}
       <div
         id="site-menu"
         ref={overlay}
@@ -196,7 +258,7 @@ export function SiteNav() {
         aria-modal="true"
         aria-label="Site menu"
         style={{ opacity: 0, pointerEvents: "none" }}
-        className="fixed inset-0 z-40 flex flex-col justify-between bg-ink px-[clamp(20px,5.55vw,80px)] pb-[clamp(28px,4vw,48px)] pt-[clamp(88px,12vw,132px)] lg:hidden"
+        className="fixed inset-0 z-40 flex flex-col justify-between bg-paper px-[clamp(20px,5.55vw,80px)] pb-[clamp(28px,4vw,48px)] pt-[clamp(100px,12vw,132px)] lg:hidden"
         {...(open ? {} : { inert: true })}
       >
         <nav aria-label="Site" className="flex flex-col">
@@ -206,7 +268,7 @@ export function SiteNav() {
                 href={item.href}
                 data-nav-link
                 onClick={() => setOpen(false)}
-                className="t-slide block w-fit text-white transition-colors duration-300 hover:text-accent"
+                className="t-slide block w-fit text-brand-blue capitalize transition-colors duration-300 hover:text-ink"
               >
                 {item.label}
               </Link>
@@ -215,16 +277,16 @@ export function SiteNav() {
         </nav>
 
         <div data-nav-meta className="flex flex-col gap-2">
-          <p className="t-eyebrow text-white/45">
+          <p className="t-eyebrow text-ink/45">
             Est. {FOUNDED_YEAR} — {company.city}
           </p>
           {contact.phone && (
-            <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="t-body text-white/80 hover:text-accent">
+            <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="t-body text-ink/80 hover:text-brand-blue">
               {contact.phone}
             </a>
           )}
           {contact.email && (
-            <a href={`mailto:${contact.email}`} className="t-body text-white/80 hover:text-accent">
+            <a href={`mailto:${contact.email}`} className="t-body text-ink/80 hover:text-brand-blue">
               {contact.email}
             </a>
           )}

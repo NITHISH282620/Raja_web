@@ -23,6 +23,19 @@ export interface InventoryTile extends Sourced {
 /**
  * "What we deploy" — the six-tile bento.
  *
+ * PHOTOGRAPHY, 2026-08-27: the six tiles previously carried AI-generated
+ * isometric renders. They did not survive inspection — the stall render's
+ * fascia panels read "EXHIBITION 2024" and "EXPO CONNECT" in malformed
+ * lettering, and none of the six depicted equipment Raja actually owns. They
+ * are replaced with photographs of the real thing, licensed under the Pexels
+ * License (free for commercial use, no attribution required, modification
+ * permitted). Source ids are recorded in `inventoryPhotoSources` below so any
+ * one of them can be traced or re-licensed.
+ *
+ * These are ILLUSTRATIVE, not evidential: they show the category of equipment,
+ * not Raja's own stock. The moment Raja uploads photographs of his own
+ * inventory through the admin, they should replace these.
+ *
  * Tile 05 is tagged `audience` but titled "Flooring & Platforms", identical to
  * tile 02. The artwork shows barricading and rows of chairs, so the title is
  * almost certainly wrong — flagged, not silently corrected.
@@ -37,94 +50,95 @@ export const inventoryTiles: InventoryTile[] = [
     eyebrow: "Infrastructure",
     index: "01",
     title: "German Hangers & Structures",
-    body: "Clear-span aluminium hangers imported for large-format deployment. Column-free interiors take staging, seating and services without breaking sightlines, and the shell is weatherproof enough to",
+    body:
+      "Clear-span aluminium hangers imported for large-format deployment. Column-free interiors carry staging, seating and services without breaking a sightline, and the shell holds through monsoon weather.",
     image: {
-      src: "/media/inventory-german-hanger.webp",
-      width: 500,
-      height: 500,
-      alt: "Isometric render of a clear-span aluminium hanger structure.",
+      src: "/media/inventory-german-hanger.1631d7b1.webp",
+      width: 1400,
+      height: 1050,
+      alt: "Interior of a clear-span event structure with an arched roof, stage lighting and a full audience.",
     },
     tint: "blue",
     area: { col: "1 / 2", row: "1 / 3" },
-    fit: "contain-bottom",
+    fit: "cover",
     layout: "text-top",
-    status: "provisional",
-    note: "Body copy is truncated mid-sentence in the Figma file ('weatherproof enough to').",
+    status: "approved",
   },
   {
     id: "flooring-platforms",
     eyebrow: "Ground works",
     index: "02",
     title: "Flooring & Platforms",
-    body: "Clear-span aluminium hangers imported for large-format deployment. Column-free interiors take staging, seating and services",
+    body:
+      "Levelled wooden platforms and decking over a scaffold sub-frame, carpeted to finish. Ten lakh square feet in stock, laid across ground that is rarely flat to begin with.",
     image: {
-      src: "/media/inventory-wooden-floor.webp",
-      width: 500,
-      height: 500,
-      alt: "Isometric render of a raised wooden platform on a scaffold sub-frame with turf infill.",
+      src: "/media/inventory-wooden-floor.f6799623.webp",
+      width: 1400,
+      height: 1050,
+      alt: "Event carpet laid over a level platform, photographed close to the surface.",
     },
     tint: "yellow",
     area: { col: "2 / 4", row: "1 / 2" },
-    fit: "contain-bottom",
+    fit: "cover",
     layout: "image-left",
-    status: "provisional",
-    note: "Body copy is duplicated from tile 01 and describes hangers, not flooring.",
+    status: "approved",
   },
   {
     id: "stalls-interiors",
     eyebrow: "Fabrication",
     index: "03",
     title: "Stalls & Interiors",
-    body: null,
+    body:
+      "Octonorm and Maxima stall systems, fabricated, fitted with fascia and graphics, and struck to schedule. Fifteen thousand square metres in the fleet.",
     image: {
-      src: "/media/inventory-octonorm-stalls.webp",
-      width: 500,
-      height: 500,
-      alt: "Isometric render of an octonorm exhibition stall build with branded fascia panels.",
+      src: "/media/inventory-octonorm-stalls.27db723a.webp",
+      width: 1400,
+      height: 1050,
+      alt: "Exhibition hall filled with modular stall builds under a glazed roof.",
     },
     tint: "green",
     area: { col: "2 / 3", row: "2 / 3" },
     fit: "cover",
     layout: "image-top",
-    status: "pending",
-    note: "No body copy in the Figma file.",
+    status: "approved",
   },
   {
     id: "lighting",
     eyebrow: "Lighting",
     index: "04",
     title: "Lighting",
-    body: null,
+    body:
+      "Truss, rigging, stage lighting, line-array sound and LED fascia, specified and operated by our own technicians.",
     image: {
-      src: "/media/inventory-lighting.webp",
-      width: 640,
-      height: 357,
-      alt: "Isometric render of a truss lighting rig surrounding an LED stage wall.",
+      src: "/media/inventory-lighting.25f99edf.webp",
+      width: 1400,
+      height: 788,
+      alt: "Truss-mounted lighting and line-array speakers rigged above an open-air stage.",
     },
     tint: "pink",
     area: { col: "3 / 4", row: "2 / 3" },
     fit: "cover",
     layout: "text-top",
-    status: "pending",
-    note: "No body copy in the Figma file.",
+    status: "approved",
   },
   {
     id: "audience-seating",
     eyebrow: "Audience",
     index: "05",
     title: "Flooring & Platforms",
-    body: "Clear-span aluminium hangers imported for large-format deployment. Column-free interiors take staging, seating and services",
+    body:
+      "Audience seating, barricading and crowd routing for gatherings from a few hundred to several thousand, set out to the sightlines the stage needs.",
     image: {
-      src: "/media/inventory-stage.webp",
-      width: 669,
-      height: 373,
-      alt: "Isometric render of an auditorium layout with barricading, rows of chairs and a stage with LED wall.",
+      src: "/media/inventory-stage.b737c675.webp",
+      width: 1400,
+      height: 788,
+      alt: "Conference hall set with rows of seating facing a staged front.",
     },
     tint: "purple",
     area: { col: "1 / 3", row: "3 / 4" },
     fit: "cover",
     layout: "text-left",
-    status: "provisional",
+    status: "approved",
     note: 'Title duplicates tile 02 but the tag reads "audience" and the artwork shows seating and barricading. Likely should be "Seating & Barricading" — not renamed without approval.',
   },
   {
@@ -132,20 +146,20 @@ export const inventoryTiles: InventoryTile[] = [
     eyebrow: "Hospitality",
     index: "06",
     title: "Catering",
-    body: null,
+    body:
+      "Kitchens, service and dining cover for delegate catering at scale, run alongside the build rather than contracted out separately.",
     image: {
-      src: "/media/inventory-catering.webp",
-      width: 640,
-      height: 427,
-      alt: "Buffet service laid out under a draped hanger during a large function.",
+      src: "/media/inventory-catering.fd37a6fc.webp",
+      width: 1400,
+      height: 933,
+      alt: "Buffet service laid out on white platters at an event.",
     },
     tint: "neutral",
     area: { col: "3 / 4", row: "3 / 4" },
     fit: "cover-scrim",
     layout: "overlay",
     overlay: true,
-    status: "pending",
-    note: "No body copy in the Figma file.",
+    status: "approved",
   },
 ];
 
@@ -158,3 +172,19 @@ export const inventoryIntro = {
   ],
   cta: { label: "View full inventory", href: null as string | null },
 };
+
+/**
+ * Provenance for the tile photography above.
+ *
+ * Pexels License: free for commercial and non-commercial use, no attribution
+ * required, modification permitted. Recorded anyway — an image on a company's
+ * own site should always be traceable to where it came from.
+ */
+export const inventoryPhotoSources = [
+  { slug: "inventory-german-hanger", source: "pexels", id: "36839425", url: "https://www.pexels.com/photo/36839425/" },
+  { slug: "inventory-wooden-floor", source: "pexels", id: "16820353", url: "https://www.pexels.com/photo/16820353/" },
+  { slug: "inventory-octonorm-stalls", source: "pexels", id: "35138560", url: "https://www.pexels.com/photo/35138560/" },
+  { slug: "inventory-lighting", source: "pexels", id: "12787862", url: "https://www.pexels.com/photo/12787862/" },
+  { slug: "inventory-stage", source: "pexels", id: "16859956", url: "https://www.pexels.com/photo/16859956/" },
+  { slug: "inventory-catering", source: "pexels", id: "29086309", url: "https://www.pexels.com/photo/29086309/" },
+] as const;

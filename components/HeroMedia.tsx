@@ -6,54 +6,66 @@ import { heroMedia } from "@/content/site";
 
 /**
  * The hero background: a poster image that always renders, with Raja's own
- * aerial loop fading in over it when conditions justify the download.
+ * project film fading in over it when conditions allow.
  *
  * The poster owns the LCP. The video is never part of the initial render and
- * never blocks it — it is only requested after mount, and only when all of
- * these hold:
+ * never blocks it — it is only requested after mount, and only when the visitor
+ * has not asked for reduced motion and the browser is not reporting a metered
+ * or slow connection.
  *
- *   - the visitor has not asked for reduced motion
- *   - the viewport is wide enough for the detail to read
- *   - the browser is not reporting a metered or slow connection
- *
- * It also pauses whenever the hero scrolls out of view, so a looping video is
- * not burning battery for the whole page.
+ * The 640px width gate that used to sit here was there because the "mobile"
+ * encode was 25 MB. It is 1.3 MB now, which is less than the poster plus a
+ * couple of section photographs, so phones get the film too. `saveData` and
+ * slow-connection reporting still opt out — those are statements about cost and
+ * bandwidth, not about screen size.
  */
-const QUERIES = ["(prefers-reduced-motion: reduce)", "(min-width: 768px)"] as const;
+const REDUCED = "(prefers-reduced-motion: reduce)";
 
-/**
- * Read as external browser state rather than assigning it in an effect: this
- * stays correct through SSR (the server snapshot is always false, so the poster
- * is what gets rendered) and it re-evaluates live if the visitor turns reduced
- * motion on or resizes across the breakpoint.
- */
 function useVideoAllowed(): boolean {
   return useSyncExternalStore(
     (onChange) => {
-      const lists = QUERIES.map((q) => window.matchMedia(q));
-      lists.forEach((l) => l.addEventListener("change", onChange));
-      return () => lists.forEach((l) => l.removeEventListener("change", onChange));
+      const mql = window.matchMedia(REDUCED);
+      mql.addEventListener("change", onChange);
+      return () => mql.removeEventListener("change", onChange);
     },
     () => {
-      const [reduced, wide] = QUERIES.map((q) => window.matchMedia(q).matches);
-      // navigator.connection is non-standard; treat its absence as "no signal".
-      const conn = (navigator as Navigator & {
-        connection?: { saveData?: boolean; effectiveType?: string };
-      }).connection;
-      const thrifty = Boolean(conn?.saveData) || /(^|-)2g$/.test(conn?.effectiveType ?? "");
-      return !reduced && wide && !thrifty;
+      if (window.matchMedia(REDUCED).matches) return false;
+      const conn = (
+        navigator as Navigator & {
+          connection?: { saveData?: boolean; effectiveType?: string };
+        }
+      ).connection;
+      if (conn?.saveData) return false;
+      return !/(^|-)(2g|slow-2g)$/.test(conn?.effectiveType ?? "");
     },
+    // Server snapshot. False, so the poster is what gets rendered and the
+    // markup the client hydrates against matches.
     () => false,
+  );
+}
+
+/** Chooses the 960px encode below the desktop breakpoint. */
+function useIsCompact(): boolean {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mql = window.matchMedia("(max-width: 1023px)");
+      mql.addEventListener("change", onChange);
+      return () => mql.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia("(max-width: 1023px)").matches,
+    () => true,
   );
 }
 
 export function HeroMedia() {
   const showVideo = useVideoAllowed();
+  const isCompact = useIsCompact();
   const [ready, setReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
-  // Pause while off-screen.
+  // Pause while off-screen, play when visible. A 20-second loop decoding behind
+  // eight sections of scroll is pure battery cost.
   useEffect(() => {
     const node = wrapRef.current;
     const video = videoRef.current;
@@ -70,17 +82,20 @@ export function HeroMedia() {
     return () => io.disconnect();
   }, [showVideo]);
 
+  const videoSrc = isCompact ? heroMedia.mobileSrc : heroMedia.video.src;
+
   return (
     <div ref={wrapRef} className="absolute inset-0">
+      {/* Poster — owns LCP, always visible until the video is ready. */}
       <Image
-        src={heroMedia.image.src}
-        alt={heroMedia.image.alt}
+        src={heroMedia.poster.src}
+        alt={heroMedia.poster.alt}
         fill
         priority
         quality={90}
         sizes="100vw"
         className="object-cover"
-        style={{ objectPosition: heroMedia.image.focal ?? "center" }}
+        style={{ objectPosition: heroMedia.poster.focal ?? "center" }}
       />
 
       {showVideo && (
@@ -89,19 +104,17 @@ export function HeroMedia() {
           muted
           loop
           playsInline
-          preload="none"
+          preload="metadata"
           autoPlay
           aria-label={heroMedia.video.description}
           onCanPlay={() => setReady(true)}
           className={[
             "absolute inset-0 h-full w-full object-cover",
-            "transition-opacity duration-[1200ms] ease-out",
+            "transition-opacity duration-[1400ms] ease-out",
             ready ? "opacity-100" : "opacity-0",
           ].join(" ")}
         >
-          {heroMedia.sources.map((s) => (
-            <source key={s.src} src={s.src} type={s.type} />
-          ))}
+          <source src={videoSrc} type="video/mp4" />
         </video>
       )}
     </div>

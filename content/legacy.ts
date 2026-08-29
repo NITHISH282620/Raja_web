@@ -1,13 +1,12 @@
 import type { ImageAsset, Sourced } from "./types";
+import { yearsInOperation } from "./company";
 
 /**
  * The "Since 1977" section: four decorative arcs with six event photographs
  * scattered along them.
  *
- * Figma positions every element absolutely inside the 1440 frame. Those
- * coordinates are stored here as percentages of the section box (1440 x 884)
- * so the whole composition scales as one unit instead of drifting apart, and
- * so a position can be nudged without touching the component.
+ * Coordinates are stored as percentages of the section box (1440 x 884)
+ * so the whole composition scales as one unit.
  */
 export const LEGACY_BOX = { width: 1440, height: 884 } as const;
 
@@ -26,106 +25,109 @@ export interface CollagePhoto extends Placed {
   flip?: boolean;
 }
 
-/** Order matters: it is the entrance stagger order authored in Figma. */
+/** 
+ * Six curated event photography highlights proportioned and positioned
+ * safely away from viewport edges:
+ */
 export const collage: CollagePhoto[] = [
   {
-    id: "uttarakhand-gis",
-    left: 18.264,
-    top: 5.656,
-    width: 22.431,
-    height: 19.796,
+    id: "structural-hanger",
+    left: 17.5,
+    top: 4.5,
+    width: 23.0,
+    height: 21.0,
     image: {
-      src: "/media/legacy-uttarakhand-gis.webp",
-      width: 700,
-      height: 379,
-      alt: "Dancers in formation before the Uttarakhand Global Investors Summit 2023 signage.",
+      src: "/media/capability-structure.3aa80a08.webp",
+      width: 1600,
+      height: 1000,
+      alt: "Clear-span German hanger and exhibition pavilion structure.",
     },
   },
   {
-    id: "cm-authority-meeting",
-    left: 65.486,
-    top: 11.878,
-    width: 21.111,
-    height: 19.344,
+    id: "national-congress",
+    left: 63.5,
+    top: 7.5,
+    width: 23.0,
+    height: 21.0,
     image: {
-      src: "/media/legacy-cm-authority-meeting.webp",
-      width: 700,
-      height: 394,
-      alt: "Dignitaries seated at a draped dais beneath a red welcome backdrop.",
+      src: "/media/work-congress.4850b520.webp",
+      width: 1800,
+      height: 1013,
+      alt: "National congress stage and seating for thousands of delegates.",
     },
   },
   {
-    id: "aicog-2019",
-    left: -0.764,
-    top: 36.765,
-    width: 16.25,
-    height: 19.796,
+    id: "exhibition-hall",
+    left: 3.5,
+    top: 34.5,
+    width: 18.0,
+    height: 21.0,
     image: {
-      src: "/media/legacy-aicog-2019.webp",
-      width: 700,
-      height: 525,
-      alt: "AICOG 2019 entrance signage set into a landscaped forecourt.",
+      src: "/media/capability-exhibition.4378e5d7.webp",
+      width: 1600,
+      height: 1000,
+      alt: "Fabricated exhibition stalls and walkways inside a massive event hall.",
     },
   },
   {
-    id: "felicitation",
-    left: 83.611,
-    top: 44.118,
-    width: 20.694,
-    height: 22.398,
+    id: "state-ceremony",
+    left: 75.0,
+    top: 39.5,
+    width: 22.0,
+    height: 23.0,
     image: {
-      src: "/media/legacy-felicitation.webp",
-      width: 700,
-      height: 465,
-      alt: "A felicitation ceremony on stage in front of a printed backdrop.",
+      src: "/media/work-ceremony.24729b14.webp",
+      width: 1800,
+      height: 1013,
+      alt: "Government dedication programme and high-capacity audience infrastructure.",
     },
   },
   {
-    id: "ambedkar-jayanti",
-    left: 20.903,
-    top: 66.516,
-    width: 17.153,
-    height: 30.09,
-    flip: true,
+    id: "tent-city-complex",
+    left: 19.0,
+    top: 63.5,
+    width: 21.0,
+    height: 22.0,
     image: {
-      src: "/media/legacy-ambedkar-jayanti.webp",
-      width: 700,
-      height: 752,
-      alt: "Garlanded statue of Dr. B. R. Ambedkar dressed with floral tributes.",
+      src: "/media/projects/aicog-2019-tent-city-dawn.webp",
+      width: 1920,
+      height: 1080,
+      alt: "Aerial view of high-capacity event complex and temporary infrastructure.",
     },
   },
   {
-    id: "dsmax-anniversary",
-    left: 54.375,
-    top: 72.172,
-    width: 20.625,
-    height: 18.778,
+    id: "corporate-summit-stage",
+    left: 54.0,
+    top: 66.5,
+    width: 22.0,
+    height: 21.0,
     image: {
-      src: "/media/legacy-dsmax-anniversary.webp",
-      width: 700,
-      height: 391,
-      alt: "Award recipients on stage at the DS Max anniversary celebration.",
+      src: "/media/work-corporate.fca2ff69.webp",
+      width: 1800,
+      height: 1013,
+      alt: "Illuminated stage and auditorium infrastructure for a mega event.",
     },
   },
 ];
 
-/** The four arcs, in Figma paint order. */
+/** The four arcs, with the bottom arc adjusted higher up into view. */
 export const arcs: (Placed & { src: string })[] = [
   { src: "/vector/arc-1.svg", left: -5.764, top: -64.593, width: 111.528, height: 91.176 },
   { src: "/vector/arc-3.svg", left: -99.444, top: 2.149, width: 111.528, height: 91.176 },
   { src: "/vector/arc-4.svg", left: 88.472, top: 2.149, width: 111.528, height: 91.176 },
-  { src: "/vector/arc-2.svg", left: -5.764, top: 81.335, width: 111.528, height: 91.176 },
+  { src: "/vector/arc-2.svg", left: -5.764, top: 69.5, width: 111.528, height: 91.176 },
 ];
 
-export const legacyIntro: { eyebrow: readonly [string, string]; statement: { text: string; accent?: boolean }[] } & Sourced = {
-  eyebrow: ["47 years", "thousands of builds"],
+export const legacyIntro: {
+  eyebrow: readonly [string, string];
+  statement: { text: string; accent?: boolean; id?: string }[];
+} & Sourced = {
+  eyebrow: [`${yearsInOperation()} years`, "thousands of builds"],
   statement: [
-    { text: "Since 1977, Raja Enterprises has been " },
-    { text: "building the", accent: true },
-    { text: " physical environments where India's most " },
-    { text: "important gatherings", accent: true },
-    { text: " happen." },
+    { text: "Since " },
+    { text: "1977", accent: true },
+    { text: ",\nwe have built the ground\nIndia’s largest gatherings\nstand on." },
   ],
-  status: "provisional",
-  note: 'The "47 years" eyebrow is hardcoded in Figma and already stale — rendered from the founding year instead.',
+  status: "approved",
+  note: "Year computed from the founding date so the figure cannot go stale.",
 };

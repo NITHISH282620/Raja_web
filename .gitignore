@@ -56,3 +56,12 @@ next-env.d.ts
 /client-gallery/**/photos/*.webp
 /client-gallery/**/_mismatched/
 /client-gallery/_reference/
+
+# Video masters. Large source encodes, kept locally so hero loops can be
+# recut; never served, never deployed.
+_masters/
+
+# CMS content database and uploaded media. The client's content, not the
+# repository's.
+.data/
+public/uploads/

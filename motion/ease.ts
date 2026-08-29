@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+import { SplitText } from "gsap/SplitText";
 
 /**
  * The two easing curves authored in the Figma timeline, reproduced exactly
@@ -41,7 +42,10 @@ let registered = false;
 
 export function registerEases() {
   if (registered) return;
-  gsap.registerPlugin(CustomEase);
+  // SplitText is registered here rather than in MotionProvider for the same
+  // reason the eases are: sections build their timelines in useLayoutEffect,
+  // which runs before any provider effect.
+  gsap.registerPlugin(CustomEase, SplitText);
   CustomEase.create(EASE.primary, "M0,0 C0.16,1 0.3,1 1,1");
   CustomEase.create(EASE.spring, springPath());
 

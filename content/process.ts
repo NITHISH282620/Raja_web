@@ -16,11 +16,15 @@ export interface ProcessStep extends Sourced {
  * three the same photograph and the same caption, which was the single biggest
  * content gap in the design.
  *
- * That gap is now closed with real frames from Raja's own AICOG 2019 project
- * film, which happens to document exactly this arc: raw ground being graded,
- * the crew raising a canopy, and the crew laying flooring inside it. Same site,
- * same build, in sequence — which is precisely what the section was designed to
- * show and what no stock or third-party photograph could have provided.
+ * PHOTOGRAPHY, 2026-08-27: licensed photography (Pexels License), replacing
+ * video stills from Raja's AICOG 2019 film that carried a burned-in watermark
+ * across the middle of every frame.
+ *
+ * The section's argument depends on these being ONE site at three stages. These
+ * three are not — they are three different sites that read as a sequence. That
+ * is the weakest thing on the page and the first set Raja should replace with
+ * his own photographs of a single build, which the admin now makes a five
+ * minute job.
  */
 export const processSteps: ProcessStep[] = [
   {
@@ -29,14 +33,13 @@ export const processSteps: ProcessStep[] = [
     label: "Empty",
     caption: "Raw ground levelled and set out before a single structure goes up.",
     image: {
-      id: "aicog-2019-site-grading",
-      src: "/media/projects/aicog-2019-site-grading.webp",
-      width: 1800,
-      height: 1013,
-      alt: "Aerial view of earth-movers grading open farmland into level plots ahead of the build.",
+      id: "process-empty",
+      src: "/media/process-empty.8eb0657f.webp",
+      width: 1600,
+      height: 1200,
+      alt: "Excavator working open ground, levelling a site before a build begins.",
       focal: "center",
-      clearance: "raja-original",
-      credit: "Raja Enterprises",
+      clearance: "licensed",
     },
     status: "approved",
   },
@@ -46,14 +49,13 @@ export const processSteps: ProcessStep[] = [
     label: "Structure",
     caption: "Our own crew raises the canopies and clear-span structures on the prepared ground.",
     image: {
-      id: "aicog-2019-hanger-erection",
-      src: "/media/projects/aicog-2019-hanger-erection.webp",
-      width: 1800,
-      height: 1013,
-      alt: "Raja Enterprises crew in branded shirts raising a white canopy over its frame on site.",
+      id: "process-structure",
+      src: "/media/process-structure.534fbe86.webp",
+      width: 1600,
+      height: 1200,
+      alt: "A draped structure standing over a finished floor, mid fit-out.",
       focal: "center",
-      clearance: "raja-original",
-      credit: "Raja Enterprises",
+      clearance: "licensed",
     },
     status: "approved",
   },
@@ -63,14 +65,13 @@ export const processSteps: ProcessStep[] = [
     label: "Flooring",
     caption: "Flooring and carpeting go down inside the structure, turning a frame into a room.",
     image: {
-      id: "aicog-2019-flooring-install",
-      src: "/media/projects/aicog-2019-flooring-install.webp",
-      width: 1800,
-      height: 1013,
-      alt: "Crew unrolling red carpet across the floor of a completed draped tent interior.",
+      id: "process-flooring",
+      src: "/media/process-flooring.a11a90ab.webp",
+      width: 1600,
+      height: 1200,
+      alt: "Carpet laid over levelled platform steps.",
       focal: "center",
-      clearance: "raja-original",
-      credit: "Raja Enterprises",
+      clearance: "licensed",
     },
     status: "approved",
   },
@@ -78,9 +79,24 @@ export const processSteps: ProcessStep[] = [
 
 export const processIntro = {
   eyebrow: ["The making", "of an event"] as const,
+  /**
+   * Previously "How we plan and structure things?" — a question that is not
+   * quite a question and reads as a translation. The section does not ask
+   * anything; it shows the same site at three stages, so the heading states
+   * that instead.
+   */
   statement: [
-    { text: "How we " },
-    { text: "plan and structure", accent: true },
-    { text: " things?" },
+    { text: "Three moves.\nBare ground to a " },
+    { text: "finished venue", accent: true },
+    { text: "." },
   ],
+  /**
+   * This line used to read "These three frames are one site — the same ground,
+   * photographed as it was levelled, structured and floored." That was true of
+   * the AICOG stills it was written for and is NOT true of the licensed
+   * photography now in place. A caption that asserts something the pictures
+   * above it do not support is the kind of small dishonesty a buyer notices, so
+   * it states the sequence rather than claiming the provenance.
+   */
+  body: "Every build runs in the same order: level and set out the ground, raise the structure, then floor it. Nothing starts before the stage before it is signed off.",
 };

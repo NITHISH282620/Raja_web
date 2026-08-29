@@ -2,9 +2,6 @@
 
 /* ---------------------------------------------------------------------------
    Design tokens
-   The Figma file defines no variables (get_variable_defs returned {}), so this
-   file is the single source of truth. Every value below was recovered from the
-   raw fills on node 6:2. Nothing outside this file should use a literal hex.
 --------------------------------------------------------------------------- */
 @theme {
   /* Grounds */
@@ -13,8 +10,9 @@
   --color-ink-alt: #101010;
   --color-paper: #ececec;
 
-  /* Accent — the one brand colour in the design */
+  /* Accent - the one brand colour in the design */
   --color-accent: #eb5557;
+  --color-brand-blue: #063c5a;
 
   /* Body text, by the ground it sits on */
   --color-body-light: #616161;
@@ -46,9 +44,6 @@
 
 /* ---------------------------------------------------------------------------
    Type scale
-   Figma sizes are exact at 1440px and clamp down from there. Tracking is
-   converted from px to em so it stays proportional at every width — that is
-   what keeps the tight display setting from falling apart on small screens.
 --------------------------------------------------------------------------- */
 @layer components {
   .t-hero {
@@ -177,8 +172,6 @@
     font-family: var(--font-display);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    /* ScrollTrigger pins measure against the document; a horizontal scrollbar
-       from a mid-animation transform would desync every trigger below it. */
     overflow-x: hidden;
   }
   :focus-visible {
@@ -192,16 +185,12 @@
 }
 
 @layer utilities {
-  /* The 1440 design frame, centred. Full-bleed grounds live outside it. */
   .frame {
     width: 100%;
     max-width: var(--container-frame);
     margin-inline: auto;
     padding-inline: clamp(20px, 5.55vw, 80px);
   }
-  /* Elements the motion system reveals start hidden, but only once GSAP has
-     confirmed it will run. `.motion-ready` is set on <html> by the provider so
-     a JS failure or a crawler never leaves the page blank. */
   .motion-ready [data-reveal] {
     opacity: 0;
     will-change: transform, opacity;
@@ -210,6 +199,28 @@
     transform: scaleX(0);
     transform-origin: left center;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Marquee Animation
+--------------------------------------------------------------------------- */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -222,10 +233,13 @@
     transform: none;
   }
 
-  /* No timeline is built in this state, so the two scroll-driven layouts have
-     to stand on their own. The carousel goes back to being a real scroll
-     container, and the works cards stop stacking and simply follow one
-     another — both remain fully reachable without any scroll choreography. */
+  .animate-marquee {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+
   [data-capability-track] {
     overflow-x: auto !important;
     scroll-snap-type: x mandatory;

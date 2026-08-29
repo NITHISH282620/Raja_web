@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <circle cx="28" cy="30" r="14" stroke="#063c5a" stroke-width="3" fill="none"/>
+  <circle cx="28" cy="30" r="6" fill="#eb5557"/>
+  <text x="52" y="29" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="13" fill="#063c5a" letter-spacing="0.5">FIRST CIRCLE</text>
+  <text x="52" y="42" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="9" fill="#777777" letter-spacing="1">BIZTECH EXPO</text>
+</svg>

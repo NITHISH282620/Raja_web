@@ -2,8 +2,8 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, fadeUp, fadeIn, growRule, q } from "@/motion/primitives";
-import { DUR, MOTION_OK } from "@/motion/ease";
+import { gsap, fadeUp, fadeIn, growRule, revealLines, release, q } from "@/motion/primitives";
+import { DUR, EASE, MOTION_OK } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement, type Segment } from "@/components/Statement";
 
@@ -35,11 +35,21 @@ export function PageMasthead({
       if (!scope) return;
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({
+          onComplete: () => release(q(scope, "[data-reveal], [data-reveal-rule]")),
+        });
         fadeIn(tl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.05 }, 0.05);
         growRule(tl, q(scope, "[data-eyebrow] [data-reveal-rule]"), {}, 0.1);
-        fadeUp(tl, q(scope, "[data-statement]"), { duration: DUR.statement }, 0.2);
-        fadeUp(tl, q(scope, "[data-lead]"), {}, 0.4);
+        fadeUp(tl, q(scope, "[data-lead]"), { duration: DUR.statement }, 0.4);
+
+        // Interior mastheads get the same per-line reveal as the homepage
+        // statements, so an interior page opens with the site's own gesture
+        // rather than with a generic fade.
+        const revert = revealLines(q(scope, "[data-statement] h1"), {
+          delay: 0.18,
+          stagger: 0.09,
+        });
+        return () => revert();
       });
       return () => mm.revert();
     },
@@ -55,7 +65,7 @@ export function PageMasthead({
         <Eyebrow items={eyebrow} />
       </div>
       <div className="grid items-end gap-[clamp(16px,2.4vw,48px)] lg:grid-cols-[1.15fr_0.85fr]">
-        <div data-statement data-reveal>
+        <div data-statement>
           <Statement as="h1" segments={statement} className="t-statement max-w-[16ch]" />
         </div>
         {lead && (
@@ -99,8 +109,9 @@ export function Band({
             y: 0,
             duration: DUR.statement,
             stagger: { each: 0.08, ease: "power1.inOut" },
-            ease: "raja-expo",
+            ease: EASE.primary,
             scrollTrigger: { trigger: scope, start: "top 82%", once: true },
+            onComplete: () => release(items),
           },
         );
       });
@@ -113,7 +124,7 @@ export function Band({
     <div
       ref={root}
       className={[
-        tone === "ink" ? "bg-ink text-white" : "bg-paper text-ink",
+        tone === "ink" ? "bg-mist text-ink" : "bg-surface text-ink",
         "py-[clamp(56px,8vw,120px)]",
         className ?? "",
       ].join(" ")}

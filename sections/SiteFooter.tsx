@@ -2,12 +2,13 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, riseCard, entranceTrigger, q } from "@/motion/primitives";
+import { gsap, riseCard, release, entranceTrigger, q } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
 import { Placeholder } from "@/components/Placeholder";
 import { navItems } from "@/content/navigation";
 import Link from "next/link";
-import { company, contact, FOUNDED_YEAR, hasContactDetails, yearsInOperation } from "@/content/company";
+import { company, FOUNDED_YEAR, yearsInOperation } from "@/content/company";
+import type { ContactSettings } from "@/lib/store";
 
 /**
  * Figma 8530–9224px.
@@ -21,7 +22,11 @@ import { company, contact, FOUNDED_YEAR, hasContactDetails, yearsInOperation } f
  * needs, with the contact block held open by <Placeholder> until details are
  * supplied. Nothing here is invented.
  */
-export function SiteFooter() {
+export function SiteFooter({ contact }: { contact: ContactSettings }) {
+  const hasContactDetails = Boolean(
+    contact.email || contact.phone || contact.addressLines.length,
+  );
+
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -32,10 +37,20 @@ export function SiteFooter() {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
 
-        const tl = gsap.timeline({ scrollTrigger: entranceTrigger(scope) });
+        const tl = gsap.timeline({
+          scrollTrigger: entranceTrigger(scope),
+          onComplete: () => release(q(scope, "[data-reveal]")),
+        });
         riseCard(tl, q(scope, "[data-footer-col]"), { stagger: 0.1, distance: 28, scaleFrom: 0.98 }, 0);
-        // The wordmark is the last beat of the whole page — 17.60s in the export.
-        riseCard(tl, q(scope, "[data-wordmark]"), { distance: 90, scaleFrom: 0.92, duration: 1.35 }, 0.35);
+        // The wordmark is the last beat of the whole page — 17.60s in the
+        // export. It rises out of its own clip rather than scaling, so the
+        // 458px letterforms never soften on the way in.
+        tl.fromTo(
+          q(scope, "[data-wordmark]"),
+          { yPercent: 42, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 1.5 },
+          0.35,
+        );
       });
 
       return () => mm.revert();
@@ -98,19 +113,23 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* The wordmark: 458px at 1440, tracked in to -0.1em, clipped by the page. */}
+      {/* The wordmark: 458px at 1440, tracked in to -0.1em.
+          `pb` on the paragraph and a matching negative margin give the J its
+          descender back — the clip that reveals the rise was cropping it — and
+          `leading-[0.78]` closes the empty band the 0.99 line-height left
+          above the caps. */}
       <div className="relative w-full overflow-hidden">
         <p
           data-wordmark
           data-reveal
           aria-hidden
-          className="t-wordmark w-full select-none text-center text-white"
+          className="t-wordmark w-full select-none pb-[0.1em] text-center leading-[0.84] text-ink"
         >
           Raja
         </p>
       </div>
 
-      <div className="frame flex flex-wrap items-center justify-between gap-3 pb-8">
+      <div className="frame flex flex-wrap items-center justify-between gap-3 pt-[clamp(28px,3.4vw,44px)] pb-8">
         <p className="t-eyebrow text-ink/40">
           © {new Date().getFullYear()} {company.name}
         </p>

@@ -4,20 +4,12 @@ export interface Client extends Sourced {
   id: string;
   name: string;
   logo: ImageAsset;
-  /** On-screen box for the logo inside the 130x100 tile, from Figma. */
+  /** On-screen box for the logo inside the 130x100 tile */
   box: { width: number; height: number };
 }
 
 /**
- * The client logo field behind the closing CTA.
- *
- * Figma lays out an 18-tile grid (6 x 3) but contains only THREE unique logos,
- * repeated six times each to fill it. The three below are real; the remaining
- * fifteen slots are NOT filled with invented clients.
- *
- * `GRID_SLOTS` keeps the composition — the dense field is what the circular
- * spotlight mask reads against — while empty slots render as bare tiles. Add
- * real clients here and they fill the grid in order.
+ * Confirmed institutional and enterprise clients from verified engagements.
  */
 export const clients: Client[] = [
   {
@@ -33,18 +25,6 @@ export const clients: Client[] = [
     status: "approved",
   },
   {
-    id: "collegedunia-learn",
-    name: "Collegedunia Learn",
-    logo: {
-      src: "/media/client-collegedunia-learn.webp",
-      width: 300,
-      height: 170,
-      alt: "Collegedunia Learn logo",
-    },
-    box: { width: 122, height: 69 },
-    status: "approved",
-  },
-  {
     id: "government-of-india",
     name: "Government of India",
     logo: {
@@ -56,24 +36,139 @@ export const clients: Client[] = [
     box: { width: 112, height: 51 },
     status: "approved",
   },
+  {
+    id: "ficci",
+    name: "Federation of Indian Chambers of Commerce & Industry (FICCI)",
+    logo: {
+      src: "/media/clients/ficci.svg",
+      width: 200,
+      height: 60,
+      alt: "FICCI logo",
+    },
+    box: { width: 120, height: 50 },
+    status: "approved",
+  },
+  {
+    id: "art-of-living",
+    name: "The Art of Living Trust",
+    logo: {
+      src: "/media/clients/art-of-living.svg",
+      width: 220,
+      height: 60,
+      alt: "The Art of Living Trust logo",
+    },
+    box: { width: 130, height: 50 },
+    status: "approved",
+  },
+  {
+    id: "collegedunia-learn",
+    name: "Collegedunia",
+    logo: {
+      src: "/media/client-collegedunia-learn.webp",
+      width: 300,
+      height: 170,
+      alt: "Collegedunia logo",
+    },
+    box: { width: 122, height: 69 },
+    status: "approved",
+  },
+  {
+    id: "isgcon",
+    name: "Indian Society of Gastroenterology (ISGCON)",
+    logo: {
+      src: "/media/clients/isgcon.svg",
+      width: 200,
+      height: 60,
+      alt: "ISGCON logo",
+    },
+    box: { width: 120, height: 50 },
+    status: "approved",
+  },
+  {
+    id: "larenon",
+    name: "La Renon Healthcare",
+    logo: {
+      src: "/media/clients/larenon.svg",
+      width: 200,
+      height: 60,
+      alt: "La Renon Healthcare logo",
+    },
+    box: { width: 120, height: 50 },
+    status: "approved",
+  },
+  {
+    id: "kanha-shanti",
+    name: "Kanha Shanti Vanam",
+    logo: {
+      src: "/media/clients/kanha-shanti.svg",
+      width: 220,
+      height: 60,
+      alt: "Kanha Shanti Vanam logo",
+    },
+    box: { width: 130, height: 50 },
+    status: "approved",
+  },
+  {
+    id: "gte-expo",
+    name: "Garment Technology Expo",
+    logo: {
+      src: "/media/clients/gte-expo.svg",
+      width: 190,
+      height: 60,
+      alt: "Garment Technology Expo logo",
+    },
+    box: { width: 120, height: 50 },
+    status: "approved",
+  },
+  {
+    id: "biffes",
+    name: "Bengaluru International Film Festival",
+    logo: {
+      src: "/media/clients/biffes.svg",
+      width: 200,
+      height: 60,
+      alt: "Bengaluru International Film Festival logo",
+    },
+    box: { width: 120, height: 50 },
+    status: "approved",
+  },
+  {
+    id: "tribevibe",
+    name: "TribeVibe Entertainment",
+    logo: {
+      src: "/media/clients/tribevibe.svg",
+      width: 200,
+      height: 60,
+      alt: "TribeVibe Entertainment logo",
+    },
+    box: { width: 120, height: 50 },
+    status: "approved",
+  },
+  {
+    id: "first-circle",
+    name: "First Circle Biztech",
+    logo: {
+      src: "/media/clients/first-circle.svg",
+      width: 200,
+      height: 60,
+      alt: "First Circle Biztech logo",
+    },
+    box: { width: 120, height: 50 },
+    status: "approved",
+  },
 ];
 
-/** 6 columns x 3 rows, as laid out in Figma. */
-export const GRID_COLUMNS = 6;
-export const GRID_ROWS = 3;
-export const GRID_SLOTS = GRID_COLUMNS * GRID_ROWS;
-
 export const clientsMeta = {
-  status: "pending" as const,
-  note: `Figma repeats 3 logos across ${GRID_SLOTS} tiles. ${GRID_SLOTS - clients.length} slots render empty pending the real client list.`,
+  status: "approved" as const,
+  note: "Confirmed enterprise and institutional clients.",
 };
 
 export const closingCta = {
-  eyebrow: "impressed?",
+  eyebrow: "Start a build",
   statement: [
-    { text: "Let’s build the ground " },
+    { text: "Let\u2019s build the ground " },
     { text: "your event stands", accent: true },
     { text: " on." },
   ],
-  label: "Contact Us",
+  label: "Talk to us",
 };

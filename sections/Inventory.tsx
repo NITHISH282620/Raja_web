@@ -72,13 +72,13 @@ export function Inventory() {
   );
 
   return (
-    <section ref={root} id={SECTION_IDS.inventory} className="relative w-full bg-ink pb-[clamp(80px,10vw,150px)]">
+    <section ref={root} id={SECTION_IDS.inventory} className="relative w-full bg-paper pb-[clamp(80px,10vw,150px)]">
       <div className="frame flex flex-col items-center gap-5 pb-[clamp(48px,7vw,110px)] pt-[clamp(72px,10vw,145px)] text-center">
         <div data-eyebrow>
-          <Eyebrow items={inventoryIntro.eyebrow} tone="light" align="center" />
+          <Eyebrow items={inventoryIntro.eyebrow} align="center" />
         </div>
         <div data-statement data-reveal>
-          <Statement segments={inventoryIntro.statement} tone="light" className="t-statement max-w-[520px]" />
+          <Statement segments={inventoryIntro.statement} className="t-statement max-w-[520px]" />
         </div>
       </div>
 

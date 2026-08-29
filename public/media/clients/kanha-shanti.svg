@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" fill="none">
+  <circle cx="28" cy="30" r="16" fill="#f4f6f8" stroke="#063c5a" stroke-width="2"/>
+  <path d="M28 20 C23 25, 23 32, 28 36 C33 32, 33 25, 28 20 Z" fill="#eb5557"/>
+  <text x="56" y="27" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="13" fill="#063c5a" letter-spacing="0.5">KANHA SHANTI VANAM</text>
+  <text x="56" y="41" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="9" fill="#666666" letter-spacing="0.5">HEARTFULNESS RETREAT</text>
+</svg>

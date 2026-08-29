@@ -5,17 +5,17 @@ import { useGSAP } from "@gsap/react";
 import { gsap, fadeUp, fadeIn, growRule, riseCard, q } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
 import { HeroMedia } from "@/components/HeroMedia";
-import { Eyebrow } from "@/components/Eyebrow";
-import { company, FOUNDED_YEAR } from "@/content/company";
+import { company, FOUNDED_YEAR, yearsInOperation } from "@/content/company";
 import { SECTION_IDS } from "@/content/navigation";
+import type { HeroSettings } from "@/lib/store";
 
 /**
- * Figma 0–898px.
+ * Figma 0-898px.
  *
- * The only section whose entrance is time-based rather than scroll-bound — it
- * plays on mount, matching the 0.15s–1.40s opening of the authored timeline.
+ * The only section whose entrance is time-based rather than scroll-bound - it
+ * plays on mount, matching the 0.15s-1.40s opening of the authored timeline.
  */
-export function Hero() {
+export function HeroView({ hero }: { hero: HeroSettings }) {
   const root = useRef<HTMLElement>(null);
   const headline = useRef<HTMLHeadingElement>(null);
   const support = useRef<HTMLParagraphElement>(null);
@@ -27,7 +27,6 @@ export function Hero() {
 
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
-
         const tl = gsap.timeline();
         fadeIn(tl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.05 }, 0.15);
         growRule(tl, q(scope, "[data-eyebrow] [data-reveal-rule]"), {}, 0.2);
@@ -52,27 +51,37 @@ export function Hero() {
         hero image is now Raja's own dawn aerial, which is already dark and
         low-contrast, and 72% flattened the tent field into near-black. Lowered
         to 58% with a slight bottom weighting so the headline keeps its contrast
-        while the scale of the build still reads. Flat, not decorative — the
+        while the scale of the build still reads. Flat, not decorative - the
         design's intent preserved, the value adapted to the new source.
       */}
       <div aria-hidden className="absolute inset-0 bg-ink/[0.58]" />
       <div
         aria-hidden
         className="absolute inset-0"
-        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 45%)" }}
+        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0) 70%)" }}
       />
 
-      <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col gap-6 px-[clamp(20px,2.08vw,30px)] pb-[clamp(40px,5.7vw,51px)] md:flex-row md:items-end md:justify-between md:gap-16">
-        <div className="flex flex-col gap-[clamp(10px,1.4vw,18px)]">
-          <div data-eyebrow>
-            <Eyebrow items={["Our legacy", `Established in ${FOUNDED_YEAR}`]} tone="light" />
-          </div>
-          <h1 ref={headline} data-reveal className="t-hero max-w-[620px] text-white">
-            Established in {FOUNDED_YEAR}
-          </h1>
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-end text-center px-[clamp(20px,5vw,80px)] pb-[clamp(44px,9vh,100px)] pt-[120px]">
+        <div data-eyebrow className="mb-[clamp(16px,2vw,24px)] flex items-center justify-center gap-[clamp(12px,1.5vw,20px)]">
+          <span aria-hidden data-reveal-rule className="block h-[1px] w-[clamp(20px,3vw,40px)] bg-accent/80" />
+          <span data-reveal className="t-eyebrow text-[11px] md:text-[13px] uppercase tracking-[0.25em] text-white/90">
+            ESTABLISHED {FOUNDED_YEAR}
+            <span aria-hidden className="mx-2 md:mx-3 opacity-40">
+              -
+            </span>
+            {yearsInOperation()} YEARS OF LEGACY
+          </span>
+          <span aria-hidden data-reveal-rule className="block h-[1px] w-[clamp(20px,3vw,40px)] bg-accent/80" />
         </div>
-        <p ref={support} data-reveal className="t-lead max-w-[380px] text-white md:text-right">
-          {company.legacyStatement}
+        
+        <h1 ref={headline} data-reveal className="t-hero text-white mb-[clamp(16px,2vw,24px)] leading-tight text-[clamp(2.5rem,5vw,5rem)] max-w-[1000px]">
+          {hero.headline.split('\n').map((line, i) => (
+            <span key={i} className="block">{line}</span>
+          ))}
+        </h1>
+        
+        <p ref={support} data-reveal className="t-body max-w-[800px] text-white/85 text-[clamp(14px,1.2vw,18px)] leading-relaxed font-light">
+          {hero.body}
         </p>
       </div>
     </section>

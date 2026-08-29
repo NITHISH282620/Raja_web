@@ -29,7 +29,7 @@ export function WorkCard({ work }: { work: Project }) {
         alt={work.hero.alt}
         fill
         sizes="(max-width: 1023px) 100vw, 44vw"
-        className="object-cover"
+        className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
         style={work.hero?.focal ? { objectPosition: work.hero.focal } : undefined}
       />
     </div>
@@ -40,7 +40,9 @@ export function WorkCard({ work }: { work: Project }) {
   return (
     <article
       className={clsx(
-        "flex h-full w-full flex-col overflow-hidden rounded-[20px] p-[9px] lg:flex-row lg:items-center lg:gap-[min(4.03vw,58px)]",
+        // `origin-top` so the scale-back applied as the next card is laid over
+        // this one pivots from the top edge, which is the edge that stays put.
+        "group flex h-full w-full origin-top flex-col overflow-hidden rounded-[20px] p-[9px] lg:flex-row lg:items-center lg:gap-[min(4.03vw,58px)]",
         work.reverse ? "lg:flex-row-reverse lg:pl-[9px] lg:pr-[28px]" : "lg:pl-[9px] lg:pr-[28px]",
         TINT[work.tint],
       )}
@@ -70,9 +72,11 @@ export function WorkCard({ work }: { work: Project }) {
           />
         )}
 
-        <div data-work-meta className="mt-2">
-          <Pill href={work.href}>know more →</Pill>
-        </div>
+        {work.href && (
+          <div data-work-meta className="mt-2">
+            <Pill href={work.href}>read the case study →</Pill>
+          </div>
+        )}
       </div>
     </article>
   );
