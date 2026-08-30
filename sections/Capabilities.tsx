@@ -199,6 +199,7 @@ export function CapabilitiesView({ capabilities }: { capabilities: Capability[] 
                     alt={capability.image.alt}
                     fill
                     sizes="(max-width: 1023px) 84vw, 60vw"
+                    priority={capability.index === "01" || capability.index === "02"}
                     className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
                     style={
                       capability.image.focal ? { objectPosition: capability.image.focal } : undefined

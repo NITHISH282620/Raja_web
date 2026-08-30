@@ -1,7 +1,9 @@
+import type { MediaAsset } from "./media";
 export interface EventCategory {
   id: string;
   title: string;
   summary: string;
+  image?: MediaAsset;
 }
 
 export const eventsWeBuildFor: EventCategory[] = [
@@ -9,21 +11,25 @@ export const eventsWeBuildFor: EventCategory[] = [
     id: "national-programmes",
     title: "National Programmes",
     summary: "High-security infrastructure for Prime Ministerial visits and state inaugurations.",
+    image: { src: "/media/work-ceremony.24729b14.webp", width: 1800, height: 1013, alt: "National Programme" },
   },
   {
     id: "mega-exhibitions",
     title: "Mega Exhibitions",
     summary: "Massive stall fabrications and pavilion builds for industrial trade fairs.",
+    image: { src: "/media/capability-exhibition.4378e5d7.webp", width: 1600, height: 1000, alt: "Mega Exhibition" },
   },
   {
     id: "corporate-forums",
     title: "Corporate Forums",
     summary: "Plenary halls, staging, and VIP environments for global summits.",
+    image: { src: "/media/work-corporate.fca2ff69.webp", width: 1800, height: 1200, alt: "Corporate Forum" },
   },
   {
     id: "cultural-gatherings",
     title: "Cultural Gatherings",
     summary: "Open-air infrastructure and high-capacity audience seating for state festivals.",
+    image: { src: "/media/legacy-aicog-2019.a98a8727.webp", width: 1600, height: 1000, alt: "Cultural Gathering" },
   },
 ];
 

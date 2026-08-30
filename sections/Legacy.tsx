@@ -184,6 +184,7 @@ export function LegacyView({ collage }: { collage: unknown[] }) {
                 alt={photo.image.alt}
                 fill
                 sizes="(max-width: 768px) 38vw, (max-width: 1440px) 25vw, 340px"
+                priority={i < 4}
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>
