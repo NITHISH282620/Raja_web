@@ -90,13 +90,16 @@ export function WorksView({ projects }: { projects: Project[] }) {
           objectPosition: "center 0%",
         });
 
-        // Main timeline pinning the right column
+        const archCard = scope.querySelector("[data-arch-card]");
+        const textTrack = scope.querySelector("[data-text-track]");
+
+        // Main timeline pinning the entire card
         const mainTl = gsap.timeline({
           scrollTrigger: {
-            trigger: archEl,
-            start: "top top",
-            end: "bottom bottom",
-            pin: rightCol,
+            trigger: archCard,
+            start: "top 120px",
+            end: `+=${projects.length * 100}%`,
+            pin: true,
             scrub: true,
           },
         });
@@ -108,7 +111,6 @@ export function WorksView({ projects }: { projects: Project[] }) {
 
           const sectionTl = gsap.timeline();
 
-          const archCard = scope.querySelector("[data-arch-card]");
           
           // Current image wipes away from bottom
           sectionTl.to(
@@ -141,6 +143,19 @@ export function WorksView({ projects }: { projects: Project[] }) {
                 backgroundColor: TINT_COLORS[projects[i + 1].tint] || "#F5F5F7",
                 duration: 1.5,
                 ease: "power2.inOut",
+              },
+              0
+            );
+          }
+          
+          // Animate text track up
+          if (textTrack) {
+            sectionTl.to(
+              textTrack,
+              {
+                yPercent: -100 * (i + 1) / projects.length,
+                duration: 1.5,
+                ease: "power1.inOut",
               },
               0
             );
@@ -242,13 +257,14 @@ export function WorksView({ projects }: { projects: Project[] }) {
         style={{ backgroundColor: TINT_COLORS[projects[0]?.tint || "neutral"] || "#F5F5F7" }}
       >
         <div data-arch className="flex gap-8 lg:gap-16 max-w-[1200px] mx-auto">
-        {/* Left: Text sections, each 100vh */}
-        <div className="flex flex-col min-w-[280px] w-[40%] xl:w-[38%] shrink-0">
+        {/* Left: Text track with mask */}
+        <div className="flex flex-col min-w-[280px] w-[40%] xl:w-[38%] shrink-0 overflow-hidden h-[75vh]">
+          <div data-text-track className="flex flex-col w-full h-full">
           {projects.map((work, i) => (
             <div
               key={work.id}
               data-work-text
-              className="h-[75vh] flex items-center"
+              className="h-[75vh] flex-shrink-0 flex items-center"
             >
               <div data-work-content className="flex flex-col gap-3 max-w-[400px]">
                 <p className="t-eyebrow text-ink/50 font-mono text-xs tracking-wider uppercase">
@@ -278,6 +294,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
               </div>
             </div>
           ))}
+          </div>
         </div>
 
         {/* Right: Pinned image stack */}
