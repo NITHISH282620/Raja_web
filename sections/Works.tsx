@@ -238,17 +238,17 @@ export function WorksView({ projects }: { projects: Project[] }) {
       {/* ======== DESKTOP: Two-column pinned image stack ======== */}
       <div 
         data-arch-card 
-        className="hidden lg:block max-w-[1440px] mx-auto p-[clamp(40px,5vw,80px)] px-[clamp(24px,4vw,64px)] lg:px-[clamp(40px,6vw,100px)] rounded-[40px] xl:rounded-[60px] transition-colors duration-1000 ease-in-out"
+        className="hidden lg:block max-w-[1440px] mx-auto py-[4vh] px-[clamp(24px,4vw,64px)] lg:px-[clamp(40px,6vw,100px)] rounded-[40px] xl:rounded-[60px] transition-colors duration-1000 ease-in-out"
         style={{ backgroundColor: TINT_COLORS[projects[0]?.tint || "neutral"] || "#F5F5F7" }}
       >
-        <div data-arch className="flex gap-[clamp(40px,5vw,80px)] max-w-[1200px] mx-auto">
+        <div data-arch className="flex gap-8 lg:gap-16 max-w-[1200px] mx-auto">
         {/* Left: Text sections, each 100vh */}
         <div className="flex flex-col min-w-[280px] w-[40%] xl:w-[38%] shrink-0">
           {projects.map((work, i) => (
             <div
               key={work.id}
               data-work-text
-              className="h-screen flex items-center"
+              className="h-[75vh] flex items-center"
             >
               <div data-work-content className="flex flex-col gap-3 max-w-[400px]">
                 <p className="t-eyebrow text-ink/50 font-mono text-xs tracking-wider uppercase">
@@ -283,7 +283,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
         {/* Right: Pinned image stack */}
         <div
           data-arch-right
-          className="relative flex-1 h-screen flex flex-col"
+          className="relative flex-1 h-[75vh] flex flex-col"
         >
           {projects.map((work, i) => (
             <div
