@@ -108,6 +108,8 @@ export function WorksView({ projects }: { projects: Project[] }) {
 
           const sectionTl = gsap.timeline();
 
+          const archCard = scope.querySelector("[data-arch-card]");
+          
           // Current image wipes away from bottom
           sectionTl.to(
             img,
@@ -130,6 +132,19 @@ export function WorksView({ projects }: { projects: Project[] }) {
             },
             0,
           );
+          
+          // Animate card background color to next image's tint
+          if (archCard && projects[i + 1]) {
+            sectionTl.to(
+              archCard,
+              {
+                backgroundColor: TINT_COLORS[projects[i + 1].tint] || "#F5F5F7",
+                duration: 1.5,
+                ease: "power2.inOut",
+              },
+              0
+            );
+          }
 
           mainTl.add(sectionTl);
         });
@@ -221,7 +236,12 @@ export function WorksView({ projects }: { projects: Project[] }) {
       </div>
 
       {/* ======== DESKTOP: Two-column pinned image stack ======== */}
-      <div data-arch className="hidden lg:flex gap-[clamp(40px,5vw,80px)] max-w-[1200px] mx-auto px-[clamp(24px,4vw,64px)]">
+      <div 
+        data-arch-card 
+        className="hidden lg:block max-w-[1440px] mx-auto p-[clamp(40px,5vw,80px)] px-[clamp(24px,4vw,64px)] lg:px-[clamp(40px,6vw,100px)] rounded-[40px] xl:rounded-[60px] transition-colors duration-1000 ease-in-out"
+        style={{ backgroundColor: TINT_COLORS[projects[0]?.tint || "neutral"] || "#F5F5F7" }}
+      >
+        <div data-arch className="flex gap-[clamp(40px,5vw,80px)] max-w-[1200px] mx-auto">
         {/* Left: Text sections, each 100vh */}
         <div className="flex flex-col min-w-[280px] w-[40%] xl:w-[38%] shrink-0">
           {projects.map((work, i) => (
@@ -286,6 +306,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
               )}
             </div>
           ))}
+        </div>
         </div>
       </div>
 
