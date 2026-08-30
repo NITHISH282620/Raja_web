@@ -30,7 +30,7 @@ const mobilePositions = [
  * Fast entrance animations for immediate visual impact.
  * Desktop parallax drift on cards while section is in view.
  */
-export function LegacyView({ collage }: { collage: any[] }) {
+export function LegacyView({ collage }: { collage: unknown[] }) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -162,7 +162,7 @@ export function LegacyView({ collage }: { collage: any[] }) {
                 top: `var(--card-top, ${pct(photo.top)})`,
                 width: `var(--card-width, ${pct(photo.width)})`,
                 height: `var(--card-height, ${pct(photo.height)})`,
-                // @ts-ignore
+                // @ts-expect-error - ignore this error - ignore this error
                 "--card-left": pct(photo.left),
                 "--card-top": pct(photo.top),
                 "--card-width": pct(photo.width),
