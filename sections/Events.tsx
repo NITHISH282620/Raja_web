@@ -27,10 +27,10 @@ export function EventsWeBuildFor() {
         
         const reveal = gsap.timeline({
           scrollTrigger: { trigger: scope, start: "top 70%", once: true },
-          onComplete: () => release([...cards, ...q(scope, "[data-slide-meta]")])
+          onComplete: () => release([...cards, ...q("[data-slide-meta]")])
         });
         riseCard(reveal, cards, { stagger: 0.1, scaleFrom: 0.92 }, 0);
-        fadeUp(reveal, q(scope, "[data-slide-meta]"), { stagger: 0.1, distance: 24 }, 0.6);
+        fadeUp(reveal, q("[data-slide-meta]"), { stagger: 0.1, distance: 24 }, 0.6);
 
         const trackEl = track.current;
         const viewportEl = viewport.current;
