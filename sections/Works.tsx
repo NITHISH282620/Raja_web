@@ -202,7 +202,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
   return (
     <section ref={root} id={SECTION_IDS.works} className="relative w-full bg-paper">
       {/* Centered Statement and Header */}
-      <div className="frame flex flex-col items-center text-center gap-5 pb-[clamp(44px,6vw,80px)] pt-[clamp(72px,10vw,140px)]">
+      <div className="sticky top-[15vh] z-0 frame flex flex-col items-center text-center gap-5 pb-[clamp(44px,6vw,80px)] pt-[clamp(72px,10vw,140px)]">
         <div data-eyebrow className="flex justify-center">
           <Eyebrow items={worksIntro.eyebrow} align="center" />
         </div>
@@ -238,7 +238,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
       {/* ======== DESKTOP: Two-column pinned image stack ======== */}
       <div 
         data-arch-card 
-        className="hidden lg:block max-w-[1440px] mx-auto py-[4vh] px-[clamp(24px,4vw,64px)] lg:px-[clamp(40px,6vw,100px)] rounded-[40px] xl:rounded-[60px] transition-colors duration-1000 ease-in-out"
+        className="relative z-10 hidden lg:block max-w-[1440px] mx-auto py-[4vh] px-[clamp(24px,4vw,64px)] lg:px-[clamp(40px,6vw,100px)] rounded-[40px] xl:rounded-[60px] transition-colors duration-1000 ease-in-out shadow-2xl"
         style={{ backgroundColor: TINT_COLORS[projects[0]?.tint || "neutral"] || "#F5F5F7" }}
       >
         <div data-arch className="flex gap-8 lg:gap-16 max-w-[1200px] mx-auto">
@@ -311,7 +311,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
       </div>
 
       {/* ======== MOBILE: Stacked cards ======== */}
-      <div className="lg:hidden frame flex flex-col gap-8 pb-[clamp(48px,6vw,80px)]">
+      <div className="relative z-10 lg:hidden frame flex flex-col gap-8 pb-[clamp(48px,6vw,80px)]">
         {projects.map((work) => (
           <div
             key={work.id}
