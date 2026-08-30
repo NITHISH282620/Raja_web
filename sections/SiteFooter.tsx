@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap, riseCard, release, entranceTrigger, q } from "@/motion/primitives";
@@ -99,13 +98,19 @@ export function SiteFooter({ contact }: { contact: ContactSettings }) {
       <div className="frame grid gap-10 pb-[clamp(48px,6vw,72px)] sm:grid-cols-2 lg:grid-cols-12">
         {/* Col 1: Brand Logo, Tagline & Social Links (lg: 4 cols) */}
         <div data-footer-col data-reveal className="flex flex-col gap-5 lg:col-span-4">
-          <Link href="/" className="inline-block w-fit">
-            <Image
-              src="/media/brand-raja-logo.webp"
-              alt="Raja Enterprises Logo"
-              width={160}
-              height={50}
-              className="h-[44px] w-auto object-contain"
+          <Link href="/" className="inline-block w-fit" aria-label="Raja Enterprises - home">
+            <div
+              className="h-[40px] w-[140px] bg-brand-blue"
+              style={{
+                WebkitMaskImage: "url(/media/brand-raja-logo.webp)",
+                WebkitMaskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                WebkitMaskPosition: "center left",
+                maskImage: "url(/media/brand-raja-logo.webp)",
+                maskSize: "contain",
+                maskRepeat: "no-repeat",
+                maskPosition: "center left",
+              }}
             />
           </Link>
           <p className="t-body max-w-[32ch] text-body-light leading-relaxed">

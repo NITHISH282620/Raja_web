@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap, fadeUp, growRule, riseCard, revealLines, release, entranceTrigger, q } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
@@ -397,11 +398,11 @@ export function ClientsView({
 /* --- Contact CTA Button --------------------------------------------------- */
 
 function ContactButton({ contact }: { contact: typeof ContactShape }) {
-  const className =
-    "group inline-flex h-[54px] items-center justify-center gap-3 rounded-full bg-brand-blue px-9 text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-xl hover:scale-105";
-
-  const inner = (
-    <>
+  return (
+    <Link
+      href="/contact"
+      className="group inline-flex h-[54px] items-center justify-center gap-3 rounded-full bg-brand-blue px-9 text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-xl hover:scale-105"
+    >
       <span className="t-body font-medium">{closingCta.label}</span>
       <span
         aria-hidden
@@ -409,26 +410,6 @@ function ContactButton({ contact }: { contact: typeof ContactShape }) {
       >
         &rarr;
       </span>
-    </>
-  );
-
-  if (contact.email) {
-    return (
-      <a href={`mailto:${contact.email}`} className={className}>
-        {inner}
-      </a>
-    );
-  }
-
-  return (
-    <button
-      type="button"
-      aria-disabled
-      data-provisional
-      title={contact.note}
-      className={clsx(className, "cursor-not-allowed opacity-70")}
-    >
-      {inner}
-    </button>
+    </Link>
   );
 }
