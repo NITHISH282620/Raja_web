@@ -193,7 +193,7 @@ export function LegacyView({ collage }: { collage: any[] }) {
         {/* Central Text */}
         <div
           data-statement-wrap
-          className="absolute left-1/2 top-[27%] sm:top-[28.5%] w-[66%] sm:w-[60%] -translate-x-1/2 text-center z-20 pointer-events-none"
+          className="absolute left-1/2 top-[22%] sm:top-[24%] w-[66%] sm:w-[60%] -translate-x-1/2 text-center z-20 pointer-events-none"
         >
           <div data-eyebrow className="pointer-events-auto mb-[2%] flex justify-center">
             <Eyebrow items={eyebrow} align="center" />

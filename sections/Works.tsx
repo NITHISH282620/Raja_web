@@ -23,18 +23,25 @@ import { worksIntro, type Project } from "@/content/works";
 import { ROUTES, SECTION_IDS } from "@/content/navigation";
 
 /**
- * Notable Works Section - GSAP Pinned Arch-Mask Scroll Reveal
+ * Notable Works Section - GSAP Pinned Image Stack with ClipPath Wipe
  *
- * Each project is a full-viewport pinned section with:
- * - Left: text content (eyebrow, title, description, Learn More CTA)
- * - Right: image with an arch-shaped clip-path that reveals/scales on scroll
- * - Sections stack: next section scrolls over the previous pinned one
- *
- * Inspired by the CodePen "GSAP pinned image mask reveal on scroll" by gridmorphic.
+ * Two-column layout inspired by the CodePen "GSAP pinned image mask reveal on scroll":
+ * - LEFT: Text sections stacked vertically, each 100vh, scrolls naturally
+ * - RIGHT: Image stack pinned in place, images stacked via z-index
+ * - As each text section scrolls through, the current top image wipes away
+ *   via clipPath: inset(0 0 100%), revealing the image underneath
+ * - Subtle object-position parallax on images during wipe
  */
 
-/* Arch clip-path polygon - a tall rounded-arch shape */
-const ARCH_CLIP = "polygon(0% 12%, 2% 6%, 6% 2%, 12% 0%, 88% 0%, 94% 2%, 98% 6%, 100% 12%, 100% 100%, 0% 100%)";
+/* Tint-to-background color map for page color transitions */
+const TINT_COLORS: Record<string, string> = {
+  pink: "#FFF0F3",
+  yellow: "#FFF8E8",
+  blue: "#EDF5FF",
+  purple: "#F5F0FF",
+  green: "#F0FFF4",
+  neutral: "#F5F5F7",
+};
 
 export function WorksView({ projects }: { projects: Project[] }) {
   const root = useRef<HTMLElement>(null);
@@ -63,98 +70,104 @@ export function WorksView({ projects }: { projects: Project[] }) {
         return () => revert();
       });
 
-      // Desktop: Pinned arch-mask reveal for each project
+      // Desktop: Pinned image stack with clipPath wipe
       mm.add(MOTION_DESKTOP, () => {
-        const archSections = q(scope, "[data-arch-section]");
+        const archEl = scope.querySelector("[data-arch]") as HTMLElement;
+        const rightCol = scope.querySelector("[data-arch-right]") as HTMLElement;
+        if (!archEl || !rightCol) return;
 
-        archSections.forEach((section, i) => {
-          const archImage = section.querySelector("[data-arch-image]") as HTMLElement;
-          const archContent = section.querySelector("[data-arch-content]") as HTMLElement;
-          const learnMoreBtn = section.querySelector("[data-learn-more]") as HTMLElement;
+        const imgs = q(scope, "[data-work-img]");
+        const textSections = q(scope, "[data-work-text]");
 
-          if (!archImage) return;
+        // Set z-index: first image on top (highest z), last on bottom
+        imgs.forEach((img, i) => {
+          (img as HTMLElement).style.zIndex = String(imgs.length - i);
+        });
 
-          // Pin each section
-          ScrollTrigger.create({
-            trigger: section,
+        // Initial clip state
+        gsap.set(imgs, {
+          clipPath: "inset(0)",
+          objectPosition: "center 0%",
+        });
+
+        // Main timeline pinning the right column
+        const mainTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: archEl,
             start: "top top",
-            end: "+=100%",
-            pin: true,
-            pinSpacing: true,
-          });
+            end: "bottom bottom",
+            pin: rightCol,
+            scrub: true,
+          },
+        });
 
-          // Animate arch image scale reveal on scroll
-          gsap.fromTo(
-            archImage,
+        // For each image, create a wipe transition
+        imgs.forEach((img, i) => {
+          const nextImg = imgs[i + 1] || null;
+          if (!nextImg) return;
+
+          const sectionTl = gsap.timeline();
+
+          // Current image wipes away from bottom
+          sectionTl.to(
+            img,
             {
-              scale: 0.6,
-              opacity: 0.3,
-            },
-            {
-              scale: 1,
-              opacity: 1,
+              clipPath: "inset(0px 0px 100%)",
+              objectPosition: "center 60%",
+              duration: 1.5,
               ease: "none",
-              scrollTrigger: {
-                trigger: section,
-                start: "top top",
-                end: "+=80%",
-                scrub: 0.6,
-              },
             },
+            0,
           );
 
-          // Text content fade in
-          if (archContent) {
-            gsap.fromTo(
-              archContent,
-              { opacity: 0, x: -30 },
-              {
-                opacity: 1,
-                x: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top 60%",
-                  once: true,
-                },
-              },
-            );
-          }
+          // Next image subtle parallax shift
+          sectionTl.to(
+            nextImg,
+            {
+              objectPosition: "center 40%",
+              duration: 1.5,
+              ease: "none",
+            },
+            0,
+          );
 
-          // Learn More button pop
-          if (learnMoreBtn) {
-            gsap.fromTo(
-              learnMoreBtn,
-              { opacity: 0, y: 20, scale: 0.9 },
-              {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.6,
-                ease: "back.out(1.7)",
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top 40%",
-                  once: true,
-                },
-              },
-            );
-          }
+          mainTl.add(sectionTl);
         });
-      });
 
-      // Mobile/Tablet: simple stacked cards
-      mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
-        const cards = q(scope, "[data-arch-section]");
-        cards.forEach((card) => {
+        // Text sections entrance animation
+        textSections.forEach((section) => {
+          const content = section.querySelector("[data-work-content]") as HTMLElement;
+          if (!content) return;
+
           gsap.fromTo(
-            card,
+            content,
             { opacity: 0, y: 40 },
             {
               opacity: 1,
               y: 0,
-              duration: 0.8,
+              duration: 0.7,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 70%",
+                once: true,
+              },
+            },
+          );
+        });
+      });
+
+      // Mobile: simple stacked layout with scroll animations
+      mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
+        const mobileCards = q(scope, "[data-mobile-card]");
+        mobileCards.forEach((card) => {
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
               ease: "power2.out",
               scrollTrigger: {
                 trigger: card,
@@ -207,108 +220,122 @@ export function WorksView({ projects }: { projects: Project[] }) {
         </div>
       </div>
 
-      {/* Pinned Arch-Mask Scroll Reveal Sections */}
-      <div className="relative">
-        {projects.map((work, i) => (
-          <ArchSection key={work.id} work={work} index={i} total={projects.length} />
+      {/* ======== DESKTOP: Two-column pinned image stack ======== */}
+      <div data-arch className="hidden lg:flex gap-[clamp(40px,5vw,80px)] max-w-[1200px] mx-auto px-[clamp(24px,4vw,64px)]">
+        {/* Left: Text sections, each 100vh */}
+        <div className="flex flex-col min-w-[280px] w-[40%] xl:w-[38%] shrink-0">
+          {projects.map((work, i) => (
+            <div
+              key={work.id}
+              data-work-text
+              className="h-screen flex items-center"
+            >
+              <div data-work-content className="flex flex-col gap-3 max-w-[400px]">
+                <p className="t-eyebrow text-ink/50 font-mono text-xs tracking-wider uppercase">
+                  {work.eyebrow}
+                </p>
+                <h3 className="text-[clamp(1.6rem,2.8vw,2.5rem)] font-bold text-ink tracking-tight leading-[1.12] text-balance">
+                  {work.title}
+                </h3>
+                {work.summary && (
+                  <p className="t-body text-body-light leading-relaxed text-sm lg:text-base">
+                    {work.summary}
+                  </p>
+                )}
+                {work.href && (
+                  <div className="mt-3">
+                    <Link
+                      href={work.href}
+                      className="group inline-flex items-center gap-2 rounded-full border-2 border-ink/80 px-5 py-2 text-sm font-semibold text-ink transition-all duration-300 hover:bg-brand-blue hover:border-brand-blue hover:text-white hover:shadow-lg hover:scale-105"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none" className="opacity-70">
+                        <path fill="currentColor" d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z" />
+                      </svg>
+                      <span>Learn More</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Right: Pinned image stack */}
+        <div
+          data-arch-right
+          className="relative flex-1 h-screen flex flex-col"
+        >
+          {projects.map((work, i) => (
+            <div
+              key={work.id}
+              className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-[460px] xl:h-[520px] rounded-[20px] overflow-hidden"
+              style={{ zIndex: projects.length - i }}
+            >
+              {work.hero ? (
+                <Image
+                  data-work-img
+                  src={work.hero.src}
+                  alt={work.hero.alt}
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 55vw"
+                  className="object-cover"
+                  style={work.hero.focal ? { objectPosition: work.hero.focal } : undefined}
+                />
+              ) : (
+                <PlaceholderImage className="absolute inset-0 h-full w-full" note={work.note} />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ======== MOBILE: Stacked cards ======== */}
+      <div className="lg:hidden frame flex flex-col gap-8 pb-[clamp(48px,6vw,80px)]">
+        {projects.map((work) => (
+          <div
+            key={work.id}
+            data-mobile-card
+            className="flex flex-col gap-4 rounded-[20px] overflow-hidden bg-white border border-ink/8 shadow-sm"
+          >
+            <div className="relative aspect-[16/10] w-full overflow-hidden">
+              {work.hero ? (
+                <Image
+                  src={work.hero.src}
+                  alt={work.hero.alt}
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                  style={work.hero.focal ? { objectPosition: work.hero.focal } : undefined}
+                />
+              ) : (
+                <PlaceholderImage className="absolute inset-0 h-full w-full" note={work.note} />
+              )}
+            </div>
+            <div className="flex flex-col gap-2 p-5 pt-0">
+              <p className="t-eyebrow text-ink/50 font-mono text-xs tracking-wider uppercase">
+                {work.eyebrow}
+              </p>
+              <h3 className="text-xl font-bold text-ink tracking-tight leading-tight">
+                {work.title}
+              </h3>
+              {work.summary && (
+                <p className="t-body text-body-light text-sm leading-relaxed line-clamp-3">
+                  {work.summary}
+                </p>
+              )}
+              {work.href && (
+                <Link
+                  href={work.href}
+                  className="mt-2 group inline-flex items-center gap-2 text-sm font-semibold text-brand-blue transition-colors hover:text-accent"
+                >
+                  <span>Learn More</span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                </Link>
+              )}
+            </div>
+          </div>
         ))}
       </div>
     </section>
-  );
-}
-
-/* ---- Individual Arch Section ---- */
-
-function ArchSection({
-  work,
-  index,
-  total,
-}: {
-  work: Project;
-  index: number;
-  total: number;
-}) {
-  const isLast = index === total - 1;
-
-  return (
-    <div
-      data-arch-section
-      className="relative w-full bg-paper lg:h-screen lg:min-h-[700px] flex flex-col lg:flex-row items-center overflow-hidden"
-      style={{ zIndex: 10 + index }}
-    >
-      {/* Left: Content */}
-      <div
-        data-arch-content
-        className={`
-          relative z-10 flex flex-col justify-center gap-4
-          px-6 py-10 sm:px-10 lg:px-0
-          w-full lg:w-[45%] xl:w-[40%]
-          lg:pl-[clamp(48px,6vw,96px)] lg:pr-[clamp(24px,3vw,48px)]
-        `}
-      >
-        <p className="t-eyebrow text-ink/60 font-mono text-xs tracking-wider uppercase">
-          {work.eyebrow}
-        </p>
-        <h3 className="text-[clamp(1.5rem,3.5vw,2.75rem)] font-bold text-ink tracking-tight leading-[1.12] text-balance">
-          {work.title}
-        </h3>
-        {work.summary && (
-          <p className="t-body text-body-light leading-relaxed max-w-[480px]">
-            {work.summary}
-          </p>
-        )}
-        {work.href && (
-          <div data-learn-more className="mt-3">
-            <Link
-              href={work.href}
-              className="group inline-flex items-center gap-2.5 rounded-full border-2 border-ink/90 px-6 py-2.5 text-sm font-semibold text-ink transition-all duration-300 hover:bg-brand-blue hover:border-brand-blue hover:text-white hover:shadow-lg hover:scale-105"
-            >
-              <span>Learn More</span>
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        )}
-      </div>
-
-      {/* Right: Arch-Masked Image */}
-      <div className="relative w-full lg:w-[55%] xl:w-[60%] h-[50vh] sm:h-[60vh] lg:h-full flex items-center justify-center p-4 lg:p-8">
-        <div
-          data-arch-image
-          className="relative w-full h-full max-w-[700px] lg:max-w-none overflow-hidden rounded-t-[40%] rounded-b-[8px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)]"
-          style={{ clipPath: ARCH_CLIP }}
-        >
-          {work.hero ? (
-            <Image
-              src={work.hero.src}
-              alt={work.hero.alt}
-              fill
-              sizes="(max-width: 1023px) 100vw, 55vw"
-              className="object-cover"
-              style={work.hero.focal ? { objectPosition: work.hero.focal } : undefined}
-            />
-          ) : (
-            <PlaceholderImage className="absolute inset-0 h-full w-full" note={work.note} />
-          )}
-
-          {/* Gradient overlay at bottom for depth */}
-          <div
-            aria-hidden
-            className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"
-          />
-        </div>
-      </div>
-    </div>
   );
 }
