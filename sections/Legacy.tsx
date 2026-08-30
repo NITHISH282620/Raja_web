@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap, fadeUp, fadeIn, growRule, land, entranceTrigger, q } from "@/motion/primitives";
 import { DUR, EASE, STAGGER, MOTION_DESKTOP } from "@/motion/ease";
@@ -199,6 +200,20 @@ export function LegacyView({ collage }: { collage: any[] }) {
           </div>
           <div data-statement data-reveal className="pointer-events-auto">
             <Statement segments={legacyIntro.statement} className="t-intro" />
+          </div>
+          <div data-reveal className="pointer-events-auto mt-[3%]">
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-brand-blue px-7 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-xl hover:scale-105"
+            >
+              <span>About Us</span>
+              <span
+                aria-hidden
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                &rarr;
+              </span>
+            </Link>
           </div>
         </div>
       </div>
