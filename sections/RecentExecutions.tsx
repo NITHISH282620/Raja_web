@@ -1,5 +1,5 @@
 import { recentExecutions } from "@/content/events";
-import { Eyebrow } from "@/components";
+import { Eyebrow } from "@/components/Eyebrow";
 
 export function RecentExecutions() {
   return (

@@ -3,9 +3,10 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Eyebrow, Statement } from "@/components";
+import { Eyebrow } from "@/components/Eyebrow";
+import { Statement } from "@/components/Statement";
 import { eventsWeBuildFor } from "@/content/events";
-import { fadeUp, riseCard, settle } from "@/motion";
+import { fadeUp, riseCard, settle } from "@/motion/primitives";
 
 export function EventsWeBuildFor() {
   const root = useRef<HTMLElement>(null);
