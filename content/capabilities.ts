@@ -44,8 +44,8 @@ export const capabilities: Capability[] = [
   {
     id: "structural-build",
     index: "01",
-    title: "Structural Build",
-    summary: "German hangers and clear-span structures, erected on prepared ground by our own crew.",
+    title: "German Hangers & Temporary Structures",
+    summary: "Imported German hangers and clear-span structures, erected on prepared ground.",
     image: {
       id: "capability-structure",
       src: "/media/capability-structure.3aa80a08.webp",
@@ -60,7 +60,7 @@ export const capabilities: Capability[] = [
   {
     id: "flooring-platforms",
     index: "02",
-    title: "Flooring & Platforms",
+    title: "Event Flooring & Platforms",
     summary: "Wooden decking, levelled platforms and carpeting laid across the full floor plate.",
     image: {
       id: "capability-flooring",
@@ -76,7 +76,7 @@ export const capabilities: Capability[] = [
   {
     id: "staging",
     index: "03",
-    title: "Staging",
+    title: "Staging & Audience Infrastructure",
     summary: "Dais, stage, lighting rig and audience seating, delivered as one package.",
     image: {
       id: "capability-staging",
@@ -92,7 +92,7 @@ export const capabilities: Capability[] = [
   {
     id: "exhibition-design",
     index: "04",
-    title: "Exhibition Design",
+    title: "Exhibition Stall Fabrication",
     summary: "Octonorm and Maxima stalls fabricated, fitted and struck on schedule.",
     image: {
       id: "capability-exhibition",
@@ -120,7 +120,7 @@ export const capabilitiesIntro = {
    * the approved figure, so the copy now agrees with it rather than asserting a
    * second, higher number the company has not confirmed.
    */
-  body: "Structures, flooring, staging and exhibitions — raised, run and struck by our own 300-strong field crew. Nothing on this list is subcontracted.",
+  body: "Structures, flooring, staging, and exhibitions ┠ delivered by our field crews using our own substantial inventory. Complete turnkey physical execution.",
   status: "provisional" as const,
   note: "Headcount aligned to the approved 300+ field workforce stat. Confirm whether the 460 figure from the Figma copy is total headcount including workshop and office staff; if so, both can be stated.",
 };

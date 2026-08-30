@@ -1,4 +1,4 @@
-import { Capabilities, Clients, Hero, Legacy, Process, Resources, Works } from "@/sections";
+import { Capabilities, EventsWeBuildFor, RecentExecutions, Hero, Legacy, Process, Resources, Works } from "@/sections";
 
 /**
  * Homepage narrative flow:
@@ -28,7 +28,8 @@ export default function Home() {
         <Works />
         <Resources />
         <Process />
-        <Clients />
+        <EventsWeBuildFor />
+        <RecentExecutions />
       </div>
     </main>
   );

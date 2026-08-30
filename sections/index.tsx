@@ -56,3 +56,6 @@ export function Clients() {
     <ClientsView clients={getClients()} contact={getContact()} events={getClientEvents()} />
   );
 }
+
+export { EventsWeBuildFor } from "./Events";
+export { RecentExecutions } from "./RecentExecutions";

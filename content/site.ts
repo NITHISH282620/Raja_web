@@ -32,8 +32,8 @@ export const brand = {
  * a broker — it owns the inventory and employs the crew.
  */
 export const hero = {
-  headline: "Building the extraordinary.\nDelivering the unforgettable.",
-  body: "Raja Enterprises has been delivering experiential event solutions across India for over four decades. Experts in organising high-volume government programs, trade fairs, exhibitions, conferences, roadshows, and business forums.",
+  headline: "Building the physical infrastructure\nbehind large-scale events.",
+  body: "Since 1977, Raja Enterprises has delivered the physical infrastructure for government programmes, trade fairs, exhibitions, and corporate conferences. With substantial inventory and in-house field resources, we build the venue.",
 } as const;
 
 /**

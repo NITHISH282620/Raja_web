@@ -98,5 +98,5 @@ export const processIntro = {
    * above it do not support is the kind of small dishonesty a buyer notices, so
    * it states the sequence rather than claiming the provenance.
    */
-  body: "Every build runs in the same order: level and set out the ground, raise the structure, then floor it. Nothing starts before the stage before it is signed off.",
+  body: "Every build begins on the ground: survey and set-out, structure, then flooring. Each stage is completed and signed off before the next begins.",
 };

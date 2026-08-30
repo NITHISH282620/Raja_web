@@ -22,7 +22,7 @@ export const company = {
     "We design, build, and deliver large-scale event spaces and experiences — turning ambitious ideas into unforgettable realities.",
   /** Verbatim from Raja's own published positioning. */
   legacyStatement:
-    "Raja Enterprises has been delivering experiential event solutions across India for over four decades.",
+    "Since 1977, Raja Enterprises has delivered physical infrastructure for government programmes, trade fairs, exhibitions, conferences and corporate events.",
   positioning:
     "Experts in organising government programs, trade fairs, exhibitions, conferences, roadshows and business forums across India.",
   disciplines: [
@@ -42,15 +42,10 @@ export interface Stat extends Sourced {
 
 /** The four full-bleed rows in the "Our resource" band, in Figma order. */
 export const stats: Stat[] = [
+  { label: "Sq. ft. imported German hangers", value: "5,00,000", status: "approved" },
+  { label: "Sq. ft. wooden floor platforms", value: "10,00,000", status: "approved" },
+  { label: "Sq. ft. stage infrastructure", value: "1,00,000", status: "approved" },
   { label: "Own goods vehicles", value: "20", status: "approved" },
-  {
-    label: "Field workforce",
-    value: "300+",
-    status: "provisional",
-    note: "Contradicts the capabilities copy, which claims a 460-person crew. Confirm which figure is field crew and which is total headcount.",
-  },
-  { label: "Sq. ft. stage capacity", value: "1,00,000+", status: "approved" },
-  { label: "Sq. ft. wooden flooring", value: "10,00,000+", status: "approved" },
 ];
 
 /**

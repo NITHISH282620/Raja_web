@@ -97,7 +97,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
         const mainTl = gsap.timeline({
           scrollTrigger: {
             trigger: archCard,
-            start: "top 120px",
+            start: "top 38%",
             end: `+=${projects.length * 100}%`,
             pin: true,
             scrub: true,
@@ -217,7 +217,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
   return (
     <section ref={root} id={SECTION_IDS.works} className="relative w-full bg-paper">
       {/* Centered Statement and Header */}
-      <div className="sticky top-[15vh] z-0 frame flex flex-col items-center text-center gap-5 pb-[clamp(44px,6vw,80px)] pt-[clamp(72px,10vw,140px)]">
+      <div className="sticky top-[10vh] z-0 frame flex flex-col items-center text-center gap-5 pb-[clamp(24px,4vw,40px)] pt-[clamp(40px,6vw,80px)]">
         <div data-eyebrow className="flex justify-center">
           <Eyebrow items={worksIntro.eyebrow} align="center" />
         </div>
@@ -258,13 +258,13 @@ export function WorksView({ projects }: { projects: Project[] }) {
       >
         <div data-arch className="flex gap-8 lg:gap-16 max-w-[1200px] mx-auto">
         {/* Left: Text track with mask */}
-        <div className="flex flex-col min-w-[280px] w-[40%] xl:w-[38%] shrink-0 overflow-hidden h-[75vh]">
+        <div className="flex flex-col min-w-[280px] w-[40%] xl:w-[38%] shrink-0 overflow-hidden h-[60vh]">
           <div data-text-track className="flex flex-col w-full h-full">
           {projects.map((work, i) => (
             <div
               key={work.id}
               data-work-text
-              className="h-[75vh] flex-shrink-0 flex items-center"
+              className="h-[60vh] flex-shrink-0 flex items-center"
             >
               <div data-work-content className="flex flex-col gap-3 max-w-[400px]">
                 <p className="t-eyebrow text-ink/50 font-mono text-xs tracking-wider uppercase">
@@ -300,12 +300,12 @@ export function WorksView({ projects }: { projects: Project[] }) {
         {/* Right: Pinned image stack */}
         <div
           data-arch-right
-          className="relative flex-1 h-[75vh] flex flex-col"
+          className="relative flex-1 h-[60vh] flex flex-col"
         >
           {projects.map((work, i) => (
             <div
               key={work.id}
-              className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-[460px] xl:h-[520px] rounded-[20px] overflow-hidden"
+              className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-[400px] xl:h-[480px] rounded-[20px] overflow-hidden"
               style={{ zIndex: projects.length - i }}
             >
               {work.hero ? (
