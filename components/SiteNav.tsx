@@ -15,6 +15,8 @@ import { brand } from "@/content/site";
 export function SiteNav({ contact }: { contact: ContactSettings }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
   const overlay = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -23,15 +25,21 @@ export function SiteNav({ contact }: { contact: ContactSettings }) {
   const overHero = pathname === "/";
 
   /**
-   * One passive scroll listener drives both the pill's solid state and the
-   * progress rail. The progress is written straight to a style property rather
-   * than to state - at 60fps a setState here would re-render the whole header
-   * on every frame of every scroll.
+   * One passive scroll listener drives the pill's solid state, progress rail,
+   * and smart auto-hide on mobile scroll down (glides back on scroll up).
    */
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 24);
+
+      if (y > 160 && y > lastScrollY.current + 8) {
+        setHidden(true);
+      } else if (y < lastScrollY.current - 6 || y < 80) {
+        setHidden(false);
+      }
+      lastScrollY.current = y;
+
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const bar = progress.current;
       if (bar) bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
@@ -108,7 +116,12 @@ export function SiteNav({ contact }: { contact: ContactSettings }) {
 
   return (
     <>
-      <header className="fixed top-6 inset-x-0 z-50 flex justify-center w-full px-4 lg:px-8 pointer-events-none">
+      <header
+        className={clsx(
+          "fixed top-4 sm:top-6 inset-x-0 z-50 flex justify-center w-full px-4 lg:px-8 pointer-events-none transition-transform duration-300 ease-out",
+          hidden && !open ? "-translate-y-28" : "translate-y-0"
+        )}
+      >
         <div
           className={clsx(
             "pointer-events-auto relative flex items-center justify-between rounded-full transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500",

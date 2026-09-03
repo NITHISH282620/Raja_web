@@ -2,12 +2,10 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useGSAP } from "@gsap/react";
-import { gsap, fadeUp, growRule, riseCard, revealLines, release, entranceTrigger, q } from "@/motion/primitives";
+import { gsap, fadeUp, growRule, riseCard, release, entranceTrigger, q } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
-import { Statement } from "@/components/Statement";
-import { closingCta, type Client } from "@/content/clients";
+import type { Client } from "@/content/clients";
 import type { contact as ContactShape } from "@/content/company";
 import { SECTION_IDS } from "@/content/navigation";
 import { clsx } from "@/lib/clsx";
@@ -153,18 +151,6 @@ export function ClientsView({
           { stagger: 0.04, distance: 24, scaleFrom: 0.88 },
           0.45,
         );
-        fadeUp(tl, q(scope, "[data-cta-eyebrow]"), { distance: 18 }, 0.8);
-        riseCard(
-          tl,
-          q(scope, "[data-cta-button]"),
-          { distance: 18, scaleFrom: 0.9 },
-          1.0,
-        );
-        const revert = revealLines(q(scope, "[data-cta-statement] h2"), {
-          stagger: 0.09,
-          trigger: { trigger: scope, start: "top 65%", once: true },
-        });
-        return () => revert();
       });
       return () => mm.revert();
     },
@@ -368,47 +354,7 @@ export function ClientsView({
             </div>
           </div>
         </div>
-
-        {/* -------- Closing CTA -------- */}
-        <div className="frame flex flex-col items-center gap-[clamp(16px,1.9vw,26px)] pt-[clamp(72px,10vw,140px)] text-center">
-          <p
-            data-cta-eyebrow
-            data-reveal
-            className="t-eyebrow text-accent font-mono tracking-[0.16em] uppercase"
-          >
-            {closingCta.eyebrow}
-          </p>
-          <div data-cta-statement className="w-full">
-            <Statement
-              segments={closingCta.statement}
-              tone="dark"
-              className="t-statement mx-auto max-w-[20ch]"
-            />
-          </div>
-          <div data-cta-button data-reveal className="mt-[clamp(8px,1vw,14px)]">
-            <ContactButton />
-          </div>
-        </div>
       </div>
     </section>
-  );
-}
-
-/* --- Contact CTA Button --------------------------------------------------- */
-
-function ContactButton() {
-  return (
-    <Link
-      href="/contact"
-      className="group inline-flex h-[54px] items-center justify-center gap-3 rounded-full bg-brand-blue px-9 text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-xl hover:scale-105"
-    >
-      <span className="t-body font-medium">{closingCta.label}</span>
-      <span
-        aria-hidden
-        className="transition-transform duration-300 group-hover:translate-x-1"
-      >
-        &rarr;
-      </span>
-    </Link>
   );
 }

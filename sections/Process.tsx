@@ -14,7 +14,7 @@ import {
   entranceTrigger,
   q,
 } from "@/motion/primitives";
-import { EASE, STAGGER, MOTION_OK, MOTION_DESKTOP, MOTION_COMPACT } from "@/motion/ease";
+import { EASE, STAGGER, MOTION_OK, MOTION_COMPACT } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { processIntro, type ProcessStep } from "@/content/process";
@@ -74,7 +74,7 @@ export function ProcessView({ processSteps }: { processSteps: ProcessStep[] }) {
       // Slow counter-parallax inside each frame. The photograph drifts against
       // the card it sits in, which is what stops three static crops in a row
       // from reading as a slide deck.
-      mm.add(MOTION_DESKTOP, () => {
+      mm.add(MOTION_OK, () => {
         q(scope, "[data-step]").forEach((step) => {
           const img = step.querySelector("[data-step-image]");
           if (!img) return;

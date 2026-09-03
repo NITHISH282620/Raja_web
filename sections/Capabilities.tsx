@@ -106,7 +106,7 @@ export function CapabilitiesView({ capabilities }: { capabilities: Capability[] 
         };
       });
 
-      // ---- Touch: reveal in place, no pin ----
+      // ---- Touch: reveal in place, plus live swipe progress tracking ----
       mm.add(MOTION_COMPACT, () => {
         const cards = q(scope, "[data-slide]");
         const reveal = gsap.timeline({
@@ -114,6 +114,25 @@ export function CapabilitiesView({ capabilities }: { capabilities: Capability[] 
           onComplete: () => release(cards),
         });
         riseCard(reveal, cards, { stagger: 0.12, scaleFrom: 0.96 }, 0);
+
+        const trackEl = track.current;
+        if (!trackEl) return;
+
+        const onTrackScroll = () => {
+          const maxScroll = trackEl.scrollWidth - trackEl.clientWidth;
+          if (maxScroll <= 0) return;
+          const progress = Math.min(1, Math.max(0, trackEl.scrollLeft / maxScroll));
+          const bar = scope.querySelector<HTMLElement>("[data-track-progress]");
+          if (bar) bar.style.transform = `scaleX(${progress})`;
+          const counter = scope.querySelector<HTMLElement>("[data-track-index]");
+          if (counter) {
+            const i = Math.min(capabilities.length - 1, Math.round(progress * (capabilities.length - 1)));
+            counter.textContent = capabilities[i].index;
+          }
+        };
+
+        trackEl.addEventListener("scroll", onTrackScroll, { passive: true });
+        return () => trackEl.removeEventListener("scroll", onTrackScroll);
       });
 
       return () => mm.revert();
@@ -151,10 +170,8 @@ export function CapabilitiesView({ capabilities }: { capabilities: Capability[] 
           {capabilitiesIntro.body}
         </p>
 
-        {/* Desktop-only scroll affordance. A pinned horizontal track with no
-            indicator gives a visitor no way to tell how much is left, which is
-            the most common reason people scroll straight past one. */}
-        <div className="mt-[clamp(20px,2.4vw,34px)] hidden items-center gap-4 lg:flex">
+        {/* Scroll affordance & progress rail visible on all screens */}
+        <div className="mt-4 sm:mt-[clamp(20px,2.4vw,34px)] flex items-center gap-4">
           <span data-track-index className="t-eyebrow tabular-nums text-ink">
             {capabilities[0].index}
           </span>

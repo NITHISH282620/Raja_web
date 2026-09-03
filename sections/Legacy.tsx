@@ -4,13 +4,14 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
-import { gsap, fadeUp, fadeIn, growRule, land, riseCard, q } from "@/motion/primitives";
+import { gsap, fadeUp, fadeIn, growRule, land, q } from "@/motion/primitives";
 import { EASE, MOTION_DESKTOP, MOTION_COMPACT } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { arcs, legacyIntro, type CollagePhoto } from "@/content/legacy";
 import { yearsInOperation } from "@/content/company";
 import { SECTION_IDS } from "@/content/navigation";
+import { clsx } from "@/lib/clsx";
 
 const pct = (n: number) => `${n}%`;
 
@@ -120,13 +121,20 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
         }, 0.35);
       });
 
-      /* Mobile: Stagger entrance on scroll */
+      /* Mobile: Stagger entrance + scroll-scrub parallax drift */
       mm.add(MOTION_COMPACT, () => {
         const tl = gsap.timeline({
           scrollTrigger: { trigger: scope, start: "top 80%", once: true },
         });
         fadeIn(tl, q(scope, "[data-mobile-legacy-wrap] [data-reveal]"), { stagger: 0.05 }, 0);
-        riseCard(tl, q(scope, "[data-mobile-legacy-img]"), { stagger: 0.08, distance: 20, scaleFrom: 0.96 }, 0.2);
+
+        const cards = q(scope, "[data-mobile-legacy-card]");
+        if (cards.length >= 4) {
+          gsap.to(cards[0], { yPercent: -15, xPercent: -10, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 0.5 } });
+          gsap.to(cards[1], { yPercent: -15, xPercent: 10, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 0.5 } });
+          gsap.to(cards[2], { yPercent: 15, xPercent: -10, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 0.5 } });
+          gsap.to(cards[3], { yPercent: 15, xPercent: 10, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 0.5 } });
+        }
       });
 
       return () => mm.revert();
@@ -140,7 +148,7 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
     <section
       ref={root}
       id={SECTION_IDS.legacy}
-      className="relative lg:sticky lg:top-0 z-10 w-full lg:h-screen lg:min-h-[660px] lg:max-h-[1050px] overflow-hidden bg-paper flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8"
+      className="sticky top-0 z-10 w-full h-svh min-h-[580px] max-h-[950px] overflow-hidden bg-paper flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8"
     >
       {/* Desktop Artboard: Pinned Canvas with Arcs & Drifting Cards */}
       <div className="hidden lg:flex relative w-full max-w-[1480px] h-[92vh] max-h-[880px] aspect-[1440/884] mx-auto items-center justify-center">
@@ -229,45 +237,56 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
         </div>
       </div>
 
-      {/* Mobile Presentation: Clean Editorial Card Stack with 2-Column Photo Highlights */}
-      <div data-mobile-legacy-wrap className="lg:hidden w-full frame flex flex-col items-center text-center gap-5 sm:gap-6 py-14 sm:py-20">
-        <div data-eyebrow className="flex justify-center">
-          <Eyebrow items={eyebrow} align="center" />
-        </div>
-        <div data-statement data-reveal className="max-w-[28ch]">
-          <Statement segments={legacyIntro.statement} className="t-statement text-ink text-balance" />
-        </div>
-        
-        {/* Mobile Curated Photo Grid (2-columns) */}
-        <div className="grid grid-cols-2 gap-3 w-full max-w-[480px] my-3">
-          {collage.slice(0, 4).map((photo) => (
+      {/* Mobile Presentation: Pinned constellation of 4 drifting memory cards around the central statement */}
+      <div data-mobile-legacy-wrap className="lg:hidden relative w-full h-full max-w-[420px] mx-auto flex flex-col items-center justify-center py-6 select-none overflow-hidden">
+        {/* 4 Drifting Floating Photograph Cards */}
+        {collage.slice(0, 4).map((photo, i) => {
+          const positions = [
+            "top-[3%] left-[1%] -rotate-6 w-[36vw] max-w-[135px]",
+            "top-[5%] right-[1%] rotate-6 w-[38vw] max-w-[145px]",
+            "bottom-[5%] left-[1%] rotate-3 w-[40vw] max-w-[150px]",
+            "bottom-[3%] right-[1%] -rotate-3 w-[36vw] max-w-[135px]",
+          ];
+          return (
             <div
               key={photo.id}
-              data-mobile-legacy-img
-              className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden border border-ink/10 shadow-xs bg-neutral-900"
+              data-mobile-legacy-card
+              className={clsx(
+                "absolute aspect-[4/3] rounded-2xl overflow-hidden shadow-md border border-ink/10 bg-neutral-900 pointer-events-none transition-transform duration-500",
+                positions[i]
+              )}
             >
               <Image
                 src={photo.image.src}
                 alt={photo.image.alt}
                 fill
-                sizes="50vw"
+                sizes="40vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
             </div>
-          ))}
-        </div>
+          );
+        })}
 
-        <div data-reveal className="mt-2">
-          <Link
-            href="/about"
-            className="group inline-flex items-center gap-2.5 rounded-full bg-brand-blue px-7 py-3.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-xl hover:scale-105"
-          >
-            <span>Discover Our 49-Year Journey</span>
-            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
-              &rarr;
-            </span>
-          </Link>
+        {/* Central Statement & CTA */}
+        <div className="relative z-20 flex flex-col items-center text-center gap-4 px-4 max-w-[290px]">
+          <div data-eyebrow className="flex justify-center">
+            <Eyebrow items={eyebrow} align="center" />
+          </div>
+          <div data-statement data-reveal>
+            <Statement segments={legacyIntro.statement} className="t-statement text-ink text-balance text-[1.4rem] sm:text-[1.7rem] font-bold leading-[1.18]" />
+          </div>
+          <div data-reveal className="mt-1">
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-xs sm:text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-lg active:scale-95"
+            >
+              <span>Discover Our 49-Year Journey</span>
+              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+                &rarr;
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

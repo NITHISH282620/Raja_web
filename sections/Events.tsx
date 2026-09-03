@@ -98,6 +98,25 @@ export function EventsWeBuildFor() {
           onComplete: () => release(cards),
         });
         riseCard(reveal, cards, { stagger: 0.12, scaleFrom: 0.96 }, 0);
+
+        const trackEl = track.current;
+        if (!trackEl) return;
+
+        const onTrackScroll = () => {
+          const maxScroll = trackEl.scrollWidth - trackEl.clientWidth;
+          if (maxScroll <= 0) return;
+          const progress = Math.min(1, Math.max(0, trackEl.scrollLeft / maxScroll));
+          const bar = scope.querySelector<HTMLElement>("[data-track-progress]");
+          if (bar) bar.style.transform = `scaleX(${progress})`;
+          const counter = scope.querySelector<HTMLElement>("[data-track-index]");
+          if (counter) {
+            const i = Math.min(eventsWeBuildFor.length - 1, Math.round(progress * (eventsWeBuildFor.length - 1)));
+            counter.textContent = "0" + (i + 1);
+          }
+        };
+
+        trackEl.addEventListener("scroll", onTrackScroll, { passive: true });
+        return () => trackEl.removeEventListener("scroll", onTrackScroll);
       });
 
       return () => mm.revert();
@@ -127,7 +146,7 @@ export function EventsWeBuildFor() {
           the physical environments that major events demand.
         </p>
 
-        <div className="mt-[clamp(20px,2.4vw,34px)] hidden items-center gap-4 lg:flex">
+        <div className="mt-4 sm:mt-[clamp(20px,2.4vw,34px)] flex items-center gap-4">
           <span data-track-index className="t-eyebrow tabular-nums text-ink">
             01
           </span>
