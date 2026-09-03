@@ -4,11 +4,11 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
-import { gsap, fadeUp, fadeIn, growRule, land, entranceTrigger, q } from "@/motion/primitives";
-import { DUR, EASE, STAGGER, MOTION_DESKTOP } from "@/motion/ease";
+import { gsap, fadeUp, fadeIn, growRule, land, q } from "@/motion/primitives";
+import { EASE, MOTION_DESKTOP } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
-import { arcs, legacyIntro } from "@/content/legacy";
+import { arcs, legacyIntro, type CollagePhoto } from "@/content/legacy";
 import { yearsInOperation } from "@/content/company";
 import { SECTION_IDS } from "@/content/navigation";
 
@@ -30,7 +30,7 @@ const mobilePositions = [
  * Fast entrance animations for immediate visual impact.
  * Desktop parallax drift on cards while section is in view.
  */
-export function LegacyView({ collage }: { collage: unknown[] }) {
+export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -149,7 +149,7 @@ export function LegacyView({ collage }: { collage: unknown[] }) {
         ))}
 
         {/* 6 Event Photo Cards */}
-        {collage.map((photo, i) => {
+        {collage.map((photo: CollagePhoto, i: number) => {
           const mob = mobilePositions[i] || photo;
           return (
             <div

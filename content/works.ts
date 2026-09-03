@@ -1,4 +1,4 @@
-import type { Sourced, ContentStatus } from "./types";
+import type { ContentStatus } from "./types";
 import type { MediaAsset, VideoAsset } from "./media";
 
 export interface Project {
@@ -29,27 +29,28 @@ export interface Project {
 
 /**
  * The four scroll-stacked case study cards.
- * Populated with verified event programmes across national congresses, state ceremonies,
- * mega trade expos, and high-capacity temporary city builds.
+ * Selected from Raja Enterprises' verified client/event list —
+ * government inaugurations, international trade expos, cultural festivals,
+ * and film festivals showcasing infrastructure scale.
  */
 export const projects: Project[] = [
   {
-    id: "science-congress",
+    id: "kempegowda-airport",
     order: 0,
     published: true,
     featured: true,
-    organization: "University of Agricultural Sciences, Bangalore",
-    eyebrow: "Mega-scale science congress",
-    title: "107th Indian Science Congress",
-    year: "2020",
+    organization: "Government of Karnataka",
+    eyebrow: "Government inauguration infrastructure",
+    title: "Kempegowda International Airport Inauguration",
+    year: "2023",
     summary:
-      "A massive temporary infrastructure build spanning multiple venues: monumental entry arches, clear-span German hangers for plenary sessions, grand staging and seating, structured exhibition areas, and operational infrastructure across the campus.",
+      "Heavy-duty physical infrastructure supporting the high-profile inauguration of Terminal 2 and the Kempegowda Statue. Scope included massive clear-span German hangers, levelled staging, premium event flooring, high-security VIP protocol environments, and full AV staging for the ceremony.",
     hero: {
-      id: "work-congress",
-      src: "/media/work-congress.4850b520.webp",
+      id: "work-airport-inauguration",
+      src: "/media/work-airport-inauguration.webp",
       width: 1800,
-      height: 1013,
-      alt: "A vast arched event structure lit for a national programme.",
+      height: 1200,
+      alt: "Modern airport terminal interior with architectural infrastructure for the Kempegowda Airport inauguration event.",
       focal: "center",
       clearance: "licensed",
     },
@@ -62,22 +63,22 @@ export const projects: Project[] = [
     status: "approved",
   },
   {
-    id: "kempegowda-airport",
+    id: "eima-agrimach",
     order: 1,
     published: true,
     featured: true,
-    organization: "Government of Karnataka",
-    eyebrow: "Airport inauguration infrastructure",
-    title: "Kempegowda International Airport Inauguration",
-    year: "2023",
+    organization: "Federation of Indian Chambers of Commerce & Industry (FICCI)",
+    eyebrow: "International trade expo",
+    title: "EIMA AGRIMACH 2024",
+    year: "2024",
     summary:
-      "Heavy-duty physical infrastructure supporting the high-profile inauguration of Terminal 2 and the Kempegowda Statue. Scope included massive clear-span hangers, levelled staging, premium event flooring, and high-security protocol environments.",
+      "End-to-end exhibition infrastructure for India\u2019s largest international agricultural machinery expo organized by FICCI. Massive German hanger pavilions, precision-levelled flooring across exhibition halls, Octonorm stall fabrication for 200+ exhibitors, and full AV staging for the inauguration ceremony.",
     hero: {
-      id: "capability-structure",
-      src: "/media/capability-structure.3aa80a08.webp",
-      width: 1600,
-      height: 1000,
-      alt: "Clear-span German hanger and exhibition pavilion structure.",
+      id: "work-agrimach-expo",
+      src: "/media/work-agrimach-expo.webp",
+      width: 1800,
+      height: 1200,
+      alt: "Large-scale exhibition hall with booth setups and overhead lighting for EIMA AGRIMACH trade expo.",
       focal: "center",
       clearance: "licensed",
     },
@@ -90,22 +91,22 @@ export const projects: Project[] = [
     status: "approved",
   },
   {
-    id: "pm-inauguration",
+    id: "hampi-utsav",
     order: 2,
     published: true,
     featured: true,
-    organization: "Government of India & State Administration",
-    eyebrow: "National programme execution",
-    title: "PWD Programme / Hon'ble Prime Minister Inauguration",
-    year: "2022",
+    organization: "Karnataka State Habitat Centre",
+    eyebrow: "Heritage cultural festival",
+    title: "Hampi Utsav 2024",
+    year: "2024",
     summary:
-      "Complete ground infrastructure for landmark public projects inaugurated by the Hon'ble Prime Minister of India. Multi-tiered VIP dais, weatherproof German hangers, heavy-duty staging, and grand audience seating.",
+      "Open-air temporary infrastructure for Karnataka\u2019s flagship heritage festival at the UNESCO World Heritage Site. Grand outdoor stages, high-capacity audience seating, festival lighting rigs, exhibition pavilions, and full hospitality infrastructure \u2014 all built and dismantled without impact to the protected site.",
     hero: {
-      id: "work-ceremony",
-      src: "/media/work-ceremony.24729b14.webp",
+      id: "work-hampi-utsav",
+      src: "/media/work-hampi-utsav.webp",
       width: 1800,
-      height: 1013,
-      alt: "A seated audience facing the stage at a formal national programme.",
+      height: 1200,
+      alt: "Open-air festival stage with vibrant lighting and large crowd at Hampi Utsav cultural gathering.",
       focal: "center",
       clearance: "licensed",
     },
@@ -118,22 +119,22 @@ export const projects: Project[] = [
     status: "approved",
   },
   {
-    id: "vishwa-kannada-sammelana",
+    id: "biffes",
     order: 3,
     published: true,
     featured: true,
-    organization: "Government of Karnataka",
-    eyebrow: "Historical scale & cultural gathering",
-    title: "Vishwa Kannada Sammelana, Belgaum",
-    year: "2011",
+    organization: "Karnataka Chalanachitra Academy",
+    eyebrow: "International film festival",
+    title: "17th Bengaluru International Film Festival",
+    year: "2024",
     summary:
-      "A defining historical project demonstrating ultimate scale. End-to-end event infrastructure including colossal open-air stage builds, immense public seating arrangements, and vast exhibition environments for a landmark state gathering.",
+      "Full venue transformation for BIFFES \u2014 one of India\u2019s premier international film festivals. Multiple screening halls fitted with precision staging, VIP lounge environments, red-carpet infrastructure, branded entry arches, and delegate hospitality zones across the festival campus.",
     hero: {
-      id: "capability-exhibition",
-      src: "/media/capability-exhibition.4378e5d7.webp",
-      width: 1600,
-      height: 1000,
-      alt: "Fabricated exhibition stalls and walkways inside a massive event hall.",
+      id: "work-film-festival",
+      src: "/media/work-film-festival.webp",
+      width: 1800,
+      height: 1200,
+      alt: "Cinema hall with professional stage lighting and audience seating for the Bengaluru International Film Festival.",
       focal: "center",
       clearance: "licensed",
     },
@@ -163,7 +164,7 @@ export const featuredProjects = (limit = 4): Project[] => publishedProjects().sl
 export const worksIntro = {
   eyebrow: ["notable", "works"] as const,
   statement: [
-    { text: "You don’t see " },
+    { text: "You don\u2019t see " },
     { text: "us.", accent: true },
     { text: "\nYou see what we " },
     { text: "build.", accent: true },

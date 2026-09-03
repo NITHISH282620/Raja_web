@@ -121,10 +121,9 @@ function FlatHex({
 
 export function ClientsView({
   clients,
-  contact,
 }: {
   clients: Client[];
-  contact: typeof ContactShape;
+  contact?: typeof ContactShape;
   events?: { organisation: string; event: string }[];
 }) {
   const root = useRef<HTMLElement>(null);
@@ -387,7 +386,7 @@ export function ClientsView({
             />
           </div>
           <div data-cta-button data-reveal className="mt-[clamp(8px,1vw,14px)]">
-            <ContactButton contact={contact} />
+            <ContactButton />
           </div>
         </div>
       </div>
@@ -397,7 +396,7 @@ export function ClientsView({
 
 /* --- Contact CTA Button --------------------------------------------------- */
 
-function ContactButton({ contact }: { contact: typeof ContactShape }) {
+function ContactButton() {
   return (
     <Link
       href="/contact"

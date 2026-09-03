@@ -157,6 +157,14 @@
     line-height: 1.2;
     text-transform: uppercase;
   }
+  .frame {
+    width: 100%;
+    max-width: var(--container-frame, 1440px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(20px, 4vw, 80px);
+    padding-right: clamp(20px, 4vw, 80px);
+  }
 }
 
 /* ---------------------------------------------------------------------------

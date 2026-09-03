@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap, fadeUp, fadeIn, growRule, riseCard, q } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
 import { HeroMedia } from "@/components/HeroMedia";
-import { company, FOUNDED_YEAR, yearsInOperation } from "@/content/company";
+import { FOUNDED_YEAR, yearsInOperation } from "@/content/company";
 import { SECTION_IDS } from "@/content/navigation";
 import type { HeroSettings } from "@/lib/store";
 

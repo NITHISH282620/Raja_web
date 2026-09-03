@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useGSAP } from "@gsap/react";
 import { gsap, riseCard, release, entranceTrigger, q } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
@@ -9,6 +10,8 @@ import { Placeholder } from "@/components/Placeholder";
 import { navItems } from "@/content/navigation";
 import { company, FOUNDED_YEAR, yearsInOperation } from "@/content/company";
 import type { ContactSettings } from "@/lib/store";
+import { CallToAction } from "@/components/CallToAction";
+import { clsx } from "@/lib/clsx";
 
 const socialLinks = [
   {
@@ -60,6 +63,7 @@ const disciplines = [
 
 /**
  * SiteFooter Component:
+ * - Dribbble-inspired Glowing CTA Card (shown on all pages except /contact)
  * - Brand Logo & Vision Blurb
  * - Social Media Channels (LinkedIn, Instagram, Facebook, WhatsApp)
  * - Navigation links
@@ -68,6 +72,10 @@ const disciplines = [
  * - Clean bottom legal bar
  */
 export function SiteFooter({ contact }: { contact: ContactSettings }) {
+  const pathname = usePathname();
+  // Don't show the CTA on the contact page or admin routes where it's redundant
+  const hideCta = pathname === "/contact" || pathname?.startsWith("/admin");
+
   const hasContactDetails = Boolean(
     contact.email || contact.phone || contact.addressLines.length,
   );
@@ -94,110 +102,129 @@ export function SiteFooter({ contact }: { contact: ContactSettings }) {
   );
 
   return (
-    <footer ref={root} className="relative w-full overflow-hidden bg-paper pt-[clamp(60px,8vw,96px)] border-t border-ink/10">
-      <div className="frame grid gap-10 pb-[clamp(48px,6vw,72px)] sm:grid-cols-2 lg:grid-cols-12">
-        {/* Col 1: Brand Logo, Tagline & Social Links (lg: 4 cols) */}
-        <div data-footer-col data-reveal className="flex flex-col gap-5 lg:col-span-4">
-          <Link href="/" className="inline-block w-fit" aria-label="Raja Enterprises - home">
-            <div
-              className="h-[40px] w-[140px] bg-brand-blue"
-              style={{
-                WebkitMaskImage: "url(/media/brand-raja-logo.webp)",
-                WebkitMaskSize: "contain",
-                WebkitMaskRepeat: "no-repeat",
-                WebkitMaskPosition: "center left",
-                maskImage: "url(/media/brand-raja-logo.webp)",
-                maskSize: "contain",
-                maskRepeat: "no-repeat",
-                maskPosition: "center left",
-              }}
-            />
-          </Link>
-          <p className="t-body max-w-[32ch] text-body-light leading-relaxed">
-            {company.name} ’ {yearsInOperation()} years building the physical infrastructure where
-            India&rsquo;s largest gatherings and celebrations stand on.
-          </p>
+    <>
+      {/* Background paper spacing above footer so overlapping CTA has clean clearance */}
+      {!hideCta && (
+        <div className="w-full bg-paper h-[210px] sm:h-[240px] md:h-[265px]" />
+      )}
 
-          {/* Social Media Links */}
-          <div className="flex items-center gap-3 pt-2">
-            {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.name}
-                className="group flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 bg-surface text-ink/70 shadow-sm transition-all duration-300 hover:scale-110 hover:border-accent hover:bg-accent hover:text-white"
-              >
-                {social.icon}
-              </a>
-            ))}
+      <footer
+        ref={root}
+        className={clsx(
+          "relative z-10 w-full bg-white border-t border-ink/10 text-ink",
+          hideCta ? "pt-[clamp(60px,8vw,96px)]" : "pt-0",
+        )}
+      >
+        {/* Connected Dribbble-style Glowing CTA Section (Exact 50/50 overlap across the footer seam) */}
+        {!hideCta && (
+          <div className="relative z-20 -mt-[145px] sm:-mt-[160px] md:-mt-[175px] mb-6 sm:mb-8 md:mb-10">
+            <CallToAction />
+          </div>
+        )}
+        <div className="frame grid gap-8 lg:gap-12 pb-10 sm:pb-12 md:pb-14 sm:grid-cols-2 lg:grid-cols-12">
+          {/* Col 1: Brand Logo, Tagline & Social Links (lg: 4 cols) */}
+          <div data-footer-col data-reveal className="flex flex-col gap-5 lg:col-span-4">
+            <Link href="/" className="inline-block w-fit" aria-label="Raja Enterprises - home">
+              <div
+                className="h-[44px] w-[155px] bg-brand-blue"
+                style={{
+                  WebkitMaskImage: "url(/media/brand-raja-logo.webp)",
+                  WebkitMaskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center left",
+                  maskImage: "url(/media/brand-raja-logo.webp)",
+                  maskSize: "contain",
+                  maskRepeat: "no-repeat",
+                  maskPosition: "center left",
+                }}
+              />
+            </Link>
+            <p className="t-body max-w-[34ch] text-[15px] text-body-light leading-relaxed">
+              {company.name} – {yearsInOperation()} years building the physical infrastructure where
+              India&rsquo;s largest gatherings and celebrations stand on.
+            </p>
+
+            {/* Social Media Links */}
+            <div className="flex items-center gap-3 pt-1">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className="group flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 bg-neutral-100 text-ink/70 shadow-sm transition-all duration-300 hover:scale-110 hover:border-brand-blue hover:bg-brand-blue hover:text-white"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Col 2: Navigation Links (lg: 2 cols) */}
+          <nav data-footer-col data-reveal className="flex flex-col gap-3 lg:col-span-2" aria-label="Footer Navigation">
+            <p className="t-eyebrow text-ink/60 font-mono text-xs tracking-wider uppercase">Sections</p>
+            <ul className="flex flex-col gap-2.5">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="t-body text-[15px] text-body-light transition-colors hover:text-brand-blue">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Col 3: Contact Details (lg: 3 cols) */}
+          <div data-footer-col data-reveal className="flex flex-col gap-3 lg:col-span-3">
+            <p className="t-eyebrow text-ink/60 font-mono text-xs tracking-wider uppercase">Contact</p>
+            {hasContactDetails ? (
+              <address className="t-body not-italic text-[15px] text-body-light flex flex-col gap-1.5 leading-relaxed">
+                {contact.addressLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+                {contact.phone && (
+                  <a href={`tel:${contact.phone}`} className="block transition-colors hover:text-brand-blue font-semibold text-brand-blue pt-0.5 text-[15px]">
+                    {contact.phone}
+                  </a>
+                )}
+                {contact.email && (
+                  <a href={`mailto:${contact.email}`} className="block transition-colors hover:text-brand-blue font-medium text-ink">
+                    {contact.email}
+                  </a>
+                )}
+              </address>
+            ) : (
+              <Placeholder label="Contact details pending" note={contact.note} lines={3} />
+            )}
+          </div>
+
+          {/* Col 4: Services & Disciplines (lg: 3 cols) */}
+          <div data-footer-col data-reveal className="flex flex-col gap-3 lg:col-span-3">
+            <p className="t-eyebrow text-ink/60 font-mono text-xs tracking-wider uppercase">Services</p>
+            <ul className="flex flex-col gap-2 text-body-light text-[14px]">
+              {disciplines.map((item) => (
+                <li key={item} className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-blue/60 shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Col 2: Navigation Links (lg: 2 cols) */}
-        <nav data-footer-col data-reveal className="flex flex-col gap-3 lg:col-span-2" aria-label="Footer Navigation">
-          <p className="t-eyebrow text-ink/50 font-mono text-xs tracking-wider uppercase">Sections</p>
-          <ul className="flex flex-col gap-2.5">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="t-body text-body-light transition-colors hover:text-accent">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Col 3: Contact Details (lg: 3 cols) */}
-        <div data-footer-col data-reveal className="flex flex-col gap-3 lg:col-span-3">
-          <p className="t-eyebrow text-ink/50 font-mono text-xs tracking-wider uppercase">Contact</p>
-          {hasContactDetails ? (
-            <address className="t-body not-italic text-body-light flex flex-col gap-1.5 leading-relaxed">
-              {contact.addressLines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-              {contact.phone && (
-                <a href={`tel:${contact.phone}`} className="block transition-colors hover:text-accent font-medium text-ink pt-1">
-                  {contact.phone}
-                </a>
-              )}
-              {contact.email && (
-                <a href={`mailto:${contact.email}`} className="block transition-colors hover:text-accent font-medium text-ink">
-                  {contact.email}
-                </a>
-              )}
-            </address>
-          ) : (
-            <Placeholder label="Contact details pending" note={contact.note} lines={3} />
-          )}
+        {/* Bottom Copyright & City Bar */}
+        <div className="frame flex flex-wrap items-center justify-between gap-3 border-t border-ink/10 py-5">
+          <p className="t-eyebrow text-ink/50 font-mono text-xs">
+            © {new Date().getFullYear()} {company.name} – Est. {FOUNDED_YEAR}
+          </p>
+          <p className="t-eyebrow text-ink/50 font-mono text-xs">
+            {company.city}, Karnataka, India
+          </p>
         </div>
-
-        {/* Col 4: Services & Disciplines (lg: 3 cols) */}
-        <div data-footer-col data-reveal className="flex flex-col gap-3 lg:col-span-3">
-          <p className="t-eyebrow text-ink/50 font-mono text-xs tracking-wider uppercase">Services</p>
-          <ul className="flex flex-col gap-2 text-body-light text-sm">
-            {disciplines.map((item) => (
-              <li key={item} className="flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-accent/60 shrink-0" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* Bottom Copyright & City Bar */}
-      <div className="frame flex flex-wrap items-center justify-between gap-3 border-t border-ink/10 py-6">
-        <p className="t-eyebrow text-ink/40 font-mono text-xs">
-          ’ {new Date().getFullYear()} {company.name} ’ Est. {FOUNDED_YEAR}
-        </p>
-        <p className="t-eyebrow text-ink/40 font-mono text-xs">
-          {company.city}, Karnataka, India
-        </p>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }

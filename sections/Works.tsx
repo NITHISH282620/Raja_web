@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import {
   gsap,
-  ScrollTrigger,
   fadeUp,
   fadeIn,
   growRule,
@@ -21,17 +20,6 @@ import { Statement } from "@/components/Statement";
 import { PlaceholderImage } from "@/components/Placeholder";
 import { worksIntro, type Project } from "@/content/works";
 import { ROUTES, SECTION_IDS } from "@/content/navigation";
-
-/**
- * Notable Works Section - GSAP Pinned Image Stack with ClipPath Wipe
- *
- * Two-column layout inspired by the CodePen "GSAP pinned image mask reveal on scroll":
- * - LEFT: Text sections stacked vertically, each 100vh, scrolls naturally
- * - RIGHT: Image stack pinned in place, images stacked via z-index
- * - As each text section scrolls through, the current top image wipes away
- *   via clipPath: inset(0 0 100%), revealing the image underneath
- * - Subtle object-position parallax on images during wipe
- */
 
 /* Tint-to-background color map for page color transitions */
 const TINT_COLORS: Record<string, string> = {
@@ -77,7 +65,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
         if (!archEl || !rightCol) return;
 
         const imgs = q(scope, "[data-work-img]");
-        const textSections = q(scope, "[data-work-text]");
+        const textTrack = scope.querySelector("[data-text-track]");
 
         // Set z-index: first image on top (highest z), last on bottom
         imgs.forEach((img, i) => {
@@ -91,13 +79,12 @@ export function WorksView({ projects }: { projects: Project[] }) {
         });
 
         const archCard = scope.querySelector("[data-arch-card]");
-        const textTrack = scope.querySelector("[data-text-track]");
 
         // Main timeline pinning the entire card
         const mainTl = gsap.timeline({
           scrollTrigger: {
             trigger: archCard,
-            start: "top 38%",
+            start: "top 120px",
             end: `+=${projects.length * 100}%`,
             pin: true,
             scrub: true,
@@ -111,7 +98,6 @@ export function WorksView({ projects }: { projects: Project[] }) {
 
           const sectionTl = gsap.timeline();
 
-          
           // Current image wipes away from bottom
           sectionTl.to(
             img,
@@ -153,37 +139,15 @@ export function WorksView({ projects }: { projects: Project[] }) {
             sectionTl.to(
               textTrack,
               {
-                yPercent: -100 * (i + 1) / projects.length,
+                yPercent: -100 * (i + 1),
                 duration: 1.5,
-                ease: "power1.inOut",
+                ease: "none", // MUST BE "none" TO MATCH IMAGE WIPE EXACTLY
               },
               0
             );
           }
 
           mainTl.add(sectionTl);
-        });
-
-        // Text sections entrance animation
-        textSections.forEach((section) => {
-          const content = section.querySelector("[data-work-content]") as HTMLElement;
-          if (!content) return;
-
-          gsap.fromTo(
-            content,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.7,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 70%",
-                once: true,
-              },
-            },
-          );
         });
       });
 
@@ -260,7 +224,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
         {/* Left: Text track with mask */}
         <div className="flex flex-col min-w-[280px] w-[40%] xl:w-[38%] shrink-0 overflow-hidden h-[60vh]">
           <div data-text-track className="flex flex-col w-full h-full">
-          {projects.map((work, i) => (
+          {projects.map((work) => (
             <div
               key={work.id}
               data-work-text

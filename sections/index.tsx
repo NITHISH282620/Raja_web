@@ -7,7 +7,6 @@ import {
   getHero,
   getProcessSteps,
   getProjects,
-  getStats,
 } from "@/lib/store";
 
 import { CapabilitiesView } from "./Capabilities";
@@ -48,7 +47,7 @@ export function Legacy() {
 }
 
 export function Resources() {
-  return <ResourcesView stats={getStats()} />;
+  return <ResourcesView />;
 }
 
 export function Clients() {

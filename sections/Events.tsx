@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import Image from "next/image";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { eventsWeBuildFor } from "@/content/events";
@@ -21,15 +21,15 @@ export function EventsWeBuildFor() {
       if (!scope) return;
 
       const q = gsap.utils.selector(scope);
-      const release = (targets: any[]) => gsap.set(targets, { clearProps: "all" });
+      const release = (targets: gsap.TweenTarget) => gsap.set(targets, { clearProps: "transform", willChange: "auto" });
 
       mm.add("(min-width: 1024px)", () => {
         const cards = q("[data-slide]");
         const images = q("[data-slide-image] img");
-        
+
         const reveal = gsap.timeline({
-          scrollTrigger: { trigger: scope, start: "top 70%", once: true },
-          onComplete: () => release([...cards, ...q("[data-slide-meta]")])
+          scrollTrigger: { trigger: scope, start: "top bottom", once: true },
+          onComplete: () => release([...cards, ...q("[data-slide-meta]")]),
         });
         riseCard(reveal, cards, { stagger: 0.1, scaleFrom: 0.92 }, 0);
         if (images.length) settle(reveal, images, { stagger: 0.1, scaleFrom: 1.14 }, 0);
@@ -57,7 +57,10 @@ export function EventsWeBuildFor() {
               if (bar) bar.style.transform = `scaleX(${self.progress})`;
               const counter = scope.querySelector<HTMLElement>("[data-track-index]");
               if (counter) {
-                const i = Math.min(eventsWeBuildFor.length - 1, Math.round(self.progress * (eventsWeBuildFor.length - 1)));
+                const i = Math.min(
+                  eventsWeBuildFor.length - 1,
+                  Math.round(self.progress * (eventsWeBuildFor.length - 1)),
+                );
                 counter.textContent = "0" + (i + 1);
               }
             },
@@ -96,13 +99,14 @@ export function EventsWeBuildFor() {
         </div>
         <div data-statement>
           <Statement
-            segments={[{text: "Scale and precision for every format."}]}
+            segments={[{ text: "Scale and precision\nfor every format." }]}
             tone="dark"
             className="t-statement lg:text-[clamp(1.75rem,2.6vw,2.4rem)]"
           />
         </div>
         <p data-intro-body data-reveal className="t-body max-w-[38ch] text-body-light">
-          From high-security national inaugurations to mega-scale industrial trade fairs, we build the physical environments that major events demand.
+          From high-security national inaugurations to mega-scale industrial trade fairs, we build
+          the physical environments that major events demand.
         </p>
 
         <div className="mt-[clamp(20px,2.4vw,34px)] hidden items-center gap-4 lg:flex">
@@ -140,19 +144,20 @@ export function EventsWeBuildFor() {
               key={event.id}
               data-slide
               data-reveal
-              className="group relative flex flex-col justify-end aspect-[950/700] w-[84vw] max-w-[950px] shrink-0 snap-center overflow-hidden rounded-[20px] bg-ink lg:w-[min(60vw,880px)] px-[clamp(20px,2.7vw,39px)] pb-[clamp(20px,2.2vw,31px)]"
+              className="group relative aspect-[950/700] w-[84vw] max-w-[950px] shrink-0 snap-center overflow-hidden rounded-[20px] bg-mist lg:w-[min(60vw,880px)]"
             >
               {event.image && (
                 <div data-slide-image className="absolute inset-0">
                   <Image
                     src={event.image.src}
-                    alt={event.image.alt || event.title}
+                    alt={event.image.alt}
                     fill
                     sizes="(max-width: 1023px) 84vw, 60vw"
                     className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
                   />
                 </div>
               )}
+
               <div
                 aria-hidden
                 className="absolute inset-0"
@@ -161,7 +166,7 @@ export function EventsWeBuildFor() {
                     "linear-gradient(to bottom, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.82) 100%)",
                 }}
               />
-              <div className="absolute
+
               <div className="absolute right-[clamp(16px,2vw,36px)] top-[clamp(12px,1.5vw,24px)] z-10">
                 <span
                   data-slide-meta
@@ -172,7 +177,7 @@ export function EventsWeBuildFor() {
                 </span>
               </div>
 
-              <div className="relative z-20 flex flex-col gap-[6px]">
+              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-[6px] px-[clamp(20px,2.7vw,39px)] pb-[clamp(20px,2.2vw,31px)]">
                 <h3 data-slide-meta data-reveal className="t-slide max-w-[14ch] text-white">
                   {event.title}
                 </h3>
