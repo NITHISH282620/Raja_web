@@ -175,19 +175,19 @@ export function ClientsView({
     <section
       ref={root}
       id={SECTION_IDS.clients}
-      className="relative w-full min-h-screen bg-paper py-[clamp(64px,8vw,110px)] flex flex-col"
+      className="relative w-full bg-paper py-[clamp(40px,6vw,90px)] flex flex-col"
     >
       <div className="w-full">
         <div className="frame">
           <span
             data-divider
             aria-hidden
-            className="block h-px w-full origin-left bg-ink/12 mb-[clamp(40px,5vw,70px)]"
+            className="block h-px w-full origin-left bg-ink/12 mb-[clamp(32px,5vw,70px)]"
           />
         </div>
 
         <div className="frame w-full">
-          <div className="relative w-full min-h-[85vh] lg:min-h-[90vh] rounded-[32px] sm:rounded-[44px] lg:rounded-[56px] bg-gradient-to-b from-white via-[#fafbfe] to-[#f0f3f7] border border-ink/8 shadow-[0_28px_80px_-20px_rgba(0,0,0,0.08)] p-6 sm:p-10 md:p-14 lg:p-20 flex flex-col items-center justify-center overflow-hidden">
+          <div className="relative w-full py-12 sm:py-16 lg:py-20 lg:min-h-[85vh] rounded-[28px] sm:rounded-[44px] lg:rounded-[56px] bg-gradient-to-b from-white via-[#fafbfe] to-[#f0f3f7] border border-ink/8 shadow-[0_28px_80px_-20px_rgba(0,0,0,0.08)] p-5 sm:p-10 md:p-14 lg:p-20 flex flex-col items-center justify-center overflow-hidden">
             {/* Atmospheric blurs */}
             <div
               aria-hidden

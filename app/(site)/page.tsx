@@ -1,20 +1,17 @@
-import { Capabilities, EventsWeBuildFor, RecentExecutions, Hero, Legacy, Process, Resources, Works } from "@/sections";
+import { Capabilities, EventsWeBuildFor, RecentExecutions, Hero, Legacy, Process, Resources, Works, Clients } from "@/sections";
 
 /**
  * Homepage narrative flow:
  *
  * 01 HERO         - Full Raja film, scale + positioning
- * 02 LEGACY       - 1977 to present (sticky pinned, scroll-over reveal)
- * 03 CAPABILITIES - What we physically build (scrolls OVER Legacy)
+ * 02 LEGACY       - 1977 to present (sticky pinned on desktop, editorial on mobile)
+ * 03 CAPABILITIES - What we physically build
  * 04 WORKS        - Proof of execution, notable projects
  * 05 RESOURCES    - Scale / capacity / infrastructure numbers
  * 06 PROCESS      - How Raja executes
- * 07 CLIENTS      - Real organizations/events + CTA
- *
- * The Legacy section uses position:sticky so it stays pinned while
- * the Capabilities section (and everything after) scrolls over it.
- * The cover-wrap div provides the z-index layer and opaque background
- * that ensures all subsequent sections properly cover the sticky Legacy.
+ * 07 EVENTS       - Core event typologies
+ * 08 RECENT       - Recent build showcases
+ * 09 CLIENTS      - Real organizations/events + CTA
  */
 export default function Home() {
   return (
@@ -30,6 +27,7 @@ export default function Home() {
         <Process />
         <EventsWeBuildFor />
         <RecentExecutions />
+        <Clients />
       </div>
     </main>
   );

@@ -4,8 +4,8 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
-import { gsap, fadeUp, fadeIn, growRule, land, q } from "@/motion/primitives";
-import { EASE, MOTION_DESKTOP } from "@/motion/ease";
+import { gsap, fadeUp, fadeIn, growRule, land, riseCard, q } from "@/motion/primitives";
+import { EASE, MOTION_DESKTOP, MOTION_COMPACT } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { arcs, legacyIntro, type CollagePhoto } from "@/content/legacy";
@@ -120,6 +120,15 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
         }, 0.35);
       });
 
+      /* Mobile: Stagger entrance on scroll */
+      mm.add(MOTION_COMPACT, () => {
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: scope, start: "top 80%", once: true },
+        });
+        fadeIn(tl, q(scope, "[data-mobile-legacy-wrap] [data-reveal]"), { stagger: 0.05 }, 0);
+        riseCard(tl, q(scope, "[data-mobile-legacy-img]"), { stagger: 0.08, distance: 20, scaleFrom: 0.96 }, 0.2);
+      });
+
       return () => mm.revert();
     },
     { scope: root },
@@ -131,9 +140,10 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
     <section
       ref={root}
       id={SECTION_IDS.legacy}
-      className="lg:sticky lg:top-0 relative z-10 w-full h-screen min-h-[660px] max-h-[1050px] overflow-hidden bg-paper flex items-center justify-center px-3 sm:px-6 lg:px-8"
+      className="relative lg:sticky lg:top-0 z-10 w-full lg:h-screen lg:min-h-[660px] lg:max-h-[1050px] overflow-hidden bg-paper flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8"
     >
-      <div className="relative w-full max-w-[1480px] h-[92vh] max-h-[880px] aspect-[1440/884] mx-auto flex items-center justify-center">
+      {/* Desktop Artboard: Pinned Canvas with Arcs & Drifting Cards */}
+      <div className="hidden lg:flex relative w-full max-w-[1480px] h-[92vh] max-h-[880px] aspect-[1440/884] mx-auto items-center justify-center">
         {/* 4 Background Arcs */}
         {arcs.map((arc) => (
           <div
@@ -216,6 +226,48 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
               </span>
             </Link>
           </div>
+        </div>
+      </div>
+
+      {/* Mobile Presentation: Clean Editorial Card Stack with 2-Column Photo Highlights */}
+      <div data-mobile-legacy-wrap className="lg:hidden w-full frame flex flex-col items-center text-center gap-5 sm:gap-6 py-14 sm:py-20">
+        <div data-eyebrow className="flex justify-center">
+          <Eyebrow items={eyebrow} align="center" />
+        </div>
+        <div data-statement data-reveal className="max-w-[28ch]">
+          <Statement segments={legacyIntro.statement} className="t-statement text-ink text-balance" />
+        </div>
+        
+        {/* Mobile Curated Photo Grid (2-columns) */}
+        <div className="grid grid-cols-2 gap-3 w-full max-w-[480px] my-3">
+          {collage.slice(0, 4).map((photo) => (
+            <div
+              key={photo.id}
+              data-mobile-legacy-img
+              className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden border border-ink/10 shadow-xs bg-neutral-900"
+            >
+              <Image
+                src={photo.image.src}
+                alt={photo.image.alt}
+                fill
+                sizes="50vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+            </div>
+          ))}
+        </div>
+
+        <div data-reveal className="mt-2">
+          <Link
+            href="/about"
+            className="group inline-flex items-center gap-2.5 rounded-full bg-brand-blue px-7 py-3.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-xl hover:scale-105"
+          >
+            <span>Discover Our 49-Year Journey</span>
+            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+              &rarr;
+            </span>
+          </Link>
         </div>
       </div>
     </section>

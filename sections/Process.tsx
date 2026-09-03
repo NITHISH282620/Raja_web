@@ -14,7 +14,7 @@ import {
   entranceTrigger,
   q,
 } from "@/motion/primitives";
-import { EASE, STAGGER, MOTION_OK, MOTION_DESKTOP } from "@/motion/ease";
+import { EASE, STAGGER, MOTION_OK, MOTION_DESKTOP, MOTION_COMPACT } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { processIntro, type ProcessStep } from "@/content/process";
@@ -88,6 +88,15 @@ export function ProcessView({ processSteps }: { processSteps: ProcessStep[] }) {
             },
           );
         });
+      });
+
+      /* Mobile: Stagger steps reveal */
+      mm.add(MOTION_COMPACT, () => {
+        const steps = q(scope, "[data-step]");
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: scope.querySelector("ol"), start: "top 85%", once: true },
+        });
+        riseCard(tl, steps, { stagger: 0.1, scaleFrom: 0.96 }, 0);
       });
 
       return () => mm.revert();

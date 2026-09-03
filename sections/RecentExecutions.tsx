@@ -81,7 +81,7 @@ export function RecentExecutions() {
   return (
     <section
       ref={root}
-      className="relative w-full overflow-hidden bg-paper flex flex-col justify-center min-h-[100svh] py-12 lg:py-20"
+      className="relative w-full overflow-hidden bg-paper flex flex-col justify-center py-12 lg:py-20"
     >
       {/* Header section */}
       <div className="frame flex flex-col gap-4 lg:gap-6 pb-8 lg:pb-12">

@@ -7,7 +7,8 @@ import { useGSAP } from "@gsap/react";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { eventsWeBuildFor } from "@/content/events";
-import { fadeUp, riseCard, settle } from "@/motion/primitives";
+import { fadeUp, fadeIn, growRule, revealLines, riseCard, settle, entranceTrigger } from "@/motion/primitives";
+import { MOTION_OK, MOTION_DESKTOP, MOTION_COMPACT } from "@/motion/ease";
 
 export function EventsWeBuildFor() {
   const root = useRef<HTMLElement>(null);
@@ -23,7 +24,24 @@ export function EventsWeBuildFor() {
       const q = gsap.utils.selector(scope);
       const release = (targets: gsap.TweenTarget) => gsap.set(targets, { clearProps: "transform", willChange: "auto" });
 
-      mm.add("(min-width: 1024px)", () => {
+      // Header entrance animation
+      mm.add(MOTION_OK, () => {
+        const intro = gsap.timeline({
+          scrollTrigger: entranceTrigger(scope),
+          onComplete: () => release(q("[data-eyebrow] [data-reveal]")),
+        });
+        fadeIn(intro, q("[data-eyebrow] [data-reveal]"), { stagger: 0.04 }, 0);
+        growRule(intro, q("[data-eyebrow] [data-reveal-rule]"), {}, 0);
+        fadeUp(intro, q("[data-intro-body]"), { distance: 16 }, 0.2);
+
+        const revert = revealLines(q("[data-statement] h2"), {
+          stagger: 0.09,
+          trigger: { trigger: scope, start: "top 78%", once: true },
+        });
+        return () => revert();
+      });
+
+      mm.add(MOTION_DESKTOP, () => {
         const cards = q("[data-slide]");
         const images = q("[data-slide-image] img");
 
@@ -73,7 +91,7 @@ export function EventsWeBuildFor() {
         };
       });
 
-      mm.add("(max-width: 1023px)", () => {
+      mm.add(MOTION_COMPACT, () => {
         const cards = q("[data-slide]");
         const reveal = gsap.timeline({
           scrollTrigger: { trigger: viewport.current!, start: "top 85%", once: true },

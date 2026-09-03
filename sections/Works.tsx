@@ -14,7 +14,7 @@ import {
   entranceTrigger,
   q,
 } from "@/motion/primitives";
-import { MOTION_OK, MOTION_DESKTOP } from "@/motion/ease";
+import { MOTION_OK, MOTION_DESKTOP, MOTION_COMPACT, EASE } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import { PlaceholderImage } from "@/components/Placeholder";
@@ -173,6 +173,30 @@ export function WorksView({ projects }: { projects: Project[] }) {
         });
       });
 
+      // Mobile: stagger cards entrance with ScrollTrigger
+      mm.add(MOTION_COMPACT, () => {
+        const mobileCards = q(scope, "[data-mobile-card]");
+        mobileCards.forEach((card) => {
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: 28, scale: 0.97 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.65,
+              ease: EASE.primary,
+              clearProps: "transform,opacity",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+                once: true,
+              },
+            }
+          );
+        });
+      });
+
       return () => mm.revert();
     },
     { scope: root },
@@ -181,7 +205,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
   return (
     <section ref={root} id={SECTION_IDS.works} className="relative w-full bg-paper">
       {/* Centered Statement and Header */}
-      <div className="sticky top-[10vh] z-0 frame flex flex-col items-center text-center gap-5 pb-[clamp(24px,4vw,40px)] pt-[clamp(40px,6vw,80px)]">
+      <div className="relative lg:sticky lg:top-[10vh] z-0 frame flex flex-col items-center text-center gap-4 sm:gap-5 pb-6 sm:pb-[clamp(24px,4vw,40px)] pt-12 sm:pt-[clamp(40px,6vw,80px)]">
         <div data-eyebrow className="flex justify-center">
           <Eyebrow items={worksIntro.eyebrow} align="center" />
         </div>
@@ -291,33 +315,36 @@ export function WorksView({ projects }: { projects: Project[] }) {
         </div>
       </div>
 
-      {/* ======== MOBILE: Stacked cards ======== */}
-      <div className="relative z-10 lg:hidden frame flex flex-col gap-8 pb-[clamp(48px,6vw,80px)]">
+      {/* ======== MOBILE: Stacked cards with rich interaction & animations ======== */}
+      <div className="relative z-10 lg:hidden frame flex flex-col gap-6 sm:gap-8 pb-14 sm:pb-[clamp(48px,6vw,80px)]">
         {projects.map((work) => (
           <div
             key={work.id}
             data-mobile-card
-            className="flex flex-col gap-4 rounded-[20px] overflow-hidden bg-white border border-ink/8 shadow-sm"
+            className="group flex flex-col gap-4 rounded-2xl sm:rounded-[20px] overflow-hidden bg-white border border-ink/10 shadow-xs transition-all duration-300 hover:shadow-md hover:border-brand-blue/30"
           >
-            <div className="relative aspect-[16/10] w-full overflow-hidden">
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
               {work.hero ? (
                 <Image
                   src={work.hero.src}
                   alt={work.hero.alt}
                   fill
-                  sizes="100vw"
-                  className="object-cover"
+                  sizes="(max-width: 1023px) 100vw, 55vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   style={work.hero.focal ? { objectPosition: work.hero.focal } : undefined}
                 />
               ) : (
                 <PlaceholderImage className="absolute inset-0 h-full w-full" note={work.note} />
               )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute top-3 left-3">
+                <span className="font-mono text-[11px] font-semibold px-2.5 py-1 rounded-full bg-black/60 text-white backdrop-blur-md">
+                  {work.eyebrow}
+                </span>
+              </div>
             </div>
-            <div className="flex flex-col gap-2 p-5 pt-0">
-              <p className="t-eyebrow text-ink/50 font-mono text-xs tracking-wider uppercase">
-                {work.eyebrow}
-              </p>
-              <h3 className="text-xl font-bold text-ink tracking-tight leading-tight">
+            <div className="flex flex-col gap-2 p-5 pt-1">
+              <h3 className="text-xl font-bold text-ink tracking-tight leading-tight group-hover:text-brand-blue transition-colors">
                 {work.title}
               </h3>
               {work.summary && (
@@ -328,10 +355,10 @@ export function WorksView({ projects }: { projects: Project[] }) {
               {work.href && (
                 <Link
                   href={work.href}
-                  className="mt-2 group inline-flex items-center gap-2 text-sm font-semibold text-brand-blue transition-colors hover:text-accent"
+                  className="mt-2 group/btn inline-flex items-center gap-2 text-sm font-semibold text-brand-blue transition-colors hover:text-accent"
                 >
-                  <span>Learn More</span>
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                  <span>Explore Architecture</span>
+                  <span className="transition-transform duration-300 group-hover/btn:translate-x-1">&rarr;</span>
                 </Link>
               )}
             </div>
