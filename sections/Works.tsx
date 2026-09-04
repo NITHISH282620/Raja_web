@@ -239,9 +239,15 @@ export function WorksView({ projects }: { projects: Project[] }) {
       </div>
 
       {/* ======== DESKTOP: Two-column pinned image stack ======== */}
+      {/* Wrapped in `.frame` rather than given a hand-computed max-width: the
+          frame collapses to the viewport below 1440px, so any calc against the
+          fixed container value drifts out of alignment at 1280 and 1024. This
+          way the card's edges match every other section's content edges at
+          every width, by construction. */}
+      <div className="frame hidden lg:block">
       <div 
         data-arch-card 
-        className="relative z-10 hidden lg:block max-w-[1440px] mx-auto py-[4vh] px-[clamp(24px,4vw,64px)] lg:px-[clamp(40px,6vw,100px)] rounded-[40px] xl:rounded-[60px] transition-colors duration-1000 ease-in-out shadow-2xl"
+        className="relative z-10 w-full rounded-[40px] py-[4vh] px-[clamp(24px,4vw,64px)] shadow-2xl transition-colors duration-1000 ease-in-out lg:px-[clamp(40px,6vw,100px)] xl:rounded-[60px]"
         style={{ backgroundColor: TINT_COLORS[projects[0]?.tint || "neutral"] || "#F5F5F7" }}
       >
         <div data-arch className="flex gap-8 lg:gap-16 max-w-[1200px] mx-auto">
@@ -313,6 +319,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
           ))}
         </div>
         </div>
+      </div>
       </div>
 
       {/* ======== MOBILE: Stacked cards with rich interaction & animations ======== */}

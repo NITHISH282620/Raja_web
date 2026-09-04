@@ -157,6 +157,11 @@
     line-height: 1.2;
     text-transform: uppercase;
   }
+  /* DEAD RULE. A second `.frame` in @layer utilities below overrides this one
+     entirely — same selector, later layer — so the padding that actually
+     applies is clamp(20px, 5.55vw, 80px), not 4vw. Left in place rather than
+     deleted mid-flight, but anything measuring against `.frame` must use the
+     utilities value. */
   .frame {
     width: 100%;
     max-width: var(--container-frame, 1440px);

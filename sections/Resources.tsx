@@ -75,7 +75,7 @@ export function ResourcesView() {
         <div className="grid gap-6 lg:grid-cols-3">
           
           {/* Top Cards */}
-          <div className="lg:col-span-2 grid gap-6 md:grid-cols-2">
+          <div className="lg:col-span-2 lg:self-start grid gap-6 md:grid-cols-2">
             {topCards.map((tile) => (
               <div
                 key={tile.id}
@@ -83,7 +83,7 @@ export function ResourcesView() {
                 data-reveal
                 className="flex flex-col overflow-hidden rounded-[20px] bg-white shadow-sm border border-ink/5"
               >
-                <div className="relative aspect-[4/3] w-full bg-mist overflow-hidden">
+                <div className="relative aspect-[16/10] w-full bg-mist overflow-hidden">
                   {tile.image && (
                     <Image
                       src={tile.image.src}
@@ -94,7 +94,7 @@ export function ResourcesView() {
                     />
                   )}
                 </div>
-                <div className="flex flex-col flex-1 p-6 gap-4">
+                <div className="flex flex-col flex-1 p-6 gap-3">
                   <div className="flex items-center gap-3">
                     <span className="t-eyebrow text-ink font-bold tabular-nums">{tile.index}</span>
                     <div className="h-px w-8 bg-ink/20"></div>
@@ -102,7 +102,7 @@ export function ResourcesView() {
                   </div>
                   <h3 className="text-2xl font-serif text-ink leading-tight">{tile.title}</h3>
                   {tile.body && (
-                    <p className="t-body-sm text-body-light leading-relaxed mt-auto">
+                    <p className="t-body-sm text-body-light leading-relaxed">
                       {tile.body}
                     </p>
                   )}
@@ -159,7 +159,7 @@ export function ResourcesView() {
               data-reveal
               className="flex flex-col overflow-hidden rounded-[20px] bg-white shadow-sm border border-ink/5"
             >
-              <div className="relative aspect-[4/3] w-full bg-mist overflow-hidden">
+              <div className="relative aspect-[16/10] w-full bg-mist overflow-hidden">
                 {tile.image && (
                   <Image
                     src={tile.image.src}
