@@ -172,7 +172,7 @@ export const milestoneMoments: MilestoneItem[] = [
     title: "Kempegowda International Airport T2 & 108-ft Statue Dedication",
     venue: "Bengaluru International Airport",
     scale: "Inaugurated by Hon'ble Prime Minister",
-    scope: "Clear-span German hangar pavilions for prime ministerial address, SPG-compliant high-security dais, VIP holding areas, and climate-controlled staging.",
+    scope: "Clear-span German hangar pavilions, ceremonial dais, VIP holding areas and climate-controlled staging.",
     image: "/media/work-airport-inauguration.webp",
   },
   {
