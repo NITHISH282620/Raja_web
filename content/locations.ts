@@ -1,4 +1,4 @@
-import type { Sourced } from "./types";
+import type { ImageAsset, Sourced } from "./types";
 import { publishedProjects, type Project } from "./projects";
 
 /**
@@ -50,6 +50,8 @@ export interface LocationRecord extends Sourced {
   blurb: string | null;
   verification: LocationVerification;
   published: boolean;
+  /** A photograph from work at this location. Never representative imagery. */
+  image?: ImageAsset;
   /** Only set once a page has enough underlying evidence to justify one. */
   seoTitle?: string;
   seoDescription?: string;
@@ -71,6 +73,13 @@ export const locations: LocationRecord[] = [
     lng: 77.5946,
     blurb:
       "Home city, yard and fleet. The majority of Raja's recorded engagements are built here — Palace Grounds, Gayathri Vihar, the GKVK campus, Vidhana Soudha and Kanteerava among them.",
+    image: {
+      src: "/media/events/eima-expo-crowd.11d4b8f2.webp",
+      width: 595,
+      height: 336,
+      alt: "A crowded outdoor trade-fair ground with exhibitor stands and agricultural machinery.",
+      clearance: "client-approved",
+    },
     verification: "project-evidenced",
     published: true,
     seoTitle: "Event Infrastructure in Bengaluru",
@@ -111,6 +120,13 @@ export const locations: LocationRecord[] = [
     lat: 17.385,
     lng: 78.4867,
     blurb: "Kanha Shanti Vanam — tent city and assembly infrastructure.",
+    image: {
+      src: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp",
+      width: 644,
+      height: 388,
+      alt: "Aerial view over an immense clear-span canopy sheltering a seated assembly of many thousands.",
+      clearance: "client-approved",
+    },
     verification: "project-evidenced",
     published: true,
     status: "provisional",
@@ -138,6 +154,13 @@ export const locations: LocationRecord[] = [
     lng: 74.124,
     blurb:
       "ICGS Akshay commissioning at Goa Shipyard Limited, Vasco — the Coast Guard's fourth Adamya-class fast patrol vessel.",
+    image: {
+      src: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
+      width: 1280,
+      height: 720,
+      alt: "The ICGS Akshay commissioning ceremony at Goa Shipyard.",
+      clearance: "client-approved",
+    },
     verification: "client-provided",
     published: true,
     status: "provisional",

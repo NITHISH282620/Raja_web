@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageMasthead, Band } from "@/components/PageShell";
 import { SectionTitle } from "@/components/SectionTitle";
 import { careersIntro, disciplines, roles } from "@/content/careers";
@@ -21,6 +22,19 @@ export default function CareersPage() {
         statement={careersIntro.statement}
         lead={careersIntro.lead}
       />
+
+      <figure className="frame mt-[clamp(20px,3vw,44px)]">
+        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[20px] bg-ink/5">
+          <Image src="/media/events/eima-delegates-stand.5c782f20.webp" alt="Delegates beside a tractor on an exhibitor stand at an agricultural machinery fair." fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
+        </div>
+        <figcaption className="t-body-sm mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-light">
+          <span className="rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">
+            Project photograph
+          </span>
+          <span>A Raja build in use — the crew that raises these structures is on our own payroll.</span>
+        </figcaption>
+      </figure>
+
 
       <Band>
         <div className="frame">

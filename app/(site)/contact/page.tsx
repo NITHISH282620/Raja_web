@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageMasthead, Band } from "@/components/PageShell";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { company, FOUNDED_YEAR } from "@/content/company";
@@ -36,6 +37,19 @@ export default async function ContactPage({
         ]}
         lead="Tell us the dates, the site and the scale. We will tell you what it takes to build it."
       />
+
+      <figure className="frame mt-[clamp(20px,3vw,44px)]">
+        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[20px] bg-ink/5">
+          <Image src="/media/events/aol-pavilion-night.67b84519.webp" alt="A large illuminated pavilion at night, reflected in still water." fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
+        </div>
+        <figcaption className="t-body-sm mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-light">
+          <span className="rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">
+            Project photograph
+          </span>
+          <span>A Raja build at night. Supplied by the client.</span>
+        </figcaption>
+      </figure>
+
 
       {/* The form leads. Everything below it is reference — a visitor who has
           decided to make contact should not have to scroll past an address

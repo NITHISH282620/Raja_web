@@ -86,11 +86,11 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["Event flooring", "Lighting", "Power distribution", "Signage and fascia"],
     image:
     {
-      src: "/media/representative/service-exhibition-stalls.10a9e410.webp",
-      width: 1600,
-      height: 1067,
-      alt: "Visitors walking between modular exhibition booths inside a daylit trade-fair hall.",
-      clearance: "licensed",
+      src: "/media/events/larenon-stall-counter.33e301ef.webp",
+      width: 1800,
+      height: 1468,
+      alt: "An exhibition stall interior: branded back wall, display counters, seating and planting.",
+      clearance: "client-approved",
     },
     page: false,
     order: 1,
@@ -108,7 +108,14 @@ export const servicePillars: ServicePillar[] = [
     ],
     capacity: [{ label: "Owned flooring area", value: "10,00,000 sq ft" }],
     bundled: ["German hangers", "Carpeting", "Staging"],
-    image: null,
+    image:
+    {
+      src: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
+      width: 837,
+      height: 650,
+      alt: "Aerial of a vast covered assembly floor laid out in patterned seating blocks.",
+      clearance: "client-approved",
+    },
     page: false,
     order: 2,
     status: "approved",
@@ -127,11 +134,11 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["Lighting and AV", "Barricading", "Event flooring", "Seating"],
     image:
     {
-      src: "/media/representative/service-staging.0fb6d139.webp",
-      width: 1600,
-      height: 1067,
-      alt: "A large arched stage structure lit for a night event, with an audience in front of it.",
-      clearance: "licensed",
+      src: "/media/events/isgcon-stage-lamp.5633cdec.webp",
+      width: 800,
+      height: 533,
+      alt: "A lamp-lighting ceremony on a conference stage in front of a large printed backdrop.",
+      clearance: "client-approved",
     },
     page: false,
     order: 3,
@@ -171,11 +178,11 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["German hangers", "Staging", "Event flooring", "Barricading", "Climate control"],
     image:
     {
-      src: "/media/representative/service-conference.9e8df1c8.webp",
-      width: 1600,
-      height: 1067,
-      alt: "A seated audience facing a lit presentation screen at a conference.",
-      clearance: "licensed",
+      src: "/media/events/aol-assembly-rows.7e11d21d.webp",
+      width: 1200,
+      height: 800,
+      alt: "Row after row of seated participants across an immense covered gathering.",
+      clearance: "client-approved",
     },
     page: false,
     order: 5,
@@ -268,12 +275,12 @@ export const servicesIntro = {
  * full of people, which is the thing the frame photograph cannot show. It is
  * never captioned as Raja's work.
  */
-export const hangerInUse: ImageAsset =     {
-      src: "/media/representative/service-expo-structure.ef0551b6.webp",
-      width: 1600,
-      height: 1064,
-      alt: "Exhibition visitors gathered beneath the clear-span roof of a large temporary event structure.",
-      clearance: "licensed",
+export const hangerInUse: ImageAsset = {
+      src: "/media/events/kanha-canopy-interior.0403268d.webp",
+      width: 515,
+      height: 388,
+      alt: "The interior of a tensile clear-span structure, its fabric roof carried on a steel frame.",
+      clearance: "client-approved",
     };
 
 export const findPillar = (slug: string): ServicePillar | undefined =>

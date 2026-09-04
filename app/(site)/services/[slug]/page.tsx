@@ -123,12 +123,16 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             />
           </div>
           <figcaption className="t-body-sm mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-light">
-            {service.image.clearance === "raja-original" ? (
+            {service.image.clearance !== "licensed" ? (
               <>
                 <span className="rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">
-                  Raja site photograph
+                  {service.image.clearance === "raja-original" ? "Raja site photograph" : "Project photograph"}
                 </span>
-                <span>A Raja hanger frame going up on open ground, before cladding.</span>
+                <span>
+                  {service.image.clearance === "raja-original"
+                    ? "A Raja hanger frame going up on open ground, before cladding."
+                    : "From a Raja build, supplied by the client."}
+                </span>
               </>
             ) : (
               <>
@@ -180,10 +184,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 conference audience or a ceremonial dais — with no column anywhere in the room.
               </p>
               <p className="t-body-sm text-body-light">
-                <span className="mr-2 rounded-full bg-ink/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink/60">
-                  Representative
+                <span className="mr-2 rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">
+                  Project photograph
                 </span>
-                Not a Raja project photograph.
+                A clear-span interior on a Raja build, supplied by the client.
               </p>
             </figcaption>
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[20px] bg-ink/5">

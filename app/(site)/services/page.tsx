@@ -57,9 +57,9 @@ export default function ServicesPage() {
                         sizes="(max-width: 640px) 92vw, 44vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
-                      {s.image.clearance === "raja-original" && (
+                      {s.image.clearance !== "licensed" && (
                         <span className="absolute bottom-2 left-2 rounded-full bg-ink/75 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">
-                          Raja site photograph
+                          {s.image.clearance === "raja-original" ? "Raja site photograph" : "Project photograph"}
                         </span>
                       )}
                     </span>

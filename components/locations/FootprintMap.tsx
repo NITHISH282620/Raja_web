@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   project,
   INDIA_BOUNDS,
@@ -186,6 +187,26 @@ export function FootprintMap({ summaries }: { summaries: LocationSummary[] }) {
               {VERIFICATION_LABELS[active.location.verification]}
             </span>
           </p>
+
+          {active.location.image && (
+            <figure className="mt-4">
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[10px] bg-ink/5">
+                <Image
+                  src={active.location.image.src}
+                  alt={active.location.image.alt}
+                  fill
+                  sizes="(max-width: 1024px) 92vw, 420px"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="t-body-sm mt-2 text-body-light">
+                <span className="mr-2 rounded-full bg-ink px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-white">
+                  Project photograph
+                </span>
+                From work at this location.
+              </figcaption>
+            </figure>
+          )}
 
           {active.location.blurb && (
             <p className="t-body mt-4 max-w-[46ch] text-body-light">{active.location.blurb}</p>

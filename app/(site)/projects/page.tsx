@@ -133,10 +133,21 @@ export default function ProjectsPage() {
                     />
                   </div>
                   <figcaption className="t-body-sm mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-body-light">
-                    <span className="rounded-full bg-ink/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-ink/60">
-                      Representative
-                    </span>
-                    <span>Shows this category of environment. Not a photograph of a Raja build.</span>
+                    {banner.clearance === "licensed" ? (
+                      <>
+                        <span className="rounded-full bg-ink/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-ink/60">
+                          Representative
+                        </span>
+                        <span>Shows this category of environment. Not a photograph of a Raja build.</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="rounded-full bg-ink px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-white">
+                          Project photograph
+                        </span>
+                        <span>From a build in this sector, supplied by the client.</span>
+                      </>
+                    )}
                   </figcaption>
                 </figure>
               ) : (
