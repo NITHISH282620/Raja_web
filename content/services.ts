@@ -178,10 +178,10 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["German hangers", "Staging", "Event flooring", "Barricading", "Climate control"],
     image:
     {
-      src: "/media/events/aol-assembly-rows.7e11d21d.webp",
-      width: 1200,
-      height: 800,
-      alt: "Row after row of seated participants across an immense covered gathering.",
+      src: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
+      width: 1280,
+      height: 720,
+      alt: "The commissioning of ICGS Akshay at Goa Shipyard: nameplate unveiling, the vessel at sea, and the ceremonial parade beneath a canopied dais.",
       clearance: "client-approved",
     },
     page: false,

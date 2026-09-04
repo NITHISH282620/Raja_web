@@ -427,10 +427,10 @@ export const categoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
       clearance: "client-approved",
     },
   conference: {
-      src: "/media/events/fcexpo-hall-stage.fb778307.webp",
-      width: 547,
-      height: 365,
-      alt: "A wide conference hall with a lit stage, carpeted aisle and a full seated audience.",
+      src: "/media/events/isgcon-stage-award.1423a9d8.webp",
+    width: 800,
+    height: 450,
+    alt: "An award presentation on a conference stage beneath a branded backdrop.",
       clearance: "client-approved",
     },
   cultural: {
@@ -448,10 +448,10 @@ export const categoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
       clearance: "client-approved",
     },
   government: {
-      src: "/media/events/aol-crowd-aerial.72481eb2.webp",
-      width: 1200,
-      height: 675,
-      alt: "An aerial over a vast open-air gathering, seating filling the frame.",
+      src: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
+    width: 1280,
+    height: 720,
+    alt: "The commissioning of ICGS Akshay at Goa Shipyard: nameplate unveiling, the vessel at sea, and the ceremonial parade beneath a canopied dais.",
       clearance: "client-approved",
     },
 };
