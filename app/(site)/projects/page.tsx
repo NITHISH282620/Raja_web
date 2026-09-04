@@ -155,8 +155,31 @@ export default function ProjectsPage() {
                 {rows.map((p) => (
                   <li
                     key={p.id}
-                    className="flex flex-col gap-2 rounded-[15px] border border-ink/12 bg-white p-[clamp(16px,1.9vw,24px)]"
+                    className="flex flex-col gap-2 overflow-hidden rounded-[15px] border border-ink/12 bg-white p-[clamp(16px,1.9vw,24px)]"
                   >
+                    {/* A project's own photographs, where Raja has supplied
+                        them. Representative imagery is never used here — on a
+                        project card an image reads as evidence. */}
+                    {p.media.length > 0 && (
+                      <span className="relative -mx-[clamp(16px,1.9vw,24px)] -mt-[clamp(16px,1.9vw,24px)] mb-3 block aspect-[16/10] overflow-hidden rounded-t-[15px] bg-ink/5">
+                        <Image
+                          src={p.media[0].src}
+                          alt={p.media[0].alt}
+                          fill
+                          loading="lazy"
+                          sizes="(max-width: 640px) 92vw, 30vw"
+                          className="object-cover"
+                        />
+                        <span className="absolute bottom-2 left-2 rounded-full bg-ink/75 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-white">
+                          Client photograph
+                        </span>
+                        {p.media.length > 1 && (
+                          <span className="absolute bottom-2 right-2 rounded-full bg-ink/75 px-2 py-1 font-mono text-[9px] text-white">
+                            +{p.media.length - 1}
+                          </span>
+                        )}
+                      </span>
+                    )}
                     <span className="flex items-baseline justify-between gap-3">
                       <span className="t-eyebrow text-accent">{CATEGORY_LABELS[p.category].split(" ")[0]}</span>
                       {p.year && <span className="font-mono text-[11px] text-body-light">{p.year}</span>}

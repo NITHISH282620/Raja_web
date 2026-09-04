@@ -74,3 +74,44 @@ them, and shipping unused binaries into a public repository is only clutter.
 They can be re-sourced in a minute from `scripts/source-photography.mjs` with
 the queries `stage lighting rig spotlights concert` and
 `conference hall rows of chairs audience`.
+
+---
+
+## Client-approved project photographs
+
+Raja confirmed on 2026-09-04 that the supplied event folders are approved for
+use. These four carry `clearance: "client-approved"` and are the first
+photographs on the site that attach to a project as evidence.
+
+| Asset | Project | Shows |
+|---|---|---|
+| `larenon-stall-frontage` | La Renon Healthcare | Branded stall shell, display counters, seating |
+| `larenon-stall-in-use` | La Renon Healthcare | The same stall with delegates |
+| `larenon-stall-arch` | La Renon Healthcare | Arched-fascia stall frontage |
+| `eima-expo-ground` | EIMA Agrimach 2024 | Outdoor expo ground, exhibitor stands |
+
+Of the 47 images supplied, these four are the ones that show **built
+infrastructure**. The remainder are portraits, group photographs, or low-resolution
+web thumbnails (Google Images defaults, Twitter/X and Flickr media ids, news
+article slugs, client-organisation website assets) and carry no infrastructure
+content, so they were not imported.
+
+**One caveat for Raja, recorded rather than argued.** Client approval to *use*
+is not the same as owning copyright. The four above are high-resolution
+originals and read as the client's own material. Several files in the wider
+folders demonstrably originate with news outlets, the client organisations, and
+social platforms — approval from Raja does not transfer those rights. Raja
+should confirm ownership before any of the remainder is published.
+
+## ICGS Akshay — event verified, photographs not published
+
+The client-supplied composite identifies the event precisely: **ICGS Akshay**,
+fourth Adamya-class Fast Patrol Vessel, commissioned at **Goa Shipyard Limited,
+Vasco, 27 June 2026**. That matches published reporting.
+
+Raja's involvement is **client-stated and not publicly corroborated** — no
+source names the infrastructure contractor. The project record publishes with
+attribution marked accordingly.
+
+The photographs are **not published**. They are Indian Coast Guard and shipyard
+press imagery, not Raja's own, and clearing them is a permission question.

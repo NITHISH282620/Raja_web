@@ -69,8 +69,18 @@ export interface Project extends Sourced {
   scope: string | null;
   /** Slugs from `content/services.ts`, only where the event type makes it certain. */
   services: string[];
-  /** Raja-original or client-approved media only. Representative media never attaches here. */
-  media: [];
+  /**
+   * Raja-original or client-approved media only. Representative imagery never
+   * attaches to a project — a project's photographs are its evidence, and
+   * stock would make that evidence false.
+   */
+  media: ImageAsset[];
+  /**
+   * Where the record came from. `schedule` is Raja's supplied 27-event list;
+   * `raja-published` is Raja's own website, which is client-published evidence
+   * and therefore equally citable.
+   */
+  provenance: "schedule" | "raja-published" | "client-provided";
   published: boolean;
   featured: boolean;
   order: number;
@@ -95,6 +105,7 @@ const P = (
   scope: null,
   services,
   media: [],
+  provenance: "schedule",
   published: true,
   featured,
   order: 0,
@@ -106,9 +117,46 @@ const P = (
 export const projects: Project[] = [
   P("art-of-living-navaratri-2023", "The Art of Living Trust", "Navaratri Function 2023", "2023", "cultural", ["german-hangers", "event-flooring", "staging-and-seating"], "Bengaluru", true),
   P("isgcon-2023", "Indian Society of Gastroenterology", "ISGCON 2023 — 64th Annual Congress", "2023", "conference", ["german-hangers", "staging-and-seating", "exhibition-stalls"], "Bengaluru"),
-  P("la-renon-company-event", "La Renon Healthcare", "Company event", null, "corporate", ["staging-and-seating"]),
+  {
+    ...P("la-renon-company-event", "La Renon Healthcare", "Company event", null, "corporate", ["exhibition-stalls", "staging-and-seating"]),
+    media: ([
+      {
+        src: "/media/projects/larenon-stall-frontage.33e301ef.webp",
+        width: 1800,
+        height: 1468,
+        alt: "A La Renon exhibition stall: branded back wall, product display counters, seating and planting inside a fabricated shell.",
+        clearance: "client-approved",
+      },
+      {
+        src: "/media/projects/larenon-stall-in-use.0d4ebe9c.webp",
+        width: 1800,
+        height: 1183,
+        alt: "Delegates at a La Renon exhibition stall, product panels lit along the back wall.",
+        clearance: "client-approved",
+      },
+      {
+        src: "/media/projects/larenon-stall-arch.0f7c47d8.webp",
+        width: 1800,
+        height: 1350,
+        alt: "An arched-fascia exhibition stall carrying La Renon branding, with visitors passing the frontage.",
+        clearance: "client-approved",
+      },
+    ] satisfies ImageAsset[]),
+    featured: true,
+  },
   P("fc-expo-2024", "First Circle Biztech", "FC Expo 2024", "2024", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
-  P("eima-agrimach-2024", "Federation of Indian Chambers of Commerce & Industry (FICCI)", "EIMA Agrimach 2024", "2024", "exhibition", ["german-hangers", "exhibition-stalls", "event-flooring"], "Bengaluru", true),
+  {
+    ...P("eima-agrimach-2024", "Federation of Indian Chambers of Commerce & Industry (FICCI)", "EIMA Agrimach 2024", "2024", "exhibition", ["german-hangers", "exhibition-stalls", "event-flooring"], "Bengaluru", true),
+    media: ([
+      {
+        src: "/media/projects/eima-expo-ground.74508fee.webp",
+        width: 1600,
+        height: 1200,
+        alt: "Delegates walking the outdoor exhibition ground at an agricultural machinery expo, tractors and exhibitor stands either side.",
+        clearance: "client-approved",
+      },
+    ] satisfies ImageAsset[]),
+  },
   P("kanha-shanti-vanam-tent-city", "Kanha Shanti Vanam", "Tent city, Bengaluru", null, "cultural", ["german-hangers", "event-flooring"], "Bengaluru"),
   P("abs-education-fair", "ABS Business Solutions", "Education fair", null, "exhibition", ["exhibition-stalls"], "Bengaluru"),
   P("collegedunia-education-fair", "Collegedunia Web", "Collegedunia Education Fair", null, "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
@@ -131,8 +179,52 @@ export const projects: Project[] = [
   P("fifth-annual-convocation", "Karnataka State Marketing Communication & Advertising Ltd", "5th Annual Convocation", null, "government", ["staging-and-seating"]),
   P("babu-jagjivan-ram-119", "Karnataka State Marketing Communication & Advertising Ltd", "119th birth anniversary of Dr Babu Jagjivan Ram", null, "government", ["staging-and-seating"]),
   P("vidyapeeta-education-expo", "ABS Business Solutions", "Vidyapeeta Education Expo", null, "exhibition", ["exhibition-stalls"], "Bengaluru"),
+
+  // --- Published by Raja on rajaenterprises.co, read 2026-09-04. These are the
+  // client's own public claims and so are citable, but the site states no year,
+  // area or attendance for any of them and none is inferred here.
+  { ...P("indian-science-congress-107", "Government of India", "107th Indian Science Congress", null, "conference", ["german-hangers", "staging-and-seating", "exhibition-stalls"], null), provenance: "raja-published" as const },
+  { ...P("ambedkar-jayanti-vidhana-soudha", "Government of Karnataka", "Ambedkar Jayanti at Vidhana Soudha", null, "government", ["staging-and-seating"], "Vidhana Soudha, Bengaluru"), provenance: "raja-published" as const },
+  { ...P("karnataka-cabinet-meeting", "Government of Karnataka", "Karnataka Government Cabinet Meeting", null, "government", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
+  { ...P("global-investors-summit-2023", "Government summit", "Global Investors Summit 2023", "2023", "government", ["german-hangers", "exhibition-stalls", "staging-and-seating"], "Dehradun"), provenance: "raja-published" as const },
+  { ...P("ds-max-anniversary-2023", "DS Max", "DS Max Anniversary 2023", "2023", "corporate", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
+  { ...P("bhima-diamonds", "Bhima Diamonds", "Bhima Diamonds event", null, "corporate", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
+
+  // Event verified against published reporting; Raja's involvement is the
+  // client's own statement plus the photographs they hold. See the note above.
+  {
+    ...P("icgs-akshay-commissioning", "Indian Coast Guard / Goa Shipyard Limited", "ICGS Akshay commissioning", "2026", "government", ["staging-and-seating"], "Vasco, Goa"),
+    provenance: "client-provided" as const,
+    status: "provisional" as const,
+    note: "Event verified: ICGS Akshay, 4th Adamya-class Fast Patrol Vessel, commissioned at Goa Shipyard Limited, Vasco, 27 Jun 2026. Raja's involvement is client-stated and not publicly corroborated. Client-supplied photographs are Coast Guard/shipyard press imagery and are NOT published pending permission.",
+  },
 ].map((p, i) => ({ ...p, order: i }));
 
+/**
+ * ICGS Akshay, and why it is published while its photographs are not.
+ *
+ * Raja stated a ship inauguration in Goa. A first search found nothing —
+ * rajaenterprises.co has no maritime content at all — so this was held
+ * unpublished. The client then supplied event photographs, and those identify
+ * it precisely: the nameplate reads ICGS AKSHAY, the vessel carries Indian
+ * Coast Guard pennant 257, and a woman dignitary in a sari appears alongside
+ * senior ICG officers.
+ *
+ * That matches published reporting exactly. ICGS Akshay is the fourth
+ * Adamya-class Fast Patrol Vessel, built by Goa Shipyard Limited and
+ * commissioned at Vasco, Goa on 27 June 2026, with Parama Sen (Additional
+ * Secretary, Ministry of Finance) and IGs Bhisham Sharma and Jyotindra Singh
+ * attending.
+ *
+ * So the EVENT is verified. RAJA'S INVOLVEMENT is not: no public source names
+ * the infrastructure contractor, and possessing photographs is not proof of
+ * having built the set. The record therefore publishes with attribution marked
+ * client-provided, which is what the visitor is shown.
+ *
+ * THE PHOTOGRAPHS ARE NOT PUBLISHED. They are Coast Guard and shipyard press
+ * imagery, not Raja's own, and clearing them is a permission question rather
+ * than a licensing one.
+ */
 export const publishedProjects = (): Project[] => projects.filter((p) => p.published);
 
 export const featuredProjects = (limit = 4): Project[] =>
