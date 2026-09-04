@@ -98,12 +98,12 @@ export function LegacyHero() {
 
           <div data-stat-badge className="rounded-2xl border border-ink/10 bg-white p-5 sm:p-6 shadow-xs">
             <span className="font-mono text-[10px] uppercase text-ink/50 block mb-1">In-House Guild</span>
-            <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">460+</p>
+            <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">In&nbsp;house</p>
             <p className="text-xs text-body-light mt-1">Permanent payroll crew</p>
           </div>
 
           <div data-stat-badge className="rounded-2xl border border-ink/10 bg-white p-5 sm:p-6 shadow-xs">
-            <span className="font-mono text-[10px] uppercase text-ink/50 block mb-1">Structural Failures</span>
+            <span className="font-mono text-[10px] uppercase text-ink/50 block mb-1">Own crew, no subcontracting</span>
             <p className="font-mono text-2xl sm:text-3xl font-bold text-accent">ZERO</p>
             <p className="text-xs text-body-light mt-1">49-year unbroken safety record</p>
           </div>

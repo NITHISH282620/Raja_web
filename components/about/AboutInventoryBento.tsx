@@ -118,8 +118,8 @@ export function AboutInventoryBento() {
               ✓
             </span>
             <div>
-              <p className="text-sm font-semibold text-ink">Permanent Field Workforce of 460+ Personnel</p>
-              <p className="text-xs text-body-light">300 Riggers · 100 Skilled Fabricators · 50 Field Supervisors · 10 Project Directors</p>
+              <p className="text-sm font-semibold text-ink">Permanent in-house field workforce</p>
+              <p className="text-xs text-body-light">Riggers, fabricators and field supervisors on Raja’s own payroll · 10 Project Directors</p>
             </div>
           </div>
           <span className="font-mono text-xs text-ink/60 uppercase tracking-wider bg-neutral-100 px-3.5 py-1.5 rounded-full">

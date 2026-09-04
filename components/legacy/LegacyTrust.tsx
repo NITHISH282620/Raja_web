@@ -25,9 +25,9 @@ export function LegacyTrust() {
         <Reveal as="div" variant="land" className="grid md:grid-cols-3 gap-6 mb-12">
           <div className="rounded-2xl border border-ink/10 bg-white p-6 sm:p-8 shadow-xs">
             <p className="font-mono text-3xl sm:text-4xl font-bold text-accent mb-2">0</p>
-            <h3 className="text-base sm:text-lg font-semibold text-ink mb-2">Structural Failures</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-ink mb-2">Engineered for the conditions</h3>
             <p className="text-xs sm:text-sm text-body-light leading-relaxed">
-              Across 49 years and over 10,000 completed event builds—through severe monsoons, squalls, and extreme crowd densities—not a single Raja Enterprises hangar or stage has ever failed.
+              Structures are engineered for monsoon wind loading and for the crowd densities these events actually carry. Safety documentation is prepared per job and issued with the build.
             </p>
           </div>
 
@@ -40,10 +40,10 @@ export function LegacyTrust() {
           </div>
 
           <div className="rounded-2xl border border-ink/10 bg-white p-6 sm:p-8 shadow-xs">
-            <p className="font-mono text-3xl sm:text-4xl font-bold text-ink mb-2">460</p>
-            <h3 className="text-base sm:text-lg font-semibold text-ink mb-2">Permanent Payroll Guild</h3>
+            <p className="font-mono text-3xl sm:text-4xl font-bold text-ink mb-2">In&nbsp;house</p>
+            <h3 className="text-base sm:text-lg font-semibold text-ink mb-2">Permanent payroll crew</h3>
             <p className="text-xs sm:text-sm text-body-light leading-relaxed">
-              Our safety record is sustained by permanent crew members—many of whom have been with Raja for 15 to 25 years. They know the rigging, torque tolerances, and wind vectors by heart.
+              The crew raising these structures is on Raja’s own payroll rather than subcontracted, which is why the same people return to the same clients.
             </p>
           </div>
         </Reveal>

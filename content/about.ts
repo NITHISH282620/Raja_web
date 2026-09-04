@@ -213,7 +213,7 @@ export const principles: Principle[] = [
   {
     index: "02",
     title: "The Single Field Guild",
-    lead: "460 in-house specialists, zero subcontracting.",
+    lead: "A permanent field workforce, zero subcontracting.",
     body: "Our 300 riggers, 100 skilled fabricators, 50 site engineers, and 10 project managers are permanent payroll employees. The team that levels the bare earth is the exact team that raises the aluminium arches, fits the lighting, and strikes the venue after handover.",
     status: "approved",
   },

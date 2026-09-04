@@ -91,7 +91,7 @@ export function InventoryHero() {
             </span>
           </h1>
           <p data-hero-lead className="t-lead max-w-[58ch] text-body-light leading-relaxed">
-            Every square foot of German clear-span aluminium, modular wooden flooring, VIP staging, and mobile HVAC listed below is physically owned and stationed in our yard. Deployed by our permanent 460-member field brigade.
+            Every square foot of German clear-span aluminium, modular wooden flooring, VIP staging, and mobile HVAC listed below is physically owned and stationed in our yard. Deployed by our own permanent field crew.
           </p>
         </div>
 

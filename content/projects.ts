@@ -1,4 +1,4 @@
-import type { Sourced } from "./types";
+import type { ImageAsset, Sourced } from "./types";
 
 /**
  * The canonical project record.
@@ -151,6 +151,58 @@ export const activeCategories = (): ProjectCategory[] => {
   const seen = new Set<ProjectCategory>();
   for (const p of publishedProjects()) seen.add(p.category);
   return (Object.keys(CATEGORY_LABELS) as ProjectCategory[]).filter((c) => seen.has(c));
+};
+
+/**
+ * A representative banner per sector.
+ *
+ * These are NOT project photographs and must never be captioned as any
+ * particular build. They show the kind of environment each sector's work
+ * produces, so a visitor scanning the archive can see the category before
+ * reading a single client name.
+ *
+ * `government` is deliberately absent. The searched candidates were either
+ * US-market imagery, the wrong category entirely, or a duplicate of a frame
+ * already used elsewhere on the site — so that sector leads with its count
+ * instead. A representative image is worth having; a misleading or repeated
+ * one is not.
+ */
+export const categoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
+  exhibition: {
+    src: "/media/representative/service-exhibition-stalls.10a9e410.webp",
+    width: 1600,
+    height: 1067,
+    alt: "Visitors walking between modular exhibition booths inside a daylit trade-fair hall.",
+    clearance: "licensed",
+  },
+  conference: {
+    src: "/media/representative/service-conference.9e8df1c8.webp",
+    width: 1600,
+    height: 1067,
+    alt: "A seated audience facing a lit presentation screen at a conference.",
+    clearance: "licensed",
+  },
+  cultural: {
+    src: "/media/representative/category-cultural.a36405bc.webp",
+    width: 1400,
+    height: 935,
+    alt: "A night crowd in front of a lit festival stage.",
+    clearance: "licensed",
+  },
+  corporate: {
+    src: "/media/representative/category-corporate.1ccebf22.webp",
+    width: 1400,
+    height: 934,
+    alt: "Rows of seating set out in a conference hall before an event.",
+    clearance: "licensed",
+  },
+  social: {
+    src: "/media/representative/category-social.ff84e1c8.webp",
+    width: 1400,
+    height: 934,
+    alt: "A banquet laid out under a decorated event structure for a large private celebration.",
+    clearance: "licensed",
+  },
 };
 
 export const projectsIntro = {

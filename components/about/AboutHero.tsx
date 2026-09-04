@@ -169,7 +169,7 @@ export function AboutHero() {
                 A contractor, not a middleman.
               </h2>
               <p className="text-sm sm:text-base text-body-light leading-relaxed">
-                90% of event companies are brokers renting gear from third-party yards. Raja Enterprises owns 100% of our structures, employs 460 in-house field crew, and assumes total single-contract accountability from bare ground to handover.
+                Most event companies broker equipment from third-party yards. Raja owns its structures, employs its field crew, and carries single-contract accountability from bare ground to handover.
               </p>
             </div>
 
@@ -179,7 +179,7 @@ export function AboutHero() {
                 <p className="text-xs text-ink/60 uppercase tracking-wider font-mono">Owned Assets</p>
               </div>
               <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">460+</p>
+                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">In&nbsp;house</p>
                 <p className="text-xs text-ink/60 uppercase tracking-wider font-mono">In-House Crew</p>
               </div>
               <div className="col-span-2 sm:col-span-1">

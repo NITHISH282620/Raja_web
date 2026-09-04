@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import Image from "next/image";
 import { PageMasthead, Band } from "@/components/PageShell";
 import { Reveal } from "@/motion/Reveal";
 import {
@@ -8,6 +9,7 @@ import {
   activeCategories,
   projectsByCategory,
   CATEGORY_LABELS,
+  categoryBanner,
   projectsIntro,
 } from "@/content/projects";
 import { findPillar } from "@/content/services";
@@ -105,6 +107,7 @@ export default function ProjectsPage() {
 
       {categories.map((cat, ci) => {
         const rows = projectsByCategory(cat);
+        const banner = categoryBanner[cat];
         return (
           <Band key={cat} tone={ci % 2 === 0 ? "paper" : "ink"}>
             <div className="frame" id={cat} style={{ scrollMarginTop: "88px" }}>
@@ -114,6 +117,39 @@ export default function ProjectsPage() {
                   {rows.length} {rows.length === 1 ? "engagement" : "engagements"}
                 </span>
               </div>
+
+              {/* A sector banner, never a project photograph. Where no honest
+                  frame exists — government — the band leads with the count. */}
+              {banner ? (
+                <figure className="mb-[clamp(18px,2.4vw,32px)]">
+                  <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[15px] bg-ink/5 sm:aspect-[24/7]">
+                    <Image
+                      src={banner.src}
+                      alt={banner.alt}
+                      fill
+                      loading="lazy"
+                      sizes="(max-width: 1024px) 96vw, 1200px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <figcaption className="t-body-sm mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-body-light">
+                    <span className="rounded-full bg-ink/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-ink/60">
+                      Representative
+                    </span>
+                    <span>Shows this category of environment. Not a photograph of a Raja build.</span>
+                  </figcaption>
+                </figure>
+              ) : (
+                <div className="mb-[clamp(18px,2.4vw,32px)] flex items-end justify-between gap-6 rounded-[15px] bg-ink px-[clamp(20px,3vw,44px)] py-[clamp(24px,3.5vw,48px)] text-white">
+                  <span className="font-mono text-[clamp(2.4rem,6vw,4.5rem)] leading-none">
+                    {String(rows.length).padStart(2, "0")}
+                  </span>
+                  <span className="t-body-sm max-w-[34ch] text-right text-white/60">
+                    Engagements for government and public-sector bodies. No representative
+                    photograph is shown here rather than one that misleads.
+                  </span>
+                </div>
+              )}
 
               <Reveal as="ul" variant="riseCard" className="grid gap-[clamp(12px,1.6vw,20px)] sm:grid-cols-2 lg:grid-cols-3">
                 {rows.map((p) => (

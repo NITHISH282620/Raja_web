@@ -31,13 +31,15 @@ otherwise be read as evidence.
 
 | Asset | ID | Source | License | Attribution | Used on |
 |---|---|---|---|---|---|
-| `service-exhibition-stalls.10a9e410.webp` | 35138560 | [link](https://www.pexels.com/photo/35138560/) | Pexels License | No | `/services` — Exhibition Stalls card |
-| `service-expo-structure.ef0551b6.webp` | 37439236 | [link](https://www.pexels.com/photo/37439236/) | Pexels License | No | `/services/german-hangers` — 'In use' figure |
-| `inventory-seating.817265dd.webp` | 276175 | [link](https://www.pexels.com/photo/276175/) | Pexels License | No | **held — no card needs it** |
-| `service-conference.9e8df1c8.webp` | 9275222 | [link](https://www.pexels.com/photo/9275222/) | Pexels License | No | `/services` — Government Events card |
-| `service-staging.0fb6d139.webp` | 36839425 | [link](https://www.pexels.com/photo/36839425/) | Pexels License | No | `/services` — Staging & Seating card |
-| `inventory-barricades.f368fe44.webp` | 33877383 | [link](https://www.pexels.com/photo/33877383/) | Pexels License | No | `/inventory` — Crowd-Control Barricades card *(replaced a mismatched event photo)* |
-| `inventory-fleet.13f2e483.webp` | 12555017 | [link](https://www.pexels.com/photo/12555017/) | Pexels License | No | `/inventory` — Logistics Fleet card *(replaced a mismatched expo photo)* |
+| `service-exhibition-stalls.10a9e410.webp` | 35138560 | [link](https://www.pexels.com/photo/35138560/) | Pexels License | No | `/services` Exhibition Stalls card · `/projects` exhibition banner |
+| `service-expo-structure.ef0551b6.webp` | 37439236 | [link](https://www.pexels.com/photo/37439236/) | Pexels License | No | `/services/german-hangers` 'In use' figure |
+| `service-conference.9e8df1c8.webp` | 9275222 | [link](https://www.pexels.com/photo/9275222/) | Pexels License | No | `/services` Government Events card · `/projects` conference banner |
+| `service-staging.0fb6d139.webp` | 36839425 | [link](https://www.pexels.com/photo/36839425/) | Pexels License | No | `/services` Staging & Seating card |
+| `inventory-barricades.f368fe44.webp` | 33877383 | [link](https://www.pexels.com/photo/33877383/) | Pexels License | No | `/inventory` Barricades card |
+| `inventory-fleet.13f2e483.webp` | 12555017 | [link](https://www.pexels.com/photo/12555017/) | Pexels License | No | `/inventory` Logistics Fleet card |
+| `category-social.ff84e1c8.webp` | 30215011 | [link](https://www.pexels.com/photo/30215011/) | Pexels License | No | `/projects` weddings & social sector banner |
+| `category-corporate.1ccebf22.webp` | 16859956 | [link](https://www.pexels.com/photo/16859956/) | Pexels License | No | `/projects` corporate sector banner |
+| `category-cultural.a36405bc.webp` | 15203359 | [link](https://www.pexels.com/photo/15203359/) | Pexels License | No | `/projects` cultural sector banner |
 
 ## Deliberately not used
 
@@ -56,6 +58,7 @@ figures instead:
 |---|---|
 | Climate control | Searches return domestic split-unit air conditioners — misleading beside a 5,00,000 sq ft claim |
 | Logistics | Returns US-market semi trailers and a U-Haul; wrong market, reads as imported stock |
+| Government & public sector *(project banner)* | Candidates were US-market imagery, the wrong category, or a duplicate of a frame already shipped for staging. That sector leads with its engagement count instead |
 | Event scaffolding | Returns construction-site scaffolding, which the brief explicitly excludes. Event production scaffolding is a distinct subject and no suitable frame was found |
 
 A second sourcing round found usable frames for **barricades** and **logistics fleet**, which now replace mismatched images on `/inventory`. **Climate control** was searched twice and still has nothing honest — every result is a domestic split-unit air conditioner or a distant industrial plant. That card now leads with its verified capacity figure instead of a photograph.
