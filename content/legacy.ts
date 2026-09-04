@@ -41,6 +41,7 @@ export const collage: CollagePhoto[] = [
       width: 1600,
       height: 1000,
       alt: "Clear-span German hanger and exhibition pavilion structure.",
+      clearance: "licensed",
     },
   },
   {
@@ -54,6 +55,7 @@ export const collage: CollagePhoto[] = [
       width: 1800,
       height: 1013,
       alt: "National congress stage and seating for thousands of delegates.",
+      clearance: "licensed",
     },
   },
   {
@@ -67,6 +69,7 @@ export const collage: CollagePhoto[] = [
       width: 1600,
       height: 1000,
       alt: "Fabricated exhibition stalls and walkways inside a massive event hall.",
+      clearance: "licensed",
     },
   },
   {
@@ -80,6 +83,7 @@ export const collage: CollagePhoto[] = [
       width: 1800,
       height: 1013,
       alt: "Government dedication programme and high-capacity audience infrastructure.",
+      clearance: "licensed",
     },
   },
   {
@@ -93,6 +97,7 @@ export const collage: CollagePhoto[] = [
       width: 1920,
       height: 1080,
       alt: "Aerial view of high-capacity event complex and temporary infrastructure.",
+      clearance: "licensed",
     },
   },
   {
@@ -106,6 +111,7 @@ export const collage: CollagePhoto[] = [
       width: 1800,
       height: 1013,
       alt: "Illuminated stage and auditorium infrastructure for a mega event.",
+      clearance: "licensed",
     },
   },
 ];

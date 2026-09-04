@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { yearsInOperation } from "@/content/company";
+import { Reveal } from "@/motion/Reveal";
 
 export function LegacyTrust() {
   return (
@@ -21,7 +22,7 @@ export function LegacyTrust() {
         </div>
 
         {/* 3 Safety Pillars */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <Reveal as="div" variant="land" className="grid md:grid-cols-3 gap-6 mb-12">
           <div className="rounded-2xl border border-ink/10 bg-white p-6 sm:p-8 shadow-xs">
             <p className="font-mono text-3xl sm:text-4xl font-bold text-accent mb-2">0</p>
             <h3 className="text-base sm:text-lg font-semibold text-ink mb-2">Structural Failures</h3>
@@ -45,7 +46,7 @@ export function LegacyTrust() {
               Our safety record is sustained by permanent crew members—many of whom have been with Raja for 15 to 25 years. They know the rigging, torque tolerances, and wind vectors by heart.
             </p>
           </div>
-        </div>
+        </Reveal>
 
         {/* Closing Archival Quote Box */}
         <div className="rounded-2xl sm:rounded-3xl border border-brand-blue/20 bg-brand-blue/5 p-8 sm:p-12">

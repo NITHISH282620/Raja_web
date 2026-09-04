@@ -13,7 +13,8 @@ export interface InventoryCategory {
   }[];
   features: string[];
   applications: string[];
-  image: string;
+  /** Null where no honest photograph exists — the card leads with the figure instead. */
+  image: string | null;
   alt: string;
 }
 
@@ -144,8 +145,8 @@ export const inventoryCategories: InventoryCategory[] = [
       "Executive Corporate Conventions",
       "VIP Enclosures at National Celebrations",
     ],
-    image: "/media/work-corporate.fca2ff69.webp",
-    alt: "Industrial mobile HVAC and climate control deployment",
+    image: null,
+    alt: "",
   },
   {
     id: "security-barricades",
@@ -176,8 +177,8 @@ export const inventoryCategories: InventoryCategory[] = [
       "Stadium Ingress & Egress Management",
       "Mass Cultural Festivals & Stadium Ceremonies",
     ],
-    image: "/media/legacy-ambedkar-jayanti.fb369379.webp",
-    alt: "High-security iron crowd-control barricades deployment",
+    image: "/media/representative/inventory-barricades.f368fe44.webp",
+    alt: "Stacked plastic and steel crowd-control barriers held in a storage yard.",
   },
   {
     id: "logistics-fleet",
@@ -208,8 +209,8 @@ export const inventoryCategories: InventoryCategory[] = [
       "Simultaneous Multi-City Venue Builds",
       "Emergency Overnight Structural Reinforcement",
     ],
-    image: "/media/work-agrimach-expo.webp",
-    alt: "Dedicated heavy transport and logistics fleet",
+    image: "/media/representative/inventory-fleet.13f2e483.webp",
+    alt: "A row of goods vehicles parked in a depot yard.",
   },
 ];
 

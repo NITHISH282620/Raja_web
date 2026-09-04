@@ -1,10 +1,11 @@
 import Image from "next/image";
+import { Reveal } from "@/motion/Reveal";
 
 export function LegacyOrigins() {
   return (
     <section className="relative w-full bg-paper py-16 sm:py-24 md:py-32">
       <div className="frame">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+        <Reveal as="div" className="grid lg:grid-cols-12 gap-12 items-center">
           {/* Left Text */}
           <div className="lg:col-span-6 space-y-6">
             <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/60">
@@ -57,7 +58,7 @@ export function LegacyOrigins() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

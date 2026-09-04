@@ -1,18 +1,23 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Poppins, Roboto_Mono, Playfair_Display } from "next/font/google";
+import { Poppins, Roboto_Mono } from "next/font/google";
 import { MotionProvider } from "@/motion/MotionProvider";
 import { SiteNav } from "@/components/SiteNav";
 import { PageTransition } from "@/components/PageTransition";
 import { SiteFooter } from "@/sections/SiteFooter";
 import { company, FOUNDED_YEAR } from "@/content/company";
 import { getContact } from "@/lib/store";
+import { SITE_URL } from "@/lib/site";
 import "../globals.css";
 
-/* The design uses exactly two families and five weights. Nothing else loads. */
+/* The design uses exactly two families and six weights. Nothing else loads.
+   600 is not optional: `font-semibold` sits on every SectionTitle and hero
+   headline, and Poppins has no variable cut, so without it the browser
+   synthesises the weight or snaps to 700. Playfair Display used to be loaded
+   here at four weights and was referenced by nothing at all. */
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
   display: "swap",
 });
@@ -24,15 +29,6 @@ const robotoMono = Roboto_Mono({
   display: "swap",
 });
 
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-playfair",
-  display: "swap",
-});
-
-const SITE_URL = "https://rajaenterprises.example";
 const description =
   "Raja Enterprises designs, builds and delivers large-scale event infrastructure across India — German hangers, flooring, staging, stalls, lighting and catering, deployed by an in-house crew.";
 
@@ -76,15 +72,39 @@ export const viewport: Viewport = {
  * address, phone or founder, which is also why there is no `telephone` or
  * `address` property here yet.
  */
-const organisationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: company.name,
-  description,
-  foundingDate: String(FOUNDED_YEAR),
-  areaServed: "IN",
-  url: SITE_URL,
-};
+function buildJsonLd(contact: ReturnType<typeof getContact>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${SITE_URL}/#organisation`,
+    name: company.name,
+    description,
+    foundingDate: String(FOUNDED_YEAR),
+    areaServed: { "@type": "Country", name: "India" },
+    url: SITE_URL,
+    ...(contact.email ? { email: contact.email } : {}),
+    ...(contact.phone ? { telephone: contact.phone } : {}),
+    ...(contact.addressLines.length
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: contact.addressLines[0],
+            addressLocality: company.city,
+            addressRegion: "Karnataka",
+            addressCountry: "IN",
+          },
+        }
+      : {}),
+    knowsAbout: [
+      "Event infrastructure",
+      "German hangers",
+      "Exhibition stall fabrication",
+      "Event flooring",
+      "Staging",
+      "Event scaffolding",
+    ],
+  };
+}
 
 /**
  * Set synchronously in <head> so elements the motion system hides are never
@@ -100,7 +120,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en-IN"
-      className={`${poppins.variable} ${robotoMono.variable} ${playfair.variable}`}
+      className={`${poppins.variable} ${robotoMono.variable}`}
       // The inline script below adds `motion-ready` to this element before
       // hydration, which React would otherwise report as an attribute mismatch.
       suppressHydrationWarning
@@ -110,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           id="structured-data"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(contact)) }}
         />
       </head>
       <body className="antialiased">

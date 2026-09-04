@@ -13,8 +13,9 @@ export interface NavItem {
 export const ROUTES = {
   home: "/",
   about: "/about",
+  services: "/services",
   inventory: "/inventory",
-  portfolio: "/portfolio",
+  projects: "/projects",
   legacy: "/legacy",
   locations: "/locations",
   careers: "/careers",
@@ -23,8 +24,9 @@ export const ROUTES = {
 
 export const navItems: NavItem[] = [
   { label: "About", href: ROUTES.about, blurb: "Who we are and how we work" },
+  { label: "Services", href: ROUTES.services, blurb: "What we build and deploy" },
   { label: "Inventory", href: ROUTES.inventory, blurb: "What we own and deploy" },
-  { label: "Notable Events", href: ROUTES.portfolio, blurb: "Programmes we have built" },
+  { label: "Projects", href: ROUTES.projects, blurb: "Programmes we have built" },
   { label: "Legacy", href: ROUTES.legacy, blurb: "1977 to now" },
   { label: "Careers", href: ROUTES.careers, blurb: "Work with the crew" },
   { label: "Contact", href: ROUTES.contact, blurb: "Start a conversation" },
@@ -51,5 +53,5 @@ export const SECTION_IDS = {
 
 export const navigationMeta: Sourced = {
   status: "approved",
-  note: "Routes updated with Notable Events (Locations removed from navbar).",
+  note: "Services added; Notable Events renamed to Projects and moved to /projects (301 from /portfolio).",
 };

@@ -217,7 +217,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
         </div>
         <div data-works-cta data-reveal className="mt-2 flex justify-center">
           <Link
-            href={ROUTES.portfolio}
+            href={ROUTES.projects}
             className="group inline-flex items-center gap-3 rounded-full bg-brand-blue px-7 py-3.5 text-sm font-medium text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-xl hover:scale-105"
           >
             <span>Explore All Notable Events</span>

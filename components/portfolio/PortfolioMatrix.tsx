@@ -1,4 +1,5 @@
 import { notableEventsList } from "@/content/notableEvents";
+import { Reveal } from "@/motion/Reveal";
 
 export function PortfolioMatrix() {
   return (
@@ -33,7 +34,7 @@ export function PortfolioMatrix() {
                   <th className="px-6 py-4">Security Level</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-ink/10">
+              <Reveal as="tbody" variant="growRule" className="divide-y divide-ink/10">
                 {notableEventsList.map((ev) => (
                   <tr key={ev.id} className="transition-colors hover:bg-neutral-50/50">
                     <td className="px-6 py-4.5 font-semibold text-ink">
@@ -56,7 +57,7 @@ export function PortfolioMatrix() {
                     </td>
                   </tr>
                 ))}
-              </tbody>
+              </Reveal>
             </table>
           </div>
         </div>

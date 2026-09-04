@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notableEventsList } from "@/content/notableEvents";
+import { Reveal } from "@/motion/Reveal";
 
 export function PortfolioGrid() {
   const [activeSector, setActiveSector] = useState<string>("all");
@@ -99,6 +100,7 @@ export function PortfolioGrid() {
         </div>
 
         {/* Case Studies List */}
+        <Reveal as="div" variant="riseCard" select=":scope > div > *">
         <div ref={gridTopRef} className="space-y-16 sm:space-y-24">
           {displayedEvents.map((item, index) => (
             <article
@@ -223,6 +225,7 @@ export function PortfolioGrid() {
             </article>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   );

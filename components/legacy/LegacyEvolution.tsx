@@ -1,3 +1,5 @@
+import { Reveal } from "@/motion/Reveal";
+
 interface EvolutionRow {
   domain: string;
   thenTitle: string;
@@ -64,6 +66,7 @@ export function LegacyEvolution() {
         </div>
 
         {/* Evolution Cards Progression */}
+        <Reveal as="div" variant="riseCard" select=":scope > div > *">
         <div className="space-y-6">
           {EVOLUTION_DATA.map((row, index) => (
             <div
@@ -100,6 +103,7 @@ export function LegacyEvolution() {
             </div>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   );

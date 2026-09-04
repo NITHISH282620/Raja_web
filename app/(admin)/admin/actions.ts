@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { ENQUIRY_STATUSES } from "@/lib/enquiry";
 import { revalidatePath } from "next/cache";
 import { randomUUID } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -299,6 +300,9 @@ export async function deleteMedia(id: string) {
 
 export async function setEnquiryStatus(id: number, status: string) {
   await guard();
+  // Validated against the allowed set rather than trusted: this writes straight
+  // to a column the public site reads back.
+  if (!(ENQUIRY_STATUSES as readonly string[]).includes(status)) return;
   db().prepare(`UPDATE enquiries SET status = ? WHERE id = ?`).run(status, id);
   revalidatePath("/admin/enquiries");
 }

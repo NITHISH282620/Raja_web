@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { deleteEnquiry, saveEnquiryNotes, setEnquiryStatus } from "../actions";
 import { Notice, PageHead } from "../ui";
+import { ENQUIRY_STATUSES, STATUS_LABELS, whatsappLink } from "@/lib/enquiry";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,8 @@ export const dynamic = "force-dynamic";
  */
 interface Enquiry {
   id: number;
+  reference: string;
+  requirement: string;
   name: string;
   email: string;
   phone: string;
@@ -29,14 +32,13 @@ interface Enquiry {
   created_at: string;
 }
 
-const STATUSES = ["new", "contacted", "quoted", "won", "lost"] as const;
+const STATUSES = ENQUIRY_STATUSES;
 
 const TONE: Record<string, string> = {
   new: "new",
   contacted: "warn",
-  quoted: "warn",
-  won: "live",
-  lost: "draft",
+  qualified: "live",
+  closed: "draft",
 };
 
 export default async function EnquiriesPage({
@@ -72,9 +74,9 @@ export default async function EnquiriesPage({
             href={`/admin/enquiries?status=${s}`}
             className="admin-btn"
             data-variant={filter === s ? "primary" : "ghost"}
-            style={{ height: 32, textTransform: "capitalize" }}
+            style={{ height: 32 }}
           >
-            {s}
+            {STATUS_LABELS[s]}
           </Link>
         ))}
       </div>
@@ -107,14 +109,21 @@ export default async function EnquiriesPage({
                     )}
                   </p>
                 </div>
-                <span className="admin-chip" data-tone={TONE[e.status] ?? "draft"}>
-                  {e.status}
-                </span>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+                  <span className="admin-chip" data-tone={TONE[e.status] ?? "draft"}>
+                    {STATUS_LABELS[e.status as keyof typeof STATUS_LABELS] ?? e.status}
+                  </span>
+                  {e.reference && (
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--color-body-dark)" }}>
+                      {e.reference}
+                    </span>
+                  )}
+                </div>
               </header>
 
-              {(e.event_type || e.event_date || e.location) && (
+              {(e.event_type || e.event_date || e.location || e.requirement) && (
                 <p style={{ fontSize: 13, color: "var(--color-body-light)", marginTop: 12 }}>
-                  {[e.event_type, e.event_date, e.location].filter(Boolean).join(" · ")}
+                  {[e.event_type, e.event_date, e.location, e.requirement].filter(Boolean).join(" · ")}
                 </p>
               )}
 
@@ -129,6 +138,18 @@ export default async function EnquiriesPage({
               </p>
 
               <div className="admin-actions" style={{ marginTop: 16 }}>
+                {e.phone && whatsappLink(e.phone, { reference: e.reference, name: e.name }) && (
+                  <a
+                    href={whatsappLink(e.phone, { reference: e.reference, name: e.name })!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="admin-btn"
+                    data-variant="primary"
+                    style={{ height: 30, fontSize: 12.5 }}
+                  >
+                    Reply on WhatsApp
+                  </a>
+                )}
                 {STATUSES.filter((s) => s !== e.status).map((s) => (
                   <form
                     key={s}
@@ -137,8 +158,8 @@ export default async function EnquiriesPage({
                       await setEnquiryStatus(e.id, s);
                     }}
                   >
-                    <button type="submit" className="admin-btn" data-variant="ghost" style={{ height: 30, fontSize: 12.5, textTransform: "capitalize" }}>
-                      Mark {s}
+                    <button type="submit" className="admin-btn" data-variant="ghost" style={{ height: 30, fontSize: 12.5 }}>
+                      Mark {STATUS_LABELS[s]}
                     </button>
                   </form>
                 ))}

@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { inventoryCategories } from "@/content/inventoryCatalog";
+import { Reveal } from "@/motion/Reveal";
 
 export function InventoryCatalog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -69,6 +70,7 @@ export function InventoryCatalog() {
         </div>
 
         {/* Catalog Items Progression */}
+        <Reveal as="div" variant="riseCard" select=":scope > div > *">
         <div ref={listRef} className="space-y-16 sm:space-y-24">
           {displayedCategories.map((item, index) => (
             <article
@@ -109,17 +111,43 @@ export function InventoryCatalog() {
                 {/* Left: Image & Description */}
                 <div className="lg:col-span-6 space-y-6">
                   <div className="relative h-[280px] sm:h-[360px] md:h-[400px] w-full overflow-hidden rounded-xl sm:rounded-2xl border border-ink/10 bg-neutral-900">
-                    <Image
-                      src={item.image}
-                      alt={item.alt}
-                      fill
-                      loading="eager"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute bottom-4 left-4 right-4 text-white text-xs font-mono">
-                      {item.alt}
-                    </div>
+                    {item.image ? (
+                      <>
+                        <Image
+                          src={item.image}
+                          alt={item.alt}
+                          fill
+                          /* Only the first category is above the fold; the rest
+                             were all `eager`, which fetched six full-size images
+                             before anything was scrolled to. */
+                          loading={index === 0 ? "eager" : "lazy"}
+                          priority={index === 0}
+                          sizes="(max-width: 1024px) 94vw, 620px"
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                        <div className="absolute bottom-4 left-4 right-4 text-white text-xs font-mono">
+                          {item.alt}
+                        </div>
+                      </>
+                    ) : (
+                      /* No honest photograph exists for this category. The tile
+                         leads with the verified figure rather than with a stock
+                         image that would only be decoration. */
+                      <div className="flex h-full flex-col justify-between p-6 sm:p-8">
+                        <span className="font-mono text-[11px] uppercase tracking-widest text-white/45">
+                          {item.shortName}
+                        </span>
+                        <span>
+                          <span className="block font-mono text-[clamp(2.2rem,5vw,3.6rem)] leading-none text-white">
+                            {item.totalCapacity}
+                          </span>
+                          <span className="mt-2 block font-mono text-[11px] uppercase tracking-widest text-white/55">
+                            {item.unit}
+                          </span>
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <p className="text-sm sm:text-base text-body-light leading-relaxed">
@@ -197,6 +225,7 @@ export function InventoryCatalog() {
             </article>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   );

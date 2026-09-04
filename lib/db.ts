@@ -96,6 +96,7 @@ const SCHEMA = `
   -- Enquiries from the contact form. The seed of the CRM.
   CREATE TABLE IF NOT EXISTS enquiries (
     id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    reference  TEXT NOT NULL DEFAULT '',
     name       TEXT NOT NULL,
     email      TEXT NOT NULL,
     phone      TEXT NOT NULL DEFAULT '',
@@ -103,6 +104,7 @@ const SCHEMA = `
     event_type TEXT NOT NULL DEFAULT '',
     event_date TEXT NOT NULL DEFAULT '',
     location   TEXT NOT NULL DEFAULT '',
+    requirement TEXT NOT NULL DEFAULT '',
     message    TEXT NOT NULL DEFAULT '',
     status     TEXT NOT NULL DEFAULT 'new',
     notes      TEXT NOT NULL DEFAULT '',
@@ -111,11 +113,31 @@ const SCHEMA = `
   CREATE INDEX IF NOT EXISTS enquiries_status ON enquiries(status, created_at DESC);
 `;
 
+/**
+ * Columns added after the first database was created in the wild.
+ *
+ * `CREATE TABLE IF NOT EXISTS` will not widen an existing table, so every
+ * column added after launch has to be applied separately. Adding a column that
+ * is already there throws, which is the intended signal here rather than an
+ * error worth surfacing — so each statement is attempted and ignored.
+ */
+const MIGRATIONS = [
+  `ALTER TABLE enquiries ADD COLUMN reference TEXT NOT NULL DEFAULT ''`,
+  `ALTER TABLE enquiries ADD COLUMN requirement TEXT NOT NULL DEFAULT ''`,
+];
+
 export function db(): DatabaseSync {
   if (instance) return instance;
   mkdirSync(dirname(DB_PATH), { recursive: true });
   instance = new DatabaseSync(DB_PATH);
   instance.exec(SCHEMA);
+  for (const sql of MIGRATIONS) {
+    try {
+      instance.exec(sql);
+    } catch {
+      /* column already present */
+    }
+  }
   return instance;
 }
 

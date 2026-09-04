@@ -1,10 +1,11 @@
 import Image from "next/image";
+import { Reveal } from "@/motion/Reveal";
 
 export function LegacyPivot() {
   return (
     <section className="relative w-full bg-paper py-16 sm:py-24 md:py-32 border-t border-ink/10">
       <div className="frame">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+        <Reveal as="div" className="grid lg:grid-cols-12 gap-12 items-center">
           {/* Left Image Card */}
           <div className="lg:col-span-6 order-2 lg:order-1">
             <div className="group relative h-[360px] sm:h-[460px] w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-neutral-900 shadow-md">
@@ -57,7 +58,7 @@ export function LegacyPivot() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,10 +1,7 @@
-export interface EventImage {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  focal?: string;
-}
+import type { ImageAsset } from "./types";
+
+/** Kept as an alias so existing imports keep working; the shape is the shared one. */
+export type EventImage = ImageAsset;
 
 export interface EventCategory {
   id: string;
@@ -23,6 +20,7 @@ export const eventsWeBuildFor: EventCategory[] = [
       width: 1600,
       height: 1067,
       alt: "Grand stage and seating infrastructure for a national programme event",
+      clearance: "licensed",
     },
   },
   {
@@ -34,6 +32,7 @@ export const eventsWeBuildFor: EventCategory[] = [
       width: 1600,
       height: 1067,
       alt: "Large-scale exhibition hall with stalls and pavilions at a trade fair",
+      clearance: "licensed",
     },
   },
   {
@@ -45,6 +44,7 @@ export const eventsWeBuildFor: EventCategory[] = [
       width: 1600,
       height: 1067,
       alt: "Corporate summit with staging and audience seating in a conference hall",
+      clearance: "licensed",
     },
   },
   {
@@ -56,6 +56,7 @@ export const eventsWeBuildFor: EventCategory[] = [
       width: 1600,
       height: 1067,
       alt: "Open-air cultural festival with large-scale lighting and crowd infrastructure",
+      clearance: "licensed",
     },
   },
 ];

@@ -1,4 +1,5 @@
 import { complianceStandards } from "@/content/inventoryCatalog";
+import { Reveal } from "@/motion/Reveal";
 
 export function InventoryCompliance() {
   return (
@@ -32,7 +33,7 @@ export function InventoryCompliance() {
                   <th className="px-6 py-4">Field Engineering Notes</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-ink/10">
+              <Reveal as="tbody" variant="growRule" className="divide-y divide-ink/10">
                 {complianceStandards.map((item) => (
                   <tr key={item.standard} className="transition-colors hover:bg-neutral-50/50">
                     <td className="px-6 py-4.5 font-semibold text-ink">{item.standard}</td>
@@ -42,12 +43,13 @@ export function InventoryCompliance() {
                     <td className="px-6 py-4.5 text-body-light text-xs max-w-[300px]">{item.notes}</td>
                   </tr>
                 ))}
-              </tbody>
+              </Reveal>
             </table>
           </div>
         </div>
 
         {/* Yard & Logistics Operational Grid */}
+        <Reveal as="div" variant="fadeUp" select=":scope > div > *">
         <div className="grid md:grid-cols-3 gap-6">
           <div className="rounded-2xl border border-ink/10 bg-white p-6 sm:p-8 shadow-xs">
             <div className="flex items-center justify-between border-b border-ink/10 pb-4 mb-4">
@@ -88,6 +90,7 @@ export function InventoryCompliance() {
             </p>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -124,7 +124,7 @@ export function Band({
     <div
       ref={root}
       className={[
-        tone === "ink" ? "bg-mist text-ink" : "bg-surface text-ink",
+        tone === "ink" ? "bg-ink/[0.055] text-ink" : "bg-white text-ink",
         "py-[clamp(56px,8vw,120px)]",
         className ?? "",
       ].join(" ")}

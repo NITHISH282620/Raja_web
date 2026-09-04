@@ -4,6 +4,7 @@ import { EnquiryForm } from "@/components/EnquiryForm";
 import { company, FOUNDED_YEAR } from "@/content/company";
 import { services } from "@/content/inventorySchedule";
 import { getContact } from "@/lib/store";
+import { whatsappLink } from "@/lib/enquiry";
 
 export async function generateMetadata(): Promise<Metadata> {
   const contact = getContact();
@@ -18,10 +19,11 @@ const tel = (n: string) => `tel:${n.replace(/[^\d+]/g, "")}`;
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams: Promise<{ sent?: string }>;
+  searchParams: Promise<{ sent?: string; ref?: string; error?: string }>;
 }) {
   const contact = getContact();
-  const { sent } = await searchParams;
+  const { sent, ref, error } = await searchParams;
+  const wa = whatsappLink(contact.phone);
 
   return (
     <main id="main">
@@ -46,10 +48,30 @@ export default async function ContactPage({
               The more you can tell us about the site and the dates, the more useful our first
               reply will be.
             </p>
-            <EnquiryForm sent={sent === "1"} />
+            <EnquiryForm sent={sent === "1"} error={error} reference={ref} phone={contact.phone} />
           </div>
 
           <div data-band-item className="flex flex-col gap-[clamp(24px,3vw,40px)]">
+            {wa && (
+              <div className="flex flex-col gap-3">
+                <p className="t-eyebrow text-ink/50">WhatsApp</p>
+                <a
+                  href={wa}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex h-[52px] w-fit items-center gap-3 rounded-full bg-brand-blue px-7 text-white transition-colors duration-300 hover:bg-ink"
+                >
+                  <span className="t-body">Message us on WhatsApp</span>
+                  <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+                    &rarr;
+                  </span>
+                </a>
+                <p className="t-body-sm max-w-[38ch] text-body-light">
+                  Opens WhatsApp with a message ready to send. This is the fastest way to reach us.
+                </p>
+              </div>
+            )}
+
             <div className="flex flex-col gap-3">
               <p className="t-eyebrow text-ink/50">Address</p>
               <address className="t-body not-italic text-ink">
@@ -97,6 +119,25 @@ export default async function ContactPage({
               Est. {FOUNDED_YEAR}. {company.city}.
             </p>
           </div>
+        </div>
+      </Band>
+
+      <Band>
+        <div className="frame">
+          <p className="t-eyebrow mb-[clamp(20px,2.4vw,34px)] text-ink/50">What happens next</p>
+          <ol className="grid gap-[clamp(20px,3vw,44px)] sm:grid-cols-3">
+            {[
+              ["01", "We read it ourselves", "Every enquiry is read by the people who would build the job, not by a call centre."],
+              ["02", "We reply on WhatsApp", "Usually within one working day, with the questions we need answered to price it."],
+              ["03", "We come and look", "For anything at scale we visit the site before quoting. Ground decides most of the cost."],
+            ].map(([n, title, body]) => (
+              <li key={n} data-band-item className="flex flex-col gap-2 border-t border-ink/15 pt-[clamp(12px,1.5vw,20px)]">
+                <span className="t-eyebrow text-accent">{n}</span>
+                <span className="t-work text-ink">{title}</span>
+                <span className="t-body text-body-light">{body}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </Band>
 

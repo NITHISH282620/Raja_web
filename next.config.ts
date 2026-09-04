@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
     qualities: [60, 75, 90],
     formats: ["image/avif", "image/webp"],
   },
+
+  /**
+   * `/portfolio` moved to `/projects`: "projects" is the word this industry and
+   * its tender documents actually use. Permanent, because the old path was
+   * live and linked.
+   */
+  async redirects() {
+    return [{ source: "/portfolio", destination: "/projects", permanent: true }];
+  },
 };
 
 export default nextConfig;
