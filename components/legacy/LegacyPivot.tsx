@@ -10,7 +10,7 @@ export function LegacyPivot() {
           <div className="lg:col-span-6 order-2 lg:order-1">
             <div className="group relative h-[360px] sm:h-[460px] w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-neutral-900 shadow-md">
               <Image
-                src="/media/inventory-german-hanger.1631d7b1.webp"
+                src="/media/events/kanha-canopy-seating.7a22707d.webp"
                 alt="Pioneering German clear-span aluminium hangars in South India"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"

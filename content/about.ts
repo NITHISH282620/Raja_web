@@ -36,7 +36,7 @@ export const aboutTimeline: TimelineEra[] = [
       "Civic state convocations and government dais construction",
       "Foundational Bangalore headquarters establishment",
     ],
-    image: "/media/legacy-cm-authority-meeting.792b6646.webp",
+    image: "/media/events/isgcon-stage-award.1423a9d8.webp",
     alt: "Foundational civic event infrastructure in Karnataka",
   },
   {
@@ -51,7 +51,7 @@ export const aboutTimeline: TimelineEra[] = [
       "Transition from sub-hiring to 100% direct-owned asset fleet",
       "Heavy wooden platform fabrication yards established",
     ],
-    image: "/media/capability-structure.3aa80a08.webp",
+    image: "/media/events/kanha-canopy-night.0c0ccba9.webp",
     alt: "Directly owned German clear-span structure engineering",
   },
   {
@@ -66,7 +66,7 @@ export const aboutTimeline: TimelineEra[] = [
       "3,000-ton temporary mobile HVAC cooling division",
       "National industrial trade fair execution in New Delhi, Mumbai, and Bengaluru",
     ],
-    image: "/media/event-mega-exhibition.webp",
+    image: "/media/events/eima-mahindra-stall.526d34c1.webp",
     alt: "Exhibition stall systems and interior expo design",
   },
   {
@@ -75,14 +75,19 @@ export const aboutTimeline: TimelineEra[] = [
     tag: "Monumental Era",
     headline: "National Ceremonies & Monumental Mandates",
     description:
-      "Today, with 49 years of uninterrupted execution, Raja operates at a national benchmark. Entrusted with Prime Minister dedications, state swearing-in stadium conversions, international airport inaugurations, and 100,000-delegate temporary cities, Raja represents the gold standard of Indian physical infrastructure.",
+      "Raja builds today at the scale its inventory allows: covered assemblies for gatherings numbering in the tens of thousands, multi-hall exhibition grounds, national congresses and naval ceremonial work — structures, flooring, staging and services delivered as one contract.",
+    // Deliverables list only engagements that appear on Raja's own schedule or
+    // its own website. The three previously listed here — a stadium
+    // swearing-in, an airport dedication by the Prime Minister, and a
+    // hundred-thousand-delegate literature conference — appear on neither, and
+    // carried delegate counts nobody had supplied.
     deliverables: [
-      "Swearing-in Ceremony of Karnataka Government at Kanteerava Stadium",
-      "Kempegowda International Airport Terminal 2 & Statue Dedication by PM",
-      "86th Kannada Sahitya Sammelana 100,000+ delegate temporary city",
+      "Tent city and covered assembly, Kanha Shanti Vanam",
+      "EIMA Agrimach international agricultural machinery fair",
+      "ICGS Akshay commissioning, Goa Shipyard Limited",
     ],
-    image: "/media/work-ceremony.24729b14.webp",
-    alt: "Monumental stadium swearing-in and state infrastructure ceremony",
+    image: "/media/events/larenon-stall-counter.33e301ef.webp",
+    alt: "A fabricated exhibition stall with branded fascia and display counters",
   },
 ];
 
@@ -102,7 +107,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Imported German Hangers",
     description: "Clear-span aluminium structures engineered for wind loads up to 120 km/h, fire-retardant membranes, and pillar-free sightlines.",
     tag: "Heavy Structures",
-    image: "/media/inventory-german-hanger.1631d7b1.webp",
+    image: "/media/events/kanha-canopy-seating.7a22707d.webp",
   },
   {
     number: "10,00,000",
@@ -110,7 +115,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Modular Wooden Floor Platforms",
     description: "Heavy-duty load-bearing subfloors, leveling laser-aligned platforms capable of supporting industrial machinery and massive crowds.",
     tag: "Ground Engineering",
-    image: "/media/inventory-wooden-floor.f6799623.webp",
+    image: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
   },
   {
     number: "1,00,000",
@@ -118,7 +123,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Engineered Stage Infrastructure",
     description: "Reinforced steel-truss staging and tiered platforms engineered for high-security VIP protocols, orchestral setups, and state ceremonies.",
     tag: "Dais & Staging",
-    image: "/media/inventory-stage.b737c675.webp",
+    image: "/media/events/isgcon-stage-lamp.5633cdec.webp",
   },
   {
     number: "3,000",
@@ -126,7 +131,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Temporary Climate Control & HVAC",
     description: "Mobile chillers, air-handling ducting, and industrial environmental systems ensuring ambient comfort inside temporary structures.",
     tag: "Climate Control",
-    image: "/media/work-corporate.fca2ff69.webp",
+    image: "/media/events/kanha-canopy-interior.0403268d.webp",
   },
   {
     number: "1,00,000",
@@ -134,7 +139,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Iron Crowd-Control Barricades",
     description: "10,000 heavy-gauge interlocking steel barrier units certified for police cordons, VIP security perimeters, and stadium crowd zoning.",
     tag: "Security Perimeter",
-    image: "/media/legacy-ambedkar-jayanti.fb369379.webp",
+    image: "/media/events/aol-crowd-aerial.72481eb2.webp",
   },
   {
     number: "20",
@@ -142,7 +147,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Dedicated Heavy Logistics Fleet",
     description: "Company-owned goods carriers, multi-axle transport vehicles, and emergency support units ensuring zero transit delays across India.",
     tag: "Logistics Fleet",
-    image: "/media/work-agrimach-expo.webp",
+    image: "/media/events/eima-ground-dusk.284dd6b2.webp",
   },
 ];
 
@@ -156,44 +161,58 @@ export interface MilestoneItem {
   image: string;
 }
 
+/**
+ * Milestones.
+ *
+ * REBUILT 2026-09-04. This list previously led with engagements that appear on
+ * neither Raja's supplied schedule nor Raja's own website — a stadium
+ * swearing-in, an airport dedication, a literature conference — and attached
+ * unsourced figures to them: "50,000+ Citizens & Dignitaries", "10,000 RFT
+ * security barricading". Those are exactly the claims a government tender
+ * checks, and none of them could be evidenced.
+ *
+ * These four are engagements Raja has supplied photographs of. Scale is
+ * described rather than counted, because no counts were supplied.
+ */
 export const milestoneMoments: MilestoneItem[] = [
   {
-    id: "kanteerava-swearing-in",
-    year: "May 2023",
-    title: "Karnataka Government Swearing-in Ceremony",
-    venue: "Kanteerava Stadium, Bengaluru",
-    scale: "50,000+ Citizens & Dignitaries",
-    scope: "Complete stadium transformation, massive central ceremonial dais, tiered VIP enclosure, 10,000 RFT security barricading, and multi-camera stage rigging.",
-    image: "/media/work-ceremony.24729b14.webp",
-  },
-  {
-    id: "pm-airport-inauguration",
-    year: "Nov 2022",
-    title: "Kempegowda International Airport T2 & 108-ft Statue Dedication",
-    venue: "Bengaluru International Airport",
-    scale: "Inaugurated by Hon'ble Prime Minister",
-    scope: "Clear-span German hangar pavilions, ceremonial dais, VIP holding areas and climate-controlled staging.",
-    image: "/media/work-airport-inauguration.webp",
-  },
-  {
-    id: "kannada-sahitya-sammelana",
-    year: "Jan 2023",
-    title: "86th Kannada Sahitya Sammelana",
-    venue: "Haveri, Karnataka",
-    scale: "1,00,000+ Delegates & Visitors",
-    scope: "Construction of an expansive temporary cultural city: mega main pandal, three satellite presentation stages, book exposition stalls, and mega dining halls.",
-    image: "/media/work-krishimela.webp",
-  },
-  {
-    id: "hampi-utsav",
+    id: "kanha-tent-city",
     year: "2024",
-    title: "Hampi Utsav World Heritage Celebrations",
-    venue: "Hampi, Karnataka (UNESCO World Heritage Site)",
-    scale: "State Heritage Cultural Mega-Festival",
-    scope: "Heritage-sensitive clear-span pavilions, non-invasive ground leveling, multi-level performance staging, and illumination infrastructure.",
-    image: "/media/work-hampi-utsav.webp",
+    title: "Kanha Shanti Vanam Tent City",
+    venue: "Kanha Shanti Vanam",
+    scale: "Assembly of many thousands, under cover",
+    scope: "Clear-span cover across the full assembly floor, levelled flooring, seating and circulation planned as one scope.",
+    image: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp",
+  },
+  {
+    id: "eima-agrimach-2024",
+    year: "2024",
+    title: "EIMA Agrimach",
+    venue: "Bengaluru",
+    scale: "International agricultural machinery fair",
+    scope: "Exhibition ground build — fabricated stands, printed fascia and flooring across an open site carrying heavy machinery displays.",
+    image: "/media/events/eima-expo-crowd.11d4b8f2.webp",
+  },
+  {
+    id: "isgcon-2023",
+    year: "2023",
+    title: "ISGCON — 64th Annual Congress",
+    venue: "Bengaluru",
+    scale: "National medical congress",
+    scope: "Conference staging, dais and audience infrastructure with printed backdrop and lighting rig.",
+    image: "/media/events/isgcon-stage-award.1423a9d8.webp",
+  },
+  {
+    id: "icgs-akshay",
+    year: "Jun 2026",
+    title: "ICGS Akshay Commissioning",
+    venue: "Goa Shipyard Limited, Vasco",
+    scale: "Indian Coast Guard fast patrol vessel",
+    scope: "Ceremonial dais, canopy and parade infrastructure for a naval commissioning.",
+    image: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
   },
 ];
+
 
 export interface Principle extends Sourced {
   index: string;

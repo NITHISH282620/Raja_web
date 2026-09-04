@@ -39,7 +39,7 @@ export function LegacyOrigins() {
           <div className="lg:col-span-6">
             <div className="group relative h-[360px] sm:h-[460px] w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-neutral-900 shadow-md">
               <Image
-                src="/media/legacy-aicog-2019.a98a8727.webp"
+                src="/media/events/kanha-campus-aerial.fbf4b561.webp"
                 alt="Foundational event infrastructure and civic gatherings in Karnataka"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"

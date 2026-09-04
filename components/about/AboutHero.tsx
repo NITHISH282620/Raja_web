@@ -106,7 +106,7 @@ export function AboutHero() {
             className="group relative md:col-span-7 h-[360px] sm:h-[440px] md:h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white shadow-sm"
           >
             <Image
-              src="/media/work-airport-inauguration.webp"
+              src="/media/events/kanha-canopy-assembly-aerial.56be51e1.webp"
               alt="Prime Minister dedication at monumental airport pavilion by Raja Enterprises"
               fill
               priority
@@ -116,14 +116,14 @@ export function AboutHero() {
             <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4 text-white">
               <div>
                 <span className="font-mono text-[11px] tracking-wider uppercase text-white/70 block mb-1">
-                  National Landmark Dedication
+                  Covered assembly infrastructure
                 </span>
                 <p className="text-base sm:text-lg font-medium text-white max-w-[32ch]">
-                  Kempegowda International Airport &amp; 108-ft Statue Dedication
+                  Clear-span cover and flooring, Kanha Shanti Vanam
                 </p>
               </div>
               <span className="hidden sm:inline-block rounded-full bg-white/20 backdrop-blur-md px-3.5 py-1 text-xs font-mono">
-                50,000+ Attendees
+                Client photograph
               </span>
             </div>
           </div>
@@ -134,7 +134,7 @@ export function AboutHero() {
             className="group relative md:col-span-5 h-[320px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white shadow-sm"
           >
             <Image
-              src="/media/capability-structure.3aa80a08.webp"
+              src="/media/events/kanha-canopy-night.0c0ccba9.webp"
               alt="Engineered clear-span German hangar structure"
               fill
               priority

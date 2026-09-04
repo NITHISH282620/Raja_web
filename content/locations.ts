@@ -72,7 +72,7 @@ export const locations: LocationRecord[] = [
     lat: 12.9716,
     lng: 77.5946,
     blurb:
-      "Home city, yard and fleet. The majority of Raja's recorded engagements are built here — Palace Grounds, Gayathri Vihar, the GKVK campus, Vidhana Soudha and Kanteerava among them.",
+      "Home city, yard and fleet. The majority of Raja's recorded engagements are built here — Palace Grounds, Gayathri Vihar, the GKVK campus and Vidhana Soudha among them.",
     image: {
       src: "/media/events/eima-expo-crowd.11d4b8f2.webp",
       width: 595,
