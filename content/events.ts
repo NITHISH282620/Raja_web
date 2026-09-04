@@ -72,25 +72,25 @@ export interface RecentExecution {
 
 export const recentExecutions: RecentExecution[] = [
   // Block A: 1x2 (Perfectly fills column)
-  { slug: "ambedkar-jayanti", year: "2024", project: "Ambedkar Jayanti at Vidhana Soudha", image: "/media/event-national-programme.webp", size: "tall" },
+  { slug: "ambedkar-jayanti", year: "2024", project: "Ambedkar Jayanti at Vidhana Soudha", image: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp", size: "tall" },
   
   // Block B: 2x1 + two 1x1 (Perfectly fills 2 columns)
-  { slug: "vishwa-vokkaligara-mahasammelana", year: "2024", project: "Vishwa Vokkaligara Mahasammelana", image: "/media/event-cultural-gathering.webp", size: "wide" },
-  { slug: "collegedunia-learn-expo", year: "2024", project: "Collegedunia Learn Expo", image: "/media/event-mega-exhibition.webp" },
-  { slug: "gte-expo", year: "2024", project: "GTE Expo (Garment Technology)", image: "/media/work-agrimach-expo.webp" },
+  { slug: "vishwa-vokkaligara-mahasammelana", year: "2024", project: "Vishwa Vokkaligara Mahasammelana", image: "/media/events/kanha-crowd-scale.3e07499f.webp", size: "wide" },
+  { slug: "collegedunia-learn-expo", year: "2024", project: "Collegedunia Learn Expo", image: "/media/events/eima-stall-frontage.ac25251f.webp" },
+  { slug: "gte-expo", year: "2024", project: "GTE Expo (Garment Technology)", image: "/media/events/eima-mahindra-stall.526d34c1.webp" },
   
   // Block A: 1x2 (Perfectly fills column)
-  { slug: "kanha-shanti-vanam", year: "2024", project: "Kanha Shanti Vanam (Spiritual Gathering)", image: "/media/work-hampi-utsav.webp", size: "tall" },
+  { slug: "kanha-shanti-vanam", year: "2024", project: "Kanha Shanti Vanam (Spiritual Gathering)", image: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp", size: "tall" },
   
   // Block B: 2x1 + two 1x1 (Perfectly fills 2 columns)
-  { slug: "biffes", year: "2024", project: "International Film Festival (BIFFES)", image: "/media/work-film-festival.webp", size: "wide" },
-  { slug: "isgcon-bengaluru", year: "2024", project: "ISGCON Bengaluru", image: "/media/work-congress.4850b520.webp" },
-  { slug: "tribe-vibe-fest", year: "2024", project: "Tribe Vibe Corporate Fest", image: "/media/work-corporate.fca2ff69.webp" },
+  { slug: "biffes", year: "2024", project: "International Film Festival (BIFFES)", image: "/media/events/fcexpo-hall-stage.fb778307.webp", size: "wide" },
+  { slug: "isgcon-bengaluru", year: "2024", project: "ISGCON Bengaluru", image: "/media/events/isgcon-stage-award.1423a9d8.webp" },
+  { slug: "tribe-vibe-fest", year: "2024", project: "Tribe Vibe Corporate Fest", image: "/media/events/fcexpo-audience.280f1069.webp" },
   
   // Block C: two 1x1 (Perfectly fills column)
-  { slug: "art-of-living-conference", year: "2024", project: "Art of Living \u2014 Human Values Conference", image: "/media/event-corporate-forum.webp" },
-  { slug: "dr-rajkumar-punya-smarane", year: "2025", project: "Dr. Rajkumar Punya Smarane", image: "/media/work-krishimela.webp" },
+  { slug: "art-of-living-conference", year: "2024", project: "Art of Living \u2014 Human Values Conference", image: "/media/events/aol-assembly-rows.7e11d21d.webp" },
+  { slug: "dr-rajkumar-punya-smarane", year: "2025", project: "Dr. Rajkumar Punya Smarane", image: "/media/events/isgcon-stage-lamp.5633cdec.webp" },
   
   // Block A: 1x2 (Perfectly fills column)
-  { slug: "suttur-jathra-mahotsava", year: "2025", project: "Suttur Jathra Mahotsava", image: "/media/work-ceremony.24729b14.webp", size: "tall" },
+  { slug: "suttur-jathra-mahotsava", year: "2025", project: "Suttur Jathra Mahotsava", image: "/media/events/kanha-canopy-night.0c0ccba9.webp", size: "tall" },
 ];

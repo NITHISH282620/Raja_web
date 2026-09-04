@@ -29,37 +29,46 @@ export interface Project {
 
 /**
  * The four scroll-stacked case study cards.
+ *
+ * CHOSEN FOR EVIDENCE, 2026-09-04. These were previously four projects carrying
+ * licensed stock — the Kempegowda Airport card was illustrated with a stock
+ * photograph of an Air Canada aircraft in flight, which shows neither an
+ * airport terminal nor any infrastructure Raja built, for a project that
+ * appears neither on Raja's supplied schedule nor on Raja's own website.
+ *
+ * The four here are the engagements Raja has actually supplied photographs of.
+ * The homepage's flagship proof section now shows real work.
  * Selected from Raja Enterprises' verified client/event list —
  * government inaugurations, international trade expos, cultural festivals,
  * and film festivals showcasing infrastructure scale.
  */
 export const projects: Project[] = [
   {
-    id: "kempegowda-airport",
+    id: "kanha-shanti-vanam",
     order: 0,
     published: true,
     featured: true,
-    organization: "Government of Karnataka",
-    eyebrow: "Government inauguration infrastructure",
-    title: "Kempegowda International Airport Inauguration",
-    year: "2023",
+    organization: "Kanha Shanti Vanam",
+    eyebrow: "Clear-span structures & flooring",
+    title: "Tent City, Kanha Shanti Vanam",
+    year: "2024",
     summary:
-      "Heavy-duty physical infrastructure supporting the high-profile inauguration of Terminal 2 and the Kempegowda Statue. Scope included massive clear-span German hangers, levelled staging, premium event flooring, high-security VIP protocol environments, and full AV staging for the ceremony.",
+      "Clear-span cover and levelled flooring for an assembly of many thousands — column-free across the full floor plate, with seating, services and circulation planned into the same scope.",
     hero: {
-      id: "work-airport-inauguration",
-      src: "/media/work-airport-inauguration.webp",
-      width: 1800,
-      height: 1200,
-      alt: "Modern airport terminal interior with architectural infrastructure for the Kempegowda Airport inauguration event.",
+      id: "work-kanha",
+      src: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp",
+      width: 644,
+      height: 388,
+      alt: "Aerial view over an immense clear-span canopy sheltering a seated assembly of many thousands.",
       focal: "center",
-      clearance: "licensed",
+      clearance: "client-approved",
     },
     gallery: [],
     video: null,
     logo: null,
-    tint: "neutral",
+    tint: "blue",
     reverse: false,
-    href: null,
+    href: "/projects",
     status: "approved",
   },
   {
@@ -68,17 +77,17 @@ export const projects: Project[] = [
     published: true,
     featured: true,
     organization: "Federation of Indian Chambers of Commerce & Industry (FICCI)",
-    eyebrow: "International trade expo",
-    title: "EIMA AGRIMACH 2024",
+    eyebrow: "Exhibition infrastructure",
+    title: "EIMA Agrimach 2024",
     year: "2024",
     summary:
-      "End-to-end exhibition infrastructure for India\u2019s largest international agricultural machinery expo organized by FICCI. Massive German hanger pavilions, precision-levelled flooring across exhibition halls, Octonorm stall fabrication for 200+ exhibitors, and full AV staging for the inauguration ceremony.",
+      "Exhibition ground build for an international agricultural machinery fair — fabricated stands, fascia and flooring across an open site carrying heavy machinery displays.",
     hero: {
       id: "work-agrimach-expo",
-      src: "/media/events/eima-delegates-stand.5c782f20.webp",
-      width: 853,
-      height: 470,
-      alt: "Delegates beside a tractor on an exhibitor stand at an agricultural machinery fair.",
+      src: "/media/events/eima-expo-crowd.11d4b8f2.webp",
+      width: 595,
+      height: 336,
+      alt: "A crowded outdoor trade-fair ground with exhibitor stands and agricultural machinery.",
       focal: "center",
       clearance: "client-approved",
     },
@@ -87,66 +96,67 @@ export const projects: Project[] = [
     logo: null,
     tint: "pink",
     reverse: true,
-    href: null,
+    href: "/projects",
     status: "approved",
   },
   {
-    id: "hampi-utsav",
+    id: "la-renon",
     order: 2,
     published: true,
     featured: true,
-    organization: "Karnataka State Habitat Centre",
-    eyebrow: "Heritage cultural festival",
-    title: "Hampi Utsav 2024",
-    year: "2024",
+    organization: "La Renon Healthcare",
+    eyebrow: "Stall fabrication",
+    title: "La Renon Exhibition Stalls",
+    year: "",
     summary:
-      "Open-air temporary infrastructure for Karnataka\u2019s flagship heritage festival at the UNESCO World Heritage Site. Grand outdoor stages, high-capacity audience seating, festival lighting rigs, exhibition pavilions, and full hospitality infrastructure \u2014 all built and dismantled without impact to the protected site.",
+      "Fabricated exhibition stalls: branded shell, printed fascia panels, product display counters, lighting and seating, delivered against the exhibitor's own opening date.",
     hero: {
-      id: "work-hampi-utsav",
-      src: "/media/work-hampi-utsav.webp",
+      id: "work-larenon",
+      src: "/media/events/larenon-stall-counter.33e301ef.webp",
       width: 1800,
-      height: 1200,
-      alt: "A lit ceremonial stage at a night-time cultural festival.",
+      height: 1468,
+      alt: "An exhibition stall interior: branded back wall, display counters, seating and planting.",
       focal: "center",
-      clearance: "licensed",
+      clearance: "client-approved",
     },
     gallery: [],
     video: null,
     logo: null,
     tint: "yellow",
     reverse: false,
-    href: null,
+    href: "/projects",
     status: "approved",
   },
   {
-    id: "biffes",
+    id: "art-of-living",
     order: 3,
     published: true,
     featured: true,
-    organization: "Karnataka Chalanachitra Academy",
-    eyebrow: "International film festival",
-    title: "17th Bengaluru International Film Festival",
-    year: "2024",
+    organization: "The Art of Living Trust",
+    eyebrow: "Mass-gathering infrastructure",
+    title: "Navaratri Function",
+    year: "2023",
     summary:
-      "Full venue transformation for BIFFES \u2014 one of India\u2019s premier international film festivals. Multiple screening halls fitted with precision staging, VIP lounge environments, red-carpet infrastructure, branded entry arches, and delegate hospitality zones across the festival campus.",
+      "Infrastructure for a mass gathering — covered assembly, flooring and staging laid out for participants numbering in the tens of thousands.",
     hero: {
-      id: "work-film-festival",
-      src: "/media/work-film-festival.webp",
-      width: 1800,
-      height: 1200,
-      alt: "Cinema hall with professional stage lighting and audience seating for the Bengaluru International Film Festival.",
+      id: "work-aol",
+      src: "/media/events/aol-assembly-rows.7e11d21d.webp",
+      width: 1200,
+      height: 800,
+      alt: "Row after row of seated participants across an immense covered gathering.",
       focal: "center",
-      clearance: "licensed",
+      clearance: "client-approved",
     },
     gallery: [],
     video: null,
     logo: null,
-    tint: "blue",
+    tint: "purple",
     reverse: true,
-    href: null,
+    href: "/projects",
     status: "approved",
   },
 ];
+
 
 /* -------------------------------------------------------------------------
    Selectors
