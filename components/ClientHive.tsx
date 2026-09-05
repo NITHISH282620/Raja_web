@@ -37,27 +37,63 @@ import { weave, type RosterEntry } from "@/content/clientRoster";
  * sideways. Stack them vertically into a column, overlap the next column by a
  * quarter of a width so the points slot into the notches, and drop alternate
  * columns by half a height. Those three numbers are the honeycomb.
- */
+
+ * TWO PER COLUMN. This is the production composition and it is deliberate: the
+ * comb is two tiles deep, so a wing is three columns of two either side of the
+ * Raja mark, and the whole thing reads as one compact cluster rather than as a
+ * slab of logos. Deeper combs were tried — three and four per column — and both
+ * fit more of the roster on screen at once, but neither is the shape this
+ * section is supposed to be.
+ *
+ * The rest of the roster is not dropped for it. Every client sits in the same
+ * two-deep strip; it simply runs wider than the frame, and the reader drags it
+ * through. What is on screen at rest is production's twelve-tile composition,
+ * centred on the mark. What is off screen is the other fifteen. */
 const COL_OVERLAP = 0.25; // of cell width — slots the points into the notches
 const COL_DROP = 0.5; // of cell height, applied to alternate columns
-const PER_COL = 3;
+const PER_COL = 2;
 
 /**
  * The tile is drawn smaller than its cell. The honeycomb positions stay exactly
  * as they are — that is what makes it a comb rather than a grid — but each
  * hexagon is inset inside its cell so the tiles read as separate cards with air
  * between them. Drawn edge to edge they fuse into one white sheet.
+ *
+ * The inset is what sets the gap, and the gap is uniform in every direction:
+ * vertical neighbours sit H apart and diagonal neighbours sqrt(3)/2 · W apart,
+ * which for a regular hexagon is the same distance. So one number controls the
+ * whole comb's spacing. Production runs it looser than a first pass here did —
+ * roughly a sixth of a tile of clear space rather than a tenth.
  */
-const TILE_SCALE = 0.86;
+const TILE_SCALE = 0.795;
 
 /**
  * Rounded corners, via stroke rather than clip-path. `clip-path: polygon()`
  * cannot round a vertex; stroking the same polygon in its own fill colour with a
  * round line join does, and gives the drop shadow a soft edge to catch.
  */
-const HEX_POINTS = "25,1 75,1 99,50 75,99 25,99 1,50";
+const HEX_POINTS = "25,4 75,4 96,50 75,96 25,96 4,50";
 
-/** Split into columns of three, so a wing reads top-to-bottom then across. */
+/**
+ * Corner radius, as stroke width.
+ *
+ * This has to stay small. The stroke straddles the path, so half of it becomes
+ * the corner radius, and at 13 units against a 50-unit edge the arcs ate a
+ * quarter of every side and the hexagon read as an octagon. Eight units — four
+ * of radius — is the production corner: clearly softened, still unmistakably
+ * six-sided. The points above are inset by that four so the finished shape
+ * still fills its cell exactly.
+ */
+const HEX_ROUND = 8;
+const HEX_ROUND_OUTER = HEX_ROUND + 1.5;
+
+/**
+ * Split a wing into columns of two, the way the production comb is built.
+ *
+ * A remainder lands in the outermost column as a single tile, which is the right
+ * place for it: that column sits at the far edge of the pan, where a taper reads
+ * as the comb running out rather than as a hole in it.
+ */
 function toColumns(entries: RosterEntry[]): RosterEntry[][] {
   const cols: RosterEntry[][] = [];
   for (let i = 0; i < entries.length; i += PER_COL) cols.push(entries.slice(i, i + PER_COL));
@@ -85,10 +121,15 @@ function Tile({ entry, idx }: { entry: RosterEntry; idx: number }) {
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
-          className="absolute inset-0 h-full w-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.10)]"
+          className="absolute inset-0 h-full w-full drop-shadow-[0_8px_18px_rgba(15,26,48,0.08)]"
           aria-hidden="true"
         >
-          <polygon points={HEX_POINTS} fill="#ffffff" stroke="#ffffff" strokeWidth="13" strokeLinejoin="round" />
+          {/* Two polygons, not one. The fat round-joined stroke is what rounds
+              the vertices — clip-path cannot — so a border has to come from a
+              second, very slightly larger hexagon sitting behind the white
+              face. The 1.5-unit difference in stroke width is the hairline. */}
+          <polygon points={HEX_POINTS} fill="#e4e9f0" stroke="#e4e9f0" strokeWidth={HEX_ROUND_OUTER} strokeLinejoin="round" />
+          <polygon points={HEX_POINTS} fill="#ffffff" stroke="#ffffff" strokeWidth={HEX_ROUND} strokeLinejoin="round" />
         </svg>
         <span className="absolute inset-0 flex items-center justify-center px-[14%]">
           {entry.logo ? (
@@ -297,7 +338,7 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
            cannot fit at any readable size and drags instead, so there is no
            reason to shrink it: the tile goes back up to a size you can actually
            read a logo in. Both numbers are measured, not guessed. */
-        "[--hex-w:clamp(76px,19vw,104px)] md:[--hex-w:clamp(57px,7.3vw,112px)]",
+        "[--hex-w:clamp(70px,17.5vw,100px)] md:[--hex-w:clamp(64px,8.5vw,130px)]",
         "[--hex-h:calc(var(--hex-w)*0.866)]",
       ].join(" ")}
     >
@@ -323,11 +364,13 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
              hexagon reads as "there is more this way" rather than as a tile
              clipped by the card. Off entirely once everything fits. */
           overflows
-            ? "[mask-image:linear-gradient(to_right,transparent,#000_34px,#000_calc(100%-34px),transparent)]"
+            ? // Narrower on a phone: 78px of fade either side of a 305px rail
+              // eats half the visible comb.
+              "[mask-image:linear-gradient(to_right,transparent,#000_26px,#000_calc(100%-26px),transparent)] md:[mask-image:linear-gradient(to_right,transparent,#000_78px,#000_calc(100%-78px),transparent)]"
             : "",
         ].join(" ")}
       >
-        <div className="flex w-max items-center gap-[clamp(10px,1.5vw,26px)] px-1">
+        <div className="flex w-max items-center gap-[clamp(12px,2vw,34px)] px-1">
           <Wing entries={left} offset={0} />
 
           {/*
@@ -341,7 +384,7 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
             data-hive-tile
             data-reveal
             className="relative shrink-0"
-            style={{ width: "calc(var(--hex-w) * 1.42)", height: "calc(var(--hex-h) * 1.42)" }}
+            style={{ width: "calc(var(--hex-w) * 1.5)", height: "calc(var(--hex-h) * 1.5)" }}
           >
             <svg
               viewBox="0 0 100 100"
@@ -353,7 +396,7 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
                 points={HEX_POINTS}
                 fill="var(--color-brand-blue)"
                 stroke="var(--color-brand-blue)"
-                strokeWidth="13"
+                strokeWidth={HEX_ROUND}
                 strokeLinejoin="round"
               />
             </svg>
