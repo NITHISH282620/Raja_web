@@ -121,11 +121,48 @@ export function clientRoster(): RosterEntry[] {
   roster.length = 0;
   roster.push(...deduped);
 
-  // Organisations that carry a logo lead, then the rest by engagement count —
-  // so the strongest marks land first and the rail still reads left to right.
+  // Strongest engagement record first; the honeycomb decides placement.
   return roster.sort((a, b) => {
-    if (!!a.logo !== !!b.logo) return a.logo ? -1 : 1;
     if (a.projects !== b.projects) return b.projects - a.projects;
     return a.name.localeCompare(b.name);
   });
+}
+
+/**
+ * Merge two lists so the shorter one is spaced evenly through the longer.
+ *
+ * Used to mix logo tiles with monogram tiles. Concatenating them clumps every
+ * real mark at one end, and strict alternation runs out early whenever the two
+ * lists differ in length — with twelve logos against fifteen monograms it would
+ * leave a tail of three plain tiles. This is the Bresenham line-drawing
+ * distribution: carry an accumulator and emit from `b` only once enough of `a`
+ * has gone by to keep the ratio, so the spacing holds all the way to the end.
+ */
+export function weave<T>(a: T[], b: T[]): T[] {
+  // Which list is shorter decides nothing about the result, only about the
+  // arithmetic: the shorter one is the one being spaced through the other.
+  const long = a.length >= b.length ? a : b;
+  const short = a.length >= b.length ? b : a;
+  const total = long.length + short.length;
+
+  const out: T[] = [];
+  let i = 0;
+  let j = 0;
+  let taken = 0;
+  for (let n = 0; n < total; n++) {
+    // How many of the short list *should* have been emitted by this slot. When
+    // that number ticks up, emit one. Comparing the ideal count against the
+    // actual count is what keeps the spacing true all the way to the last slot,
+    // instead of drifting and dumping a tail of one kind at the end.
+    const due = Math.round(((n + 1) * short.length) / total);
+    if (due > taken && j < short.length) {
+      out.push(short[j++]!);
+      taken = due;
+    } else if (i < long.length) {
+      out.push(long[i++]!);
+    } else {
+      out.push(short[j++]!);
+    }
+  }
+  return out;
 }

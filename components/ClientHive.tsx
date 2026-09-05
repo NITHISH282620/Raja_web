@@ -1,84 +1,179 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, release, q } from "@/motion/primitives";
 import { EASE, MOTION_OK } from "@/motion/ease";
-import type { RosterEntry } from "@/content/clientRoster";
+import { weave, type RosterEntry } from "@/content/clientRoster";
 
 /**
- * The client honeycomb, as a draggable rail.
+ * The client honeycomb.
  *
- * ONE COMPONENT FOR EVERY WIDTH. The section used to carry two separate
- * layouts — an absolutely positioned honeycomb for desktop and a grid for
- * mobile — which is why their spacing never matched: they were different
- * geometry maintained in two places. This is one tiling, and it is the same
- * arithmetic at 360px as at 1440px. Only the tile size changes.
+ * THE COMPOSITION IS WING / CENTRE / WING. This is the thing earlier passes got
+ * wrong. The roster was rendered as one continuous left-to-right strip with the
+ * Raja mark absolutely positioned over the middle of it, which meant the mark
+ * sat *on top of* client tiles and hid them, and the strip ran off both edges of
+ * the panel. Production does something different and better: the clients are
+ * split into two combs, the Raja hexagon sits between them as a real element in
+ * the flow, and the whole thing is centred and contained.
  *
- * THE TILING. Tiles are flat-top hexes clipped to
- * `polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%)`. Within a row
- * they overlap horizontally by a quarter of their width so the points nest;
- * rows overlap vertically by a quarter of their height and alternate rows are
- * pushed right by three-eighths of a width. Those three numbers are what make
- * a honeycomb rather than a grid of hexagons, and they are declared once
- * below.
+ * So the mark is now a flex item, not an overlay. It occupies its own space, the
+ * gap either side of it is real space rather than a radial gradient painted over
+ * tiles, and nothing is ever obscured.
  *
- * DRAGGING. Pointer events pan the rail directly. The element is also a normal
- * `overflow-x: auto` container, so a trackpad, a touch swipe, a scrollbar and
- * the keyboard all still work — the drag is an addition, never the only way
- * through. Wheel is deliberately left alone so a vertical scroll over the rail
- * still scrolls the page.
+ * ONE MARKUP TREE FOR EVERY WIDTH. Only two things change with the viewport: the
+ * hexagon size, and whether the row needs to scroll. At desktop widths the whole
+ * composition fits inside the frame and simply centres; below that the same row
+ * becomes draggable. The geometry is identical at 360px and at 1440px, which is
+ * what stopped desktop and mobile from drifting apart the way the two old
+ * layouts did.
  */
 
 /**
  * Flat-top hexagons tile in COLUMNS, not rows.
  *
- * A first pass laid them out in three horizontal rows and they refused to nest
- * — three separate strips with gaps between them. That is the geometry telling
- * you something: a flat-top hex has its points on the left and right, so
- * neighbours interlock sideways. Stack them vertically into a column, overlap
- * the next column by a quarter of a width so the points slot into the notches,
- * and drop alternate columns by half a height. That is a honeycomb, and it is
- * the same construction the desktop section already used.
+ * A flat-top hex has its points on the left and right, so neighbours interlock
+ * sideways. Stack them vertically into a column, overlap the next column by a
+ * quarter of a width so the points slot into the notches, and drop alternate
+ * columns by half a height. Those three numbers are the honeycomb.
  */
 const COL_OVERLAP = 0.25; // of cell width — slots the points into the notches
 const COL_DROP = 0.5; // of cell height, applied to alternate columns
 const PER_COL = 3;
 
 /**
- * The tile is drawn smaller than its cell.
- *
- * The honeycomb positions stay exactly as they are — that is what makes it a
- * comb rather than a grid — but each hexagon is inset inside its cell so the
- * tiles read as separate cards with air between them. Drawn edge to edge they
- * fused into one continuous white sheet with faint seams, which is not the
- * same object at all.
+ * The tile is drawn smaller than its cell. The honeycomb positions stay exactly
+ * as they are — that is what makes it a comb rather than a grid — but each
+ * hexagon is inset inside its cell so the tiles read as separate cards with air
+ * between them. Drawn edge to edge they fuse into one white sheet.
  */
 const TILE_SCALE = 0.86;
 
 /**
- * Rounded corners, via stroke rather than clip-path.
- *
- * `clip-path: polygon()` cannot round a vertex. Stroking the same polygon in
- * the fill colour with a round line join does, and costs nothing — the stroke
- * simply thickens each corner into an arc. It also gives the drop shadow a
- * soft edge to catch, which a hard clip never does.
+ * Rounded corners, via stroke rather than clip-path. `clip-path: polygon()`
+ * cannot round a vertex; stroking the same polygon in its own fill colour with a
+ * round line join does, and gives the drop shadow a soft edge to catch.
  */
 const HEX_POINTS = "25,1 75,1 99,50 75,99 25,99 1,50";
+
+/** Split into columns of three, so a wing reads top-to-bottom then across. */
+function toColumns(entries: RosterEntry[]): RosterEntry[][] {
+  const cols: RosterEntry[][] = [];
+  for (let i = 0; i < entries.length; i += PER_COL) cols.push(entries.slice(i, i + PER_COL));
+  return cols;
+}
+
+function Tile({ entry, idx }: { entry: RosterEntry; idx: number }) {
+  return (
+    <div
+      data-hive-tile
+      data-reveal
+      title={entry.name}
+      className="relative shrink-0"
+      style={{ width: "var(--hex-w)", height: "var(--hex-h)" }}
+    >
+      <div
+        className={[
+          "group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 hover:scale-[1.07]",
+          // Alternating drift so the comb breathes rather than pulsing in
+          // unison. Both classes are gated on prefers-reduced-motion already.
+          idx % 2 === 0 ? "animate-float" : "animate-float-delayed",
+        ].join(" ")}
+        style={{ width: `${TILE_SCALE * 100}%`, height: `${TILE_SCALE * 100}%` }}
+      >
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          className="absolute inset-0 h-full w-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.10)]"
+          aria-hidden="true"
+        >
+          <polygon points={HEX_POINTS} fill="#ffffff" stroke="#ffffff" strokeWidth="13" strokeLinejoin="round" />
+        </svg>
+        <span className="absolute inset-0 flex items-center justify-center px-[14%]">
+          {entry.logo ? (
+            <Image
+              src={entry.logo.src}
+              alt={entry.name}
+              width={entry.logo.width}
+              height={entry.logo.height}
+              draggable={false}
+              className="max-h-[52%] max-w-full object-contain"
+            />
+          ) : (
+            /* A monogram reads as deliberate; a truncated name reads as a
+               rendering fault. The full name is still on the tile's title. */
+            <span className="flex flex-col items-center justify-center gap-0.5">
+              <span className="font-display text-[clamp(14px,1.4vw,21px)] font-semibold leading-none tracking-tight text-brand-blue/75">
+                {entry.monogram}
+              </span>
+              <span className="max-w-[78%] text-center font-mono text-[7px] leading-[1.25] tracking-tight text-ink/40 sm:text-[8px]">
+                {entry.shortName}
+              </span>
+            </span>
+          )}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/** One comb of clients — half the roster, laid out in interlocking columns. */
+function Wing({ entries, offset }: { entries: RosterEntry[]; offset: number }) {
+  return (
+    <div className="flex items-start">
+      {toColumns(entries).map((col, ci) => (
+        <div
+          key={ci}
+          className="flex flex-col"
+          style={{
+            marginLeft: ci === 0 ? 0 : `calc(var(--hex-w) * -${COL_OVERLAP})`,
+            marginTop: ci % 2 === 1 ? `calc(var(--hex-h) * ${COL_DROP})` : 0,
+          }}
+        >
+          {col.map((entry, idx) => (
+            <Tile key={entry.id} entry={entry} idx={offset + ci + idx} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export function ClientHive({ roster }: { roster: RosterEntry[] }) {
   const root = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
+  /* Set the moment the reader takes hold of the row. After that the component
+     stops re-centring it — nothing is more irritating than a rail that snaps
+     back while you are reading it. */
+  const touched = useRef(false);
+  const [overflows, setOverflows] = useState(false);
 
-  /* Chunk into columns of three, so the comb reads top-to-bottom then across.
-     The Raja mark is NOT in this list — it is pinned over the centre of the
-     rail below, so the clients travel past it rather than carrying it along. */
-  const columns: RosterEntry[][] = [];
-  for (let i = 0; i < roster.length; i += PER_COL) {
-    columns.push(roster.slice(i, i + PER_COL));
-  }
+  /*
+   * Build each wing from its own mix of marks and monograms.
+   *
+   * Slicing the roster in half put all twelve logos in the left wing and all
+   * fifteen monograms in the right. Weaving the roster first and then dealing
+   * alternate entries into the wings was no better: the weave has a period of
+   * roughly two, so taking every other entry sampled it at its own frequency
+   * and de-interleaved it straight back into one wing of logos and one of
+   * initials — plain aliasing.
+   *
+   * So the split happens before the weave. Each group is halved, and each wing
+   * weaves its own share. Both sides then carry a comparable number of real
+   * marks, spread through the comb rather than banked at one edge.
+   */
+  const logos = roster.filter((e) => e.logo);
+  const plain = roster.filter((e) => !e.logo);
+  const left = weave(
+    logos.filter((_, i) => i % 2 === 0),
+    plain.filter((_, i) => i % 2 === 0),
+  );
+  const right = weave(
+    logos.filter((_, i) => i % 2 === 1),
+    plain.filter((_, i) => i % 2 === 1),
+  );
 
   /* ------------------------------------------------------------ dragging */
   useEffect(() => {
@@ -97,14 +192,15 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
       moved = 0;
       startX = e.clientX;
       startScroll = el.scrollLeft;
+      touched.current = true;
       setDragging(true);
     };
     const onMove = (e: PointerEvent) => {
       if (!down) return;
       const dx = e.clientX - startX;
       moved = Math.max(moved, Math.abs(dx));
-      // Only capture the pointer once it is clearly a drag, so a tap still
-      // behaves like a tap and vertical scrolling is never stolen.
+      // Capture only once it is clearly a drag, so a tap still behaves like a
+      // tap and a vertical scroll is never stolen from the page.
       if (moved > 6) {
         el.setPointerCapture?.(e.pointerId);
         el.scrollLeft = startScroll - dx;
@@ -115,6 +211,32 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
       setDragging(false);
       if (el.hasPointerCapture?.(e.pointerId)) el.releasePointerCapture(e.pointerId);
     };
+
+    /* Whether the composition fits decides both the cursor and the hint. At
+       desktop widths it does, and inviting a drag that does nothing is worse
+       than offering no hint at all. */
+    /* Centre on the Raja mark rather than on the far-left column. Centring the
+       *content* is not the same thing — the two wings differ by a tile on an odd
+       roster — so this centres the mark itself. It re-runs on resize because
+       logos load late and change the fit after first paint. */
+    const centreOnMark = () => {
+      const mark = el.querySelector<HTMLElement>("[data-hive-brand]");
+      if (!mark) return;
+      // Measured from rendered rects rather than offsetLeft: the rail is not a
+      // positioned element, so offsetLeft resolves against some ancestor
+      // further up and lands the mark about 20px off centre.
+      const markBox = mark.getBoundingClientRect();
+      const railBox = el.getBoundingClientRect();
+      el.scrollLeft += markBox.left + markBox.width / 2 - (railBox.left + railBox.width / 2);
+    };
+    const measure = () => {
+      const over = el.scrollWidth - el.clientWidth > 4;
+      setOverflows(over);
+      if (over && !touched.current) centreOnMark();
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
 
     el.addEventListener("pointerdown", onDown);
     el.addEventListener("pointermove", onMove);
@@ -127,6 +249,7 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
       el.removeEventListener("pointerup", onUp);
       el.removeEventListener("pointercancel", onUp);
       el.removeEventListener("pointerleave", onUp);
+      ro.disconnect();
     };
   }, []);
 
@@ -138,9 +261,9 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
         const tiles = q(scope, "[data-hive-tile]");
-        // Movement here is manual: drag, swipe or arrow-key the rail. There is
+        // Movement here is manual: drag, swipe or arrow-key the row. There is
         // deliberately no scroll-driven pan — the section should sit still while
-        // it is being read, and move only when the reader moves it.
+        // it is read, and move only when the reader moves it.
         gsap.fromTo(
           tiles,
           { opacity: 0, scale: 0.86, y: 14 },
@@ -149,8 +272,7 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
             scale: 1,
             y: 0,
             duration: 0.55,
-            // Column-ish stagger so the comb builds outward rather than in a line.
-            stagger: { each: 0.02, from: "start" },
+            stagger: { each: 0.02, from: "center" },
             ease: EASE.primary,
             scrollTrigger: { trigger: scope, start: "top 80%", once: true },
             onComplete: () => release(tiles),
@@ -165,134 +287,67 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
   return (
     <div
       ref={root}
-      className="w-full"
-      style={
-        {
-          // Flat-top hexagon: width to height is 2 : sqrt(3).
-          "--hex-w": "clamp(84px, 12vw, 176px)",
-          "--hex-h": "calc(var(--hex-w) * 0.866)",
-        } as CSSProperties
-      }
+      className={[
+        "w-full",
+        /* Flat-top hexagon: width to height is 2 : sqrt(3).
+           Two curves, because the two cases want opposite things. From 768px up
+           the whole composition has to FIT the frame, so the tile is sized down
+           to whatever that costs — the ceiling exists because above ~1440 the
+           frame stops growing and the tile must stop with it. Below 768 it
+           cannot fit at any readable size and drags instead, so there is no
+           reason to shrink it: the tile goes back up to a size you can actually
+           read a logo in. Both numbers are measured, not guessed. */
+        "[--hex-w:clamp(76px,19vw,104px)] md:[--hex-w:clamp(57px,7.3vw,112px)]",
+        "[--hex-h:calc(var(--hex-w)*0.866)]",
+      ].join(" ")}
     >
-      <div className="relative">
       <div
         ref={rail}
         role="group"
-        aria-label="Clients and partners — scroll or drag to see more"
+        aria-label="Clients and partners"
         tabIndex={0}
         className={[
-          "w-full overflow-x-auto overflow-y-hidden pb-2 select-none",
+          "w-full overflow-x-auto overflow-y-hidden py-[clamp(6px,1.2vw,18px)] select-none",
+          /* `safe center`, not plain centring. A centred flex child that is
+             wider than its scroll container overflows equally on BOTH sides,
+             and the left overflow sits at negative scroll offset where nothing
+             can reach it — at 390px that hid a third of the roster outright and
+             put the Raja mark 20px off centre no matter what scrollLeft was set
+             to. `safe` falls back to start alignment the moment it overflows,
+             so the whole row stays reachable; it still centres when it fits. */
+          "flex [justify-content:safe_center]",
           "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-blue",
-          dragging ? "cursor-grabbing" : "cursor-grab",
+          overflows ? (dragging ? "cursor-grabbing" : "cursor-grab") : "cursor-default",
+          /* Fade the two edges only while the row actually pans, so a cut-off
+             hexagon reads as "there is more this way" rather than as a tile
+             clipped by the card. Off entirely once everything fits. */
+          overflows
+            ? "[mask-image:linear-gradient(to_right,transparent,#000_34px,#000_calc(100%-34px),transparent)]"
+            : "",
         ].join(" ")}
       >
-        <div className="flex w-max items-start px-[clamp(16px,4vw,48px)] py-[clamp(8px,1.5vw,20px)]">
-          {columns.map((col, ci) => (
-            <div
-              key={ci}
-              className="flex flex-col"
-              style={{
-                marginLeft: ci === 0 ? 0 : `calc(var(--hex-w) * -${COL_OVERLAP})`,
-                marginTop: ci % 2 === 1 ? `calc(var(--hex-h) * ${COL_DROP})` : 0,
-              }}
-            >
-              {col.map((entry, idx) => {
-                return (
-                  <div
-                    key={entry.id}
-                    data-hive-tile
-                    data-reveal
-                    title={entry.name}
-                    className="relative shrink-0"
-                    style={{ width: "var(--hex-w)", height: "var(--hex-h)" }}
-                  >
-                    <div
-                      className={[
-                        "group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 hover:scale-[1.07]",
-                        // Alternating drift, so the comb breathes rather than
-                        // pulsing in unison. Both classes are already gated on
-                        // prefers-reduced-motion in globals.css.
-                        idx % 2 === 0 ? "animate-float" : "animate-float-delayed",
-                      ].join(" ")}
-                      style={{ width: `${TILE_SCALE * 100}%`, height: `${TILE_SCALE * 100}%` }}
-                    >
-                      <svg
-                        viewBox="0 0 100 100"
-                        preserveAspectRatio="none"
-                        className="absolute inset-0 h-full w-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.10)]"
-                        aria-hidden="true"
-                      >
-                        <polygon
-                          points={HEX_POINTS}
-                          fill="#ffffff"
-                          stroke="#ffffff"
-                          strokeWidth="13"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span className="absolute inset-0 flex items-center justify-center px-[14%]">
-                        {entry.logo ? (
-                          <Image
-                            src={entry.logo.src}
-                            alt={entry.name}
-                            width={entry.logo.width}
-                            height={entry.logo.height}
-                            draggable={false}
-                            className="max-h-[52%] max-w-full object-contain"
-                          />
-                        ) : (
-                          <span className="flex flex-col items-center justify-center gap-0.5">
-                            <span className="font-display text-[clamp(15px,1.5vw,22px)] font-semibold leading-none tracking-tight text-brand-blue/75">
-                              {entry.monogram}
-                            </span>
-                            <span className="max-w-[74%] text-center font-mono text-[7px] leading-[1.25] tracking-tight text-ink/40 sm:text-[8px]">
-                              {entry.shortName}
-                            </span>
-                          </span>
-                        )}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ))}
-        </div>
-      </div>
+        <div className="flex w-max items-center gap-[clamp(10px,1.5vw,26px)] px-1">
+          <Wing entries={left} offset={0} />
 
-        {/*
-          The Raja mark does not travel with the clients — it is pinned over the
-          centre of the rail, so they pass it rather than carry it. The halo
-          behind it is the section's own background at partial opacity: it opens
-          real space around the mark, the way the production layout does, while
-          still letting tiles scroll underneath.
-        */}
-        <div
-          data-hive-brand
-          className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
-          style={{ width: "calc(var(--hex-w) * 2.3)", height: "calc(var(--hex-h) * 2.3)" }}
-          aria-hidden="true"
-        >
-          <span
-            className="absolute inset-0 rounded-full"
-            style={{
-              // Matched to the panel's own mid tone rather than to `paper`:
-              // the section sits on a white-to-#f0f3f7 gradient, so the page
-              // background showed through as a grey disc. Opaque out to 66% so
-              // tiles genuinely clear the mark instead of ghosting behind it.
-              background:
-                "radial-gradient(closest-side, #f7f9fc 66%, rgba(247,249,252,0.94) 82%, rgba(247,249,252,0) 100%)",
-            }}
-          />
-          <span
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-            style={{ width: "calc(var(--hex-w) * 1.12)", height: "calc(var(--hex-h) * 1.12)" }}
+          {/*
+            The Raja mark is a real element between the two wings, not an overlay
+            on top of them. That is what gives it the clear space production has
+            — the gap either side is actual layout, so no client tile is ever
+            hidden behind it.
+          */}
+          <div
+            data-hive-brand
+            data-hive-tile
+            data-reveal
+            className="relative shrink-0"
+            style={{ width: "calc(var(--hex-w) * 1.42)", height: "calc(var(--hex-h) * 1.42)" }}
           >
             <svg
               viewBox="0 0 100 100"
               preserveAspectRatio="none"
               className="absolute inset-0 h-full w-full drop-shadow-[0_16px_30px_rgba(0,0,0,0.22)]"
+              aria-hidden="true"
             >
               <polygon
                 points={HEX_POINTS}
@@ -310,18 +365,22 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
                 height={68}
                 priority
                 draggable={false}
-                className="w-[62%] object-contain brightness-0 invert"
+                className="w-[58%] object-contain brightness-0 invert"
               />
             </span>
-          </span>
+          </div>
+
+          <Wing entries={right} offset={left.length} />
         </div>
       </div>
 
-      <p className="t-body-sm mt-4 flex items-center justify-center gap-2 text-body-light">
-        <span aria-hidden>&larr;</span>
-        Drag to see all {roster.length} commissioning bodies
-        <span aria-hidden>&rarr;</span>
-      </p>
+      {overflows && (
+        <p className="mt-4 flex items-center justify-center gap-2 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-body-light">
+          <span aria-hidden>&larr;</span>
+          Drag &mdash; {roster.length} commissioning bodies
+          <span aria-hidden>&rarr;</span>
+        </p>
+      )}
     </div>
   );
 }
