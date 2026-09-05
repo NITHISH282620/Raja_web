@@ -36,9 +36,11 @@ export interface InventoryTile extends Sourced {
  * not Raja's own stock. The moment Raja uploads photographs of his own
  * inventory through the admin, they should replace these.
  *
- * Tile 05 is tagged `audience` but titled "Flooring & Platforms", identical to
- * tile 02. The artwork shows barricading and rows of chairs, so the title is
- * almost certainly wrong — flagged, not silently corrected.
+ * Tile 05 was tagged `audience`, bodied as audience seating and barricading,
+ * and yet titled "Flooring & Platforms" — identical to tile 02, so the section
+ * rendered the same heading twice. Corrected on 2026-09-05 to match its own id,
+ * eyebrow and body copy. This was a labelling error the module had already
+ * flagged, not a change to what Raja offers.
  *
  * Tiles 03, 04 and 06 have no body copy at all in Figma. Tiles 01, 02 and 05
  * share one duplicated paragraph about clear-span hangers, which is only
@@ -129,7 +131,7 @@ export const inventoryTiles: InventoryTile[] = [
     id: "audience-seating",
     eyebrow: "Audience",
     index: "05",
-    title: "Flooring & Platforms",
+    title: "Seating & Barricading",
     body:
       "Audience seating, barricading and crowd routing for gatherings from a few hundred to several thousand, set out to the sightlines the stage needs.",
     image: {

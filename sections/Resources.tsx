@@ -115,21 +115,21 @@ export function ResourcesView() {
           <div 
             data-schedule-panel 
             data-reveal
-            className="flex flex-col overflow-hidden rounded-[20px] bg-white shadow-sm border border-ink/5 p-8 lg:p-10"
+            className="flex flex-col overflow-hidden rounded-[20px] border border-ink/5 bg-white p-7 shadow-sm lg:self-start lg:p-8"
           >
-            <div className="flex items-center gap-3 mb-6">
+            <div className="mb-4 flex items-center gap-3">
               <div className="h-px w-8 bg-ink/20"></div>
               <span className="t-eyebrow text-ink/50 uppercase tracking-wider">Held in stock</span>
             </div>
             
-            <h3 className="text-3xl font-serif text-ink mb-6">The inventory schedule</h3>
-            <p className="t-body-sm text-body-light leading-relaxed mb-10">
+            <h3 className="mb-3 font-serif text-2xl text-ink">The inventory schedule</h3>
+            <p className="t-body-sm mb-6 leading-relaxed text-body-light">
               Raja Enterprises completely owns its entire inventory line. This eliminates reliance on third-party sub-rentals, giving us absolute control over deployment timelines and massive scale across India.
             </p>
 
-            <ul className="flex flex-col gap-5 flex-1">
+            <ul className="flex flex-col gap-3">
               {scheduleItems.map((item, i) => (
-                <li key={i} data-schedule-item data-reveal className="flex items-end justify-between gap-4 border-b border-ink/5 pb-4">
+                <li key={i} data-schedule-item data-reveal className="flex items-end justify-between gap-4 border-b border-ink/5 pb-3">
                   <span className="t-body-sm text-ink/80">{item.item}</span>
                   <span className="t-body-sm font-bold text-ink text-right tabular-nums whitespace-nowrap">
                     {item.capacity} <span className="text-[10px] uppercase tracking-wider text-ink/50 ml-1">{item.unit}</span>
@@ -138,7 +138,7 @@ export function ResourcesView() {
               ))}
             </ul>
 
-            <div className="mt-10">
+            <div className="mt-6">
               <Link 
                 href={ROUTES.inventory}
                 className="t-eyebrow text-brand-blue uppercase tracking-widest flex items-center gap-2 hover:text-accent transition-colors"
@@ -177,10 +177,29 @@ export function ResourcesView() {
                     {tile.index} {tile.eyebrow}
                   </span>
                 </div>
-                <h3 className="text-lg font-serif text-ink">{tile.title}</h3>
+                <h3 className="font-serif text-lg text-ink">{tile.title}</h3>
+                {tile.body && (
+                  <p className="t-body-sm leading-relaxed text-body-light">
+                    {tile.body.length > 120 ? `${tile.body.slice(0, 118).trimEnd()}…` : tile.body}
+                  </p>
+                )}
               </div>
             </div>
           ))}
+        </div>
+
+        {/* The section shows six of the categories; the inventory page carries
+            the full catalogue, so give the reader a way through to it. */}
+        <div data-reveal className="flex justify-center pt-[clamp(28px,4vw,56px)]">
+          <Link
+            href={ROUTES.inventory}
+            className="group inline-flex h-[54px] items-center gap-3 rounded-full bg-brand-blue px-8 text-white transition-colors duration-300 hover:bg-ink"
+          >
+            <span className="t-body">View the full inventory</span>
+            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+              &rarr;
+            </span>
+          </Link>
         </div>
 
       </div>
