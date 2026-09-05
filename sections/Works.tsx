@@ -205,6 +205,28 @@ export function WorksView({ projects }: { projects: Project[] }) {
             );
           }
         });
+
+        // Each card recedes while the next rides over it, so the stack reads as
+        // depth rather than as cards simply overlapping. The last one is left
+        // alone — nothing comes over it.
+        mobileCards.slice(0, -1).forEach((card, i) => {
+          const next = mobileCards[i + 1];
+          gsap.fromTo(
+            card,
+            { scale: 1, opacity: 1 },
+            {
+              scale: 0.94,
+              opacity: 0.55,
+              ease: "none",
+              scrollTrigger: {
+                trigger: next,
+                start: "top bottom",
+                end: "top top+=120",
+                scrub: 0.4,
+              },
+            },
+          );
+        });
       });
 
       return () => mm.revert();
@@ -333,12 +355,26 @@ export function WorksView({ projects }: { projects: Project[] }) {
       </div>
 
       {/* ======== MOBILE: Stacked cards with rich interaction & animations ======== */}
-      <div className="relative z-10 lg:hidden frame flex flex-col gap-6 sm:gap-8 pb-14 sm:pb-[clamp(48px,6vw,80px)]">
-        {projects.map((work) => (
+      {/*
+        Mobile: a sticky card stack.
+
+        Desktop pins the whole card and scrubs a timeline, sliding the text
+        track up by one card height per project. Pinning a touch viewport and
+        driving it from scrub is the part that does not travel — it fights
+        momentum scrolling and costs a repaint per frame.
+
+        `position: sticky` gets the same reading for free. Each card parks below
+        the nav and the next one rides up over it, so the cards advance one by
+        one exactly as they do on desktop, at native scroll performance. The
+        scrubbed tween below only dims and shrinks the outgoing card.
+      */}
+      <div className="relative z-10 lg:hidden frame pb-14 sm:pb-[clamp(48px,6vw,80px)]">
+        {projects.map((work, i) => (
           <div
             key={work.id}
             data-mobile-card
-            className="group flex flex-col gap-4 rounded-2xl sm:rounded-[20px] overflow-hidden bg-white border border-ink/10 shadow-xs transition-all duration-300 hover:shadow-md hover:border-brand-blue/30"
+            style={{ zIndex: i + 1, top: `calc(88px + ${i * 10}px)` }}
+            className="group sticky mb-6 flex flex-col gap-4 overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-xs sm:mb-8 sm:rounded-[20px]"
           >
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
               {work.hero ? (
