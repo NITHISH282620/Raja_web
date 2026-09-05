@@ -10,7 +10,7 @@ import { SECTION_IDS } from "@/content/navigation";
 import { clsx } from "@/lib/clsx";
 
 /* ==========================================================================
-   FLAT-TOP HONEYCOMB GEOMETRY (Matching Production Exactly)
+   DESKTOP HONEYCOMB GEOMETRY (Matching Production Exactly)
    ========================================================================== */
 
 const HEX_W = 120;
@@ -23,7 +23,6 @@ const HERO_W = 158;
 const HERO_H = 137;
 const WING_GAP = 6;
 
-/* 4 columns x 2 rows per wing = 8 tiles on Left, 8 tiles on Right */
 const WING_COLS = 4;
 const TOTAL_DESKTOP_SLOTS = 16; // 8 left + 8 right
 
@@ -50,7 +49,6 @@ const rightWingLayout = [
 ];
 
 function tilePos(col: number, row: number, isRight = false) {
-  // Odd columns shift DOWN by HALF_ROW to nest hexagons
   const colDrop = (col % 2 === (isRight ? 0 : 1)) ? HALF_ROW : 0;
   return {
     x: col * COL_PITCH,
@@ -69,11 +67,62 @@ const LEFT_Y = 10;
 const HERO_Y = (GRID_H - HERO_H) / 2;
 const RIGHT_Y = LEFT_Y;
 
-/* Rounded SVG Hexagon Path used across desktop & mobile */
+/* ==========================================================================
+   MOBILE HONEYCOMB GEOMETRY (Exact Wing/Center/Wing Architecture, Minimized)
+   ========================================================================== */
+
+const M_HEX_W = 68;
+const M_HEX_H = 59;
+const M_COL_PITCH = 52.5;
+const M_ROW_PITCH = 61;
+const M_HALF_ROW = 30.5;
+
+const M_HERO_W = 92;
+const M_HERO_H = 80;
+const M_WING_GAP = 4;
+
+const mobileLeftWingLayout = [
+  { col: 0, row: 0 },
+  { col: 0, row: 1 },
+  { col: 1, row: 0 },
+  { col: 1, row: 1 },
+  { col: 2, row: 0 },
+  { col: 2, row: 1 },
+];
+
+const mobileRightWingLayout = [
+  { col: 0, row: 0 },
+  { col: 0, row: 1 },
+  { col: 1, row: 0 },
+  { col: 1, row: 1 },
+  { col: 2, row: 0 },
+  { col: 2, row: 1 },
+];
+
+function mobileTilePos(col: number, row: number, isRight = false) {
+  const colDrop = (col % 2 === (isRight ? 0 : 1)) ? M_HALF_ROW : 0;
+  return {
+    x: col * M_COL_PITCH,
+    y: row * M_ROW_PITCH + colDrop,
+  };
+}
+
+const M_WING_W = 2 * M_COL_PITCH + M_HEX_W; // ~173px
+const M_GRID_W = M_WING_W + M_WING_GAP + M_HERO_W + M_WING_GAP + M_WING_W; // ~446px
+const M_GRID_H = M_ROW_PITCH + M_HALF_ROW + M_HEX_H; // ~150.5px
+
+const M_LEFT_X = 0;
+const M_HERO_X = M_WING_W + M_WING_GAP;
+const M_RIGHT_X = M_HERO_X + M_HERO_W + M_WING_GAP;
+const M_LEFT_Y = 6;
+const M_HERO_Y = (M_GRID_H - M_HERO_H) / 2;
+const M_RIGHT_Y = M_LEFT_Y;
+
+/* Rounded SVG Hexagon Path */
 const HEX_PATH =
   "M37 4 L83 4 Q89 4 93 10 L112 44 Q116 52 112 60 L93 94 Q89 100 83 100 L37 100 Q31 100 27 94 L8 60 Q4 52 8 44 L27 10 Q31 4 37 4 Z";
 
-/* --- Flat-Top Hexagon Component ------------------------------------------- */
+/* --- Desktop Flat-Top Hexagon Component ----------------------------------- */
 
 function FlatHex({
   client,
@@ -149,34 +198,44 @@ function FlatHex({
   );
 }
 
-/* --- Mobile Hexagon Tile (Rounded SVG, Fluid Scaling, Touch-Friendly) ---- */
+/* --- Mobile Minimized Hexagon (Exact Same Shape, Scaled Down & Aligned) --- */
 
-function MobileHex({
+function MobileMinimizedHex({
   client,
   isDelayed,
   isFlipping,
+  style,
+  onClick,
 }: {
   client: ClientItem;
   isDelayed?: boolean;
   isFlipping?: boolean;
+  style?: React.CSSProperties;
+  onClick?: () => void;
 }) {
-  const [showDetail, setShowDetail] = useState(false);
-
   return (
     <div
       data-logo-tile
       data-reveal
-      onClick={() => setShowDetail((v) => !v)}
+      onClick={onClick}
       className={clsx(
-        "relative flex h-[74px] w-[86px] sm:h-[88px] sm:w-[102px] items-center justify-center cursor-pointer select-none",
+        "group absolute flex items-center justify-center cursor-pointer select-none",
+        "transition-all duration-300",
         isDelayed ? "animate-float-delayed" : "animate-float"
       )}
-      style={{ filter: "drop-shadow(0 3px 10px rgba(0,0,0,0.06))" }}
+      style={{
+        width: M_HEX_W,
+        height: M_HEX_H,
+        filter: "drop-shadow(0 3px 8px rgba(0,0,0,0.05))",
+        zIndex: 10,
+        ...style,
+      }}
     >
       <div
         className={clsx(
           "relative w-full h-full transition-all duration-300 ease-out",
-          isFlipping ? "[transform:rotateY(90deg)_scale(0.88)] opacity-40" : "[transform:rotateY(0deg)_scale(1)] opacity-100"
+          "active:scale-95",
+          isFlipping ? "[transform:rotateY(90deg)_scale(0.85)] opacity-40" : "[transform:rotateY(0deg)_scale(1)] opacity-100"
         )}
       >
         <svg viewBox="0 0 120 104" className="w-full h-full" fill="none">
@@ -185,27 +244,20 @@ function MobileHex({
             fill="#FFFFFF"
             stroke="#E2E5EA"
             strokeWidth="1.4"
+            className="transition-colors duration-200 group-hover:stroke-brand-blue/30"
           />
         </svg>
 
-        <div className="absolute inset-0 flex items-center justify-center p-2.5">
+        <div className="absolute inset-0 flex items-center justify-center p-1.5">
           <Image
             src={client.logo.src}
             alt={client.name}
             width={client.logo.width}
             height={client.logo.height}
             draggable={false}
-            className="max-h-[42px] max-w-[62px] sm:max-h-[50px] sm:max-w-[74px] object-contain"
+            className="max-h-[34px] max-w-[48px] object-contain transition-transform duration-200"
           />
         </div>
-
-        {/* Mobile Tap Popup */}
-        {showDetail && (
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-50 whitespace-nowrap px-2.5 py-1 rounded-md bg-[#063c5a] text-white text-[10px] shadow-lg">
-            <span className="font-semibold">{client.name}</span>
-            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#063c5a] rotate-45" />
-          </div>
-        )}
       </div>
     </div>
   );
@@ -226,9 +278,10 @@ export function ClientsView({}: {
     CLIENTS_27.slice(0, TOTAL_DESKTOP_SLOTS)
   );
   const [flippingSlots, setFlippingSlots] = useState<Set<number>>(new Set());
+  const [selectedClient, setSelectedClient] = useState<ClientItem | null>(null);
   const queueIndexRef = useRef(TOTAL_DESKTOP_SLOTS);
 
-  /* Dynamic Logo Cycling Effect */
+  /* Dynamic Logo Cycling Effect across both desktop and mobile */
   useEffect(() => {
     const timer = setInterval(() => {
       const availableSlots: number[] = [];
@@ -319,7 +372,7 @@ export function ClientsView({}: {
         </div>
 
         <div className="frame w-full">
-          <div className="relative w-full py-12 sm:py-16 lg:py-20 lg:min-h-[85vh] rounded-[28px] sm:rounded-[44px] lg:rounded-[56px] bg-gradient-to-b from-white via-[#fafbfe] to-[#f0f3f7] border border-ink/8 shadow-[0_28px_80px_-20px_rgba(0,0,0,0.08)] p-4 sm:p-8 md:p-12 lg:p-16 flex flex-col items-center justify-center overflow-hidden">
+          <div className="relative w-full py-10 sm:py-16 lg:py-20 lg:min-h-[85vh] rounded-[28px] sm:rounded-[44px] lg:rounded-[56px] bg-gradient-to-b from-white via-[#fafbfe] to-[#f0f3f7] border border-ink/8 shadow-[0_28px_80px_-20px_rgba(0,0,0,0.08)] px-3 py-8 sm:p-8 md:p-12 lg:p-16 flex flex-col items-center justify-center overflow-hidden">
             {/* Atmospheric blurs */}
             <div
               aria-hidden
@@ -338,22 +391,22 @@ export function ClientsView({}: {
             <div
               data-clients-header
               data-reveal
-              className="mx-auto max-w-[760px] text-center mb-8 sm:mb-12 lg:mb-14"
+              className="mx-auto max-w-[760px] text-center mb-6 sm:mb-12 lg:mb-14"
             >
-              <p className="t-eyebrow text-accent font-mono tracking-[0.2em] uppercase text-xs sm:text-sm mb-3 font-medium">
+              <p className="t-eyebrow text-accent font-mono tracking-[0.2em] uppercase text-xs sm:text-sm mb-2.5 font-medium">
                 Institutional &amp; Enterprise Trust
               </p>
-              <h2 className="text-[clamp(2rem,5vw,3.25rem)] font-bold text-ink tracking-tight leading-[1.08]">
+              <h2 className="text-[clamp(1.75rem,5vw,3.25rem)] font-bold text-ink tracking-tight leading-[1.1]">
                 Partners &amp; Clients with Raja Enterprises
               </h2>
-              <p className="mt-3.5 text-body-light text-sm sm:text-base md:text-lg leading-relaxed max-w-[58ch] mx-auto">
+              <p className="mt-3 text-body-light text-xs sm:text-base md:text-lg leading-relaxed max-w-[58ch] mx-auto">
                 From government mega-summits to global corporate forums and
                 trade exhibitions &mdash; we build the ground where leaders
                 gather.
               </p>
             </div>
 
-            {/* -------- DESKTOP: Expanded 17-Tile Honeycomb Grid -------- */}
+            {/* -------- DESKTOP: Expanded 17-Tile Honeycomb Grid (lg+) -------- */}
             <div
               className="relative mx-auto my-auto hidden lg:block scale-[0.98] xl:scale-[1.12] 2xl:scale-[1.2] origin-center"
               style={{ width: GRID_W, height: GRID_H }}
@@ -459,54 +512,77 @@ export function ClientsView({}: {
               })}
             </div>
 
-            {/* -------- MOBILE / TABLET: Responsive Interlocking Honeycomb -------- */}
-            <div className="lg:hidden mx-auto flex w-full max-w-[460px] flex-col items-center mt-2">
-              {/* Row 1: 3 tiles */}
-              <div className="flex justify-center gap-2 sm:gap-3">
-                {[0, 1, 2].map((idx) => (
-                  <MobileHex
-                    key={idx}
-                    client={activeClients[idx] || CLIENTS_27[idx]}
-                    isFlipping={flippingSlots.has(idx)}
-                    isDelayed={idx % 2 === 1}
-                  />
-                ))}
-              </div>
+            {/* -------- MOBILE / TABLET: Exact Wing/Center/Wing Architecture (Minimized & Aligned) -------- */}
+            <div className="lg:hidden w-full flex flex-col items-center justify-center my-auto py-2">
+              <div
+                className="relative flex items-center justify-center origin-center transition-transform duration-300 scale-[0.72] min-[370px]:scale-[0.76] min-[390px]:scale-[0.80] min-[420px]:scale-[0.86] sm:scale-100"
+                style={{ width: M_GRID_W, height: M_GRID_H }}
+              >
+                {/* Mobile Left Wing (6 tiles across 3 columns, interlocking) */}
+                {mobileLeftWingLayout.map((pos, i) => {
+                  const { x, y } = mobileTilePos(pos.col, pos.row, false);
+                  const client = activeClients[i] || CLIENTS_27[i % CLIENTS_27.length];
+                  return (
+                    <MobileMinimizedHex
+                      key={`m-left-${i}`}
+                      client={client}
+                      isDelayed={i % 2 === 1}
+                      isFlipping={flippingSlots.has(i)}
+                      onClick={() => setSelectedClient(client)}
+                      style={{ left: M_LEFT_X + x, top: M_LEFT_Y + y }}
+                    />
+                  );
+                })}
 
-              {/* Row 2: 2 tiles */}
-              <div className="flex justify-center gap-2 sm:gap-3 -mt-2.5 sm:-mt-3.5">
-                {[3, 4].map((idx) => (
-                  <MobileHex
-                    key={idx}
-                    client={activeClients[idx] || CLIENTS_27[idx]}
-                    isFlipping={flippingSlots.has(idx)}
-                    isDelayed={idx % 2 === 0}
-                  />
-                ))}
-              </div>
-
-              {/* Row 3: 1 tile + Center Raja Badge + 1 tile */}
-              <div className="flex items-center justify-center gap-2 sm:gap-3 -mt-2.5 sm:-mt-3.5">
-                <MobileHex
-                  client={activeClients[5] || CLIENTS_27[5]}
-                  isFlipping={flippingSlots.has(5)}
-                  isDelayed={false}
-                />
-
-                {/* Mobile Center Hexagon Badge */}
+                {/* Mobile Central Hero Badge (Exactly like Desktop, Scaled) */}
                 <div
                   data-center-hexagon
                   data-reveal
-                  className="relative flex h-[82px] w-[94px] sm:h-[96px] sm:w-[110px] items-center justify-center transition-all duration-300 hover:scale-105 z-20"
-                  style={{ filter: "drop-shadow(0 0 24px rgba(6,60,90,0.4))" }}
+                  className="group absolute flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 z-20"
+                  style={{
+                    left: M_HERO_X,
+                    top: M_HERO_Y,
+                    width: M_HERO_W,
+                    height: M_HERO_H,
+                    filter: "drop-shadow(0 0 28px rgba(6,60,90,0.45))",
+                  }}
                 >
-                  <svg viewBox="0 0 158 137" className="w-full h-full" fill="none">
+                  <svg
+                    viewBox="0 0 158 137"
+                    className="w-full h-full"
+                    fill="none"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="reDarkHexMobile"
+                        x1="79"
+                        y1="0"
+                        x2="79"
+                        y2="137"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop offset="0%" stopColor="#0c2333" />
+                        <stop offset="50%" stopColor="#063c5a" />
+                        <stop offset="100%" stopColor="#031622" />
+                      </linearGradient>
+                      <linearGradient
+                        id="reBorderGlowMobile"
+                        x1="0"
+                        y1="0"
+                        x2="158"
+                        y2="137"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
+                        <stop offset="50%" stopColor="#eb5557" stopOpacity="0.65" />
+                        <stop offset="100%" stopColor="#ffffff" stopOpacity="0.25" />
+                      </linearGradient>
+                    </defs>
                     <path
                       d="M48 5 L110 5 Q117 5 122 13 L148 58 Q153 68.5 148 79 L122 124 Q117 132 110 132 L48 132 Q41 132 36 124 L10 79 Q5 68.5 10 58 L36 13 Q41 5 48 5 Z"
-                      fill="#063c5a"
-                      stroke="#ffffff"
-                      strokeWidth="2"
-                      strokeOpacity="0.4"
+                      fill="url(#reDarkHexMobile)"
+                      stroke="url(#reBorderGlowMobile)"
+                      strokeWidth="2.5"
                     />
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center p-3">
@@ -514,47 +590,55 @@ export function ClientsView({}: {
                       src="/media/brand-raja-logo.webp"
                       alt="Raja Enterprises Logo"
                       width={120}
-                      height={45}
+                      height={50}
                       draggable={false}
-                      className="max-h-[30px] sm:max-h-[36px] w-auto object-contain brightness-0 invert drop-shadow-sm"
+                      className="max-h-[34px] w-auto object-contain brightness-0 invert drop-shadow-sm"
                     />
                   </div>
                 </div>
 
-                <MobileHex
-                  client={activeClients[6] || CLIENTS_27[6]}
-                  isFlipping={flippingSlots.has(6)}
-                  isDelayed={true}
-                />
+                {/* Mobile Right Wing (6 tiles across 3 columns, interlocking) */}
+                {mobileRightWingLayout.map((pos, i) => {
+                  const { x, y } = mobileTilePos(pos.col, pos.row, true);
+                  const slotIndex = 6 + i;
+                  const client = activeClients[slotIndex] || CLIENTS_27[(6 + i) % CLIENTS_27.length];
+                  return (
+                    <MobileMinimizedHex
+                      key={`m-right-${i}`}
+                      client={client}
+                      isDelayed={i % 2 === 0}
+                      isFlipping={flippingSlots.has(slotIndex)}
+                      onClick={() => setSelectedClient(client)}
+                      style={{ left: M_RIGHT_X + x, top: M_RIGHT_Y + y }}
+                    />
+                  );
+                })}
               </div>
 
-              {/* Row 4: 2 tiles */}
-              <div className="flex justify-center gap-2 sm:gap-3 -mt-2.5 sm:-mt-3.5">
-                {[7, 8].map((idx) => (
-                  <MobileHex
-                    key={idx}
-                    client={activeClients[idx] || CLIENTS_27[idx]}
-                    isFlipping={flippingSlots.has(idx)}
-                    isDelayed={idx % 2 === 1}
-                  />
-                ))}
-              </div>
-
-              {/* Row 5: 3 tiles */}
-              <div className="flex justify-center gap-2 sm:gap-3 -mt-2.5 sm:-mt-3.5">
-                {[9, 10, 11].map((idx) => (
-                  <MobileHex
-                    key={idx}
-                    client={activeClients[idx] || CLIENTS_27[idx]}
-                    isFlipping={flippingSlots.has(idx)}
-                    isDelayed={idx % 2 === 0}
-                  />
-                ))}
-              </div>
+              {/* Mobile Tap Details Popup Banner */}
+              {selectedClient && (
+                <div
+                  className="mt-4 flex items-center justify-between gap-3 w-full max-w-[340px] px-3.5 py-2 rounded-xl bg-[#063c5a] text-white text-[11px] shadow-lg animate-fadeIn"
+                >
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-semibold truncate">{selectedClient.name}</span>
+                    <span className="text-accent text-[10px] font-mono uppercase tracking-wider truncate">
+                      {selectedClient.event}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedClient(null)}
+                    className="p-1 text-white/70 hover:text-white"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Interactive hint */}
-            <div className="mt-8 sm:mt-10 flex items-center gap-2 text-ink/40 font-mono text-[11px] tracking-wider uppercase">
+            <div className="mt-6 sm:mt-10 flex items-center gap-2 text-ink/40 font-mono text-[11px] tracking-wider uppercase text-center">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-blue animate-ping" />
               <span>Showcasing {CLIENTS_27.length} Commissioning Bodies &amp; Flagship Summits</span>
             </div>
