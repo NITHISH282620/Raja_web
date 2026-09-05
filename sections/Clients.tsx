@@ -302,56 +302,81 @@ export function ClientsView({
               })}
             </div>
 
-            {/* -------- MOBILE / TABLET: Responsive Grid -------- */}
-            <div className="lg:hidden grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-[540px] mx-auto my-auto justify-items-center">
-              {clients.slice(0, 5).map((c) => (
-                <div
-                  key={c.id}
-                  data-logo-tile
-                  data-reveal
-                  className="group flex h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] items-center justify-center rounded-2xl bg-white border border-ink/8 shadow-sm p-2 transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-md"
-                >
-                  <Image
-                    src={c.logo.src}
-                    alt={c.name}
-                    width={c.logo.width}
-                    height={c.logo.height}
-                    className="max-h-[50px] max-w-[70px] object-contain"
-                  />
-                </div>
-              ))}
+            {/* -------- MOBILE / TABLET: honeycomb --------
 
-              <div
-                data-center-hexagon
-                data-reveal
-                className="group col-span-1 flex h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] items-center justify-center rounded-2xl bg-brand-blue shadow-md p-3 transition-all duration-300 hover:scale-110"
-              >
-                <Image
-                  src="/media/brand-raja-logo.webp"
-                  alt="Raja Enterprises Logo"
-                  width={160}
-                  height={50}
-                  className="max-h-[30px] w-auto object-contain brightness-0 invert drop-shadow-sm"
-                />
-              </div>
+              This was a plain 3-column grid of rounded squares, which threw
+              away the shape the desktop section is built on — and it rendered
+              `clients.slice(0, 5)` then `clients.slice(6, 12)`, so index 5 was
+              never drawn at all and one client silently went missing.
 
-              {clients.slice(6, 12).map((c) => (
-                <div
-                  key={c.id}
-                  data-logo-tile
-                  data-reveal
-                  className="group flex h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] items-center justify-center rounded-2xl bg-white border border-ink/8 shadow-sm p-2 transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-md"
-                >
-                  <Image
-                    src={c.logo.src}
-                    alt={c.name}
-                    width={c.logo.width}
-                    height={c.logo.height}
-                    className="max-h-[50px] max-w-[70px] object-contain"
-                  />
-                </div>
-              ))}
+              Now it is the same honeycomb, laid out in interlocking rows of
+              3-2-3-2-2 with the Raja mark taking the centre cell of the middle
+              row. Rows overlap vertically by a quarter of a tile so the hexes
+              nest the way they do on desktop, and every client is rendered.
+            -------------------------------------------------------------- */}
+            <div className="lg:hidden mx-auto flex w-full max-w-[420px] flex-col items-center">
+              {(() => {
+                const rows: (Client | "brand")[][] = [];
+                const pool = [...clients];
+                const take = (n: number) => pool.splice(0, n);
+                rows.push(take(3));
+                rows.push(take(2));
+                const middle: (Client | "brand")[] = [...take(1), "brand", ...take(1)];
+                rows.push(middle);
+                rows.push(take(2));
+                rows.push(pool);
+                return rows.map((row, ri) => (
+                  <div
+                    key={ri}
+                    className="flex justify-center gap-2 sm:gap-2.5"
+                    style={{ marginTop: ri === 0 ? 0 : "-14px" }}
+                  >
+                    {row.map((cell, ci) =>
+                      cell === "brand" ? (
+                        <div
+                          key="brand"
+                          data-center-hexagon
+                          data-reveal
+                          className="flex h-[84px] w-[74px] items-center justify-center bg-brand-blue p-2.5 shadow-md sm:h-[96px] sm:w-[84px]"
+                          style={{
+                            clipPath:
+                              "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+                          }}
+                        >
+                          <Image
+                            src="/media/brand-raja-logo.webp"
+                            alt="Raja Enterprises"
+                            width={160}
+                            height={50}
+                            className="max-h-[26px] w-auto object-contain brightness-0 invert"
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          key={cell.id}
+                          data-logo-tile
+                          data-reveal
+                          className="flex h-[84px] w-[74px] items-center justify-center bg-white p-2.5 shadow-[0_6px_18px_-8px_rgba(0,0,0,0.22)] sm:h-[96px] sm:w-[84px]"
+                          style={{
+                            clipPath:
+                              "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+                          }}
+                        >
+                          <Image
+                            src={cell.logo.src}
+                            alt={cell.name}
+                            width={cell.logo.width}
+                            height={cell.logo.height}
+                            className="max-h-[40px] max-w-[50px] object-contain"
+                          />
+                        </div>
+                      ),
+                    )}
+                  </div>
+                ));
+              })()}
             </div>
+
           </div>
         </div>
       </div>
