@@ -152,31 +152,26 @@ export function WorksView({ projects }: { projects: Project[] }) {
       });
 
       // Mobile: simple stacked layout with scroll animations
-      mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
-        const mobileCards = q(scope, "[data-mobile-card]");
-        mobileCards.forEach((card) => {
-          gsap.fromTo(
-            card,
-            { opacity: 0, y: 30 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.7,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-                once: true,
-              },
-            },
-          );
-        });
-      });
-
-      // Mobile: stagger cards entrance with ScrollTrigger
+      /**
+       * Mobile.
+       *
+       * There were two matchMedia blocks here registered on the SAME query —
+       * `(max-width: 1023px) and (prefers-reduced-motion: no-preference)` is
+       * exactly what MOTION_COMPACT expands to — both tweening
+       * [data-mobile-card] from different starting values, the second with
+       * clearProps wiping whatever the first had set. They fought, and the
+       * result read as no motion at all.
+       *
+       * One block now. The card enters, and its image scrubs against scroll so
+       * the section has the same sense of movement the desktop stack has,
+       * without pinning anything on a touch device.
+       */
       mm.add(MOTION_COMPACT, () => {
         const mobileCards = q(scope, "[data-mobile-card]");
+
         mobileCards.forEach((card) => {
+          const img = card.querySelector<HTMLElement>("[data-mobile-card-image]");
+
           gsap.fromTo(
             card,
             { opacity: 0, y: 28, scale: 0.97 },
@@ -186,14 +181,29 @@ export function WorksView({ projects }: { projects: Project[] }) {
               scale: 1,
               duration: 0.65,
               ease: EASE.primary,
-              clearProps: "transform,opacity",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 90%",
-                once: true,
-              },
-            }
+              scrollTrigger: { trigger: card, start: "top 90%", once: true },
+              onComplete: () => release([card]),
+            },
           );
+
+          // Scrubbed image drift. Transform only, so it stays on the compositor.
+          if (img) {
+            gsap.fromTo(
+              img,
+              { yPercent: -6, scale: 1.08 },
+              {
+                yPercent: 6,
+                scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 0.6,
+                },
+              },
+            );
+          }
         });
       });
 
@@ -332,14 +342,16 @@ export function WorksView({ projects }: { projects: Project[] }) {
           >
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
               {work.hero ? (
-                <Image
-                  src={work.hero.src}
-                  alt={work.hero.alt}
-                  fill
-                  sizes="(max-width: 1023px) 100vw, 55vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  style={work.hero.focal ? { objectPosition: work.hero.focal } : undefined}
-                />
+                <div data-mobile-card-image className="absolute inset-0 will-change-transform">
+                  <Image
+                    src={work.hero.src}
+                    alt={work.hero.alt}
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 55vw"
+                    className="object-cover"
+                    style={work.hero.focal ? { objectPosition: work.hero.focal } : undefined}
+                  />
+                </div>
               ) : (
                 <PlaceholderImage className="absolute inset-0 h-full w-full" note={work.note} />
               )}

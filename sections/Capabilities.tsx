@@ -132,7 +132,53 @@ export function CapabilitiesView({ capabilities }: { capabilities: Capability[] 
         };
 
         trackEl.addEventListener("scroll", onTrackScroll, { passive: true });
-        return () => trackEl.removeEventListener("scroll", onTrackScroll);
+
+        /**
+         * Advance the rail from vertical scroll, as the desktop track does.
+         *
+         * Desktop translates the track with `x`. That cannot be reused here:
+         * on mobile the rail is a natively scrollable, snapping element, and a
+         * transform would fight the browser's own scrolling. So the scrub
+         * drives `scrollLeft` instead, which keeps the swipe working and keeps
+         * the existing progress listener above in sync for free.
+         *
+         * CSS scroll-snap has to come off while the scrub is running — snap
+         * points fight programmatic scrolling and produce a stutter — and it is
+         * restored on cleanup so a swipe still snaps normally.
+         */
+        const viewportEl = viewport.current;
+        if (!viewportEl) {
+          return () => trackEl.removeEventListener("scroll", onTrackScroll);
+        }
+
+        const prevSnap = trackEl.style.scrollSnapType;
+        trackEl.style.scrollSnapType = "none";
+
+        const proxy = { p: 0 };
+        const scrub = gsap.to(proxy, {
+          p: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: scope,
+            start: "top top",
+            end: () => "+=" + Math.max(1, trackEl.scrollWidth - trackEl.clientWidth),
+            pin: true,
+            scrub: 0.5,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
+          },
+          onUpdate: () => {
+            const max = trackEl.scrollWidth - trackEl.clientWidth;
+            if (max > 0) trackEl.scrollLeft = proxy.p * max;
+          },
+        });
+
+        return () => {
+          trackEl.removeEventListener("scroll", onTrackScroll);
+          trackEl.style.scrollSnapType = prevSnap;
+          scrub.scrollTrigger?.kill();
+          scrub.kill();
+        };
       });
 
       return () => mm.revert();
