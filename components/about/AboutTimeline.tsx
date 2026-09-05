@@ -16,7 +16,8 @@ export function AboutTimeline() {
   const scrollToEra = (index: number) => {
     const target = root.current?.querySelector(`[data-era-card="${index}"]`);
     if (target) {
-      const offset = 110;
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+      const offset = isMobile ? 130 : 110;
       const elementPosition = target.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
         top: elementPosition - offset,
@@ -125,27 +126,77 @@ export function AboutTimeline() {
           </p>
         </div>
 
-        {/* Mobile Sticky Era Bar */}
-        <div className="lg:hidden sticky top-16 z-20 -mx-4 sm:-mx-8 px-4 sm:px-8 py-3 mb-8 bg-paper/95 backdrop-blur-md border-b border-ink/10 flex items-center justify-between gap-2 overflow-x-auto [scrollbar-width:none]">
-          <div className="flex items-center gap-1.5 shrink-0 t-eyebrow text-[11px] text-ink/50 mr-1">
-            <span>Era:</span>
-            <span className="font-semibold text-brand-blue">0{activeEra + 1} / 0{aboutTimeline.length}</span>
+        {/* Mobile Credentials Overview Card (In-flow before timeline cards) */}
+        <div className="lg:hidden mb-8 p-4 sm:p-5 rounded-2xl bg-white border border-ink/10 shadow-xs">
+          <div className="flex items-center justify-between border-b border-ink/10 pb-3 mb-3.5">
+            <span className="t-eyebrow text-xs uppercase tracking-wider text-ink/60 font-medium">Four Defining Eras</span>
+            <span className="font-mono text-xs font-bold text-brand-blue">{aboutTimeline[0].year} — Today</span>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
-            {aboutTimeline.map((era, index) => (
-              <button
-                key={era.year}
-                type="button"
-                onClick={() => scrollToEra(index)}
-                className={`px-3 py-1 rounded-full text-xs font-mono transition-all cursor-pointer ${
-                  activeEra === index
-                    ? "bg-brand-blue text-white font-semibold shadow-xs"
-                    : "bg-ink/5 text-ink/70 hover:bg-ink/10"
-                }`}
-              >
-                {era.year}
-              </button>
-            ))}
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div className="text-left">
+              <p className="font-mono text-xl sm:text-2xl font-bold text-ink">{yearsInOperation()}</p>
+              <p className="t-eyebrow text-[9px] sm:text-[10px] text-ink/50 uppercase">Years Proven</p>
+            </div>
+            <div className="border-x border-ink/10 px-2">
+              <p className="font-mono text-xl sm:text-2xl font-bold text-brand-blue">{FOUNDED_YEAR}</p>
+              <p className="t-eyebrow text-[9px] sm:text-[10px] text-ink/50 uppercase">Founded</p>
+            </div>
+            <div className="text-right">
+              <p className="font-mono text-xl sm:text-2xl font-bold text-ink">100%</p>
+              <p className="t-eyebrow text-[9px] sm:text-[10px] text-ink/50 uppercase">Direct Owned</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Sticky Era Header (Docked flush to top with solid background & rich active era content) */}
+        <div className="lg:hidden sticky top-0 z-30 -mx-4 sm:-mx-8 px-4 sm:px-8 pt-3 pb-3.5 mb-8 bg-paper border-b border-ink/10 shadow-sm transition-all duration-200">
+          {/* Row 1: Tracker Title, Counter, and Period */}
+          <div className="flex items-center justify-between gap-2 mb-1.5">
+            <div className="flex items-center gap-2">
+              <span className="t-eyebrow text-[10px] uppercase tracking-wider text-ink/50 font-semibold">
+                Era Tracker
+              </span>
+              <span className="h-1 w-1 rounded-full bg-ink/20" />
+              <span className="font-mono text-xs font-bold text-brand-blue">
+                0{activeEra + 1} / 0{aboutTimeline.length}
+              </span>
+            </div>
+            <span className="font-mono text-[10px] font-semibold text-ink/60 bg-ink/5 px-2 py-0.5 rounded-full">
+              {aboutTimeline[activeEra].period}
+            </span>
+          </div>
+
+          {/* Row 2: Active Era Headline */}
+          <div className="mb-2.5">
+            <p className="text-sm font-semibold text-ink tracking-tight truncate">
+              {aboutTimeline[activeEra].headline}
+            </p>
+          </div>
+
+          {/* Row 3: Era Navigation Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto [scrollbar-width:none] -mx-1 px-1">
+            {aboutTimeline.map((era, index) => {
+              const isActive = activeEra === index;
+              return (
+                <button
+                  key={era.year}
+                  type="button"
+                  onClick={() => scrollToEra(index)}
+                  className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? "bg-brand-blue text-white font-semibold shadow-xs"
+                      : "bg-white border border-ink/10 text-ink/70 hover:bg-neutral-100"
+                  }`}
+                >
+                  <span>{era.year}</span>
+                  {isActive && (
+                    <span className="text-[10px] font-sans font-medium text-white/80 border-l border-white/20 pl-1.5 truncate max-w-[120px]">
+                      {era.tag}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
 
