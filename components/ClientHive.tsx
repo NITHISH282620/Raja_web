@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, release, q } from "@/motion/primitives";
 import { EASE, MOTION_OK } from "@/motion/ease";
-import { weave, type RosterEntry } from "@/content/clientRoster";
+import type { RosterEntry } from "@/content/clientRoster";
 
 /**
  * The client honeycomb.
@@ -49,42 +49,50 @@ import { weave, type RosterEntry } from "@/content/clientRoster";
  * two-deep strip; it simply runs wider than the frame, and the reader drags it
  * through. What is on screen at rest is production's twelve-tile composition,
  * centred on the mark. What is off screen is the other fifteen. */
-const COL_OVERLAP = 0.25; // of cell width — slots the points into the notches
-const COL_DROP = 0.5; // of cell height, applied to alternate columns
+/*
+ * These four numbers are measured off the production comb at 1440, not derived
+ * from ideal hexagon geometry — and they are not the same thing. A perfect
+ * honeycomb has a column pitch of 0.75·W and a row pitch of exactly H. Production
+ * runs both slightly looser: 0.777·W across and 1.046·H down. That extra few per
+ * cent is the difference between tiles that interlock and tiles that sit near
+ * each other, and it is most of what "more space between the cards" means here.
+ */
+const COL_PITCH = 0.777; // of cell width, centre to centre
+const COL_OVERLAP = 1 - COL_PITCH;
+const ROW_GAP = 0.046; // of cell height, between tiles stacked in a column
+const COL_DROP = (1 + ROW_GAP) / 2; // of cell height, applied to alternate columns
 const PER_COL = 2;
 
 /**
- * The tile is drawn smaller than its cell. The honeycomb positions stay exactly
- * as they are — that is what makes it a comb rather than a grid — but each
- * hexagon is inset inside its cell so the tiles read as separate cards with air
- * between them. Drawn edge to edge they fuse into one white sheet.
+ * The hexagon fills its cell.
  *
- * The inset is what sets the gap, and the gap is uniform in every direction:
- * vertical neighbours sit H apart and diagonal neighbours sqrt(3)/2 · W apart,
- * which for a regular hexagon is the same distance. So one number controls the
- * whole comb's spacing. Production runs it looser than a first pass here did —
- * roughly a sixth of a tile of clear space rather than a tenth.
+ * Earlier passes inset it and got the air that way. Production does not: its
+ * tile element measures 150x130 and the hexagon is the whole of it. All the
+ * clear space comes from the pitch above being looser than a true honeycomb —
+ * 0.777·W across instead of 0.75, 1.046·H down instead of 1.0 — which leaves a
+ * thin, even gap at every interlocking point. Insetting on top of that shrank
+ * the tiles for no reason and made every logo look small.
  */
-const TILE_SCALE = 0.795;
+const TILE_SCALE = 1;
 
 /**
  * Rounded corners, via stroke rather than clip-path. `clip-path: polygon()`
  * cannot round a vertex; stroking the same polygon in its own fill colour with a
  * round line join does, and gives the drop shadow a soft edge to catch.
  */
-const HEX_POINTS = "25,4 75,4 96,50 75,96 25,96 4,50";
+const HEX_POINTS = "25,5 75,5 95,50 75,95 25,95 5,50";
 
 /**
  * Corner radius, as stroke width.
  *
  * This has to stay small. The stroke straddles the path, so half of it becomes
  * the corner radius, and at 13 units against a 50-unit edge the arcs ate a
- * quarter of every side and the hexagon read as an octagon. Eight units — four
- * of radius — is the production corner: clearly softened, still unmistakably
- * six-sided. The points above are inset by that four so the finished shape
- * still fills its cell exactly.
+ * quarter of every side and the hexagon read as an octagon. Ten units — five of
+ * radius — keeps four fifths of every edge straight, which is soft to the eye
+ * and still unmistakably six-sided. The points above are inset by that five so
+ * the finished shape fills its cell exactly.
  */
-const HEX_ROUND = 8;
+const HEX_ROUND = 10;
 const HEX_ROUND_OUTER = HEX_ROUND + 1.5;
 
 /**
@@ -109,15 +117,28 @@ function Tile({ entry, idx }: { entry: RosterEntry; idx: number }) {
       className="relative shrink-0"
       style={{ width: "var(--hex-w)", height: "var(--hex-h)" }}
     >
+      {/*
+        Three transforms, three elements. They cannot share one: the float
+        keyframes animate `transform`, which replaces the whole property — so
+        putting them on the centring element wiped its `-translate-x-1/2
+        -translate-y-1/2` and every tile jumped half its own size out of place
+        the moment the animation started. The cell itself carries GSAP's entrance
+        transform, this box does the centring with `inset-0 m-auto` (no transform
+        at all), the next one drifts, and the innermost one scales on hover.
+      */}
+      <div
+        className="absolute inset-0 m-auto"
+        style={{ width: `${TILE_SCALE * 100}%`, height: `${TILE_SCALE * 100}%` }}
+      >
       <div
         className={[
-          "group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 hover:scale-[1.07]",
+          "h-full w-full",
           // Alternating drift so the comb breathes rather than pulsing in
           // unison. Both classes are gated on prefers-reduced-motion already.
           idx % 2 === 0 ? "animate-float" : "animate-float-delayed",
         ].join(" ")}
-        style={{ width: `${TILE_SCALE * 100}%`, height: `${TILE_SCALE * 100}%` }}
       >
+      <div className="group relative h-full w-full transition-transform duration-300 hover:scale-[1.07]">
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
@@ -131,7 +152,17 @@ function Tile({ entry, idx }: { entry: RosterEntry; idx: number }) {
           <polygon points={HEX_POINTS} fill="#e4e9f0" stroke="#e4e9f0" strokeWidth={HEX_ROUND_OUTER} strokeLinejoin="round" />
           <polygon points={HEX_POINTS} fill="#ffffff" stroke="#ffffff" strokeWidth={HEX_ROUND} strokeLinejoin="round" />
         </svg>
-        <span className="absolute inset-0 flex items-center justify-center px-[14%]">
+        {/*
+                Production caps the mark at 86x58 inside a 120x104 tile, then
+                scales the whole comb by 1.25 at xl — so the ratios are 71.7% of
+                the tile's width and 55.8% of its height, and those two numbers
+                are not independent. A flat-top hexagon is only full width across
+                its middle and narrows to half width at the flats, so a mark of
+                height h can be at most W·(1 - h/2H) wide. At 55.8% tall that
+                allows 72.1% wide, and production sits at 71.7% — right on the
+                limit. Change one and the other has to move with it.
+              */}
+              <span className="absolute inset-0 flex items-center justify-center">
           {entry.logo ? (
             <Image
               src={entry.logo.src}
@@ -139,21 +170,29 @@ function Tile({ entry, idx }: { entry: RosterEntry; idx: number }) {
               width={entry.logo.width}
               height={entry.logo.height}
               draggable={false}
-              className="max-h-[52%] max-w-full object-contain"
+              className="max-h-[55.8%] max-w-[71.7%] object-contain"
             />
           ) : (
             /* A monogram reads as deliberate; a truncated name reads as a
-               rendering fault. The full name is still on the tile's title. */
-            <span className="flex flex-col items-center justify-center gap-0.5">
-              <span className="font-display text-[clamp(14px,1.4vw,21px)] font-semibold leading-none tracking-tight text-brand-blue/75">
+               rendering fault. The full name is still on the tile's title.
+
+               Held to the same safe box as a logo, and for the same reason: a
+               two- or three-line name is much taller than a wordmark, and the
+               hexagon narrows as it goes, so the block that fits at the middle
+               does not fit further up. Without the cap these overflowed the
+               tile at every width. */
+            <span className="flex max-h-[55.8%] max-w-[71.7%] flex-col items-center justify-center gap-0.5">
+              <span className="font-display text-[clamp(15px,1.6vw,24px)] font-semibold leading-none tracking-tight text-brand-blue/75">
                 {entry.monogram}
               </span>
-              <span className="max-w-[78%] text-center font-mono text-[7px] leading-[1.25] tracking-tight text-ink/40 sm:text-[8px]">
+              <span className="line-clamp-3 w-full text-center font-mono text-[7.5px] leading-[1.25] tracking-tight text-ink/45 sm:text-[8.5px]">
                 {entry.shortName}
               </span>
             </span>
           )}
         </span>
+      </div>
+      </div>
       </div>
     </div>
   );
@@ -168,6 +207,7 @@ function Wing({ entries, offset }: { entries: RosterEntry[]; offset: number }) {
           key={ci}
           className="flex flex-col"
           style={{
+            gap: `calc(var(--hex-h) * ${ROW_GAP})`,
             marginLeft: ci === 0 ? 0 : `calc(var(--hex-w) * -${COL_OVERLAP})`,
             marginTop: ci % 2 === 1 ? `calc(var(--hex-h) * ${COL_DROP})` : 0,
           }}
@@ -192,29 +232,31 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
   const [overflows, setOverflows] = useState(false);
 
   /*
-   * Build each wing from its own mix of marks and monograms.
+   * Real logos sit nearest the Raja mark; monograms taper outward.
    *
-   * Slicing the roster in half put all twelve logos in the left wing and all
-   * fifteen monograms in the right. Weaving the roster first and then dealing
-   * alternate entries into the wings was no better: the weave has a period of
-   * roughly two, so taking every other entry sampled it at its own frequency
-   * and de-interleaved it straight back into one wing of logos and one of
-   * initials — plain aliasing.
+   * The comb rests centred on the mark, so the columns either side of it are the
+   * ones actually on screen when the section is read — everything else has to be
+   * dragged to. Putting the organisations we hold a logo for in those columns
+   * means the resting view is real marks rather than initials, and the tiles
+   * still waiting on a logo file sit out at the edges where they are least
+   * conspicuous.
    *
-   * So the split happens before the weave. Each group is halved, and each wing
-   * weaves its own share. Both sides then carry a comparable number of real
-   * marks, spread through the comb rather than banked at one edge.
+   * Within each group the order is engagement count, strongest first, so the
+   * innermost tile of each wing is the client with the deepest record. The two
+   * wings take alternate entries from each group rather than a half-slice, so
+   * neither side ends up with all the strong marks.
+   *
+   * The left wing renders left-to-right and the mark is to its right, so its
+   * array has to run in the opposite direction: weakest monogram at the far
+   * left, strongest logo hard against the mark. The right wing reads the natural
+   * way round.
    */
   const logos = roster.filter((e) => e.logo);
   const plain = roster.filter((e) => !e.logo);
-  const left = weave(
-    logos.filter((_, i) => i % 2 === 0),
-    plain.filter((_, i) => i % 2 === 0),
-  );
-  const right = weave(
-    logos.filter((_, i) => i % 2 === 1),
-    plain.filter((_, i) => i % 2 === 1),
-  );
+  const pick = (xs: RosterEntry[], parity: 0 | 1) => xs.filter((_, i) => i % 2 === parity);
+
+  const left = [...pick(plain, 0).reverse(), ...pick(logos, 0).reverse()];
+  const right = [...pick(logos, 1), ...pick(plain, 1)];
 
   /* ------------------------------------------------------------ dragging */
   useEffect(() => {
@@ -338,7 +380,7 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
            cannot fit at any readable size and drags instead, so there is no
            reason to shrink it: the tile goes back up to a size you can actually
            read a logo in. Both numbers are measured, not guessed. */
-        "[--hex-w:clamp(70px,17.5vw,100px)] md:[--hex-w:clamp(64px,8.5vw,130px)]",
+        "[--hex-w:clamp(80px,20vw,116px)] md:[--hex-w:clamp(74px,10.4vw,150px)]",
         "[--hex-h:calc(var(--hex-w)*0.866)]",
       ].join(" ")}
     >
@@ -384,7 +426,13 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
             data-hive-tile
             data-reveal
             className="relative shrink-0"
-            style={{ width: "calc(var(--hex-w) * 1.5)", height: "calc(var(--hex-h) * 1.5)" }}
+            style={{
+              // Production's mark is 1.47x the drawn width of a client tile.
+              // The tiles are inset by TILE_SCALE and the mark is not, so its
+              // cell has to carry that factor: 1.47 x 0.787.
+              width: `calc(var(--hex-w) * ${1.47 * TILE_SCALE})`,
+              height: `calc(var(--hex-h) * ${1.47 * TILE_SCALE})`,
+            }}
           >
             <svg
               viewBox="0 0 100 100"
