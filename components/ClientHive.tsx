@@ -72,22 +72,12 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
   const rail = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
 
-  /* The Raja mark sits in the middle of the comb, as it did in the layout this
-     replaces — the clients read outward from it rather than past it. */
-  const brand: RosterEntry = {
-    id: "__raja__",
-    name: "Raja Enterprises",
-    shortName: "Raja Enterprises",
-    logo: null,
-    projects: 0,
-  };
-  const withBrand = [...roster];
-  withBrand.splice(Math.floor(roster.length / 2), 0, brand);
-
-  /* Chunk into columns of three, so the comb reads top-to-bottom then across. */
+  /* Chunk into columns of three, so the comb reads top-to-bottom then across.
+     The Raja mark is NOT in this list — it is pinned over the centre of the
+     rail below, so the clients travel past it rather than carrying it along. */
   const columns: RosterEntry[][] = [];
-  for (let i = 0; i < withBrand.length; i += PER_COL) {
-    columns.push(withBrand.slice(i, i + PER_COL));
+  for (let i = 0; i < roster.length; i += PER_COL) {
+    columns.push(roster.slice(i, i + PER_COL));
   }
 
   /* ------------------------------------------------------------ dragging */
@@ -148,6 +138,23 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
         const tiles = q(scope, "[data-hive-tile]");
+        // Gentle left-to-right pan as the section crosses the viewport. Scrubbed
+        // rather than pinned: it adds movement without taking the page's scroll
+        // away, and a reader who prefers to drag can still drag.
+        const railEl = rail.current;
+        if (railEl) {
+          const proxy = { p: 0 };
+          gsap.to(proxy, {
+            p: 1,
+            ease: "none",
+            scrollTrigger: { trigger: scope, start: "top bottom", end: "bottom top", scrub: 0.8 },
+            onUpdate: () => {
+              const max = railEl.scrollWidth - railEl.clientWidth;
+              if (max > 0) railEl.scrollLeft = proxy.p * max;
+            },
+          });
+        }
+
         gsap.fromTo(
           tiles,
           { opacity: 0, scale: 0.86, y: 14 },
@@ -181,6 +188,7 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
         } as CSSProperties
       }
     >
+      <div className="relative">
       <div
         ref={rail}
         role="group"
@@ -203,8 +211,7 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
                 marginTop: ci % 2 === 1 ? `calc(var(--hex-h) * ${COL_DROP})` : 0,
               }}
             >
-              {col.map((entry) => {
-                const isBrand = entry.id === "__raja__";
+              {col.map((entry, idx) => {
                 return (
                   <div
                     key={entry.id}
@@ -215,7 +222,13 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
                     style={{ width: "var(--hex-w)", height: "var(--hex-h)" }}
                   >
                     <div
-                      className="group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 hover:scale-[1.07]"
+                      className={[
+                        "group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 hover:scale-[1.07]",
+                        // Alternating drift, so the comb breathes rather than
+                        // pulsing in unison. Both classes are already gated on
+                        // prefers-reduced-motion in globals.css.
+                        idx % 2 === 0 ? "animate-float" : "animate-float-delayed",
+                      ].join(" ")}
                       style={{ width: `${TILE_SCALE * 100}%`, height: `${TILE_SCALE * 100}%` }}
                     >
                       <svg
@@ -226,24 +239,14 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
                       >
                         <polygon
                           points={HEX_POINTS}
-                          fill={isBrand ? "var(--color-brand-blue)" : "#ffffff"}
-                          stroke={isBrand ? "var(--color-brand-blue)" : "#ffffff"}
-                          strokeWidth="7"
+                          fill="#ffffff"
+                          stroke="#ffffff"
+                          strokeWidth="13"
                           strokeLinejoin="round"
                         />
                       </svg>
                       <span className="absolute inset-0 flex items-center justify-center px-[14%]">
-                        {isBrand ? (
-                          <Image
-                            src="/media/brand-raja-logo.webp"
-                            alt="Raja Enterprises"
-                            width={200}
-                            height={62}
-                            draggable={false}
-                            priority
-                            className="w-[76%] object-contain brightness-0 invert"
-                          />
-                        ) : entry.logo ? (
+                        {entry.logo ? (
                           <Image
                             src={entry.logo.src}
                             alt={entry.name}
@@ -264,6 +267,62 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
               })}
             </div>
           ))}
+        </div>
+      </div>
+
+        {/*
+          The Raja mark does not travel with the clients — it is pinned over the
+          centre of the rail, so they pass it rather than carry it. The halo
+          behind it is the section's own background at partial opacity: it opens
+          real space around the mark, the way the production layout does, while
+          still letting tiles scroll underneath.
+        */}
+        <div
+          data-hive-brand
+          className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+          style={{ width: "calc(var(--hex-w) * 2.3)", height: "calc(var(--hex-h) * 2.3)" }}
+          aria-hidden="true"
+        >
+          <span
+            className="absolute inset-0 rounded-full"
+            style={{
+              // Matched to the panel's own mid tone rather than to `paper`:
+              // the section sits on a white-to-#f0f3f7 gradient, so the page
+              // background showed through as a grey disc. Opaque out to 66% so
+              // tiles genuinely clear the mark instead of ghosting behind it.
+              background:
+                "radial-gradient(closest-side, #f7f9fc 66%, rgba(247,249,252,0.94) 82%, rgba(247,249,252,0) 100%)",
+            }}
+          />
+          <span
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            style={{ width: "calc(var(--hex-w) * 1.12)", height: "calc(var(--hex-h) * 1.12)" }}
+          >
+            <svg
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              className="absolute inset-0 h-full w-full drop-shadow-[0_16px_30px_rgba(0,0,0,0.22)]"
+            >
+              <polygon
+                points={HEX_POINTS}
+                fill="var(--color-brand-blue)"
+                stroke="var(--color-brand-blue)"
+                strokeWidth="13"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="absolute inset-0 flex items-center justify-center">
+              <Image
+                src="/media/brand-raja-logo.webp"
+                alt="Raja Enterprises"
+                width={220}
+                height={68}
+                priority
+                draggable={false}
+                className="w-[62%] object-contain brightness-0 invert"
+              />
+            </span>
+          </span>
         </div>
       </div>
 
