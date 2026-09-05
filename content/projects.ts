@@ -336,7 +336,7 @@ export const projects: Project[] = [
   { ...P("indian-science-congress-107", "Government of India", "107th Indian Science Congress", null, "conference", ["german-hangers", "staging-and-seating", "exhibition-stalls"], null), provenance: "raja-published" as const },
   { ...P("ambedkar-jayanti-vidhana-soudha", "Government of Karnataka", "Ambedkar Jayanti at Vidhana Soudha", null, "government", ["staging-and-seating"], "Vidhana Soudha, Bengaluru"), provenance: "raja-published" as const },
   { ...P("karnataka-cabinet-meeting", "Government of Karnataka", "Karnataka Government Cabinet Meeting", null, "government", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
-  { ...P("global-investors-summit-2023", "Government summit", "Global Investors Summit 2023", "2023", "government", ["german-hangers", "exhibition-stalls", "staging-and-seating"], "Dehradun"), provenance: "raja-published" as const },
+  { ...P("global-investors-summit-2023", "Government of Uttarakhand", "Global Investors Summit 2023", "2023", "government", ["german-hangers", "exhibition-stalls", "staging-and-seating"], "Dehradun"), provenance: "raja-published" as const },
   { ...P("ds-max-anniversary-2023", "DS Max", "DS Max Anniversary 2023", "2023", "corporate", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
   { ...P("bhima-diamonds", "Bhima Diamonds", "Bhima Diamonds event", null, "corporate", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
 

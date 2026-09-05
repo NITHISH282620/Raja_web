@@ -138,23 +138,9 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
         const tiles = q(scope, "[data-hive-tile]");
-        // Gentle left-to-right pan as the section crosses the viewport. Scrubbed
-        // rather than pinned: it adds movement without taking the page's scroll
-        // away, and a reader who prefers to drag can still drag.
-        const railEl = rail.current;
-        if (railEl) {
-          const proxy = { p: 0 };
-          gsap.to(proxy, {
-            p: 1,
-            ease: "none",
-            scrollTrigger: { trigger: scope, start: "top bottom", end: "bottom top", scrub: 0.8 },
-            onUpdate: () => {
-              const max = railEl.scrollWidth - railEl.clientWidth;
-              if (max > 0) railEl.scrollLeft = proxy.p * max;
-            },
-          });
-        }
-
+        // Movement here is manual: drag, swipe or arrow-key the rail. There is
+        // deliberately no scroll-driven pan — the section should sit still while
+        // it is being read, and move only when the reader moves it.
         gsap.fromTo(
           tiles,
           { opacity: 0, scale: 0.86, y: 14 },
@@ -256,8 +242,13 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
                             className="max-h-[52%] max-w-full object-contain"
                           />
                         ) : (
-                          <span className="text-center font-mono text-[8px] leading-[1.3] tracking-tight text-ink/55 sm:text-[9px]">
-                            {entry.shortName}
+                          <span className="flex flex-col items-center justify-center gap-0.5">
+                            <span className="font-display text-[clamp(15px,1.5vw,22px)] font-semibold leading-none tracking-tight text-brand-blue/75">
+                              {entry.monogram}
+                            </span>
+                            <span className="max-w-[74%] text-center font-mono text-[7px] leading-[1.25] tracking-tight text-ink/40 sm:text-[8px]">
+                              {entry.shortName}
+                            </span>
                           </span>
                         )}
                       </span>

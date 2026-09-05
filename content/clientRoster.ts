@@ -25,6 +25,9 @@ export interface RosterEntry {
   name: string;
   /** Shown on the tile when there is no logo. Kept short enough to read at 84px. */
   shortName: string;
+  /** Initials, used in place of a logo. A monogram reads as deliberate; a
+   *  truncated name reads as a rendering fault. */
+  monogram: string;
   logo: Client["logo"] | null;
   /** How many engagements the record holds for this organisation. */
   projects: number;
@@ -57,6 +60,19 @@ function short(name: string): string {
   return cleaned.length > 26 ? `${cleaned.slice(0, 24).trimEnd()}…` : cleaned;
 }
 
+/** Up to three initials from the significant words of a name. */
+function initials(name: string): string {
+  const skip = new Set([
+    "of","the","and","for","de","private","pvt","limited","ltd","india","indian","trust","department","government",
+  ]);
+  const words = name
+    .replace(/[^A-Za-z\s]/g, " ")
+    .split(/\s+/)
+    .filter((w) => w.length > 1 && !skip.has(w.toLowerCase()));
+  const source = words.length ? words : name.split(/\s+/).filter(Boolean);
+  return source.slice(0, 3).map((w) => w[0]!.toUpperCase()).join("");
+}
+
 export function clientRoster(): RosterEntry[] {
   const counts = new Map<string, { name: string; n: number }>();
   for (const p of publishedProjects()) {
@@ -73,7 +89,14 @@ export function clientRoster(): RosterEntry[] {
   const roster: RosterEntry[] = [];
   for (const [key, { name, n }] of counts) {
     const logo = clients.find((c) => sameOrg(c.name, name))?.logo ?? null;
-    roster.push({ id: key.replace(/\s+/g, "-"), name, shortName: short(name), logo, projects: n });
+    roster.push({
+      id: key.replace(/\s+/g, "-"),
+      name,
+      shortName: short(name),
+      monogram: initials(name),
+      logo,
+      projects: n,
+    });
   }
 
   // Two records can resolve to one mark: the Tribal Welfare Department is the
