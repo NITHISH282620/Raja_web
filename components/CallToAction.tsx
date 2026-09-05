@@ -72,13 +72,10 @@ export function CallToAction() {
 
           {/* Main Card Content */}
           <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-3 sm:gap-3.5 md:gap-4 text-center">
-            {/* Pill Badge */}
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-0.5 backdrop-blur-md shadow-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[9px] sm:text-[10px] font-mono font-medium uppercase tracking-widest text-white/95">
-                Monumental Event Infrastructure
-              </span>
-            </div>
+            {/* Section Tag */}
+            <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-white/80 font-medium">
+              Monumental Event Infrastructure
+            </p>
 
             {/* Headline */}
             <h2 className="text-balance font-display text-[clamp(1.4rem,2.3vw,2.15rem)] font-bold leading-[1.08] tracking-tight text-white uppercase">

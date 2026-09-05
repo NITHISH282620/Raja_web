@@ -27,10 +27,9 @@ export function InventoryCatalog() {
       <div className="frame">
         {/* Section Title */}
         <div className="flex flex-col gap-4 mb-12 sm:mb-16 max-w-3xl">
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/60">
-            <span className="h-2 w-2 rounded-full bg-accent" />
-            <span>Technical Asset Catalog</span>
-          </div>
+          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+            Technical Asset Catalog
+          </p>
           <h2 className="t-statement text-ink text-balance font-semibold">
             Architectural Specifications. <br className="hidden sm:inline" />
             <span className="text-brand-blue">Tested Under Extreme Field Loads.</span>

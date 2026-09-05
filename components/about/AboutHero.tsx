@@ -68,19 +68,14 @@ export function AboutHero() {
   return (
     <section ref={root} className="relative w-full bg-paper pt-24 sm:pt-28 md:pt-36 pb-16 sm:pb-20 md:pb-24">
       <div className="frame flex flex-col gap-10 sm:gap-14">
-        {/* Top Eyebrow & Live Operation Pill */}
+        {/* Top Eyebrow */}
         <div data-hero-badge className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-5">
-          <div className="flex items-center gap-2.5">
-            <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-widest text-ink/70">
-              Est. {FOUNDED_YEAR} · Bengaluru, Karnataka
-            </span>
-          </div>
-          <div className="rounded-full border border-ink/10 bg-white/70 px-4 py-1 backdrop-blur-md shadow-xs">
-            <span className="font-mono text-xs font-medium text-brand-blue tracking-wider uppercase">
-              {yearsInOperation()} Years of Continuous Execution
-            </span>
-          </div>
+          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-ink/70">
+            Est. {FOUNDED_YEAR} &middot; Bengaluru, Karnataka
+          </p>
+          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+            {yearsInOperation()} Years of Continuous Execution
+          </p>
         </div>
 
         {/* Monumental Editorial Headline */}
@@ -122,7 +117,7 @@ export function AboutHero() {
                   Clear-span cover and flooring, Kanha Shanti Vanam
                 </p>
               </div>
-              <span className="hidden sm:inline-block rounded-full bg-white/20 backdrop-blur-md px-3.5 py-1 text-xs font-mono">
+              <span className="hidden sm:inline-block text-xs text-white/80 t-eyebrow">
                 Client photograph
               </span>
             </div>
@@ -162,7 +157,7 @@ export function AboutHero() {
         >
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="flex flex-col gap-2 max-w-2xl">
-              <span className="font-mono text-xs uppercase tracking-widest text-brand-blue font-semibold">
+              <span className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
                 Our Core Doctrine
               </span>
               <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink">
@@ -176,15 +171,15 @@ export function AboutHero() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 shrink-0 border-t lg:border-t-0 lg:border-l border-ink/10 pt-4 lg:pt-0 lg:pl-8">
               <div>
                 <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">100%</p>
-                <p className="text-xs text-ink/60 uppercase tracking-wider font-mono">Owned Assets</p>
+                <p className="t-eyebrow text-[11px] text-ink/60 uppercase tracking-wider">Owned Assets</p>
               </div>
               <div>
                 <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">In&nbsp;house</p>
-                <p className="text-xs text-ink/60 uppercase tracking-wider font-mono">In-House Crew</p>
+                <p className="t-eyebrow text-[11px] text-ink/60 uppercase tracking-wider">In-House Crew</p>
               </div>
               <div className="col-span-2 sm:col-span-1">
                 <p className="font-mono text-2xl sm:text-3xl font-bold text-brand-blue">0</p>
-                <p className="text-xs text-ink/60 uppercase tracking-wider font-mono">Sub-Rentals</p>
+                <p className="t-eyebrow text-[11px] text-ink/60 uppercase tracking-wider">Sub-Rentals</p>
               </div>
             </div>
           </div>

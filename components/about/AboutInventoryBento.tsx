@@ -47,10 +47,9 @@ export function AboutInventoryBento() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 sm:mb-18">
           <div className="flex flex-col gap-3 max-w-2xl">
-            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/60">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              <span>Verified Capacity Moat</span>
-            </div>
+            <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+              Verified Capacity Moat
+            </p>
             <h2 className="t-statement text-ink text-balance font-semibold">
               The Heavy Metal: <br className="hidden sm:inline" />
               <span className="text-brand-blue">Owned Infrastructure at National Scale.</span>

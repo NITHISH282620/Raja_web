@@ -90,10 +90,9 @@ export function AboutTimeline() {
       <div className="frame">
         {/* Section Header */}
         <div className="flex flex-col gap-4 mb-16 sm:mb-20 max-w-3xl">
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/60">
-            <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-            <span>Choreography of Scale</span>
-          </div>
+          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+            Choreography of Scale
+          </p>
           <h2 className="t-statement text-ink text-balance font-semibold">
             The 49-Year Heritage. <br className="hidden sm:inline" />
             <span className="text-brand-blue">Four Defining Eras.</span>
@@ -110,8 +109,7 @@ export function AboutTimeline() {
             <div className="relative overflow-hidden rounded-2xl border border-ink/10 bg-white/85 p-6 backdrop-blur-md shadow-xs transition-all duration-300 hover:border-ink/20">
               <div className="flex items-center justify-between border-b border-ink/10 pb-4 mb-6">
                 <div className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-blue" />
-                  <span className="font-mono text-xs uppercase tracking-wider text-ink/60">Era Tracker</span>
+                  <span className="t-eyebrow text-xs uppercase tracking-wider text-ink/60">Era Tracker</span>
                 </div>
                 <span className="font-mono text-xs font-semibold text-brand-blue">
                   0{activeEra + 1} / 0{aboutTimeline.length}

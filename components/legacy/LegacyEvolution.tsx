@@ -52,10 +52,9 @@ export function LegacyEvolution() {
       <div className="frame">
         {/* Header */}
         <div className="flex flex-col gap-4 mb-12 sm:mb-16 max-w-3xl">
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/60">
-            <span className="h-2 w-2 rounded-full bg-accent" />
-            <span>Chapter 03: Evolution of the Craft</span>
-          </div>
+          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+            Chapter 03: Evolution of the Craft
+          </p>
           <h2 className="t-statement text-ink text-balance font-semibold">
             The Technological Leap. <br />
             <span className="text-brand-blue">Then vs. Now Across Four Decades.</span>
@@ -94,7 +93,7 @@ export function LegacyEvolution() {
                     <span className="font-mono text-[10px] uppercase tracking-wider text-brand-blue font-semibold block">
                       Contemporary Standard (2020s)
                     </span>
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+
                   </div>
                   <h3 className="text-base sm:text-lg font-semibold text-ink">{row.nowTitle}</h3>
                   <p className="text-xs sm:text-sm text-body-light leading-relaxed">{row.nowDesc}</p>

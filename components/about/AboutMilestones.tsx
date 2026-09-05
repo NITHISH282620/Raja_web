@@ -45,10 +45,9 @@ export function AboutMilestones() {
       <div className="frame">
         {/* Section Header */}
         <div className="flex flex-col gap-3 mb-16 sm:mb-20 max-w-3xl">
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/60">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            <span>Proven National Mandates</span>
-          </div>
+          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+            Proven National Mandates
+          </p>
           <h2 className="t-statement text-ink text-balance font-semibold">
             Hall of Monumental Moments. <br className="hidden sm:inline" />
             <span className="text-brand-blue">Where History Stood On Our Ground.</span>
@@ -76,7 +75,7 @@ export function AboutMilestones() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
                 <div className="absolute top-4 left-4">
-                  <span className="font-mono text-xs font-semibold px-3 py-1 rounded-full bg-white/95 text-brand-blue shadow-sm backdrop-blur-md group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
+                  <span className="t-eyebrow text-xs font-semibold px-3 py-1 rounded-md bg-white/95 text-brand-blue shadow-sm group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
                     {item.year}
                   </span>
                 </div>

@@ -8,10 +8,9 @@ export function LegacyOrigins() {
         <Reveal as="div" className="grid lg:grid-cols-12 gap-12 items-center">
           {/* Left Text */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/60">
-              <span className="h-2 w-2 rounded-full bg-accent" />
-              <span>Chapter 01: 1977</span>
-            </div>
+            <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+              Chapter 01: 1977
+            </p>
             <h2 className="t-statement text-ink text-balance font-semibold">
               The Bengaluru Genesis. <br />
               <span className="text-brand-blue">Founded on 5th Main Road.</span>

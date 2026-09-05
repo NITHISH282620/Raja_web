@@ -69,17 +69,12 @@ export function InventoryHero() {
       <div className="frame flex flex-col gap-10 sm:gap-14">
         {/* Top Eyebrow */}
         <div data-hero-badge className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-5">
-          <div className="flex items-center gap-2.5">
-            <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-widest text-ink/70">
-              Direct Physical Asset Ownership · Bengaluru Central Depot
-            </span>
-          </div>
-          <div className="rounded-full border border-ink/10 bg-white/80 px-4 py-1 backdrop-blur-md shadow-xs">
-            <span className="font-mono text-xs font-semibold text-brand-blue tracking-wider uppercase">
-              Zero Third-Party Brokerage
-            </span>
-          </div>
+          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-ink/70">
+            Direct Physical Asset Ownership &middot; Bengaluru Central Depot
+          </p>
+          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+            Zero Third-Party Brokerage
+          </p>
         </div>
 
         {/* Headline */}

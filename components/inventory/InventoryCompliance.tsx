@@ -23,10 +23,9 @@ export function InventoryCompliance() {
     <section className="relative w-full border-t border-ink/10 bg-paper py-16 sm:py-24 md:py-32">
       <div className="frame">
         <div className="mb-10 flex max-w-3xl flex-col gap-4 sm:mb-14">
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/60">
-            <span className="h-2 w-2 rounded-full bg-accent" />
-            <span>Compliance</span>
-          </div>
+          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+            Compliance
+          </p>
           <h2 className="t-statement text-balance font-semibold text-ink">
             {compliancePosition.heading}
           </h2>

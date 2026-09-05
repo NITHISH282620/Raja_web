@@ -32,10 +32,9 @@ export function LegacyPivot() {
 
           {/* Right Text */}
           <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
-            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/60">
-              <span className="h-2 w-2 rounded-full bg-accent" />
-              <span>Chapter 02: 1991 Pivot</span>
-            </div>
+            <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
+              Chapter 02: 1991 Pivot
+            </p>
             <h2 className="t-statement text-ink text-balance font-semibold">
               The Asset Moat. <br />
               <span className="text-brand-blue">Direct Ownership of German Engineering.</span>
