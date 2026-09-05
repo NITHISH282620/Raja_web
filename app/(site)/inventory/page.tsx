@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function InventoryPage() {
   return (
-    <main id="main" className="relative w-full overflow-x-hidden bg-paper">
+    <main id="main" className="relative w-full bg-paper">
       <InventoryHero />
       <InventoryCatalog />
       <InventoryEstimator />

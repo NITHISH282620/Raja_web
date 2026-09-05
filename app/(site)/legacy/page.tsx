@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function LegacyPage() {
   return (
-    <main id="main" className="relative w-full overflow-x-hidden bg-paper">
+    <main id="main" className="relative w-full bg-paper">
 
       <figure className="frame mt-[clamp(20px,3vw,44px)]">
         <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[20px] bg-ink/5">

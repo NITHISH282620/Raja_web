@@ -16,7 +16,12 @@ export function AboutTimeline() {
   const scrollToEra = (index: number) => {
     const target = root.current?.querySelector(`[data-era-card="${index}"]`);
     if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      const offset = 110;
+      const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -48,8 +53,25 @@ export function AboutTimeline() {
           );
         }
 
-        // Each era card entrance & active tracking
+        // Each era card slide-in entrance & active tracking
         eraCards.forEach((card, index) => {
+          // Slide & reveal entrance for the cards on scroll
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: 35 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.75,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 88%",
+                once: true,
+              },
+            }
+          );
+
           // Subtle parallax on archival images inside cards
           const img = card.querySelector("[data-archival-img]");
           if (img) {
@@ -72,10 +94,11 @@ export function AboutTimeline() {
           // Active era highlight in sticky rail
           ScrollTrigger.create({
             trigger: card,
-            start: "top 60%",
-            end: "bottom 40%",
-            onEnter: () => setActiveEra(index),
-            onEnterBack: () => setActiveEra(index),
+            start: index === 0 ? "top 80%" : "top 50%",
+            end: index === eraCards.length - 1 ? "bottom 20%" : "bottom 50%",
+            onToggle: (self) => {
+              if (self.isActive) setActiveEra(index);
+            },
           });
         });
       });
@@ -102,16 +125,38 @@ export function AboutTimeline() {
           </p>
         </div>
 
-        {/* Two-Column Sticky Layout */}
-        <div data-timeline-track className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        {/* Mobile Sticky Era Bar */}
+        <div className="lg:hidden sticky top-16 z-20 -mx-4 sm:-mx-8 px-4 sm:px-8 py-3 mb-8 bg-paper/95 backdrop-blur-md border-b border-ink/10 flex items-center justify-between gap-2 overflow-x-auto [scrollbar-width:none]">
+          <div className="flex items-center gap-1.5 shrink-0 t-eyebrow text-[11px] text-ink/50 mr-1">
+            <span>Era:</span>
+            <span className="font-semibold text-brand-blue">0{activeEra + 1} / 0{aboutTimeline.length}</span>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            {aboutTimeline.map((era, index) => (
+              <button
+                key={era.year}
+                type="button"
+                onClick={() => scrollToEra(index)}
+                className={`px-3 py-1 rounded-full text-xs font-mono transition-all cursor-pointer ${
+                  activeEra === index
+                    ? "bg-brand-blue text-white font-semibold shadow-xs"
+                    : "bg-ink/5 text-ink/70 hover:bg-ink/10"
+                }`}
+              >
+                {era.year}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Two-Column Layout: Sticky Tracker on Left, Scrolling Cards on Right */}
+        <div data-timeline-track className="grid lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Column: Sticky Navigator on Desktop */}
-          <div className="hidden lg:block lg:col-span-4 sticky top-28 space-y-6 pr-4">
-            <div className="relative overflow-hidden rounded-2xl border border-ink/10 bg-white/85 p-6 backdrop-blur-md shadow-xs transition-all duration-300 hover:border-ink/20">
+          <div className="hidden lg:block lg:col-span-4 self-start sticky top-28 z-20 space-y-6 pr-4">
+            <div className="relative overflow-hidden rounded-2xl border border-ink/10 bg-white/90 p-6 backdrop-blur-md shadow-xs transition-all duration-300 hover:border-ink/20">
               <div className="flex items-center justify-between border-b border-ink/10 pb-4 mb-6">
-                <div className="flex items-center gap-2">
-                  <span className="t-eyebrow text-xs uppercase tracking-wider text-ink/60">Era Tracker</span>
-                </div>
-                <span className="font-mono text-xs font-semibold text-brand-blue">
+                <span className="t-eyebrow text-xs uppercase tracking-wider text-ink/60">Era Tracker</span>
+                <span className="t-eyebrow text-xs font-semibold text-brand-blue">
                   0{activeEra + 1} / 0{aboutTimeline.length}
                 </span>
               </div>
@@ -172,21 +217,21 @@ export function AboutTimeline() {
               <div className="mt-8 pt-6 border-t border-ink/10 flex items-center justify-between">
                 <div>
                   <p className="font-mono text-2xl font-bold text-ink">{yearsInOperation()}</p>
-                  <p className="font-mono text-[10px] text-ink/50 uppercase">Years Proven</p>
+                  <p className="t-eyebrow text-[10px] text-ink/50 uppercase">Years Proven</p>
                 </div>
                 <div>
                   <p className="font-mono text-2xl font-bold text-brand-blue">{FOUNDED_YEAR}</p>
-                  <p className="font-mono text-[10px] text-ink/50 uppercase">Founded</p>
+                  <p className="t-eyebrow text-[10px] text-ink/50 uppercase">Founded</p>
                 </div>
                 <div>
                   <p className="font-mono text-2xl font-bold text-ink">100%</p>
-                  <p className="font-mono text-[10px] text-ink/50 uppercase">Direct Owned</p>
+                  <p className="t-eyebrow text-[10px] text-ink/50 uppercase">Direct Owned</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Timeline Cards Progression */}
+          {/* Right Column: Timeline Cards Progression (Slides Past as You Scroll) */}
           <div className="lg:col-span-8 space-y-12 sm:space-y-16">
             {aboutTimeline.map((era, index) => {
               const isActive = activeEra === index;
@@ -213,11 +258,11 @@ export function AboutTimeline() {
                       <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-blue text-white font-mono text-xs font-bold shadow-xs">
                         0{index + 1}
                       </span>
-                      <span className="font-mono text-xs uppercase tracking-widest text-brand-blue font-semibold">
+                      <span className="t-eyebrow text-xs uppercase tracking-widest text-brand-blue font-semibold">
                         {era.tag}
                       </span>
                     </div>
-                    <span className="font-mono text-xs text-ink/60 bg-neutral-100 px-3 py-1 rounded-full group-hover:bg-neutral-200 transition-colors">
+                    <span className="t-eyebrow text-xs text-ink/60 bg-neutral-100 px-3 py-1 rounded-full group-hover:bg-neutral-200 transition-colors">
                       {era.period}
                     </span>
                   </div>
@@ -232,7 +277,7 @@ export function AboutTimeline() {
                     </p>
                   </div>
 
-                  {/* Archival Project Visual with Hover Zoom */}
+                  {/* Archival Project Visual with Parallax Zoom */}
                   <div className="relative h-[240px] sm:h-[320px] md:h-[380px] w-full overflow-hidden rounded-xl sm:rounded-2xl border border-ink/10 mb-8 bg-neutral-900">
                     <div data-archival-img className="relative w-full h-[115%] -top-[7%]">
                       <Image
@@ -243,19 +288,19 @@ export function AboutTimeline() {
                       />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs font-mono pointer-events-none">
-                      <span className="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs pointer-events-none">
+                      <span className="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 t-eyebrow text-[10px]">
                         {era.alt}
                       </span>
-                      <span className="hidden sm:inline-block opacity-75">
+                      <span className="hidden sm:inline-block opacity-75 t-eyebrow text-[10px]">
                         Historical Record
                       </span>
                     </div>
                   </div>
 
-                  {/* Key Deliverables Pill List with Interactive Hover */}
+                  {/* Key Deliverables */}
                   <div className="space-y-3">
-                    <p className="font-mono text-xs uppercase tracking-wider text-ink/50">
+                    <p className="t-eyebrow text-xs uppercase tracking-wider text-ink/50">
                       Key Historical Deliverables
                     </p>
                     <ul className="grid sm:grid-cols-2 gap-2.5">
