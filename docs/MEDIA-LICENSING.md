@@ -115,3 +115,24 @@ attribution marked accordingly.
 
 The photographs are **not published**. They are Indian Coast Guard and shipyard
 press imagery, not Raja's own, and clearing them is a permission question.
+
+## Press Information Bureau imagery
+
+| Asset | Event | Source | Basis |
+|---|---|---|---|
+| `kempegowda-t2-plaque` | Kempegowda T2 & statue dedication, 11 Nov 2022 | PIB PRID 1875214 | Government of India material, reproducible with attribution |
+| `kempegowda-t2-interior` | as above | PIB PRID 1875214 | as above |
+
+Both are credited to the Press Information Bureau on the record. **They document
+the ceremony, not who built the set.** Raja's involvement in this engagement is
+client-stated and not publicly corroborated — no source names the infrastructure
+contractor — and the record says so.
+
+PIB was chosen deliberately over the news photography that dominates coverage of
+these events: PIB is government material with a reproducible basis, whereas
+agency images are copyright with unresolved reuse.
+
+**Karnataka swearing-in (Kanteerava, 20 May 2023)** and **Kannada Sahitya
+Sammelana** are restored as records without photographs. Available imagery for
+both is news-agency copyright rather than PIB, so nothing was taken. One
+photograph from Raja gives either record a hero.

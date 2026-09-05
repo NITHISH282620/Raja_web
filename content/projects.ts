@@ -357,6 +357,52 @@ export const projects: Project[] = [
     status: "provisional" as const,
     note: "Event verified: ICGS Akshay, 4th Adamya-class Fast Patrol Vessel, commissioned at Goa Shipyard Limited, Vasco, 27 Jun 2026. Raja's involvement is client-stated and not publicly corroborated. Client-supplied photographs are Coast Guard/shipyard press imagery and are NOT published pending permission.",
   },
+
+  // --- Confirmed by Raja 2026-09-04, after being withheld pending evidence.
+  // These three appear on neither Raja's supplied schedule nor its website, and
+  // were previously carrying invented figures ("50,000+ Citizens & Dignitaries",
+  // "10,000 RFT security barricading"). The events themselves are real and
+  // well documented; the figures are not restored, because a press attendance
+  // estimate is not Raja's measurement.
+  //
+  // The Kempegowda photographs are Press Information Bureau material — they
+  // record the ceremony, not who built the set — and are credited as such.
+  {
+    ...P("kempegowda-t2-dedication", "Government of India / Bengaluru International Airport", "Kempegowda International Airport Terminal 2 & Statue Dedication", "2022", "government", ["staging-and-seating", "event-flooring"], "Bengaluru"),
+    provenance: "client-provided" as const,
+    media: ([
+      {
+        src: "/media/events/kempegowda-t2-plaque.08b46266.webp",
+        width: 1800,
+        height: 1288,
+        alt: "A ceremonial plaque unveiling on a red-carpeted dais, the drape drawn back before assembled dignitaries.",
+        clearance: "licensed",
+        credit: "Press Information Bureau, Government of India",
+      },
+      {
+        src: "/media/events/kempegowda-t2-interior.8c7d60e6.webp",
+        width: 1800,
+        height: 1419,
+        alt: "Dignitaries walking the concourse of Kempegowda International Airport Terminal 2 beside its planted green wall.",
+        clearance: "licensed",
+        credit: "Press Information Bureau, Government of India",
+      },
+    ] satisfies ImageAsset[]),
+    status: "provisional" as const,
+    note: "Event verified: Terminal 2 inaugurated by the Prime Minister 11 Nov 2022, with the 108-ft Kempegowda statue dedicated the same day. Raja's involvement is client-stated; no public source names the infrastructure contractor. Photographs are PIB, credited, and record the ceremony rather than the build.",
+  },
+  {
+    ...P("karnataka-swearing-in-2023", "Government of Karnataka", "Karnataka Government Swearing-In Ceremony", "2023", "government", ["staging-and-seating", "event-flooring"], "Kanteerava Stadium, Bengaluru"),
+    provenance: "client-provided" as const,
+    status: "provisional" as const,
+    note: "Event verified: sworn in at Sri Kanteerava Stadium 20 May 2023. Raja's involvement client-stated. No photograph published — available press imagery is news-agency copyright, not PIB, so rights are unresolved. Supply one photograph and this record gains a hero.",
+  },
+  {
+    ...P("kannada-sahitya-sammelana", "Kannada Sahitya Parishat", "Kannada Sahitya Sammelana", null, "cultural", ["german-hangers", "staging-and-seating", "event-flooring"], "Karnataka"),
+    provenance: "client-provided" as const,
+    status: "provisional" as const,
+    note: "Client-stated. Edition number and year not supplied, and the delegate figure previously attached to it is not restored. No photograph with clear reuse rights located.",
+  },
 ].map((p, i) => ({ ...p, order: i }));
 
 /**
