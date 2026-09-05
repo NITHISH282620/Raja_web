@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <rect x="14" y="17" width="26" height="26" rx="4" fill="#0284c7"/>
+  <path d="M20 30L27 23L34 30L27 37Z" fill="#ffffff"/>
+  <circle cx="27" cy="30" r="2.5" fill="#063c5a"/>
+  <text x="48" y="29" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="14" fill="#063c5a" letter-spacing="1">BUILDTEK</text>
+  <text x="48" y="41" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="8.5" fill="#64748b" letter-spacing="1.5">POLYMERS PVT LTD</text>
+</svg>

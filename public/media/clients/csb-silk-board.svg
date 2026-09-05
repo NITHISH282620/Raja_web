@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <circle cx="30" cy="30" r="16" stroke="#b45309" stroke-width="2.5" fill="#fef3c7"/>
+  <path d="M24 30C24 24 36 24 36 30C36 36 24 36 24 30Z" stroke="#b45309" stroke-width="2" fill="none"/>
+  <circle cx="30" cy="30" r="2" fill="#b45309"/>
+  <text x="54" y="27" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="14" fill="#063c5a" letter-spacing="1">CENTRAL SILK BOARD</text>
+  <text x="54" y="40" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="8.5" fill="#b45309" letter-spacing="0.5">NATIONAL SILKWORM SEED ORG</text>
+</svg>

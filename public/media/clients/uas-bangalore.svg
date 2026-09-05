@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <circle cx="28" cy="30" r="16" fill="#f0fdf4" stroke="#15803d" stroke-width="2.2"/>
+  <path d="M28 20V38M23 24C25 26 27 27 28 28M33 24C31 26 29 27 28 28M22 30C25 31 27 32 28 33M34 30C31 31 29 32 28 33" stroke="#15803d" stroke-width="2" stroke-linecap="round"/>
+  <text x="52" y="27" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="13" fill="#15803d" letter-spacing="1">UAS BANGALORE</text>
+  <text x="52" y="40" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="8.5" fill="#063c5a" letter-spacing="1.2">KRISHIMELA 2024</text>
+</svg>
