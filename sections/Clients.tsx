@@ -527,7 +527,7 @@ export function ClientsView({}: {
               {/* Drag Left / Right Hint */}
               <div className="mt-4 flex items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink/40">
                 <span aria-hidden="true" className="animate-pulse">&larr;</span>
-                <span>Drag to explore all {CLIENTS_27.length} Commissioning Bodies</span>
+                <span>Drag</span>
                 <span aria-hidden="true" className="animate-pulse">&rarr;</span>
               </div>
             </div>
