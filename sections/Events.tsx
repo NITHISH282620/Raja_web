@@ -116,7 +116,52 @@ export function EventsWeBuildFor() {
         };
 
         trackEl.addEventListener("scroll", onTrackScroll, { passive: true });
-        return () => trackEl.removeEventListener("scroll", onTrackScroll);
+
+        /**
+         * Advance the rail from vertical scroll, as the desktop track does.
+         *
+         * Same reasoning as the capabilities rail: desktop translates the track
+         * with `x`, which cannot be reused here because on mobile the rail is a
+         * natively scrollable, snapping element and a transform fights the
+         * browser's own scrolling. Driving `scrollLeft` keeps the swipe working
+         * and keeps the progress listener above in sync for free.
+         *
+         * Scroll-snap comes off while the scrub runs — snap points fight
+         * programmatic scrolling and stutter — and is restored on cleanup.
+         */
+        const viewportEl = viewport.current;
+        if (!viewportEl) {
+          return () => trackEl.removeEventListener("scroll", onTrackScroll);
+        }
+
+        const prevSnap = trackEl.style.scrollSnapType;
+        trackEl.style.scrollSnapType = "none";
+
+        const proxy = { p: 0 };
+        const scrub = gsap.to(proxy, {
+          p: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: scope,
+            start: "top top",
+            end: () => "+=" + Math.max(1, trackEl.scrollWidth - trackEl.clientWidth),
+            pin: true,
+            scrub: 0.5,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
+          },
+          onUpdate: () => {
+            const max = trackEl.scrollWidth - trackEl.clientWidth;
+            if (max > 0) trackEl.scrollLeft = proxy.p * max;
+          },
+        });
+
+        return () => {
+          trackEl.removeEventListener("scroll", onTrackScroll);
+          trackEl.style.scrollSnapType = prevSnap;
+          scrub.scrollTrigger?.kill();
+          scrub.kill();
+        };
       });
 
       return () => mm.revert();
