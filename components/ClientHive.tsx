@@ -42,20 +42,52 @@ import type { RosterEntry } from "@/content/clientRoster";
  * and drop alternate columns by half a height. That is a honeycomb, and it is
  * the same construction the desktop section already used.
  */
-const COL_OVERLAP = 0.25; // of tile width — slots the points into the notches
-const COL_DROP = 0.5; // of tile height, applied to alternate columns
-const HEX = "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)";
+const COL_OVERLAP = 0.25; // of cell width — slots the points into the notches
+const COL_DROP = 0.5; // of cell height, applied to alternate columns
 const PER_COL = 3;
+
+/**
+ * The tile is drawn smaller than its cell.
+ *
+ * The honeycomb positions stay exactly as they are — that is what makes it a
+ * comb rather than a grid — but each hexagon is inset inside its cell so the
+ * tiles read as separate cards with air between them. Drawn edge to edge they
+ * fused into one continuous white sheet with faint seams, which is not the
+ * same object at all.
+ */
+const TILE_SCALE = 0.86;
+
+/**
+ * Rounded corners, via stroke rather than clip-path.
+ *
+ * `clip-path: polygon()` cannot round a vertex. Stroking the same polygon in
+ * the fill colour with a round line join does, and costs nothing — the stroke
+ * simply thickens each corner into an arc. It also gives the drop shadow a
+ * soft edge to catch, which a hard clip never does.
+ */
+const HEX_POINTS = "25,1 75,1 99,50 75,99 25,99 1,50";
 
 export function ClientHive({ roster }: { roster: RosterEntry[] }) {
   const root = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
 
+  /* The Raja mark sits in the middle of the comb, as it did in the layout this
+     replaces — the clients read outward from it rather than past it. */
+  const brand: RosterEntry = {
+    id: "__raja__",
+    name: "Raja Enterprises",
+    shortName: "Raja Enterprises",
+    logo: null,
+    projects: 0,
+  };
+  const withBrand = [...roster];
+  withBrand.splice(Math.floor(roster.length / 2), 0, brand);
+
   /* Chunk into columns of three, so the comb reads top-to-bottom then across. */
   const columns: RosterEntry[][] = [];
-  for (let i = 0; i < roster.length; i += PER_COL) {
-    columns.push(roster.slice(i, i + PER_COL));
+  for (let i = 0; i < withBrand.length; i += PER_COL) {
+    columns.push(withBrand.slice(i, i + PER_COL));
   }
 
   /* ------------------------------------------------------------ dragging */
@@ -171,33 +203,65 @@ export function ClientHive({ roster }: { roster: RosterEntry[] }) {
                 marginTop: ci % 2 === 1 ? `calc(var(--hex-h) * ${COL_DROP})` : 0,
               }}
             >
-              {col.map((entry) => (
-                <div
-                  key={entry.id}
-                  data-hive-tile
-                  data-reveal
-                  title={entry.name}
-                  className="group flex shrink-0 items-center justify-center bg-white shadow-[0_8px_22px_-12px_rgba(0,0,0,0.3)] ring-1 ring-ink/[0.04] transition-transform duration-300 hover:scale-[1.05]"
-                  style={{ width: "var(--hex-w)", height: "var(--hex-h)", clipPath: HEX }}
-                >
-                  {entry.logo ? (
-                    <Image
-                      src={entry.logo.src}
-                      alt={entry.name}
-                      width={entry.logo.width}
-                      height={entry.logo.height}
-                      draggable={false}
-                      className="max-h-[48%] max-w-[58%] object-contain"
-                    />
-                  ) : (
-                    /* Text has to live inside the hex's narrow waist, not its
-                       full box, or it runs out past the clipped points. */
-                    <span className="max-w-[56%] text-center font-mono text-[8px] leading-[1.3] tracking-tight text-ink/55 sm:text-[9px]">
-                      {entry.shortName}
-                    </span>
-                  )}
-                </div>
-              ))}
+              {col.map((entry) => {
+                const isBrand = entry.id === "__raja__";
+                return (
+                  <div
+                    key={entry.id}
+                    data-hive-tile
+                    data-reveal
+                    title={entry.name}
+                    className="relative shrink-0"
+                    style={{ width: "var(--hex-w)", height: "var(--hex-h)" }}
+                  >
+                    <div
+                      className="group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 hover:scale-[1.07]"
+                      style={{ width: `${TILE_SCALE * 100}%`, height: `${TILE_SCALE * 100}%` }}
+                    >
+                      <svg
+                        viewBox="0 0 100 100"
+                        preserveAspectRatio="none"
+                        className="absolute inset-0 h-full w-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.10)]"
+                        aria-hidden="true"
+                      >
+                        <polygon
+                          points={HEX_POINTS}
+                          fill={isBrand ? "var(--color-brand-blue)" : "#ffffff"}
+                          stroke={isBrand ? "var(--color-brand-blue)" : "#ffffff"}
+                          strokeWidth="7"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <span className="absolute inset-0 flex items-center justify-center px-[14%]">
+                        {isBrand ? (
+                          <Image
+                            src="/media/brand-raja-logo.webp"
+                            alt="Raja Enterprises"
+                            width={200}
+                            height={62}
+                            draggable={false}
+                            priority
+                            className="w-[76%] object-contain brightness-0 invert"
+                          />
+                        ) : entry.logo ? (
+                          <Image
+                            src={entry.logo.src}
+                            alt={entry.name}
+                            width={entry.logo.width}
+                            height={entry.logo.height}
+                            draggable={false}
+                            className="max-h-[52%] max-w-full object-contain"
+                          />
+                        ) : (
+                          <span className="text-center font-mono text-[8px] leading-[1.3] tracking-tight text-ink/55 sm:text-[9px]">
+                            {entry.shortName}
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>
