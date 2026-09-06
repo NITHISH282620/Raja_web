@@ -82,7 +82,10 @@ export const FIELDS: Record<Collection, Field[]> = {
     { name: "totalCapacity", label: "Capacity", type: "text", hint: "The figure as it should read, e.g. 5,00,000. Leave blank if unconfirmed." },
     { name: "unit", label: "Unit", type: "text", placeholder: "Sq. Ft." },
     { name: "description", label: "Description", type: "textarea" },
-    { name: "image", label: "Photograph", type: "image" },
+    // InventoryCategory.image is `string | null`, so this must be the path
+    // field. Declaring it as an asset wrote an object over the string, and the
+    // first save silently nulled the photograph.
+    { name: "image", label: "Photograph", type: "imagePath" },
     { name: "alt", label: "Photograph description", type: "text" },
   ],
 

@@ -122,6 +122,17 @@ function labelFrom(file: string): string {
  */
 const NOT_RAJA = ["capability-structure", "capability-exhibition"];
 
+/**
+ * Anything under this folder is sourced, not Raja's.
+ *
+ * `public/media/representative/` says so in its name, and it holds nine files —
+ * service and category illustrations, the barricade and fleet pictures. The
+ * first version of this backfill registered every file as `raja-original`,
+ * which would have let a sourced photograph be picked as proof of a Raja
+ * project. The folder is the statement of provenance; this honours it.
+ */
+const REPRESENTATIVE_DIR = "/media/representative/";
+
 export function backfillMediaLibrary(): number {
   const existing = (db().prepare(`SELECT COUNT(*) AS n FROM media`).get() as { n: number }).n;
   if (existing > 0) return 0;
@@ -139,7 +150,10 @@ export function backfillMediaLibrary(): number {
     const dim = isSvg ? { width: 200, height: 60 } : dimensions(file);
     if (!dim) continue;
     try {
-      const clearance = NOT_RAJA.some((n) => src.includes(n)) ? "representative" : "raja-original";
+      const clearance =
+        src.startsWith(REPRESENTATIVE_DIR) || NOT_RAJA.some((n) => src.includes(n))
+          ? "representative"
+          : "raja-original";
       insert.run(src, src, labelFrom(file), dim.width, dim.height, clearance);
       added += 1;
     } catch {
