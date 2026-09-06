@@ -12,7 +12,7 @@ import {
   createSession,
   currentUser,
   destroySession,
-  ensureSeedUser,
+  ensureOwnerAccount,
   findUser,
   pruneSessions,
   setPassword,
@@ -51,7 +51,7 @@ function publish() {
 /* --------------------------------- auth ----------------------------------- */
 
 export async function signIn(formData: FormData) {
-  ensureSeedUser();
+  await ensureOwnerAccount();
   pruneSessions();
 
   const email = String(formData.get("email") ?? "");
@@ -59,7 +59,7 @@ export async function signIn(formData: FormData) {
   const next = String(formData.get("next") ?? "/admin");
 
   const user = findUser(email);
-  if (!user || !verifyPassword(password, user.password)) {
+  if (!user || !(await verifyPassword(password, user.password))) {
     redirect(`/admin/login?error=credentials`);
   }
 
@@ -80,14 +80,14 @@ export async function changePassword(formData: FormData) {
   const next = String(formData.get("next") ?? "");
 
   const row = findUser(user.email);
-  if (!row || !verifyPassword(current, row.password)) {
+  if (!row || !(await verifyPassword(current, row.password))) {
     redirect("/admin/settings?error=password");
   }
   if (next.length < 10) {
     redirect("/admin/settings?error=short");
   }
 
-  setPassword(user.id, next);
+  await setPassword(user.id, next);
   // setPassword drops every session, including this one, so the editor is sent
   // back to sign in with the new password rather than left on a dead cookie.
   redirect("/admin/login?changed=1");

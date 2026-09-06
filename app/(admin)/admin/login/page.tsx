@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { currentUser, DEV_EMAIL, DEV_PASSWORD, ensureSeedUser, usingDefaultPassword } from "@/lib/auth";
+import { currentUser, ensureOwnerAccount, adminConfigured } from "@/lib/auth";
 import { signIn } from "../actions";
 
 export const dynamic = "force-dynamic";
@@ -11,11 +11,11 @@ export default async function LoginPage({
 }) {
   // Creates the first account on first visit, so the client never has to run a
   // seed script or a CLI command to get in.
-  ensureSeedUser();
+  await ensureOwnerAccount();
   if (await currentUser()) redirect("/admin");
 
   const { error, next } = await searchParams;
-  const showDefaults = usingDefaultPassword();
+  const configured = adminConfigured();
 
   return (
     <main className="admin-login">
@@ -51,7 +51,6 @@ export default async function LoginPage({
               autoComplete="username"
               required
               autoFocus
-              defaultValue={showDefaults ? DEV_EMAIL : undefined}
             />
           </div>
 
@@ -64,7 +63,6 @@ export default async function LoginPage({
               className="admin-input"
               autoComplete="current-password"
               required
-              defaultValue={showDefaults ? DEV_PASSWORD : undefined}
             />
           </div>
 
@@ -74,20 +72,20 @@ export default async function LoginPage({
         </form>
 
         {/*
-          Shown only while the seed account still has its default password. The
-          moment it is changed — or RAJA_ADMIN_PASSWORD is set — this block
-          stops rendering, so a live site cannot end up publishing its own
-          credentials on the login screen.
+          The opposite of what used to be here. This page previously printed a
+          working email and password on screen whenever the seed account still
+          had its default — on a public URL, that is a documented way in. There
+          are no default credentials now, so the only thing worth saying is when
+          no account exists at all, and that message deliberately gives away
+          nothing an attacker could use.
         */}
-        {showDefaults && (
+        {!configured && (
           <div className="admin-notice" data-tone="warn" style={{ marginTop: 24, marginBottom: 0 }}>
             <span>
-              <strong>Test credentials are filled in above.</strong>
+              <strong>No administrator account is configured.</strong>
               <br />
-              {DEV_EMAIL} / {DEV_PASSWORD}
-              <br />
-              Change the password in Settings before this site goes live — this notice disappears
-              once you do.
+              Set RAJA_ADMIN_EMAIL and RAJA_ADMIN_PASSWORD in the server environment, then reload
+              this page. Sign-in is unavailable until then.
             </span>
           </div>
         )}

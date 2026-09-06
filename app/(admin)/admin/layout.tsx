@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import { currentUser, ensureSeedUser, usingDefaultPassword } from "@/lib/auth";
+import { currentUser, ensureOwnerAccount, adminConfigured } from "@/lib/auth";
 import { AdminNav } from "./nav";
 import { signOut } from "./actions";
 import { db } from "@/lib/db";
@@ -17,7 +17,7 @@ import { readAll } from "@/lib/store";
 export const dynamic = "force-dynamic";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  ensureSeedUser();
+  await ensureOwnerAccount();
 
   // `x-pathname` is set by proxy.ts. Falling back to letting the request
   // through would be a hole, so the fallback is to treat it as protected.
@@ -57,7 +57,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <AdminNav counts={counts} />
 
         <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 10 }}>
-          {usingDefaultPassword() && (
+          {!adminConfigured() && (
             <Link
               href="/admin/settings"
               className="admin-chip"

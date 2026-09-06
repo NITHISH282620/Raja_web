@@ -1,5 +1,5 @@
 import { getContact, getHero, getStats } from "@/lib/store";
-import { usingDefaultPassword } from "@/lib/auth";
+import { adminConfigured } from "@/lib/auth";
 import { changePassword, saveContact, saveHero, saveStats } from "../actions";
 import { Notice, PageHead } from "../ui";
 
@@ -28,7 +28,7 @@ export default async function SettingsPage({
       {error === "password" && <Notice tone="error">Your current password was not correct.</Notice>}
       {error === "short" && <Notice tone="error">Choose a password of at least 10 characters.</Notice>}
 
-      {usingDefaultPassword() && (
+      {!adminConfigured() && (
         <Notice tone="warn">
           <strong>This account is still using the default password.</strong> It is printed on the
           sign-in page and in the project README, so anyone who can reach this site can reach this

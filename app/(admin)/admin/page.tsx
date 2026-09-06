@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { readAll, getContact } from "@/lib/store";
-import { usingDefaultPassword } from "@/lib/auth";
+import { adminConfigured } from "@/lib/auth";
 import { PageHead, Notice } from "./ui";
 
 export const dynamic = "force-dynamic";
@@ -31,7 +31,7 @@ export default async function Dashboard() {
   // Everything still carrying a provisional or pending status, surfaced as work
   // rather than left buried in the content files where only a developer sees it.
   const todo: string[] = [];
-  if (usingDefaultPassword()) todo.push("Change the admin password — it is currently the published default.");
+  if (!adminConfigured()) todo.push("No administrator account exists — set RAJA_ADMIN_EMAIL and RAJA_ADMIN_PASSWORD.");
   if (mediaCount === 0) todo.push("Upload Raja's own photographs in the Media library, then swap them onto the cards.");
   if (!contact.email) todo.push("Add a contact email address in Settings.");
   const unpublished = readAll("projects").filter((p) => !p.published).length;
