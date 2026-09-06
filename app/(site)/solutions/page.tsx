@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageMasthead, Band } from "@/components/PageShell";
+import Image from "next/image";
 import { solutions } from "@/content/solutions";
+import { categoryBanner } from "@/content/projects";
 import { company } from "@/content/company";
 import { abs, SITE_URL } from "@/lib/site";
 
@@ -51,8 +53,23 @@ export default function SolutionsIndex() {
             <li key={s.slug}>
               <Link
                 href={`/solutions/${s.slug}`}
-                className="group flex h-full flex-col rounded-[15px] border border-ink/12 bg-white p-[clamp(20px,2.2vw,30px)] transition-colors duration-300 hover:border-brand-blue/50"
+                className="group flex h-full flex-col overflow-hidden rounded-[15px] border border-ink/12 bg-white transition-colors duration-300 hover:border-brand-blue/50"
               >
+                {/* The card image is the same client-approved category banner the
+                    detail page uses, so the index shows real Raja work rather
+                    than a sourced stand-in. */}
+                {categoryBanner[s.category] && (
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink/5">
+                    <Image
+                      src={categoryBanner[s.category]!.src}
+                      alt={categoryBanner[s.category]!.alt}
+                      fill
+                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 360px"
+                      className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.03]"
+                    />
+                  </div>
+                )}
+                <div className="flex flex-1 flex-col p-[clamp(20px,2.2vw,30px)]">
                 <h2 className="t-work text-ink">{s.label}</h2>
                 <p className="t-body-sm mt-3 flex-1 text-body-light">{s.summary}</p>
                 <span className="t-body-sm mt-5 inline-flex items-center gap-2 text-brand-blue">
@@ -61,6 +78,7 @@ export default function SolutionsIndex() {
                     &rarr;
                   </span>
                 </span>
+                </div>
               </Link>
             </li>
           ))}

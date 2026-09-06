@@ -21,6 +21,19 @@ export type MediaClearance =
   | "licensed"
   /** Came through the approved Figma design file — the client's own material. */
   | "figma-supplied"
+  /**
+   * Illustrative, and NOT Raja's work.
+   *
+   * A sourced photograph standing in where Raja has no asset yet, so a page
+   * reads as finished while the owner swaps it through the admin panel. It is
+   * publishable, and it is deliberately its own value rather than being filed
+   * under `licensed`, because the two need different rules: a representative
+   * image may illustrate a capability, and may never be used as evidence that
+   * Raja executed a particular event. `projectEvidence()` below enforces that.
+   *
+   * Alt text on these must describe the scene without attributing it to Raja.
+   */
+  | "representative"
   /** Gathered for research. NEVER renders in production. */
   | "research-only";
 
@@ -30,6 +43,7 @@ const PUBLISHABLE: ReadonlySet<MediaClearance> = new Set<MediaClearance>([
   "client-approved",
   "licensed",
   "figma-supplied",
+  "representative",
 ]);
 
 export interface MediaAsset {
@@ -66,6 +80,31 @@ export const isPublishable = (m: { clearance: MediaClearance } | null | undefine
  */
 export function publishable<T extends { clearance: MediaClearance }>(asset: T | null | undefined): T | null {
   return isPublishable(asset) ? (asset as T) : null;
+}
+
+/**
+ * The clearances that may stand as proof Raja did the work.
+ *
+ * Narrower than PUBLISHABLE on purpose. Project pages, the works rail, client
+ * cards and anything captioned as a Raja project must pass through this rather
+ * than `publishable()`, so a stand-in photograph cannot become the evidence for
+ * an engagement. This is the rule that stops "make the page look finished" from
+ * turning into a claim nobody can support.
+ */
+const EVIDENCE: ReadonlySet<MediaClearance> = new Set<MediaClearance>([
+  "raja-original",
+  "client-approved",
+  "figma-supplied",
+]);
+
+export const isEvidence = (m: { clearance: MediaClearance } | null | undefined): boolean =>
+  Boolean(m && EVIDENCE.has(m.clearance));
+
+/** Gate an asset used as proof of a specific Raja engagement. */
+export function projectEvidence<T extends { clearance: MediaClearance }>(
+  asset: T | null | undefined,
+): T | null {
+  return isEvidence(asset) ? (asset as T) : null;
 }
 
 /** Gate a list, preserving order and dropping anything uncleared. */

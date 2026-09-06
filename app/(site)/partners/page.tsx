@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { PageMasthead, Band } from "@/components/PageShell";
 import { company } from "@/content/company";
 import { CTA } from "@/content/site";
@@ -112,6 +113,31 @@ export default function PartnersPage() {
         ]}
         lead="Event agencies, experiential agencies, exhibition agencies and production houses use Raja as the physical delivery layer behind work they have already sold. The relationship stays yours."
       />
+
+      {/*
+        A genuine Raja photograph, and the reason this page can make the claim
+        it makes: the crew in shot are wearing Raja's own shirts, on Raja's own
+        build. Nothing representative would carry the same weight here.
+      */}
+      <Band>
+        <figure>
+          <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[15px] bg-ink/5">
+            <Image
+              src="/media/projects/aicog-2019-hanger-erection.webp"
+              alt="Raja Enterprises crew in branded shirts raising a canopy structure on site during a build."
+              fill
+              sizes="(max-width: 1024px) 94vw, 1180px"
+              className="object-cover"
+            />
+          </div>
+          <figcaption className="t-body-sm mt-3 text-body-light">
+            <span className="mr-2 rounded-full bg-ink px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-white">
+              Raja crew
+            </span>
+            Raja&rsquo;s own field crew on site during installation.
+          </figcaption>
+        </figure>
+      </Band>
 
       <Band>
         <div className="grid gap-[clamp(14px,1.6vw,22px)] sm:grid-cols-2">

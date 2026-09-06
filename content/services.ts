@@ -158,7 +158,22 @@ export const servicePillars: ServicePillar[] = [
     // guessed from the other stock would be an invented specification.
     capacity: [],
     bundled: ["Staging", "Lighting and AV", "Barricading"],
-    image: null,
+    /*
+     * NEEDS CLIENT IMAGE. Raja holds no photograph of scaffolding proper —
+     * no camera platform, lighting tower or raked seating deck. This is a
+     * genuine Raja photograph of structural erection on site, which is the
+     * same trade and the same crew, and the alt text says precisely what it
+     * shows rather than implying it is a scaffold. Replace it with a real
+     * scaffolding photograph as soon as one is supplied.
+     */
+    image: {
+      src: "/media/raja/hanger-frame-erection.8e578fc4.webp",
+      width: 1600,
+      height: 1204,
+      alt: "Aluminium portal frames standing unclad on open ground during erection, before cladding is fitted.",
+      clearance: "raja-original",
+      credit: "Raja Enterprises",
+    },
     page: true,
     order: 4,
     status: "provisional",
