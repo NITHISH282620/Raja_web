@@ -5,7 +5,7 @@ import { PageMasthead, Band } from "@/components/PageShell";
 import { company } from "@/content/company";
 import { CTA } from "@/content/site";
 import { type InventoryLine } from "@/content/inventorySchedule";
-import { getSchedule, getPartnerPoints, getPartnerSteps } from "@/lib/store";
+import { getSchedule, getPartnerPoints, getPartnerSteps, pageImage } from "@/lib/store";
 import { abs, SITE_URL } from "@/lib/site";
 
 /**
@@ -98,8 +98,8 @@ export default function PartnersPage() {
         <figure>
           <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[15px] bg-ink/5">
             <Image
-              src="/media/projects/aicog-2019-hanger-erection.webp"
-              alt="Raja Enterprises crew in branded shirts raising a canopy structure on site during a build."
+              src={pageImage("partners-hero")?.image ?? "/media/projects/aicog-2019-hanger-erection.webp"}
+              alt={pageImage("partners-hero")?.alt ?? ""}
               fill
               sizes="(max-width: 1024px) 94vw, 1180px"
               className="object-cover"

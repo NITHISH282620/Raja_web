@@ -10,6 +10,7 @@ import {
   getSchedule,
   getEventFormats,
   getRecentEvents,
+  pageImage,
 } from "@/lib/store";
 
 import { CapabilitiesView } from "./Capabilities";
@@ -32,7 +33,7 @@ import { RecentExecutionsView } from "./RecentExecutions";
  * server rendering, which on a marketing page would cost the LCP.
  */
 export function Hero() {
-  return <HeroView hero={getHero()} />;
+  return <HeroView hero={getHero()} poster={pageImage("home-hero-poster")} />;
 }
 
 export function Capabilities() {

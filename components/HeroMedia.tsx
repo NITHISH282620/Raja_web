@@ -57,7 +57,7 @@ function useIsCompact(): boolean {
   );
 }
 
-export function HeroMedia() {
+export function HeroMedia({ poster }: { poster?: { image: string; alt: string } | null }) {
   const showVideo = useVideoAllowed();
   const isCompact = useIsCompact();
   const [ready, setReady] = useState(false);
@@ -88,8 +88,8 @@ export function HeroMedia() {
     <div ref={wrapRef} className="absolute inset-0">
       {/* Poster — owns LCP, always visible until the video is ready. */}
       <Image
-        src={heroMedia.poster.src}
-        alt={heroMedia.poster.alt}
+        src={poster?.image ?? heroMedia.poster.src}
+        alt={poster?.alt ?? heroMedia.poster.alt}
         fill
         priority
         quality={90}

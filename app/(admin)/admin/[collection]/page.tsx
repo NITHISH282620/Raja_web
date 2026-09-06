@@ -20,6 +20,13 @@ export const META: Record<
     thumb?: (d: Record<string, unknown>) => string | null;
   }
 > = {
+  pageImages: {
+    title: "Page photographs",
+    sub: "Single photographs that sit on one page — the top of Legacy, the Careers picture, the one beside the contact form. Change the picture and its description here.",
+    label: (d) => String(d.label ?? d.id ?? "Untitled"),
+    meta: (d) => String(d.image ?? "").split("/").pop() ?? "",
+    thumb: (d) => (d.image as string) || null,
+  },
   recentEvents: {
     title: "Recent events",
     sub: "The photo grid on the homepage. Each tile is one completed job; the size setting controls how much of the grid it takes.",

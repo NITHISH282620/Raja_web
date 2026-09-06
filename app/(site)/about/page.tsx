@@ -5,7 +5,7 @@ import { AboutInventoryBento } from "@/components/about/AboutInventoryBento";
 import { AboutMilestones } from "@/components/about/AboutMilestones";
 import { AboutPrinciples } from "@/components/about/AboutPrinciples";
 import { FOUNDED_YEAR } from "@/content/company";
-import { getPrinciples, getTimeline, getMilestones, getInventoryHighlights } from "@/lib/store";
+import { getPrinciples, getTimeline, getMilestones, getInventoryHighlights, pageImage } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "About Us — 49 Years of Physical Infrastructure",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main id="main" className="relative w-full bg-paper">
-      <AboutHero />
+      <AboutHero primary={pageImage("about-hero-primary")} secondary={pageImage("about-hero-secondary")} />
       <AboutTimeline eras={getTimeline()} />
       <AboutInventoryBento highlights={getInventoryHighlights()} />
       <AboutMilestones milestones={getMilestones()} />

@@ -90,6 +90,7 @@ const GROUPS: {
   {
     label: "Assets & setup",
     items: [
+      { href: "/admin/pageImages", label: "Page photographs", key: "pageImages" },
       { href: "/admin/media", label: "Media library", key: "media" },
       { href: "/admin/seo", label: "Page SEO", key: "seo" },
       { href: "/admin/settings", label: "Settings" },

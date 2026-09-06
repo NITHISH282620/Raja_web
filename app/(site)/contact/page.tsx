@@ -4,7 +4,7 @@ import { PageMasthead, Band } from "@/components/PageShell";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { company, FOUNDED_YEAR } from "@/content/company";
 import { services } from "@/content/inventorySchedule";
-import { getContact } from "@/lib/store";
+import { getContact, pageImage } from "@/lib/store";
 import { whatsappLink, telHref as tel } from "@/lib/enquiry";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -38,7 +38,7 @@ export default async function ContactPage({
 
       <figure className="frame mt-[clamp(20px,3vw,44px)]">
         <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[20px] bg-ink/5">
-          <Image src="/media/events/aol-pavilion-night.67b84519.webp" alt="A large illuminated pavilion at night, reflected in still water." fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
+          <Image src={pageImage("contact-hero")?.image ?? "/media/events/aol-pavilion-night.67b84519.webp"} alt={pageImage("contact-hero")?.alt ?? ""} fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
         </div>
         <figcaption className="t-body-sm mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-light">
           <span className="rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">

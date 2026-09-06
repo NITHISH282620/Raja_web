@@ -18,7 +18,7 @@ import type { HeroSettings } from "@/lib/store";
  * The only section whose entrance is time-based rather than scroll-bound - it
  * plays on mount, matching the 0.15s-1.40s opening of the authored timeline.
  */
-export function HeroView({ hero }: { hero: HeroSettings }) {
+export function HeroView({ hero, poster }: { hero: HeroSettings; poster: { image: string; alt: string } | null }) {
   const root = useRef<HTMLElement>(null);
   const headline = useRef<HTMLHeadingElement>(null);
   const support = useRef<HTMLParagraphElement>(null);
@@ -60,7 +60,7 @@ export function HeroView({ hero }: { hero: HeroSettings }) {
       id={SECTION_IDS.hero}
       className="relative h-svh min-h-[560px] max-h-[1080px] w-full overflow-hidden bg-ink"
     >
-      <HeroMedia />
+      <HeroMedia poster={poster} />
       {/*
         Figma authored a flat 72% scrim over a bright festival photograph. The
         hero image is now Raja's own dawn aerial, which is already dark and

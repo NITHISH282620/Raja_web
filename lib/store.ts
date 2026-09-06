@@ -25,6 +25,7 @@ import { partnerPoints as seedPartnerPoints, partnerSteps as seedPartnerSteps,
   type PartnerPoint, type PartnerStep } from "@/content/partners";
 import { seoOverrides as seedSeo, type SeoOverride } from "@/content/seo";
 import { copyBlocks as seedCopyBlocks } from "@/content/copy";
+import { pageImages as seedPageImages, type PageImage } from "@/content/pageImages";
 import { publishable, publishableList } from "@/content/media";
 
 /**
@@ -70,6 +71,7 @@ export const COLLECTIONS = {
   highlights: "highlights",
   eventFormats: "eventFormats",
   recentEvents: "recentEvents",
+  pageImages: "pageImages",
 } as const;
 
 /** Seeds a collection reads from when the database has nothing for it. */
@@ -97,6 +99,7 @@ const SEEDS = {
   highlights: seedHighlights,
   eventFormats: seedEventFormats,
   recentEvents: seedRecent,
+  pageImages: seedPageImages,
 } as const;
 
 type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
@@ -237,6 +240,14 @@ export function findSolutionBySlug(slug: string): Solution | undefined {
  * Returns "" for an unknown id rather than throwing: a paragraph the owner has
  * emptied should leave a gap on the page, not take the page down.
  */
+/**
+ * A named image slot. Returns the record so a caller gets the alt text too —
+ * an image whose description does not travel with it ends up mislabelled.
+ */
+export function pageImage(id: string): PageImage | null {
+  return read("pageImages").find((i) => i.id === id) ?? null;
+}
+
 export function copyText(id: string): string {
   return read("copy").find((b) => b.id === id)?.body ?? "";
 }

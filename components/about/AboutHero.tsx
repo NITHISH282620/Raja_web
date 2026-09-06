@@ -8,7 +8,13 @@ import { EASE, MOTION_OK } from "@/motion/ease";
 import { aboutIntro } from "@/content/about";
 import { yearsInOperation, FOUNDED_YEAR } from "@/content/company";
 
-export function AboutHero() {
+export function AboutHero({
+  primary,
+  secondary,
+}: {
+  primary: { image: string; alt: string } | null;
+  secondary: { image: string; alt: string } | null;
+}) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -101,8 +107,8 @@ export function AboutHero() {
             className="group relative md:col-span-7 h-[360px] sm:h-[440px] md:h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white shadow-sm"
           >
             <Image
-              src="/media/events/kanha-canopy-assembly-aerial.56be51e1.webp"
-              alt="Prime Minister dedication at monumental airport pavilion by Raja Enterprises"
+              src={primary?.image ?? "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp"}
+              alt={primary?.alt ?? ""}
               fill
               priority
               className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -129,8 +135,8 @@ export function AboutHero() {
             className="group relative md:col-span-5 h-[320px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white shadow-sm"
           >
             <Image
-              src="/media/events/german-hanger-aerial.webp"
-              alt="Engineered clear-span German hangar structure"
+              src={secondary?.image ?? "/media/events/german-hanger-aerial.webp"}
+              alt={secondary?.alt ?? ""}
               fill
               priority
               className="object-cover transition-transform duration-700 group-hover:scale-105"

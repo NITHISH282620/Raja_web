@@ -6,6 +6,7 @@ import { LegacyPivot } from "@/components/legacy/LegacyPivot";
 import { LegacyEvolution } from "@/components/legacy/LegacyEvolution";
 import { LegacyTrust } from "@/components/legacy/LegacyTrust";
 import { FOUNDED_YEAR } from "@/content/company";
+import { pageImage } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "Legacy — 49 Years of Physical Execution (1977–2026)",
@@ -18,7 +19,7 @@ export default function LegacyPage() {
 
       <figure className="frame mt-[clamp(20px,3vw,44px)]">
         <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[20px] bg-ink/5">
-          <Image src="/media/events/kanha-canopy-assembly-aerial.56be51e1.webp" alt="Aerial view over an immense clear-span canopy sheltering a seated assembly of many thousands." fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
+          <Image src={pageImage("legacy-hero")?.image ?? "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp"} alt={pageImage("legacy-hero")?.alt ?? ""} fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
         </div>
         <figcaption className="t-body-sm mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-light">
           <span className="rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">
