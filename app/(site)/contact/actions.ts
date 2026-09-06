@@ -125,6 +125,18 @@ export async function submitEnquiry(formData: FormData) {
 
   const reference = makeReference();
 
+  /*
+   * Persisting the enquiry is best-effort, and the hand-off is not.
+   *
+   * On a read-only serverless filesystem the SQLite write throws. Letting that
+   * become a 500 would lose the lead outright and show the buyer a crash on the
+   * one page the entire site funnels into. WhatsApp is Raja's primary channel
+   * anyway, so a failed write still ends with the visitor holding a prefilled
+   * message carrying their reference — the enquiry reaches Raja, it just does
+   * not also sit in the admin inbox. The failure is logged so the gap is
+   * visible to whoever runs the site rather than silent.
+   */
+  try {
   const result = db()
     .prepare(
       `INSERT INTO enquiries
@@ -157,6 +169,12 @@ export async function submitEnquiry(formData: FormData) {
          VALUES (?, ?, ?, ?, ?)`,
       )
       .run(Number(result.lastInsertRowid), brief.name, brief.mime, brief.bytes.byteLength, brief.bytes);
+  }
+  } catch (error) {
+    console.error(
+      `[enquiry] ${reference} could not be stored; handing off to WhatsApp only.`,
+      error,
+    );
   }
 
   // The reference travels back so the success state can offer a WhatsApp

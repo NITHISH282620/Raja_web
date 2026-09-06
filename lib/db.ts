@@ -159,6 +159,42 @@ const MIGRATIONS = [
   `CREATE INDEX IF NOT EXISTS enquiries_band ON enquiries(band, created_at DESC)`,
 ];
 
+/**
+ * Whether opening the database has already failed once.
+ *
+ * WHY THIS EXISTS. The public site is prerendered at build time, where the
+ * filesystem is writable and the database opens normally. `/contact` is not
+ * prerendered — it reads `?sent=` and so renders per request — and on a
+ * read-only serverless filesystem that request-time open throws. The page was
+ * returning a 500 in production while every prerendered page looked fine, which
+ * is exactly the failure that is easiest to miss and worst to have: it is the
+ * one page the whole site is trying to send people to.
+ *
+ * A missing database is not an error the reader should ever see. Every read
+ * path already falls back to the seed content in `content/` when a collection
+ * has never been written, so a database that cannot be opened at all is just
+ * that same case for every collection at once. The flag stops each request
+ * paying for a failed open, and stops the log filling with the same throw.
+ */
+let unavailable = false;
+
+/**
+ * The database if it can be opened, otherwise null.
+ *
+ * Read paths use this. Write paths use `db()` and are expected to fail loudly:
+ * silently dropping an enquiry would be far worse than an error.
+ */
+export function tryDb(): DatabaseSync | null {
+  if (instance) return instance;
+  if (unavailable) return null;
+  try {
+    return db();
+  } catch {
+    unavailable = true;
+    return null;
+  }
+}
+
 export function db(): DatabaseSync {
   if (instance) return instance;
   mkdirSync(dirname(DB_PATH), { recursive: true });
@@ -198,7 +234,9 @@ export interface RecordRow<T> {
 }
 
 export function listRecords<T>(collection: string): RecordRow<T>[] {
-  const rows = db()
+  const handle = tryDb();
+  if (!handle) return [];
+  const rows = handle
     .prepare(
       `SELECT id, position, published, json FROM records
         WHERE collection = ? ORDER BY position ASC, id ASC`,
@@ -214,7 +252,9 @@ export function listRecords<T>(collection: string): RecordRow<T>[] {
 }
 
 export function getRecord<T>(collection: string, id: string): RecordRow<T> | null {
-  const r = db()
+  const handle = tryDb();
+  if (!handle) return null;
+  const r = handle
     .prepare(`SELECT id, position, published, json FROM records WHERE collection = ? AND id = ?`)
     .get(collection, id) as { id: string; position: number; published: number; json: string } | undefined;
   if (!r) return null;
@@ -264,7 +304,9 @@ export function reorderRecords(collection: string, ids: string[]) {
 }
 
 export function getSetting<T>(key: string): T | null {
-  const r = db().prepare(`SELECT json FROM settings WHERE key = ?`).get(key) as
+  const handle = tryDb();
+  if (!handle) return null;
+  const r = handle.prepare(`SELECT json FROM settings WHERE key = ?`).get(key) as
     | { json: string }
     | undefined;
   return r ? (JSON.parse(r.json) as T) : null;
@@ -281,7 +323,10 @@ export function putSetting(key: string, value: unknown) {
 
 /** True when the collection has never been written to, so seeds should show. */
 export function isEmpty(collection: string): boolean {
-  const r = db()
+  const handle = tryDb();
+  // No database is the same answer as an unwritten collection: use the seed.
+  if (!handle) return true;
+  const r = handle
     .prepare(`SELECT COUNT(*) AS n FROM records WHERE collection = ?`)
     .get(collection) as { n: number };
   return r.n === 0;

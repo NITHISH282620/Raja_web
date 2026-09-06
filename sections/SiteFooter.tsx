@@ -12,11 +12,28 @@ import { company, FOUNDED_YEAR, yearsInOperation } from "@/content/company";
 import type { ContactSettings } from "@/lib/store";
 import { CallToAction } from "@/components/CallToAction";
 import { clsx } from "@/lib/clsx";
+import { telHref } from "@/lib/enquiry";
 
-const socialLinks = [
+/*
+ * Social profiles.
+ *
+ * VERIFIED, 2026-09-06. The three guessed handles that used to sit here all
+ * resolved — to other companies. facebook.com/rajaenterprises is a
+ * Punjabi-language page in Jamo; instagram.com/rajaenterprises is a parked
+ * account with zero posts and zero followers; and
+ * linkedin.com/company/raja-enterprises is "Raja Enterprises LLC", a retail
+ * business in Salt Lake City, Utah. Returning 200 is not the same as being the
+ * right company, and the site was sending its visitors to three strangers.
+ *
+ * They are set to null rather than deleted, so putting Raja's real profiles
+ * back is a one-line change per network. Anything without an href is filtered
+ * out below and simply does not render. WhatsApp stays: that number is Raja's
+ * own and is used elsewhere on the site.
+ */
+const socialLinks: { name: string; href: string | null; icon: React.ReactNode }[] = [
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/company/raja-enterprises",
+    href: null,
     icon: (
       <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28Z" />
@@ -25,7 +42,7 @@ const socialLinks = [
   },
   {
     name: "Instagram",
-    href: "https://www.instagram.com/rajaenterprises",
+    href: null,
     icon: (
       <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069Zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073Zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324Zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998Zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881Z" />
@@ -34,7 +51,7 @@ const socialLinks = [
   },
   {
     name: "Facebook",
-    href: "https://www.facebook.com/rajaenterprises",
+    href: null,
     icon: (
       <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12Z" />
@@ -146,7 +163,9 @@ export function SiteFooter({ contact }: { contact: ContactSettings }) {
 
             {/* Social Media Links */}
             <div className="flex items-center gap-3 pt-1">
-              {socialLinks.map((social) => (
+              {socialLinks
+                .filter((social): social is typeof social & { href: string } => Boolean(social.href))
+                .map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
@@ -186,7 +205,7 @@ export function SiteFooter({ contact }: { contact: ContactSettings }) {
                   </span>
                 ))}
                 {contact.phone && (
-                  <a href={`tel:${contact.phone}`} className="block transition-colors hover:text-brand-blue font-semibold text-brand-blue pt-0.5 text-[15px]">
+                  <a href={telHref(contact.phone)} className="block transition-colors hover:text-brand-blue font-semibold text-brand-blue pt-0.5 text-[15px]">
                     {contact.phone}
                   </a>
                 )}

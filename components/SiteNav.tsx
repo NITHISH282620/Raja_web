@@ -11,6 +11,7 @@ import { primaryNav, navItems } from "@/content/navigation";
 import { company, FOUNDED_YEAR } from "@/content/company";
 import type { ContactSettings } from "@/lib/store";
 import { brand } from "@/content/site";
+import { telHref } from "@/lib/enquiry";
 
 export function SiteNav({ contact }: { contact: ContactSettings }) {
   const [open, setOpen] = useState(false);
@@ -294,7 +295,7 @@ export function SiteNav({ contact }: { contact: ContactSettings }) {
             Est. {FOUNDED_YEAR} — {company.city}
           </p>
           {contact.phone && (
-            <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="t-body text-ink/80 hover:text-brand-blue">
+            <a href={telHref(contact.phone)} className="t-body text-ink/80 hover:text-brand-blue">
               {contact.phone}
             </a>
           )}

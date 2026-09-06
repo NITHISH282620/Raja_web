@@ -5,7 +5,7 @@ import { EnquiryForm } from "@/components/EnquiryForm";
 import { company, FOUNDED_YEAR } from "@/content/company";
 import { services } from "@/content/inventorySchedule";
 import { getContact } from "@/lib/store";
-import { whatsappLink } from "@/lib/enquiry";
+import { whatsappLink, telHref as tel } from "@/lib/enquiry";
 
 export async function generateMetadata(): Promise<Metadata> {
   const contact = getContact();
@@ -14,8 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
     description: `Talk to Raja Enterprises about your programme. ${contact.addressLines.join(", ")}.`,
   };
 }
-
-const tel = (n: string) => `tel:${n.replace(/[^\d+]/g, "")}`;
 
 export default async function ContactPage({
   searchParams,

@@ -185,6 +185,25 @@ export function makeReference(now: Date = new Date()): string {
   return `RE-${yy}${mm}-${tail}`;
 }
 
+/**
+ * A dialable `tel:` URI.
+ *
+ * Two things were wrong across the site. Some links were built by interpolating
+ * the display string straight in, producing `tel:+91 98450 44177` — spaces are
+ * not valid in a tel URI and some clients simply refuse it. The Bengaluru
+ * landlines were emitted as `tel:08026609751`, which dials only from inside
+ * India: a buyer calling from a mobile abroad, or from a softphone, gets
+ * nothing. Both are normalised here to E.164 so every number on the site is one
+ * tap from anywhere.
+ */
+export function telHref(raw: string, countryCode = "91"): string {
+  const digits = raw.replace(/[^\d+]/g, "");
+  if (digits.startsWith("+")) return `tel:${digits}`;
+  // A leading 0 is the Indian trunk prefix; it is replaced by the country code.
+  const national = digits.replace(/^0+/, "");
+  return `tel:+${countryCode}${national}`;
+}
+
 /** Digits only, for a `wa.me` link. `+91 98450 44177` -> `919845044177`. */
 export const waNumber = (phone: string): string => phone.replace(/\D/g, "");
 
