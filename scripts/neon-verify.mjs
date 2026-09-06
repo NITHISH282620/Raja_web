@@ -16,7 +16,7 @@ const s = (sql, ...a) => sqlite.prepare(sql).all(...a);
 const one = async (sql) => Number((await pool.query(sql)).rows[0].n);
 
 let pass = 0, fail = 0;
-const ok = (c, m) => { c ? pass++ : fail++; console.log(`  ${c ? "PASS" : "FAIL"}  ${m}`); };
+const ok = (c, m) => { if (c) pass++; else fail++; console.log(`  ${c ? "PASS" : "FAIL"}  ${m}`); };
 
 console.log("\nNeon reconciliation\n" + "=".repeat(60));
 

@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { currentUser, ensureOwnerAccount, adminConfigured } from "@/lib/auth";
 import { AdminNav } from "./nav";
 import { signOut } from "./actions";
-import { db } from "@/lib/db";
+import { query } from "@/lib/db/neon";
 import { readAll, COLLECTIONS } from "@/lib/store";
 
 /**
@@ -40,9 +40,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   const counts = {
     ...collectionCounts,
-    media: (db().prepare(`SELECT COUNT(*) AS n FROM media`).get() as { n: number }).n,
+    media: (await query<{ n: number }>(`SELECT COUNT(*)::int AS n FROM media`))[0].n,
     enquiries: (
-      db().prepare(`SELECT COUNT(*) AS n FROM enquiries WHERE status = 'new'`).get() as { n: number }
+      (await query<{ n: number }>(`SELECT COUNT(*)::int AS n FROM enquiries WHERE status = 'new'`))[0]
     ).n,
   };
 

@@ -1,5 +1,5 @@
 import "server-only";
-import { db } from "./db";
+import { query, execute } from "./db/neon";
 
 /**
  * The audit trail.
@@ -28,44 +28,39 @@ export type AuditAction =
   | "user_create"
   | "settings_save";
 
-export function recordAudit(
-  actor: { id?: number; email?: string } | null,
+export async function recordAudit(
+  actor: { id?: string; email?: string } | null,
   action: AuditAction,
   entity = "",
   entityId: string | number = "",
   metadata?: Record<string, unknown>,
-): void {
+): Promise<void> {
   try {
-    db()
-      .prepare(
-        `INSERT INTO audit_logs (actor_id, actor_email, action, entity, entity_id, metadata)
-         VALUES (?, ?, ?, ?, ?, ?)`,
-      )
-      .run(
-        actor?.id ?? null,
-        actor?.email ?? "",
-        action,
-        entity,
-        String(entityId),
-        metadata ? JSON.stringify(metadata) : "",
-      );
+    await execute(
+      `INSERT INTO audit_logs (id, actor_user_id, actor_email, action, entity_type, entity_id, metadata)
+       VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, $6::jsonb)`,
+      [actor?.id ?? null, actor?.email ?? "", action, entity, String(entityId),
+       JSON.stringify(metadata ?? {})],
+    );
   } catch (error) {
     console.error(`[audit] could not record ${action}`, error);
   }
 }
 
 export interface AuditRow {
-  id: number;
+  id: string;
   actor_email: string;
   action: AuditAction;
   entity: string;
   entity_id: string;
-  metadata: string;
+  metadata: Record<string, unknown>;
   created_at: string;
 }
 
-export function recentAudit(limit = 50): AuditRow[] {
-  return db()
-    .prepare(`SELECT * FROM audit_logs ORDER BY created_at DESC, id DESC LIMIT ?`)
-    .all(limit) as unknown as AuditRow[];
+export async function recentAudit(limit = 50): Promise<AuditRow[]> {
+  return (await query<AuditRow>(
+    `SELECT id, actor_email, action, entity_type AS entity, entity_id, metadata, created_at
+       FROM audit_logs ORDER BY created_at DESC LIMIT $1`,
+    [limit],
+  )) as AuditRow[];
 }

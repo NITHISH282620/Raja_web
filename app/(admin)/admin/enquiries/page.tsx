@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { db } from "@/lib/db";
+import { query } from "@/lib/db/neon";
 import { deleteEnquiry, addEnquiryNote, setEnquiryFollowup, setEnquiryStatus } from "../actions";
 import { Notice, PageHead } from "../ui";
 import { ENQUIRY_STATUSES, STATUS_LABELS, BAND_LABELS, whatsappLink, type LeadBand } from "@/lib/enquiry";
@@ -16,7 +16,7 @@ export const dynamic = "force-dynamic";
  * answering them.
  */
 interface Enquiry {
-  id: number;
+  id: string;
   reference: string;
   requirement: string;
   name: string;
@@ -57,8 +57,8 @@ export default async function EnquiriesPage({
 
   const rows = (
     filter
-      ? db().prepare(`SELECT * FROM enquiries WHERE status = ? ORDER BY created_at DESC`).all(filter)
-      : db().prepare(`SELECT * FROM enquiries ORDER BY created_at DESC`).all()
+      ? await query(`SELECT * FROM enquiries WHERE status = $1 ORDER BY created_at DESC`, [filter])
+      : await query(`SELECT * FROM enquiries ORDER BY created_at DESC`)
   ) as unknown as Enquiry[];
 
   return (

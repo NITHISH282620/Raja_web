@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { db } from "@/lib/db";
+import { query } from "@/lib/db/neon";
 import { readAll, getContact } from "@/lib/store";
 import { adminConfigured } from "@/lib/auth";
 import { PageHead, Notice } from "./ui";
@@ -16,9 +16,9 @@ export const dynamic = "force-dynamic";
  */
 export default async function Dashboard() {
   const newEnquiries = (
-    db().prepare(`SELECT COUNT(*) AS n FROM enquiries WHERE status = 'new'`).get() as { n: number }
+    (await query<{ n: number }>(`SELECT COUNT(*)::int AS n FROM enquiries WHERE status = 'new'`))[0]
   ).n;
-  const mediaCount = (db().prepare(`SELECT COUNT(*) AS n FROM media`).get() as { n: number }).n;
+  const mediaCount = (await query<{ n: number }>(`SELECT COUNT(*)::int AS n FROM media`))[0].n;
   const contact = await getContact();
 
   const tiles = [

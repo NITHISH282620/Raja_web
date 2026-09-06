@@ -3,7 +3,8 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { currentUser } from "@/lib/auth";
-import { db, putRecord } from "@/lib/db";
+import { query } from "@/lib/db/neon";
+import { putRecord } from "@/lib/db/content";
 import { COLLECTIONS, readAll, readOne } from "@/lib/store";
 import { BLANKS, FIELDS, setPath, type Field } from "./fields";
 
@@ -55,13 +56,13 @@ export async function saveRecordForm(formData: FormData) {
   // Copy the seed list into the database before the first edit, so taking
   // ownership of a collection is all-or-nothing rather than leaving the other
   // records stranded behind the seed fallback.
-  const empty =
-    (db().prepare(`SELECT COUNT(*) AS n FROM records WHERE collection = ?`).get(key) as { n: number })
-      .n === 0;
+  const [{ n }] = await query<{ n: number }>(
+    `SELECT COUNT(*)::int AS n FROM content_entries WHERE collection = $1`, [key]);
+  const empty = n === 0;
   if (empty) {
-    (await readAll(key)).forEach((row, i) =>
-      putRecord(key, row.id, row.data, { position: i, published: true }),
-    );
+    for (const [i, row] of (await readAll(key)).entries()) {
+      await putRecord(key, row.id, row.data, { position: i, published: true });
+    }
   }
 
   putRecord(key, id, next);

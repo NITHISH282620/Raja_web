@@ -2,7 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import { db } from "@/lib/db";
+import { query, execute } from "@/lib/db/neon";
+import { putObject, privateKey, storageAvailable } from "@/lib/storage/r2";
 import { LIMITS, makeReference, classify, type EnquiryField } from "@/lib/enquiry";
 
 /**
@@ -137,39 +138,55 @@ export async function submitEnquiry(formData: FormData) {
    * visible to whoever runs the site rather than silent.
    */
   try {
-  const result = db()
-    .prepare(
+    const rows = await query<{ id: string }>(
       `INSERT INTO enquiries
-         (reference, name, email, phone, organisation, event_type, event_date, location,
-          requirement, message, attendance, venue, budget, band, brief_name)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    )
-    .run(
-      reference,
-      name,
-      email,
-      phone,
-      organisation,
-      event_type,
-      field(formData, "event_date"),
-      field(formData, "location"),
-      requirement,
-      field(formData, "message"),
-      attendance,
-      field(formData, "venue"),
-      budget,
-      band,
-      brief?.name ?? "",
+         (id, reference, name, email, phone, company, event_type, event_date, city,
+          requirements, message, attendance, venue, budget_band, triage_band)
+       VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+       RETURNING id`,
+      [
+        reference,
+        name,
+        email,
+        phone,
+        organisation,
+        event_type,
+        field(formData, "event_date"),
+        field(formData, "location"),
+        requirement,
+        field(formData, "message"),
+        attendance,
+        field(formData, "venue"),
+        budget,
+        band,
+      ],
     );
+    const enquiryId = rows[0]?.id;
 
-  if (brief) {
-    db()
-      .prepare(
-        `INSERT INTO enquiry_files (enquiry_id, filename, mime, bytes, data)
-         VALUES (?, ?, ?, ?, ?)`,
-      )
-      .run(Number(result.lastInsertRowid), brief.name, brief.mime, brief.bytes.byteLength, brief.bytes);
-  }
+    /*
+     * The attachment goes to private R2, and its metadata to Neon.
+     *
+     * It used to be a BLOB in the enquiry row. That cannot survive the move —
+     * and holding a client's BOQ inside the same table the admin lists is a
+     * worse shape anyway. The bytes are written first: a metadata row pointing
+     * at an object that does not exist would render a broken download, whereas
+     * an orphaned object is invisible and harmless.
+     */
+    if (brief && enquiryId) {
+      const key = privateKey(reference, brief.name);
+      if (await storageAvailable("PRIVATE_DOCS")) {
+        await putObject("PRIVATE_DOCS", key, brief.bytes.buffer as ArrayBuffer, brief.mime);
+        await execute(
+          `INSERT INTO enquiry_files (id, enquiry_id, bucket, object_key, original_filename, mime_type, size_bytes)
+           VALUES (gen_random_uuid(), $1, 'raja-private-documents', $2, $3, $4, $5)`,
+          [enquiryId, key, brief.name, brief.mime, brief.bytes.byteLength],
+        );
+      } else {
+        console.error(
+          `[enquiry] ${reference} attachment not stored: no PRIVATE_DOCS binding in this runtime.`,
+        );
+      }
+    }
   } catch (error) {
     console.error(
       `[enquiry] ${reference} could not be stored; handing off to WhatsApp only.`,

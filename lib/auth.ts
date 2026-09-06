@@ -1,6 +1,6 @@
 import "server-only";
 import { cookies } from "next/headers";
-import { db } from "./db";
+import { query, execute } from "./db/neon";
 
 /**
  * Authentication for the Raja admin.
@@ -32,6 +32,10 @@ import { db } from "./db";
  * Sessions are opaque random tokens stored server-side rather than signed JWTs,
  * because a server-side session can be revoked. "Sign out everywhere" is a
  * DELETE; with a stateless token it is impossible before expiry.
+ *
+ * Only the SHA-256 OF the token is stored. The cookie holds the token itself,
+ * so a leaked database row cannot be replayed as a live session — which the
+ * previous schema, where the raw token was the primary key, allowed.
  */
 
 const COOKIE = "raja_session";
@@ -95,10 +99,16 @@ export async function verifyPassword(password: string, stored: string): Promise<
 /* ---------------------------------- users ------------------------------------ */
 
 export interface User {
-  id: number;
+  id: string;
   email: string;
   name: string;
   role: string;
+}
+
+/** Sessions are looked up by digest, never by the token itself. */
+async function tokenHash(token: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(token));
+  return hex(digest);
 }
 
 /**
@@ -115,41 +125,48 @@ export interface User {
  * correct failure, and it is the only one that cannot be guessed.
  */
 export async function ensureOwnerAccount(): Promise<void> {
-  const count = (db().prepare(`SELECT COUNT(*) AS n FROM users`).get() as { n: number }).n;
-  if (count > 0) return;
+  const [{ n }] = await query<{ n: number }>(`SELECT COUNT(*)::int AS n FROM users`);
+  if (n > 0) return;
 
   const email = process.env.RAJA_ADMIN_EMAIL?.trim().toLowerCase();
   const password = process.env.RAJA_ADMIN_PASSWORD;
   if (!email || !password) return; // fail closed
 
-  db()
-    .prepare(`INSERT INTO users (email, name, password, role) VALUES (?, ?, ?, 'owner')`)
-    .run(email, "Raja Enterprises", await hashPassword(password));
+  await execute(
+    `INSERT INTO users (id, email, display_name, password_hash, role)
+     VALUES (gen_random_uuid(), $1, $2, $3, 'owner')`,
+    [email, "Raja Enterprises", await hashPassword(password)],
+  );
 }
 
 /** False when no account exists — the admin cannot be signed into at all. */
-export function adminConfigured(): boolean {
-  return (db().prepare(`SELECT COUNT(*) AS n FROM users`).get() as { n: number }).n > 0;
+export async function adminConfigured(): Promise<boolean> {
+  const [{ n }] = await query<{ n: number }>(`SELECT COUNT(*)::int AS n FROM users`);
+  return n > 0;
 }
 
-export function findUser(email: string) {
-  return db()
-    .prepare(`SELECT id, email, name, password, role FROM users WHERE email = ?`)
-    .get(email.trim().toLowerCase()) as
-    | { id: number; email: string; name: string; password: string; role: string }
-    | undefined;
+export async function findUser(email: string) {
+  const rows = await query<{
+    id: string; email: string; name: string; password: string; role: string;
+  }>(
+    `SELECT id, email, display_name AS name, password_hash AS password, role
+       FROM users WHERE lower(email) = lower($1) AND active`,
+    [email.trim()],
+  );
+  return rows[0];
 }
 
-export async function setPassword(userId: number, password: string) {
-  db().prepare(`UPDATE users SET password = ? WHERE id = ?`).run(await hashPassword(password), userId);
+export async function setPassword(userId: string, password: string) {
+  await execute(`UPDATE users SET password_hash = $2, updated_at = now() WHERE id = $1`,
+    [userId, await hashPassword(password)]);
   // Every existing session is invalidated: a password change that leaves old
   // sessions alive does not actually lock anyone out.
-  db().prepare(`DELETE FROM sessions WHERE user_id = ?`).run(userId);
+  await execute(`DELETE FROM sessions WHERE user_id = $1`, [userId]);
 }
 
 /* --------------------------------- sessions ---------------------------------- */
 
-export async function createSession(userId: number): Promise<void> {
+export async function createSession(userId: string): Promise<void> {
   // Web Crypto rather than node:randomBytes, for the same portability reason.
   const raw = crypto.getRandomValues(new Uint8Array(32));
   const token = btoa(String.fromCharCode(...raw))
@@ -158,10 +175,11 @@ export async function createSession(userId: number): Promise<void> {
     .replace(/=+$/, "");
   const expires = new Date(Date.now() + SESSION_DAYS * 864e5);
 
-  db()
-    .prepare(`INSERT INTO sessions (token, user_id, expires_at) VALUES (?, ?, ?)`)
-    .run(token, userId, expires.toISOString());
-  db().prepare(`UPDATE users SET last_seen_at = datetime('now') WHERE id = ?`).run(userId);
+  await execute(
+    `INSERT INTO sessions (token_hash, user_id, expires_at) VALUES ($1, $2, $3)`,
+    [await tokenHash(token), userId, expires.toISOString()],
+  );
+  await execute(`UPDATE users SET last_login_at = now() WHERE id = $1`, [userId]);
 
   (await cookies()).set(COOKIE, token, {
     httpOnly: true,
@@ -175,7 +193,7 @@ export async function createSession(userId: number): Promise<void> {
 export async function destroySession(): Promise<void> {
   const jar = await cookies();
   const token = jar.get(COOKIE)?.value;
-  if (token) db().prepare(`DELETE FROM sessions WHERE token = ?`).run(token);
+  if (token) await execute(`DELETE FROM sessions WHERE token_hash = $1`, [await tokenHash(token)]);
   jar.delete(COOKIE);
 }
 
@@ -184,25 +202,26 @@ export async function currentUser(): Promise<User | null> {
   const token = (await cookies()).get(COOKIE)?.value;
   if (!token) return null;
 
-  const row = db()
-    .prepare(
-      `SELECT u.id, u.email, u.name, u.role, s.expires_at
-         FROM sessions s JOIN users u ON u.id = s.user_id
-        WHERE s.token = ?`,
-    )
-    .get(token) as
-    | { id: number; email: string; name: string; role: string; expires_at: string }
-    | undefined;
+  const digest = await tokenHash(token);
+  const rows = await query<{
+    id: string; email: string; name: string; role: string; expires_at: string;
+  }>(
+    `SELECT u.id, u.email, u.display_name AS name, u.role, s.expires_at
+       FROM sessions s JOIN users u ON u.id = s.user_id
+      WHERE s.token_hash = $1 AND u.active`,
+    [digest],
+  );
+  const row = rows[0];
 
   if (!row) return null;
   if (new Date(row.expires_at) < new Date()) {
-    db().prepare(`DELETE FROM sessions WHERE token = ?`).run(token);
+    await execute(`DELETE FROM sessions WHERE token_hash = $1`, [digest]);
     return null;
   }
   return { id: row.id, email: row.email, name: row.name, role: row.role };
 }
 
 /** Clears sessions that have already expired. Called on login. */
-export function pruneSessions(): void {
-  db().prepare(`DELETE FROM sessions WHERE expires_at < datetime('now')`).run();
+export async function pruneSessions(): Promise<void> {
+  await execute(`DELETE FROM sessions WHERE expires_at < now()`);
 }

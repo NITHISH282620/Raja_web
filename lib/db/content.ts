@@ -140,3 +140,20 @@ export async function putSetting(key: string, value: unknown): Promise<void> {
     [key, JSON.stringify(value)],
   );
 }
+
+/**
+ * Applies a new order to a whole collection in one statement.
+ *
+ * A row-per-update loop would be several round trips to Singapore for what is
+ * one drag in the admin, and a half-applied reorder is visible on the public
+ * site.
+ */
+export async function reorderRecords(collection: string, ids: string[]): Promise<void> {
+  if (!ids.length) return;
+  await execute(
+    `UPDATE content_entries AS c SET sort_order = v.pos, updated_at = now()
+       FROM (SELECT unnest($2::text[]) AS key, generate_subscripts($2::text[], 1) - 1 AS pos) AS v
+      WHERE c.collection = $1 AND c.entry_key = v.key`,
+    [collection, ids],
+  );
+}

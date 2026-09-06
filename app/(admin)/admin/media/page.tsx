@@ -1,7 +1,6 @@
-import { db } from "@/lib/db";
+import { query } from "@/lib/db/neon";
 import { deleteMedia, updateMediaAlt, uploadMedia } from "../actions";
 import { Notice, PageHead } from "../ui";
-import { backfillMediaLibrary } from "@/lib/media-scan";
 
 export const dynamic = "force-dynamic";
 
@@ -23,11 +22,12 @@ export default async function MediaPage({
 }: {
   searchParams: Promise<{ uploaded?: string; saved?: string; error?: string }>;
 }) {
-  backfillMediaLibrary();
   const { uploaded, saved, error } = await searchParams;
-  const rows = db()
-    .prepare(`SELECT id, src, width, height, alt, kind, bytes, created_at FROM media ORDER BY created_at DESC`)
-    .all() as unknown as MediaRow[];
+  const rows = (await query<MediaRow>(
+    `SELECT id, legacy_path AS src, width, height, alt_text AS alt, kind,
+            size_bytes AS bytes, created_at
+       FROM media ORDER BY created_at DESC`,
+  )) as unknown as MediaRow[];
 
   return (
     <>

@@ -46,12 +46,36 @@ export function pool() {
  * Singapore. `cache()` is request-scoped, so an admin save is still visible on
  * the very next request.
  */
+/**
+ * Retries a query a couple of times before giving up.
+ *
+ * Neon is reached over HTTPS across the public internet, and a single dropped
+ * connection should not turn into a 500 on a marketing page. Only connection
+ * failures are retried — a syntax error or a constraint violation is a real
+ * fault and rethrows immediately, because retrying it would just be slower.
+ */
+async function withRetry<T>(run: () => Promise<T>, attempts = 3): Promise<T> {
+  let last: unknown;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await run();
+    } catch (error) {
+      last = error;
+      const message = error instanceof Error ? error.message : String(error);
+      const transient = /fetch failed|ETIMEDOUT|ECONNRESET|ENETUNREACH|socket hang up|Connection terminated/i
+        .test(message);
+      if (!transient || i === attempts - 1) throw error;
+      await new Promise((r) => setTimeout(r, 120 * 2 ** i));
+    }
+  }
+  throw last;
+}
+
 export const query = cache(async <T = Record<string, unknown>>(
   text: string,
   params: unknown[] = [],
 ): Promise<T[]> => {
-  const rows = await sql.query(text, params);
-  return rows as T[];
+  return withRetry(async () => (await sql.query(text, params)) as T[]);
 });
 
 /** Uncached read, for anything that must not be shared within a request. */
@@ -59,10 +83,10 @@ export async function queryFresh<T = Record<string, unknown>>(
   text: string,
   params: unknown[] = [],
 ): Promise<T[]> {
-  return (await sql.query(text, params)) as T[];
+  return withRetry(async () => (await sql.query(text, params)) as T[]);
 }
 
 /** A single write. Never cached. */
 export async function execute(text: string, params: unknown[] = []): Promise<void> {
-  await sql.query(text, params);
+  await withRetry(() => sql.query(text, params));
 }
