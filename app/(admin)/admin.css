@@ -13,6 +13,28 @@
  * how forms drift out of alignment with one another.
  */
 
+/* ---------------------------- MISSING TOKENS ------------------------------
+   `--color-hairline` and `--color-mist` were used throughout this stylesheet
+   but defined nowhere — not here, not in globals.css. A `var()` that resolves
+   to nothing makes the whole declaration invalid, so every
+
+       border: 1px solid var(--color-hairline);
+
+   silently became no border at all. The sign-in form looked like it had lost
+   its password field: the input was there and focusable, but with no border on
+   a white card there was nothing to see. Only the email field looked present,
+   and only because `autoFocus` gave it a focus ring.
+
+   Values are taken from the site's own palette rather than invented: the
+   hairline is the same near-black at 15% that the public site uses for its
+   rules, and the mist is the off-white behind its cards.
+--------------------------------------------------------------------------- */
+:root {
+  --color-hairline: rgba(0, 0, 0, 0.15);
+  --color-mist: #f4f5f7;
+}
+
+
 .admin-body {
   background: #fafafb;
   color: var(--color-ink);

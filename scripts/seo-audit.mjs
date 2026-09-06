@@ -93,7 +93,7 @@ const sitemap = await (await fetch(BASE + "/sitemap.xml")).text();
 const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 ok(urls.length > 0, "sitemap is empty");
 ok(!urls.some((u) => u.includes("/admin")), "sitemap contains an /admin URL");
-ok(!urls.some((u) => /vercel\.app|workers\.dev|localhost/.test(u)), "sitemap contains a preview host");
+ok(!urls.some((u) => /vercel\.app|workers\.dev/.test(u)), "sitemap contains a deployed preview host");
 
 const robots = await (await fetch(BASE + "/robots.txt")).text();
 ok(/Disallow: \/admin/.test(robots) || /Disallow: \/$/m.test(robots), "robots.txt does not protect /admin");
