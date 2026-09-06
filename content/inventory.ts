@@ -55,10 +55,10 @@ export const inventoryTiles: InventoryTile[] = [
     body:
       "Clear-span aluminium hangers imported for large-format deployment. Column-free interiors carry staging, seating and services without breaking a sightline, and the shell holds through monsoon weather.",
     image: {
-      src: "/media/events/kanha-canopy-seating.7a22707d.webp",
-      width: 516,
-      height: 387,
-      alt: "A wide clear-span canopy over rank upon rank of seating, open at the sides.",
+      src: "/media/events/german-hanger-aerial.webp",
+      width: 1280,
+      height: 720,
+      alt: "Aerial view of large-scale German clear-span hanger complex.",
       clearance: "client-approved",
     },
     tint: "blue",

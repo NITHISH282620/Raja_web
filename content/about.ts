@@ -51,7 +51,7 @@ export const aboutTimeline: TimelineEra[] = [
       "Transition from sub-hiring to 100% direct-owned asset fleet",
       "Heavy wooden platform fabrication yards established",
     ],
-    image: "/media/events/kanha-canopy-night.0c0ccba9.webp",
+    image: "/media/events/german-hanger-aerial.webp",
     alt: "Directly owned German clear-span structure engineering",
   },
   {

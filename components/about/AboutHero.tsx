@@ -129,7 +129,7 @@ export function AboutHero() {
             className="group relative md:col-span-5 h-[320px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white shadow-sm"
           >
             <Image
-              src="/media/events/kanha-canopy-night.0c0ccba9.webp"
+              src="/media/events/german-hanger-aerial.webp"
               alt="Engineered clear-span German hangar structure"
               fill
               priority

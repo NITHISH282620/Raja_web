@@ -271,10 +271,10 @@ export const projects: Project[] = [
         clearance: "client-approved",
       },
       {
-        src: "/media/events/kanha-canopy-night.0c0ccba9.webp",
-        width: 720,
-        height: 1280,
-        alt: "A tensile canopy structure lit from within at night.",
+        src: "/media/events/german-hanger-aerial.webp",
+        width: 1280,
+        height: 720,
+        alt: "Aerial view of engineered German clear-span hanger structures.",
         clearance: "client-approved",
       },
       {

@@ -92,5 +92,5 @@ export const recentExecutions: RecentExecution[] = [
   { slug: "dr-rajkumar-punya-smarane", year: "2025", project: "Dr. Rajkumar Punya Smarane", image: "/media/events/isgcon-stage-lamp.5633cdec.webp" },
   
   // Block A: 1x2 (Perfectly fills column)
-  { slug: "suttur-jathra-mahotsava", year: "2025", project: "Suttur Jathra Mahotsava", image: "/media/events/kanha-canopy-night.0c0ccba9.webp", size: "tall" },
+  { slug: "suttur-jathra-mahotsava", year: "2025", project: "Suttur Jathra Mahotsava", image: "/media/events/german-hanger-aerial.webp", size: "tall" },
 ];
