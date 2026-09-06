@@ -236,6 +236,8 @@ export const FIELDS: Record<Collection, Field[]> = {
 
   clients: [
     { name: "name", label: "Client name", type: "text" },
+    { name: "alternateName", label: "Also published as", type: "text", hint: "The other name this organisation appears under. Left over from two lists that disagreed — confirm which is right and clear the other." },
+    { name: "event", label: "Engagement", type: "text", placeholder: "EIMA Agrimach 2024" },
     { name: "logo", label: "Logo", type: "image", hint: "A logo on a transparent or white background works best." },
     { name: "logo.alt", label: "Logo description", type: "text" },
   ],
@@ -291,7 +293,7 @@ export const BLANKS: Record<Collection, Record<string, unknown>> = {
     area: { col: "1 / 2", row: "1 / 2" }, fit: "cover", layout: "image-top", status: "approved",
   },
   process: { id: "", index: "", label: "", caption: null, image: null, status: "approved" },
-  clients: { id: "", name: "", logo: null, box: { width: 120, height: 70 }, status: "approved" },
+  clients: { id: "", name: "", alternateName: "", event: "", logo: null, category: "Enterprise", status: "approved" },
   collage: { id: "", left: 20, top: 20, width: 20, height: 18, image: null },
 };
 

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, fadeUp, growRule, riseCard, release, entranceTrigger, q } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
-import { CLIENTS_27, type ClientItem } from "@/content/clientRoster";
+import type { Client } from "@/content/clients";
 import { SECTION_IDS } from "@/content/navigation";
 import { clsx } from "@/lib/clsx";
 
@@ -43,87 +43,46 @@ const GRID_H = ROW_PITCH + HALF_ROW + HEX_H; // 108 + 54 + 104 = 266px
 const HERO_Y = (GRID_H - HERO_H) / 2; // (266 - 137) / 2 = 64.5px
 
 /* --------------------------------------------------------------------------
-   ROSTER ASSIGNMENT:
-   Columns 4, 5, 6 of the Left Wing and Columns 0, 1, 2 of the Right Wing hold
-   the 12 original wireframe clients flanking the central Raja badge.
-   Columns 0-3 of Left Wing and 3-6 of Right Wing hold the other 15 clients.
+   THE HONEYCOMB LAYOUT.
+
+   Which client sits in which hexagon is a design decision and stays in code:
+   columns 4-6 of the left wing and 0-2 of the right hold the twelve clients
+   that flank the central Raja badge, and the outer columns carry the rest.
+
+   What changed is that these are now ids resolved against the live records
+   rather than the records themselves. The wall previously imported a hardcoded
+   CLIENTS_27 array, so an admin unpublishing a client changed nothing on the
+   homepage. Resolving at render time means an absent client simply leaves its
+   position empty and the surrounding layout is untouched.
    -------------------------------------------------------------------------- */
 
-const leftColumnsData: ClientItem[][] = [
-  // Col 0 (Far left)
-  [
-    CLIENTS_27.find((c) => c.id === "tribal-welfare") || CLIENTS_27[18],
-    CLIENTS_27.find((c) => c.id === "abs-vidyapeeta") || CLIENTS_27[25],
-  ],
-  // Col 1
-  [
-    CLIENTS_27.find((c) => c.id === "adichunchanagiri") || CLIENTS_27[14],
-    CLIENTS_27.find((c) => c.id === "uas-bangalore") || CLIENTS_27[15],
-  ],
-  // Col 2
-  [
-    CLIENTS_27.find((c) => c.id === "vaidic-dharma") || CLIENTS_27[12],
-    CLIENTS_27.find((c) => c.id === "karnataka-habitat") || CLIENTS_27[13],
-  ],
-  // Col 3
-  [
-    CLIENTS_27.find((c) => c.id === "csb-silk-board") || CLIENTS_27[11],
-    CLIENTS_27.find((c) => c.id === "abs-business") || CLIENTS_27[8],
-  ],
-  // Col 4 (Core Wireframe: Top = Karnataka Govt, Bottom = Govt of India)
-  [
-    CLIENTS_27.find((c) => c.id === "govt-karnataka") || CLIENTS_27[0],
-    CLIENTS_27.find((c) => c.id === "govt-india") || CLIENTS_27[1],
-  ],
-  // Col 5 (Core Wireframe: Top = FICCI, Bottom = Art of Living)
-  [
-    CLIENTS_27.find((c) => c.id === "ficci") || CLIENTS_27[6],
-    CLIENTS_27.find((c) => c.id === "art-of-living") || CLIENTS_27[2],
-  ],
-  // Col 6 (Core Wireframe next to Raja: Top = Collegedunia, Bottom = ISGCON)
-  [
-    CLIENTS_27.find((c) => c.id === "collegedunia") || CLIENTS_27[9],
-    CLIENTS_27.find((c) => c.id === "isgcon-bengaluru") || CLIENTS_27[3],
-  ],
+const LEFT_COLUMN_IDS: readonly (readonly string[])[] = [
+  ["tribal-welfare", "abs-vidyapeeta"],
+  ["adichunchanagiri", "uas-bangalore"],
+  ["vaidic-dharma", "karnataka-habitat"],
+  ["csb-silk-board", "abs-business"],
+  ["govt-karnataka", "govt-india"],
+  ["ficci", "art-of-living"],
+  ["collegedunia", "isgcon-bengaluru"],
 ];
 
-const rightColumnsData: ClientItem[][] = [
-  // Col 0 (Core Wireframe next to Raja: Top = La Renon, Bottom = Kanha Shanti)
-  [
-    CLIENTS_27.find((c) => c.id === "la-renon") || CLIENTS_27[4],
-    CLIENTS_27.find((c) => c.id === "kanha-shanti") || CLIENTS_27[7],
-  ],
-  // Col 1 (Core Wireframe: Top = GTE Expo, Bottom = BIFFES)
-  [
-    CLIENTS_27.find((c) => c.id === "gte-expo") || CLIENTS_27[10],
-    CLIENTS_27.find((c) => c.id === "biffes") || CLIENTS_27[21],
-  ],
-  // Col 2 (Core Wireframe: Top = TribeVibe, Bottom = First Circle)
-  [
-    CLIENTS_27.find((c) => c.id === "tribevibe") || CLIENTS_27[22],
-    CLIENTS_27.find((c) => c.id === "first-circle") || CLIENTS_27[5],
-  ],
-  // Col 3
-  [
-    CLIENTS_27.find((c) => c.id === "ksmcal") || CLIENTS_27[16],
-    CLIENTS_27.find((c) => c.id === "buildtek") || CLIENTS_27[17],
-  ],
-  // Col 4
-  [
-    CLIENTS_27.find((c) => c.id === "mm-hills") || CLIENTS_27[19],
-    CLIENTS_27.find((c) => c.id === "skyblue-events") || CLIENTS_27[20],
-  ],
-  // Col 5
-  [
-    CLIENTS_27.find((c) => c.id === "ksmcal-dam-safety") || CLIENTS_27[23],
-    CLIENTS_27.find((c) => c.id === "ksmcal-babu-jagjivan") || CLIENTS_27[24],
-  ],
-  // Col 6 (Far right)
-  [
-    CLIENTS_27.find((c) => c.id === "vaidic-dharma-trust") || CLIENTS_27[26],
-    CLIENTS_27.find((c) => c.id === "first-circle") || CLIENTS_27[5],
-  ],
+const RIGHT_COLUMN_IDS: readonly (readonly string[])[] = [
+  ["la-renon", "kanha-shanti"],
+  ["gte-expo", "biffes"],
+  ["tribevibe", "first-circle"],
+  ["ksmcal", "buildtek"],
+  ["mm-hills", "skyblue-events"],
+  ["ksmcal-dam-safety", "ksmcal-babu-jagjivan"],
+  ["vaidic-dharma-trust", "first-circle"],
 ];
+
+/** Resolve a layout of ids against whatever the store currently publishes. */
+function resolveColumns(
+  layout: readonly (readonly string[])[],
+  byId: Map<string, Client>,
+): Client[][] {
+  return layout.map((col) => col.map((id) => byId.get(id)).filter((c): c is Client => Boolean(c)));
+}
 
 /* --- Flat-Top Hex Badge Component ----------------------------------------- */
 
@@ -133,10 +92,10 @@ function FlatHexBadge({
   style,
   onSelect,
 }: {
-  client: ClientItem;
+  client: Client;
   isDelayed?: boolean;
   style: React.CSSProperties;
-  onSelect?: (client: ClientItem) => void;
+  onSelect?: (client: Client) => void;
 }) {
   return (
     <div
@@ -181,16 +140,28 @@ function FlatHexBadge({
 
 /* --- Main Clients Section ------------------------------------------------- */
 
-export function ClientsView({}: {
-  clients?: unknown[];
+export function ClientsView({
+  clients,
+}: {
+  /**
+   * The published client records. Previously this prop was declared
+   * `clients?: unknown[]` and destructured as `{}` — accepted and thrown away
+   * while the wall rendered a hardcoded array, which is why unpublishing a
+   * client in the admin had no effect on the homepage.
+   */
+  clients: Client[];
   contact?: unknown;
   events?: unknown[];
 }) {
+  // Resolve the fixed layout against what is actually published right now.
+  const byId = new Map(clients.map((c) => [c.id, c]));
+  const leftColumnsData = resolveColumns(LEFT_COLUMN_IDS, byId);
+  const rightColumnsData = resolveColumns(RIGHT_COLUMN_IDS, byId);
   const root = useRef<HTMLElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
 
   const [isDragging, setIsDragging] = useState(false);
-  const [selectedClient, setSelectedClient] = useState<ClientItem | null>(null);
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const hasInteracted = useRef(false);
 
   /* GSAP Entrance Reveal Animations */
