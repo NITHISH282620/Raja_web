@@ -69,6 +69,16 @@ export function RecordRow({
   published: boolean;
   title: string;
   meta?: string;
+  /**
+   * `undefined` means this collection has no picture at all — no slot is drawn.
+   * `null` means it has one and this record has not been given it yet, so the
+   * empty frame is shown as a prompt.
+   *
+   * The distinction matters. Recent engagements, principles, paragraphs and the
+   * capacity figures are text by nature, and drawing an empty grey square beside
+   * every row made them look like rows whose photograph had failed to load. A
+   * placeholder should only ever appear where a photograph could actually go.
+   */
   thumb?: string | null;
 }) {
   return (
@@ -79,9 +89,9 @@ export function RecordRow({
         // pipeline per row for no benefit the editor can see.
         // eslint-disable-next-line @next/next/no-img-element
         <img className="admin-thumb" src={thumb} alt="" />
-      ) : (
+      ) : thumb === null ? (
         <span className="admin-thumb" aria-hidden />
-      )}
+      ) : null}
 
       <div style={{ minWidth: 0 }}>
         <Link

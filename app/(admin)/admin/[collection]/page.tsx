@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { readAll, COLLECTIONS } from "@/lib/store";
 import { PageHead, Notice, RecordRow } from "../ui";
 import { categoryBanner } from "@/content/projects";
+import { FIELDS } from "../fields";
 
 export const dynamic = "force-dynamic";
 
@@ -167,6 +168,11 @@ export const META: Record<
   },
 };
 
+/** True when this collection's editor offers an image field of any kind. */
+function collectionHasImage(collection: Collection): boolean {
+  return FIELDS[collection].some((f) => f.type === "image" || f.type === "imagePath");
+}
+
 function thumbOf(data: Record<string, unknown>): string | null {
   // Two shapes in play. Most collections store an asset object with a `src`;
   // the About timeline, milestones, inventory highlights and the equipment
@@ -229,7 +235,14 @@ export default async function CollectionPage({
                 published={row.published}
                 title={meta.label(data)}
                 meta={meta.meta?.(data)}
-                thumb={meta.thumb?.(data) ?? thumbOf(data)}
+                thumb={
+                  // Only collections whose editor offers a picture get a slot.
+                  // Derived from the field definitions rather than a second
+                  // list, so the two cannot drift apart.
+                  collectionHasImage(key)
+                    ? (meta.thumb?.(data) ?? thumbOf(data))
+                    : undefined
+                }
               />
             );
           })}
