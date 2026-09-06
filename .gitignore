@@ -65,3 +65,6 @@ _masters/
 # repository's.
 .data/
 public/uploads/
+/dist/
+.vinext/
+.wrangler/
