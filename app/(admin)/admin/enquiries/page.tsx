@@ -71,7 +71,7 @@ export default async function EnquiriesPage({
       {saved && <Notice tone="ok">Note saved.</Notice>}
 
       <div className="admin-actions" style={{ marginBottom: 20 }}>
-        <Link href="/admin/enquiries" className="admin-btn" data-variant={filter ? "ghost" : "primary"} style={{ height: 32 }}>
+        <Link href="/admin/enquiries" className="admin-btn" data-variant={filter ? "ghost" : "primary"} style={{ }}>
           All
         </Link>
         {STATUSES.map((s) => (
@@ -80,7 +80,7 @@ export default async function EnquiriesPage({
             href={`/admin/enquiries?status=${s}`}
             className="admin-btn"
             data-variant={filter === s ? "primary" : "ghost"}
-            style={{ height: 32 }}
+            style={{ }}
           >
             {STATUS_LABELS[s]}
           </Link>
@@ -174,7 +174,7 @@ export default async function EnquiriesPage({
                     rel="noopener noreferrer"
                     className="admin-btn"
                     data-variant="primary"
-                    style={{ height: 30, fontSize: 12.5 }}
+                    style={{ fontSize: 12.5 }}
                   >
                     Reply on WhatsApp
                   </a>
@@ -187,7 +187,7 @@ export default async function EnquiriesPage({
                       await setEnquiryStatus(e.id, s);
                     }}
                   >
-                    <button type="submit" className="admin-btn" data-variant="ghost" style={{ height: 30, fontSize: 12.5 }}>
+                    <button type="submit" className="admin-btn" data-variant="ghost" style={{ fontSize: 12.5 }}>
                       Mark {STATUS_LABELS[s]}
                     </button>
                   </form>
@@ -198,7 +198,7 @@ export default async function EnquiriesPage({
                     await deleteEnquiry(e.id);
                   }}
                 >
-                  <button type="submit" className="admin-btn" data-variant="danger" style={{ height: 30, fontSize: 12.5 }}>
+                  <button type="submit" className="admin-btn" data-variant="danger" style={{ fontSize: 12.5 }}>
                     Delete
                   </button>
                 </form>
@@ -233,7 +233,7 @@ export default async function EnquiriesPage({
                   placeholder="Add a note — what was quoted, what was agreed, what happens next."
                   style={{ minHeight: 72, fontSize: 13 }}
                 />
-                <button type="submit" className="admin-btn" data-variant="ghost" style={{ height: 32, marginTop: 8 }}>
+                <button type="submit" className="admin-btn" data-variant="ghost" style={{ marginTop: 8 }}>
                   Add note
                 </button>
               </form>

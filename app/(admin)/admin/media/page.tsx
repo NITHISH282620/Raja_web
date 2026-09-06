@@ -109,7 +109,7 @@ export default async function MediaPage({
                     style={{ fontSize: 12, padding: "7px 9px" }}
                   />
                   <div className="admin-actions" style={{ marginTop: 8 }}>
-                    <button type="submit" className="admin-btn" data-variant="ghost" style={{ height: 30, fontSize: 12.5 }}>
+                    <button type="submit" className="admin-btn" data-variant="ghost" style={{ fontSize: 12.5 }}>
                       Save
                     </button>
                   </div>
@@ -121,7 +121,7 @@ export default async function MediaPage({
                   }}
                   style={{ marginTop: 6 }}
                 >
-                  <button type="submit" className="admin-btn" data-variant="danger" style={{ height: 30, fontSize: 12.5 }}>
+                  <button type="submit" className="admin-btn" data-variant="danger" style={{ fontSize: 12.5 }}>
                     Remove
                   </button>
                 </form>

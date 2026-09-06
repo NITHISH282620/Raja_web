@@ -111,7 +111,7 @@ export function RecordRow({
             type="submit"
             className="admin-btn"
             data-variant="ghost"
-            style={{ height: 32, padding: "0 11px" }}
+            style={{ padding: "0 11px" }}
             disabled={index === 0}
             aria-label="Move up"
           >
@@ -128,7 +128,7 @@ export function RecordRow({
             type="submit"
             className="admin-btn"
             data-variant="ghost"
-            style={{ height: 32, padding: "0 11px" }}
+            style={{ padding: "0 11px" }}
             disabled={index === total - 1}
             aria-label="Move down"
           >
@@ -142,7 +142,7 @@ export function RecordRow({
             await setPublished(collection, id, !published);
           }}
         >
-          <button type="submit" className="admin-btn" data-variant="ghost" style={{ height: 32 }}>
+          <button type="submit" className="admin-btn" data-variant="ghost" style={{ }}>
             {published ? "Unpublish" : "Publish"}
           </button>
         </form>
@@ -151,7 +151,7 @@ export function RecordRow({
           href={`/admin/${collection}/${encodeURIComponent(id)}`}
           className="admin-btn"
           data-variant="primary"
-          style={{ height: 32 }}
+          style={{ }}
         >
           Edit
         </Link>

@@ -422,3 +422,32 @@ a.admin-stat:hover {
   font-family: var(--font-mono);
   word-break: break-all;
 }
+
+
+/* ---------------------------- TOUCH TARGETS -------------------------------
+   The owner works this admin from a phone. Every interactive control gets a
+   44px minimum on small screens — the size a thumb actually hits.
+
+   `!important` is deliberate and is the point of the rule. The controls that
+   failed the audit failed because of inline `style={{ height: 30 }}` written
+   directly on the element, and an inline style beats any selector specificity.
+   Without this the next person to add one silently reintroduces the problem;
+   with it, the floor holds regardless of what is written at the call site.
+
+   Applied only below 431px, so the denser desktop layout is untouched.
+--------------------------------------------------------------------------- */
+@media (max-width: 430px) {
+  .admin-btn,
+  .admin-input,
+  .admin-select,
+  .admin-nav a,
+  button[type="submit"] {
+    min-height: 44px !important;
+    height: auto !important;
+  }
+
+  /* Give stacked actions room so adjacent targets are not touching. */
+  .admin-btn + .admin-btn {
+    margin-top: 8px;
+  }
+}

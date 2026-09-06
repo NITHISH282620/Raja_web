@@ -81,7 +81,7 @@ export function ImagePicker({
               type="button"
               className="admin-btn"
               data-variant="ghost"
-              style={{ height: 34 }}
+              style={{ }}
               onClick={() => setOpen((v) => !v)}
             >
               {open ? "Close" : "Choose image"}
@@ -91,7 +91,7 @@ export function ImagePicker({
                 type="button"
                 className="admin-btn"
                 data-variant="ghost"
-                style={{ height: 34 }}
+                style={{ }}
                 onClick={() => setChosen("")}
               >
                 Remove
