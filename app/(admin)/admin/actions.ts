@@ -20,6 +20,7 @@ import {
 } from "@/lib/auth";
 import { db, deleteRecord, putRecord, putSetting, reorderRecords } from "@/lib/db";
 import { COLLECTIONS, readAll } from "@/lib/store";
+import { recordAudit } from "@/lib/audit";
 
 /**
  * Every write the admin can perform.
@@ -64,12 +65,15 @@ export async function signIn(formData: FormData) {
   }
 
   await createSession(user.id);
+  recordAudit({ id: user.id, email: user.email }, "sign_in");
   // Only ever redirect to a path on this site — `next` arrives from a query
   // string, and an open redirect is how a login page becomes a phishing page.
   redirect(next.startsWith("/") && !next.startsWith("//") ? next : "/admin");
 }
 
 export async function signOut() {
+  const user = await currentUser();
+  recordAudit(user, "sign_out");
   await destroySession();
   redirect("/admin/login");
 }
@@ -299,19 +303,52 @@ export async function deleteMedia(id: string) {
 /* -------------------------------- enquiries -------------------------------- */
 
 export async function setEnquiryStatus(id: number, status: string) {
-  await guard();
+  const user = await guard();
   // Validated against the allowed set rather than trusted: this writes straight
   // to a column the public site reads back.
   if (!(ENQUIRY_STATUSES as readonly string[]).includes(status)) return;
-  db().prepare(`UPDATE enquiries SET status = ? WHERE id = ?`).run(status, id);
+
+  const before = db().prepare(`SELECT status FROM enquiries WHERE id = ?`).get(id) as
+    | { status: string }
+    | undefined;
+
+  db()
+    .prepare(`UPDATE enquiries SET status = ?, updated_at = datetime('now') WHERE id = ?`)
+    .run(status, id);
+  recordAudit(user, "enquiry_status", "enquiry", id, { from: before?.status, to: status });
   revalidatePath("/admin/enquiries");
 }
 
-export async function saveEnquiryNotes(formData: FormData) {
-  await guard();
+/**
+ * Appends a note. Never overwrites: the history is the point.
+ */
+export async function addEnquiryNote(formData: FormData) {
+  const user = await guard();
+  const id = Number(formData.get("id"));
+  const body = String(formData.get("body") ?? "").trim().slice(0, 4000);
+  if (!id || !body) redirect("/admin/enquiries");
+
   db()
-    .prepare(`UPDATE enquiries SET notes = ? WHERE id = ?`)
-    .run(String(formData.get("notes") ?? ""), Number(formData.get("id")));
+    .prepare(`INSERT INTO enquiry_notes (enquiry_id, author_id, body) VALUES (?, ?, ?)`)
+    .run(id, user.id, body);
+  db().prepare(`UPDATE enquiries SET updated_at = datetime('now') WHERE id = ?`).run(id);
+  recordAudit(user, "enquiry_note", "enquiry", id);
+  redirect("/admin/enquiries?saved=1");
+}
+
+/** The date the owner intends to chase this lead. */
+export async function setEnquiryFollowup(formData: FormData) {
+  const user = await guard();
+  const id = Number(formData.get("id"));
+  const raw = String(formData.get("next_followup_on") ?? "").trim();
+  // Empty clears it; anything else must be a plain ISO date.
+  const date = raw === "" ? null : /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : undefined;
+  if (!id || date === undefined) redirect("/admin/enquiries");
+
+  db()
+    .prepare(`UPDATE enquiries SET next_followup_on = ?, updated_at = datetime('now') WHERE id = ?`)
+    .run(date, id);
+  recordAudit(user, "enquiry_assign", "enquiry", id, { next_followup_on: date });
   redirect("/admin/enquiries?saved=1");
 }
 

@@ -2,6 +2,26 @@
 
 **Date:** 2026-09-06
 **Status:** architecture review. No code changed, nothing deployed.
+
+> **SCOPE CORRECTION, 2026-09-06.** The owner reduced the scope after this was
+> written. One primary admin user, two or three internal users total, used from
+> a phone two or three times a week. The admin exists to edit content and work
+> leads — not to operate the business.
+>
+> Consequently: **eight admin sections, not fifteen**; **six enquiry statuses,
+> not nine**; **no enterprise RBAC**; no inventory/ERP module; no separate
+> backend. The nineteen-table schema in §6 is superseded by the smaller set that
+> the existing SQLite schema already almost matches — users, sessions, records,
+> settings, media, enquiries, enquiry_notes, enquiry_files, audit_logs.
+>
+> **The PBKDF2/CPU question is settled in favour of security.** Measured cost is
+> 22.8 ms CPU at 210,000 iterations against a 10 ms free-plan budget. The
+> iteration count stays; Workers Paid at $5/mo is accepted as the cost of not
+> weakening password hashing. That is the one measured, justified spend.
+>
+> Abstractions are kept to what has two real implementations today — the SQLite
+> to Neon swap and the filesystem to R2 swap. Nothing is generalised for a scale
+> this site is not going to reach.
 **Supersedes:** `PRODUCTION-ARCHITECTURE.md` (Vercel Pro + Supabase, ≈$45/mo).
 
 **Verdict: the architecture is viable, but the application cannot be deployed to

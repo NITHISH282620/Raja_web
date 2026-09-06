@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
-import { deleteEnquiry, saveEnquiryNotes, setEnquiryStatus } from "../actions";
+import { deleteEnquiry, addEnquiryNote, setEnquiryFollowup, setEnquiryStatus } from "../actions";
 import { Notice, PageHead } from "../ui";
 import { ENQUIRY_STATUSES, STATUS_LABELS, BAND_LABELS, whatsappLink, type LeadBand } from "@/lib/enquiry";
 
@@ -34,6 +34,7 @@ interface Enquiry {
   message: string;
   status: string;
   notes: string;
+  next_followup_on: string | null;
   created_at: string;
 }
 
@@ -203,17 +204,37 @@ export default async function EnquiriesPage({
                 </form>
               </div>
 
-              <form action={saveEnquiryNotes} style={{ marginTop: 14 }}>
+              {/* Follow-up date. On a phone this is the field that actually gets
+                  used: it is the difference between a lead list and a to-do list. */}
+              <form action={setEnquiryFollowup} style={{ marginTop: 14, display: "flex", gap: 8, alignItems: "flex-end", flexWrap: "wrap" }}>
+                <input type="hidden" name="id" value={e.id} />
+                <label style={{ display: "flex", flexDirection: "column", gap: 4, fontSize: 12 }}>
+                  <span style={{ color: "var(--color-body-light)" }}>Next follow-up</span>
+                  <input
+                    type="date"
+                    name="next_followup_on"
+                    className="admin-input"
+                    defaultValue={e.next_followup_on ?? ""}
+                    style={{ height: 40, fontSize: 14 }}
+                  />
+                </label>
+                <button type="submit" className="admin-btn" data-variant="ghost" style={{ height: 40 }}>
+                  Set
+                </button>
+              </form>
+
+              {/* Notes append rather than overwrite — the history of a lead is
+                  the useful part, and a single field destroys it on every save. */}
+              <form action={addEnquiryNote} style={{ marginTop: 12 }}>
                 <input type="hidden" name="id" value={e.id} />
                 <textarea
-                  name="notes"
+                  name="body"
                   className="admin-textarea"
-                  defaultValue={e.notes}
-                  placeholder="Notes — what was quoted, who is following up, what was agreed."
+                  placeholder="Add a note — what was quoted, what was agreed, what happens next."
                   style={{ minHeight: 72, fontSize: 13 }}
                 />
                 <button type="submit" className="admin-btn" data-variant="ghost" style={{ height: 32, marginTop: 8 }}>
-                  Save note
+                  Add note
                 </button>
               </form>
             </article>

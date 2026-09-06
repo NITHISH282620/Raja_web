@@ -113,15 +113,43 @@ export const BAND_LABELS: Record<LeadBand, string> = {
   general: "General",
 };
 
-export const ENQUIRY_STATUSES = ["new", "contacted", "qualified", "closed"] as const;
+/**
+ * The pipeline, in the order a real enquiry moves through it.
+ *
+ * Six stages, not nine. An earlier draft carried SITE_VISIT, NEGOTIATION and
+ * ARCHIVED as well, which is a sales pipeline for a team that does not exist
+ * here: one owner works these leads from a phone. A stage nobody sets is a
+ * stage that makes every screen longer and every decision slower.
+ *
+ * Stored lower-case because that is what the existing rows already contain —
+ * three of the four old values carry over untouched.
+ */
+export const ENQUIRY_STATUSES = [
+  "new",
+  "contacted",
+  "qualified",
+  "proposal",
+  "won",
+  "lost",
+] as const;
 export type EnquiryStatus = (typeof ENQUIRY_STATUSES)[number];
 
 export const STATUS_LABELS: Record<EnquiryStatus, string> = {
   new: "New",
   contacted: "Contacted",
   qualified: "Qualified",
-  closed: "Closed",
+  proposal: "Proposal",
+  won: "Won",
+  lost: "Lost",
 };
+
+/** Stages that are still live work, for the dashboard's "open" count. */
+export const OPEN_STATUSES: readonly EnquiryStatus[] = [
+  "new",
+  "contacted",
+  "qualified",
+  "proposal",
+];
 
 export interface Enquiry {
   id: number;
@@ -143,6 +171,9 @@ export interface Enquiry {
   /** Original filename of an attached brief, empty when none was sent. */
   brief_name: string;
   status: EnquiryStatus;
+  /** ISO date. The single most useful field for working leads from a phone. */
+  next_followup_on: string | null;
+  updated_at: string;
   notes: string;
   created_at: string;
 }

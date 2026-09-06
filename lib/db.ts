@@ -117,6 +117,39 @@ const SCHEMA = `
   );
   CREATE INDEX IF NOT EXISTS enquiries_status ON enquiries(status, created_at DESC);
 
+  -- Notes appended to an enquiry, each with who wrote it and when.
+  --
+  -- A table rather than one overwritable text column: the point of notes on a
+  -- lead is the history ("quoted 12 Sep", "asked for revised BOQ"), and a single
+  -- field loses every earlier entry the moment the next one is typed.
+  CREATE TABLE IF NOT EXISTS enquiry_notes (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    enquiry_id INTEGER NOT NULL,
+    author_id  INTEGER,
+    body       TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY (enquiry_id) REFERENCES enquiries(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS enquiry_notes_enquiry
+    ON enquiry_notes(enquiry_id, created_at DESC);
+
+  -- Audit trail for mutations worth being able to explain later.
+  --
+  -- Deliberately not an event log of everything. It records who published, who
+  -- changed a lead's status, who opened a client's RFP — the actions a person
+  -- might later need accounting for.
+  CREATE TABLE IF NOT EXISTS audit_logs (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    actor_id   INTEGER,
+    actor_email TEXT NOT NULL DEFAULT '',
+    action     TEXT NOT NULL,
+    entity     TEXT NOT NULL DEFAULT '',
+    entity_id  TEXT NOT NULL DEFAULT '',
+    metadata   TEXT NOT NULL DEFAULT '',
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS audit_logs_recent ON audit_logs(created_at DESC);
+
   -- An attached brief, RFP or BOQ, held as a blob beside its enquiry.
   --
   -- WHY IN THE DATABASE. The application already requires a writable local disk
@@ -157,6 +190,12 @@ const MIGRATIONS = [
   // table does not have yet, and on an existing database it does not have it
   // until that statement has run.
   `CREATE INDEX IF NOT EXISTS enquiries_band ON enquiries(band, created_at DESC)`,
+  `ALTER TABLE enquiries ADD COLUMN next_followup_on TEXT`,
+  `ALTER TABLE enquiries ADD COLUMN updated_at TEXT NOT NULL DEFAULT ''`,
+  // The pipeline lost "closed" and gained proposal/won/lost. Nothing else moves:
+  // new, contacted and qualified already mean the same thing.
+  `UPDATE enquiries SET status = 'lost' WHERE status = 'closed'`,
+  `UPDATE enquiries SET updated_at = created_at WHERE updated_at = ''`,
 ];
 
 /**
