@@ -1,4 +1,5 @@
 import { Reveal } from "@/motion/Reveal";
+import { copyText } from "@/lib/store";
 
 interface EvolutionRow {
   domain: string;
@@ -60,7 +61,7 @@ export function LegacyEvolution() {
             <span className="text-brand-blue">Then vs. Now Across Four Decades.</span>
           </h2>
           <p className="t-body text-body-light leading-relaxed max-w-[50ch]">
-            How Indian event engineering evolved from temporary artisanal shamianas into high-precision modular structural civil engineering.
+            {copyText("legacy-evolution-0")}
           </p>
         </div>
 

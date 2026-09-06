@@ -15,12 +15,14 @@ import { solutions as seedSolutions, type Solution } from "@/content/solutions";
 import { inventorySchedule as seedSchedule, type InventoryLine } from "@/content/inventorySchedule";
 import { inventoryCategories as seedCatalog, type InventoryCategory } from "@/content/inventoryCatalog";
 import { aboutTimeline as seedTimeline, milestoneMoments as seedMilestones, principles as seedPrinciples,
-  type TimelineEra, type MilestoneItem, type Principle } from "@/content/about";
+  inventoryHighlights as seedHighlights,
+  type TimelineEra, type MilestoneItem, type Principle, type InventoryItem } from "@/content/about";
 import { locations as seedLocations, type LocationRecord } from "@/content/locations";
 import { disciplines as seedDisciplines, type Discipline } from "@/content/careers";
 import { partnerPoints as seedPartnerPoints, partnerSteps as seedPartnerSteps,
   type PartnerPoint, type PartnerStep } from "@/content/partners";
 import { seoOverrides as seedSeo, type SeoOverride } from "@/content/seo";
+import { copyBlocks as seedCopyBlocks } from "@/content/copy";
 import { publishable, publishableList } from "@/content/media";
 
 /**
@@ -62,6 +64,8 @@ export const COLLECTIONS = {
   partnerPoints: "partnerPoints",
   partnerSteps: "partnerSteps",
   seo: "seo",
+  copy: "copy",
+  highlights: "highlights",
 } as const;
 
 /** Seeds a collection reads from when the database has nothing for it. */
@@ -85,6 +89,8 @@ const SEEDS = {
   partnerPoints: seedPartnerPoints,
   partnerSteps: seedPartnerSteps,
   seo: seedSeo,
+  copy: seedCopyBlocks,
+  highlights: seedHighlights,
 } as const;
 
 type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
@@ -219,7 +225,18 @@ export function findSolutionBySlug(slug: string): Solution | undefined {
   return read("solutions").find((s) => s.slug === slug);
 }
 
+/**
+ * One long-form copy block, by id.
+ *
+ * Returns "" for an unknown id rather than throwing: a paragraph the owner has
+ * emptied should leave a gap on the page, not take the page down.
+ */
+export function copyText(id: string): string {
+  return read("copy").find((b) => b.id === id)?.body ?? "";
+}
+
 export function getCatalog(): InventoryCategory[] { return read("catalog"); }
+export function getInventoryHighlights(): InventoryItem[] { return read("highlights"); }
 export function getTimeline(): TimelineEra[] { return read("timeline"); }
 export function getMilestones(): MilestoneItem[] { return read("milestones"); }
 export function getPrinciples(): Principle[] { return read("principles"); }

@@ -5,9 +5,9 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/motion/primitives";
 import { EASE, MOTION_OK } from "@/motion/ease";
-import { milestoneMoments } from "@/content/about";
+import type { MilestoneItem } from "@/content/about";
 
-export function AboutMilestones() {
+export function AboutMilestones({ milestones }: { milestones: MilestoneItem[] }) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -59,7 +59,7 @@ export function AboutMilestones() {
 
         {/* Milestones Cards Grid */}
         <div className="grid gap-8 md:grid-cols-2">
-          {milestoneMoments.map((item) => (
+          {milestones.map((item) => (
             <div
               key={item.id}
               data-milestone-card

@@ -5,9 +5,9 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/motion/primitives";
 import { EASE, MOTION_OK } from "@/motion/ease";
-import { inventoryHighlights } from "@/content/about";
+import type { InventoryItem } from "@/content/about";
 
-export function AboutInventoryBento() {
+export function AboutInventoryBento({ highlights }: { highlights: InventoryItem[] }) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -62,7 +62,7 @@ export function AboutInventoryBento() {
 
         {/* Bento Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {inventoryHighlights.map((item, index) => (
+          {highlights.map((item, index) => (
             <div
               key={item.label}
               data-bento-card

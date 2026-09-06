@@ -12,6 +12,18 @@ export const META: Record<
   Collection,
   { title: string; sub: string; label: (d: Record<string, unknown>) => string; meta?: (d: Record<string, unknown>) => string }
 > = {
+  highlights: {
+    title: "About — inventory highlights",
+    sub: "The owned-equipment figures shown on the About page.",
+    label: (d) => String(d.label ?? d.title ?? "Untitled"),
+    meta: (d) => [d.number, d.unit].filter(Boolean).join(" "),
+  },
+  copy: {
+    title: "Page paragraphs",
+    sub: "The long-form narrative on About and Legacy. One paragraph per row — edit the words, the layout stays as designed.",
+    label: (d) => String(d.label ?? d.id ?? "Untitled"),
+    meta: (d) => String(d.body ?? "").slice(0, 60) + "…",
+  },
   catalog: {
     title: "Inventory catalogue",
     sub: "The detailed equipment categories on /inventory, including their specifications.",
@@ -21,8 +33,8 @@ export const META: Record<
   timeline: {
     title: "About — timeline",
     sub: "The eras on the About page.",
-    label: (d) => String(d.title ?? d.era ?? "Untitled"),
-    meta: (d) => String(d.years ?? ""),
+    label: (d) => String(d.headline ?? "Untitled"),
+    meta: (d) => String(d.period ?? ""),
   },
   milestones: {
     title: "About — milestones",

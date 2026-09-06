@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/motion/Reveal";
+import { copyText } from "@/lib/store";
 
 export function LegacyPivot() {
   return (
@@ -24,7 +25,7 @@ export function LegacyPivot() {
                   The Transition to Clear-Span Modular Aerospace Aluminium
                 </p>
                 <p className="text-xs text-white/70 mt-1">
-                  Investing in first-party German hangar assets to eliminate sub-rental middlemen and guarantee structural safety.
+                  {copyText("legacy-pivot-0")}
                 </p>
               </div>
             </div>
@@ -40,7 +41,7 @@ export function LegacyPivot() {
               <span className="text-brand-blue">Direct Ownership of German Engineering.</span>
             </h2>
             <p className="text-base sm:text-lg text-body-light leading-relaxed">
-              When India initiated economic liberalization in 1991, Bengaluru rapidly emerged as the nation’s technology capital. International delegations, multinational IT conglomerates, and large industrial expos demanded infrastructure that met European safety and aesthetic criteria.
+              {copyText("legacy-pivot-1")}
             </p>
             <p className="text-sm sm:text-base text-body-light leading-relaxed">
               While other event companies chose the broker model—renting disparate components from fragmented third parties—Raja Enterprises made a monumental capital commitment: <strong>directly acquiring industrial-scale German clear-span aluminium hangars and constructing our own staging and flooring production yards</strong>.

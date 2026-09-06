@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/motion/Reveal";
+import { copyText } from "@/lib/store";
 
 export function LegacyOrigins() {
   return (
@@ -49,10 +50,10 @@ export function LegacyOrigins() {
                   Historical Archive
                 </span>
                 <p className="text-base sm:text-lg font-medium">
-                  Building the Physical Ground for Karnataka&rsquo;s Early Civic Life
+                  {copyText("legacy-origins-0")}
                 </p>
                 <p className="text-xs text-white/70 mt-1">
-                  Establishing the operational standards that earned the trust of state departments and public institutions.
+                  {copyText("legacy-origins-1")}
                 </p>
               </div>
             </div>

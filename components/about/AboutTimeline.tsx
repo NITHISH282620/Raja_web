@@ -5,10 +5,10 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
-import { aboutTimeline } from "@/content/about";
+import type { TimelineEra } from "@/content/about";
 import { FOUNDED_YEAR, yearsInOperation } from "@/content/company";
 
-export function AboutTimeline() {
+export function AboutTimeline({ eras }: { eras: TimelineEra[] }) {
   const root = useRef<HTMLElement>(null);
   const [activeEra, setActiveEra] = useState<number>(0);
   const progressLineRef = useRef<HTMLDivElement>(null);
@@ -130,7 +130,7 @@ export function AboutTimeline() {
         <div className="lg:hidden mb-8 p-4 sm:p-5 rounded-2xl bg-white border border-ink/10 shadow-xs">
           <div className="flex items-center justify-between border-b border-ink/10 pb-3 mb-3.5">
             <span className="t-eyebrow text-xs uppercase tracking-wider text-ink/60 font-medium">Four Defining Eras</span>
-            <span className="font-mono text-xs font-bold text-brand-blue">{aboutTimeline[0].year} — Today</span>
+            <span className="font-mono text-xs font-bold text-brand-blue">{eras[0].year} — Today</span>
           </div>
           <div className="grid grid-cols-3 gap-2 text-center">
             <div className="text-left">
@@ -158,24 +158,24 @@ export function AboutTimeline() {
               </span>
               <span className="h-1 w-1 rounded-full bg-ink/20" />
               <span className="font-mono text-xs font-bold text-brand-blue">
-                0{activeEra + 1} / 0{aboutTimeline.length}
+                0{activeEra + 1} / 0{eras.length}
               </span>
             </div>
             <span className="font-mono text-[10px] font-semibold text-ink/60 bg-ink/5 px-2 py-0.5 rounded-full">
-              {aboutTimeline[activeEra].period}
+              {eras[activeEra].period}
             </span>
           </div>
 
           {/* Row 2: Active Era Headline */}
           <div className="mb-2.5">
             <p className="text-sm font-semibold text-ink tracking-tight truncate">
-              {aboutTimeline[activeEra].headline}
+              {eras[activeEra].headline}
             </p>
           </div>
 
           {/* Row 3: Era Navigation Pills */}
           <div className="flex items-center gap-2 overflow-x-auto [scrollbar-width:none] -mx-1 px-1">
-            {aboutTimeline.map((era, index) => {
+            {eras.map((era, index) => {
               const isActive = activeEra === index;
               return (
                 <button
@@ -208,7 +208,7 @@ export function AboutTimeline() {
               <div className="flex items-center justify-between border-b border-ink/10 pb-4 mb-6">
                 <span className="t-eyebrow text-xs uppercase tracking-wider text-ink/60">Era Tracker</span>
                 <span className="t-eyebrow text-xs font-semibold text-brand-blue">
-                  0{activeEra + 1} / 0{aboutTimeline.length}
+                  0{activeEra + 1} / 0{eras.length}
                 </span>
               </div>
 
@@ -222,7 +222,7 @@ export function AboutTimeline() {
                   className="absolute left-1.5 top-3 bottom-3 w-[2px] bg-brand-blue rounded-full origin-top"
                 />
 
-                {aboutTimeline.map((era, index) => {
+                {eras.map((era, index) => {
                   const isActive = activeEra === index;
                   return (
                     <button
@@ -284,7 +284,7 @@ export function AboutTimeline() {
 
           {/* Right Column: Timeline Cards Progression (Slides Past as You Scroll) */}
           <div className="lg:col-span-8 space-y-12 sm:space-y-16">
-            {aboutTimeline.map((era, index) => {
+            {eras.map((era, index) => {
               const isActive = activeEra === index;
               return (
                 <article

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { yearsInOperation } from "@/content/company";
 import { Reveal } from "@/motion/Reveal";
+import { copyText } from "@/lib/store";
 
 export function LegacyTrust() {
   return (
@@ -16,7 +17,7 @@ export function LegacyTrust() {
             <span className="text-brand-blue">{yearsInOperation()} Years Without a Structural Incident.</span>
           </h2>
           <p className="t-body text-body-light leading-relaxed max-w-[50ch]">
-            In an industry where tight deadlines frequently tempt contractors into structural shortcuts, Raja Enterprises operates with engineering conservatism.
+            {copyText("legacy-trust-0")}
           </p>
         </div>
 
@@ -26,7 +27,7 @@ export function LegacyTrust() {
             <p className="font-mono text-3xl sm:text-4xl font-bold text-accent mb-2">0</p>
             <h3 className="text-base sm:text-lg font-semibold text-ink mb-2">Engineered for the conditions</h3>
             <p className="text-xs sm:text-sm text-body-light leading-relaxed">
-              Structures are engineered for monsoon wind loading and for the crowd densities these events actually carry. Safety documentation is prepared per job and issued with the build.
+              {copyText("legacy-trust-1")}
             </p>
           </div>
 
@@ -34,7 +35,7 @@ export function LegacyTrust() {
             <p className="font-mono text-3xl sm:text-4xl font-bold text-brand-blue mb-2">100%</p>
             <h3 className="text-base sm:text-lg font-semibold text-ink mb-2">Certified Extrusions</h3>
             <p className="text-xs sm:text-sm text-body-light leading-relaxed">
-              We reject cheap secondary metal scrap. Every aluminum beam is traceable to certified 6061-T6 metallurgical standards with verified tensile and shear thresholds.
+              {copyText("legacy-trust-2")}
             </p>
           </div>
 
@@ -42,7 +43,7 @@ export function LegacyTrust() {
             <p className="font-mono text-3xl sm:text-4xl font-bold text-ink mb-2">In&nbsp;house</p>
             <h3 className="text-base sm:text-lg font-semibold text-ink mb-2">Permanent payroll crew</h3>
             <p className="text-xs sm:text-sm text-body-light leading-relaxed">
-              The crew raising these structures is on Raja’s own payroll rather than subcontracted, which is why the same people return to the same clients.
+              {copyText("legacy-trust-3")}
             </p>
           </div>
         </Reveal>

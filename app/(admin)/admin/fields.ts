@@ -22,6 +22,19 @@ export type Field =
  * silently destroyed the first time someone fixes a typo.
  */
 export const FIELDS: Record<Collection, Field[]> = {
+  highlights: [
+    { name: "label", label: "Item", type: "text" },
+    { name: "number", label: "Figure", type: "text", hint: "Leave blank if unconfirmed — the tile then shows no number rather than a wrong one." },
+    { name: "unit", label: "Unit", type: "text", placeholder: "sq ft" },
+    { name: "description", label: "Description", type: "textarea" },
+    { name: "tag", label: "Tag", type: "text" },
+  ],
+
+  copy: [
+    { name: "label", label: "Where this appears", type: "text", hint: "Just a note to help you find it — not shown on the website." },
+    { name: "body", label: "Paragraph", type: "textarea", hint: "Plain text. Formatting and layout are handled by the page design." },
+  ],
+
   catalog: [
     { name: "name", label: "Category name", type: "text" },
     { name: "shortName", label: "Short name", type: "text" },
@@ -34,20 +47,20 @@ export const FIELDS: Record<Collection, Field[]> = {
   ],
 
   timeline: [
-    { name: "era", label: "Era", type: "text" },
-    { name: "years", label: "Years", type: "text", placeholder: "1977–1989" },
-    { name: "title", label: "Title", type: "text" },
-    { name: "body", label: "Narrative", type: "textarea" },
-    { name: "image", label: "Photograph", type: "image" },
-    { name: "image.alt", label: "Photograph description", type: "text" },
+    { name: "year", label: "Year", type: "text", placeholder: "1977" },
+    { name: "period", label: "Period", type: "text", placeholder: "1977 — 1989" },
+    { name: "tag", label: "Tag", type: "text" },
+    { name: "headline", label: "Headline", type: "text" },
+    { name: "description", label: "Narrative", type: "textarea" },
+    { name: "alt", label: "Photograph description", type: "text" },
   ],
 
   milestones: [
     { name: "title", label: "Title", type: "text" },
     { name: "year", label: "Year", type: "text" },
-    { name: "summary", label: "Description", type: "textarea" },
-    { name: "image", label: "Photograph", type: "image" },
-    { name: "image.alt", label: "Photograph description", type: "text" },
+    { name: "venue", label: "Venue", type: "text" },
+    { name: "scale", label: "Scale", type: "text", hint: "Leave blank if unconfirmed." },
+    { name: "scope", label: "What Raja supplied", type: "textarea" },
   ],
 
   principles: [
@@ -193,10 +206,12 @@ export const FIELDS: Record<Collection, Field[]> = {
 
 /** A blank record for each collection, so "Add new" starts from a valid shape. */
 export const BLANKS: Record<Collection, Record<string, unknown>> = {
+  highlights: { number: "", unit: "", label: "", description: "", tag: "", image: "" },
+  copy: { id: "", label: "", body: "", order: 0, status: "approved" },
   catalog: { id: "", name: "", shortName: "", tagline: "", icon: "", totalCapacity: "", unit: "",
     description: "", specs: [], features: [], applications: [], image: null, alt: "" },
-  timeline: { id: "", era: "", years: "", title: "", body: "", image: null },
-  milestones: { id: "", title: "", year: "", summary: "", image: null },
+  timeline: { year: "", period: "", tag: "", headline: "", description: "", deliverables: [], image: "", alt: "" },
+  milestones: { id: "", year: "", title: "", venue: "", scale: "", scope: "", image: "" },
   principles: { id: "", title: "", body: "", status: "approved" },
   locations: { id: "", city: "", state: "", country: "India", lat: 0, lng: 0, blurb: null,
     verification: "client-provided", published: true, status: "provisional" },
@@ -252,6 +267,25 @@ export function setPath(obj: Record<string, unknown>, path: string, value: unkno
   let cursor: Record<string, unknown> = obj;
   for (const key of keys.slice(0, -1)) {
     const next = cursor[key];
+
+    /*
+     * A non-empty string here means the schema and the data disagree: the field
+     * is declared as `image.alt` but `image` is a plain path string, not an
+     * object. Overwriting it with `{}` silently destroys the path — which is
+     * exactly what happened to two records, whose `image` became `{"alt": null}`
+     * and whose pages then rendered an <img> with an empty src.
+     *
+     * Refusing the write is the right failure. A mis-declared field should lose
+     * its own edit, not take the record's data with it.
+     */
+    if (typeof next === "string" && next !== "") {
+      console.error(
+        `[admin] refusing to write "${path}": "${key}" holds a string, not an object. ` +
+          `Fix the field definition rather than overwriting the value.`,
+      );
+      return;
+    }
+
     if (next === null || next === undefined || typeof next !== "object") cursor[key] = {};
     cursor = cursor[key] as Record<string, unknown>;
   }
