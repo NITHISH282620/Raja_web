@@ -76,6 +76,13 @@ function applyField(record: Record<string, unknown>, field: Field, formData: For
     return;
   }
 
+  // A bare path. Empty clears it; nothing else about the record is touched.
+  if (field.type === "imagePath") {
+    const src = String(formData.get(field.name) ?? "").trim();
+    setPath(record, field.name, src);
+    return;
+  }
+
   if (field.type === "image") {
     const src = String(formData.get(field.name) ?? "").trim();
     if (!src) {

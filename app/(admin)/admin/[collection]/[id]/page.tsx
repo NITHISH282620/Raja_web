@@ -7,6 +7,7 @@ import { META } from "../page";
 import { DeleteRecord, Notice, PageHead } from "../../ui";
 import { ImagePicker, type MediaChoice } from "../../image-picker";
 import { saveRecordForm } from "../../save";
+import { backfillMediaLibrary } from "@/lib/media-scan";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +20,9 @@ type Collection = keyof typeof COLLECTIONS;
  * no way to keep the photograph already on the page.
  */
 function mediaChoices(): MediaChoice[] {
+  // Backfills the library from disk the first time it is needed, so the picker
+  // is never an empty grid over a folder full of photographs.
+  backfillMediaLibrary();
   const uploaded = db()
     .prepare(`SELECT src, width, height, alt FROM media WHERE kind = 'image' ORDER BY created_at DESC`)
     .all() as unknown as { src: string; width: number; height: number; alt: string }[];
@@ -144,6 +148,22 @@ function FieldControl({
 }) {
   const raw = getPath(record, field.name);
   const id = `f_${field.name.replace(/\./g, "_")}`;
+
+  if (field.type === "imagePath") {
+    return (
+      <div className="admin-field">
+        <label htmlFor={id}>{field.label}</label>
+        {field.hint && <p className="hint">{field.hint}</p>}
+        <ImagePicker
+          name={field.name}
+          // The picker speaks in objects; this field stores a string, so the
+          // value is adapted on the way in and flattened on the way out.
+          value={typeof raw === "string" && raw ? { src: raw } : null}
+          options={options}
+        />
+      </div>
+    );
+  }
 
   if (field.type === "image") {
     return (

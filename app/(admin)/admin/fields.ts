@@ -6,7 +6,18 @@ export type Field =
   | { name: string; label: string; type: "text" | "textarea" | "number"; hint?: string; placeholder?: string }
   | { name: string; label: string; type: "checkbox"; hint?: string }
   | { name: string; label: string; type: "select"; options: string[]; hint?: string }
-  | { name: string; label: string; type: "image"; hint?: string };
+  | { name: string; label: string; type: "image"; hint?: string }
+  /**
+   * An image stored as a bare path string rather than an asset object.
+   *
+   * Three collections — the About timeline, milestones and inventory highlights
+   * — declare `image: string`, not an `ImageAsset`. Pointing the normal "image"
+   * field at one of those writes an object over the string and destroys the
+   * path, which is exactly the failure that left an <img> with an empty src
+   * earlier. This type exists so the editor matches the data instead of the
+   * data being expected to match the editor.
+   */
+  | { name: string; label: string; type: "imagePath"; hint?: string };
 
 /**
  * What each collection's editor shows.
@@ -28,6 +39,7 @@ export const FIELDS: Record<Collection, Field[]> = {
     { name: "unit", label: "Unit", type: "text", placeholder: "sq ft" },
     { name: "description", label: "Description", type: "textarea" },
     { name: "tag", label: "Tag", type: "text" },
+    { name: "image", label: "Photograph", type: "imagePath" },
   ],
 
   copy: [
@@ -52,7 +64,8 @@ export const FIELDS: Record<Collection, Field[]> = {
     { name: "tag", label: "Tag", type: "text" },
     { name: "headline", label: "Headline", type: "text" },
     { name: "description", label: "Narrative", type: "textarea" },
-    { name: "alt", label: "Photograph description", type: "text" },
+    { name: "image", label: "Photograph", type: "imagePath" },
+    { name: "alt", label: "Photograph description", type: "text", hint: "Say what is in the picture. Read aloud to blind visitors and used by search engines." },
   ],
 
   milestones: [
@@ -61,6 +74,7 @@ export const FIELDS: Record<Collection, Field[]> = {
     { name: "venue", label: "Venue", type: "text" },
     { name: "scale", label: "Scale", type: "text", hint: "Leave blank if unconfirmed." },
     { name: "scope", label: "What Raja supplied", type: "textarea" },
+    { name: "image", label: "Photograph", type: "imagePath" },
   ],
 
   principles: [
@@ -97,7 +111,7 @@ export const FIELDS: Record<Collection, Field[]> = {
     { name: "route", label: "Page address", type: "text", placeholder: "/partners", hint: "Exactly as it appears in the address bar, starting with a slash." },
     { name: "title", label: "Search title", type: "text", hint: "About 55 characters reads best in Google. Longer is allowed — it may be shortened in results." },
     { name: "description", label: "Search description", type: "textarea", hint: "About 155 characters. This is the grey text under the blue link." },
-    { name: "ogImage", label: "Social preview image path", type: "text", hint: "Shown when the page is shared. Leave blank to use the site default." },
+    { name: "ogImage", label: "Social preview image", type: "imagePath", hint: "Shown when the page is shared on WhatsApp or LinkedIn. Leave blank to use the site default." },
     { name: "canonical", label: "Canonical URL", type: "text", hint: "Leave blank unless this page duplicates another." },
     { name: "noindex", label: "Hide this page from Google", type: "checkbox", hint: "The page stays live and reachable; it just stops being listed in search." },
   ],

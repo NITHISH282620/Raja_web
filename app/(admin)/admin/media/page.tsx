@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { deleteMedia, updateMediaAlt, uploadMedia } from "../actions";
 import { Notice, PageHead } from "../ui";
+import { backfillMediaLibrary } from "@/lib/media-scan";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +23,7 @@ export default async function MediaPage({
 }: {
   searchParams: Promise<{ uploaded?: string; saved?: string; error?: string }>;
 }) {
+  backfillMediaLibrary();
   const { uploaded, saved, error } = await searchParams;
   const rows = db()
     .prepare(`SELECT id, src, width, height, alt, kind, bytes, created_at FROM media ORDER BY created_at DESC`)
