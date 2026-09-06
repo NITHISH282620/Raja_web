@@ -33,17 +33,7 @@ export const brand = {
  */
 export const hero = {
   headline: "Building the physical infrastructure\nbehind large-scale events.",
-  /**
-   * The one line that has to do the work above the fold.
-   *
-   * It names the offer (turnkey infrastructure) and the four buyer categories
-   * this site is built to win, in the words those buyers use for themselves.
-   * The longer paragraph that used to sit here said the same thing in three
-   * times the words, which is the wrong trade on a first screen.
-   */
-  supporting:
-    "Turnkey event infrastructure for exhibitions, conferences, corporate events and large-format gatherings.",
-  body: "Established 1977, Bengaluru. We own the inventory and employ the crew that installs it.",
+  body: "Since 1977, Raja Enterprises has delivered the physical infrastructure for government programmes, trade fairs, exhibitions, and corporate conferences. With substantial inventory and in-house field resources, we build the venue.",
 } as const;
 
 /**

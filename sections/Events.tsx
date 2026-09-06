@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
+import Link from "next/link";
 import { eventsWeBuildFor } from "@/content/events";
 import { fadeUp, fadeIn, growRule, revealLines, riseCard, settle, entranceTrigger } from "@/motion/primitives";
 import { MOTION_OK, MOTION_DESKTOP, MOTION_COMPACT } from "@/motion/ease";
@@ -258,6 +259,21 @@ export function EventsWeBuildFor() {
                   0{index + 1}
                 </span>
               </div>
+
+              {/*
+                A stretched link rather than a wrapper around the card. Wrapping
+                would have meant restructuring the element the scroll timeline
+                targets; an overlay leaves the layout and the motion exactly as
+                they are and still makes the whole card one click target.
+              */}
+              <Link
+                href={event.href}
+                data-analytics="event-card"
+                data-analytics-label={event.title}
+                className="absolute inset-0 z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white"
+              >
+                <span className="sr-only">{event.title} — see what we install</span>
+              </Link>
 
               <div className="absolute inset-x-0 bottom-0 flex flex-col gap-[6px] px-[clamp(20px,2.7vw,39px)] pb-[clamp(20px,2.2vw,31px)]">
                 <h3 data-slide-meta data-reveal className="t-slide max-w-[14ch] text-white">

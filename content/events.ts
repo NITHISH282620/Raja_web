@@ -8,6 +8,16 @@ export interface EventCategory {
   title: string;
   summary: string;
   image: EventImage;
+  /**
+   * Where the card goes.
+   *
+   * This section used to be a display case: four formats, real photography,
+   * and no way out of it. The buyer who recognised their own event in one of
+   * these cards had nowhere to click. Each now lands on the page written for
+   * that kind of work, which is also what stopped this section and a separate
+   * "Who we build for" grid from being two answers to the same question.
+   */
+  href: string;
 }
 
 export const eventsWeBuildFor: EventCategory[] = [
@@ -15,6 +25,7 @@ export const eventsWeBuildFor: EventCategory[] = [
     id: "national-programmes",
     title: "National Programmes",
     summary: "High-security infrastructure for Prime Ministerial visits and state inaugurations.",
+    href: "/services/government-events",
     image: {
       src: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
       width: 1280,
@@ -27,6 +38,7 @@ export const eventsWeBuildFor: EventCategory[] = [
     id: "mega-exhibitions",
     title: "Mega Exhibitions",
     summary: "Massive stall fabrications and pavilion builds for industrial trade fairs.",
+    href: "/solutions/exhibitions-and-trade-fairs",
     image: {
       src: "/media/events/eima-expo-crowd.11d4b8f2.webp",
       width: 595,
@@ -39,6 +51,7 @@ export const eventsWeBuildFor: EventCategory[] = [
     id: "corporate-forums",
     title: "Corporate Forums",
     summary: "Plenary halls, staging, and VIP environments for global summits.",
+    href: "/solutions/conferences-and-summits",
     image: {
       src: "/media/events/fcexpo-hall-stage.fb778307.webp",
       width: 547,
@@ -51,6 +64,7 @@ export const eventsWeBuildFor: EventCategory[] = [
     id: "cultural-gatherings",
     title: "Cultural Gatherings",
     summary: "Open-air infrastructure and high-capacity audience seating for state festivals.",
+    href: "/solutions/institutional-and-cultural-events",
     image: {
       src: "/media/events/kanha-crowd-scale.3e07499f.webp",
       width: 275,

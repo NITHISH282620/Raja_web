@@ -256,30 +256,3 @@ export const solutions: Solution[] = [
 
 export const findSolution = (slug: string): Solution | undefined =>
   solutions.find((s) => s.slug === slug);
-
-/**
- * The "Who We Build For" grid on the homepage.
- *
- * Six cards: the five solution pages above, plus the agency partnership page,
- * which is a different proposition and therefore not a solution page — an
- * agency is buying a partner to stand behind their delivery, not a service for
- * their own event.
- */
-export interface AudienceCard {
-  label: string;
-  href: string;
-  line: string;
-}
-
-export const audiences: AudienceCard[] = [
-  ...solutions.map((s) => ({
-    label: s.label,
-    href: `/solutions/${s.slug}`,
-    line: s.scope[0],
-  })),
-  {
-    label: "Agencies & production partners",
-    href: "/partners",
-    line: "White-label infrastructure delivery behind your client relationship",
-  },
-];

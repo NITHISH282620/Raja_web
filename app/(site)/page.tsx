@@ -1,4 +1,4 @@
-import { Audiences, Capabilities, EventsWeBuildFor, RecentExecutions, Hero, Legacy, Process, Resources, Works, Clients } from "@/sections";
+import { Capabilities, EventsWeBuildFor, RecentExecutions, Hero, Legacy, Process, Resources, Works, Clients } from "@/sections";
 
 /**
  * Homepage narrative flow:
@@ -6,7 +6,6 @@ import { Audiences, Capabilities, EventsWeBuildFor, RecentExecutions, Hero, Lega
  * 01 HERO         - Full Raja film, scale + positioning
  * 02 LEGACY       - 1977 to present (sticky pinned on desktop, editorial on mobile)
  * 03 CAPABILITIES - What we physically build
- * 03b AUDIENCES   - Who we build for; the only section that answers "is this for me"
  * 04 WORKS        - Proof of execution, notable projects
  * 05 RESOURCES    - Scale / capacity / infrastructure numbers
  * 06 PROCESS      - How Raja executes
@@ -23,7 +22,6 @@ export default function Home() {
           background and higher z-index to cover the sticky Legacy section */}
       <div className="relative z-20 bg-paper">
         <Capabilities />
-        <Audiences />
         <Works />
         <Resources />
         <Process />

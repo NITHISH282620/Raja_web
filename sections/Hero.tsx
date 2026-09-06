@@ -83,11 +83,7 @@ export function HeroView({ hero }: { hero: HeroSettings }) {
           <span className="block sm:inline">behind large-scale events.</span>
         </h1>
         
-        <p ref={support} data-reveal className="t-body max-w-[760px] text-white/90 text-xs sm:text-[clamp(15px,1.25vw,19px)] leading-relaxed font-light px-2">
-          {hero.supporting}
-        </p>
-
-        <p data-reveal className="t-body-sm mt-2 max-w-[760px] px-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/55 sm:text-xs">
+        <p ref={support} data-reveal className="t-body max-w-[800px] text-white/85 text-xs sm:text-[clamp(14px,1.2vw,18px)] leading-relaxed font-light px-2">
           {hero.body}
         </p>
 
