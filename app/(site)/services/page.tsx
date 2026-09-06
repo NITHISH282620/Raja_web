@@ -3,12 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { PageMasthead, Band } from "@/components/PageShell";
 import {
-  servicePillars,
   groupedCapabilities,
   markets,
   servicesIntro,
 } from "@/content/services";
-import { getStats } from "@/lib/store";
+import { getStats, getPagedServices } from "@/lib/store";
 import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -41,7 +40,7 @@ export default function ServicesPage() {
         <div className="frame">
           <p className="t-eyebrow mb-[clamp(20px,2.4vw,34px)] text-ink/50">Core services</p>
           <ul className="grid gap-[clamp(18px,2.4vw,32px)] sm:grid-cols-2">
-            {servicePillars.map((s) => {
+            {getPagedServices().map((s) => {
               const inner = (
                 <>
                   {/* Image-led where an honest photograph exists. Where one does

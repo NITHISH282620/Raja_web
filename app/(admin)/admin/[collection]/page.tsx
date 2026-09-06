@@ -12,6 +12,24 @@ export const META: Record<
   Collection,
   { title: string; sub: string; label: (d: Record<string, unknown>) => string; meta?: (d: Record<string, unknown>) => string }
 > = {
+  services: {
+    title: "Services",
+    sub: "The six service pages. Editing the title or body here changes that page directly.",
+    label: (d) => String(d.title ?? "Untitled"),
+    meta: (d) => String(d.slug ?? ""),
+  },
+  solutions: {
+    title: "Solutions",
+    sub: "The five audience pages — corporate, exhibitions, conferences, launches, institutional.",
+    label: (d) => String(d.title ?? "Untitled"),
+    meta: (d) => String(d.slug ?? ""),
+  },
+  schedule: {
+    title: "Capacity figures",
+    sub: "The owned-stock numbers shown on the homepage, /inventory, /partners and the Bengaluru page. Leave a capacity blank and that line stops showing a number rather than showing a wrong one.",
+    label: (d) => String(d.item ?? "Untitled"),
+    meta: (d) => [d.capacity, d.unit].filter(Boolean).join(" "),
+  },
   projects: {
     title: "Projects",
     sub: "The case studies on the homepage and the portfolio page. Order here is the order they appear in.",

@@ -10,8 +10,9 @@ import {
   projectsAt,
   VERIFICATION_LABELS,
 } from "@/content/locations";
-import { inventorySchedule, type InventoryLine } from "@/content/inventorySchedule";
-import { solutions } from "@/content/solutions";
+import { type InventoryLine } from "@/content/inventorySchedule";
+import { getSchedule, getSolutions } from "@/lib/store";
+
 import { company } from "@/content/company";
 import { CTA } from "@/content/site";
 import { abs, SITE_URL } from "@/lib/site";
@@ -65,7 +66,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const projects = projectsAt(location);
   const label = locationLabel(location);
-  const held = inventorySchedule.filter(
+  const held = getSchedule().filter(
     (r: InventoryLine) => r.capacity && r.status === "approved",
   );
 
@@ -167,7 +168,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       <Band>
         <h2 className="t-work text-ink">What we build in {label}</h2>
         <ul className="mt-6 grid gap-[clamp(12px,1.4vw,20px)] sm:grid-cols-2 lg:grid-cols-3">
-          {solutions.map((s) => (
+          {getSolutions().map((s) => (
             <li key={s.slug}>
               <Link
                 href={`/solutions/${s.slug}`}

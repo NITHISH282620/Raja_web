@@ -3,7 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageMasthead, Band } from "@/components/PageShell";
-import { findPillar, pagedPillars, hangerInUse } from "@/content/services";
+import { hangerInUse } from "@/content/services";
+import { findServiceBySlug, getPagedServices } from "@/lib/store";
 import { company } from "@/content/company";
 import { abs, SITE_URL } from "@/lib/site";
 
@@ -20,7 +21,7 @@ import { abs, SITE_URL } from "@/lib/site";
  */
 
 export function generateStaticParams() {
-  return pagedPillars().map((s) => ({ slug: s.slug }));
+  return getPagedServices().map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -29,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const s = findPillar(slug);
+  const s = findServiceBySlug(slug);
   if (!s) return {};
   return {
     title: `${s.title} in Bengaluru`,
@@ -46,7 +47,7 @@ export async function generateMetadata({
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = findPillar(slug);
+  const service = findServiceBySlug(slug);
   if (!service || !service.page) notFound();
 
   const jsonLd = {

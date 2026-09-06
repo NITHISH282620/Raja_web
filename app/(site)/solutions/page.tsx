@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageMasthead, Band } from "@/components/PageShell";
 import Image from "next/image";
-import { solutions } from "@/content/solutions";
+import { getSolutions } from "@/lib/store";
 import { categoryBanner } from "@/content/projects";
 import { company } from "@/content/company";
 import { abs, SITE_URL } from "@/lib/site";
@@ -49,7 +49,7 @@ export default function SolutionsIndex() {
 
       <Band>
         <ul className="grid gap-[clamp(14px,1.6vw,22px)] sm:grid-cols-2 lg:grid-cols-3">
-          {solutions.map((s) => (
+          {getSolutions().map((s) => (
             <li key={s.slug}>
               <Link
                 href={`/solutions/${s.slug}`}

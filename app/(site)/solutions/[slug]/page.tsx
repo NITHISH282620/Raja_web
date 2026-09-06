@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageMasthead, Band } from "@/components/PageShell";
-import { findSolution, solutions } from "@/content/solutions";
+import { findSolutionBySlug, getSolutions } from "@/lib/store";
 import { projectsByCategory, categoryBanner, CATEGORY_LABELS } from "@/content/projects";
 import { company } from "@/content/company";
 import { CTA } from "@/content/site";
@@ -20,7 +20,7 @@ import { abs, SITE_URL } from "@/lib/site";
  */
 
 export function generateStaticParams() {
-  return solutions.map((s) => ({ slug: s.slug }));
+  return getSolutions().map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -29,7 +29,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const s = findSolution(slug);
+  const s = findSolutionBySlug(slug);
   if (!s) return {};
   return {
     title: s.seoTitle,
@@ -46,7 +46,7 @@ export async function generateMetadata({
 
 export default async function SolutionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const solution = findSolution(slug);
+  const solution = findSolutionBySlug(slug);
   if (!solution) notFound();
 
   const proof = projectsByCategory(solution.category).slice(0, 6);

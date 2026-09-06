@@ -141,6 +141,24 @@ removed. **Ask:** the real profile URLs, if any exist.
 
 ---
 
+## TECHNICALLY READY — no owner input needed
+
+All 23 public routes · enquiry system end to end · admin authentication with no
+default credentials · private document authorization · 390px mobile layout · SEO
+metadata, sitemap, robots, structured data · 103-check E2E suite.
+
+**Editable from the admin, on a phone, with no developer:**
+projects · clients · capabilities · homepage inventory tiles · process steps ·
+event categories · legacy collage · **service pages** · **solution pages** ·
+**capacity figures** · hero text · contact details · site stats.
+
+Verified live: changing a capacity figure in the admin updated /partners,
+/locations/bengaluru and the homepage, then restored.
+
+**Still needs a developer** — not yet in the admin: About, Legacy narrative,
+Careers, Locations, the /inventory detailed catalogue, Partners page copy, and
+per-page SEO overrides.
+
 ## What is NOT waiting on this call
 
 Technically complete and verified: all 23 routes, the enquiry system end to end,

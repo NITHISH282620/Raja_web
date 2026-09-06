@@ -4,7 +4,8 @@ import Image from "next/image";
 import { PageMasthead, Band } from "@/components/PageShell";
 import { company } from "@/content/company";
 import { CTA } from "@/content/site";
-import { inventorySchedule, type InventoryLine } from "@/content/inventorySchedule";
+import { type InventoryLine } from "@/content/inventorySchedule";
+import { getSchedule } from "@/lib/store";
 import { abs, SITE_URL } from "@/lib/site";
 
 /**
@@ -164,7 +165,7 @@ export default function PartnersPage() {
             a blank number would read as a missing fact rather than an absent
             one. */}
         <dl className="mt-8 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-          {inventorySchedule
+          {getSchedule()
             .filter((row: InventoryLine) => row.capacity && row.status === "approved")
             .map((row: InventoryLine) => (
             <div key={row.item} className="border-t border-white/20 pt-4">

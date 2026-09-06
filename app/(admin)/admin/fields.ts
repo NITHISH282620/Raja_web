@@ -22,6 +22,32 @@ export type Field =
  * silently destroyed the first time someone fixes a typo.
  */
 export const FIELDS: Record<Collection, Field[]> = {
+  services: [
+    { name: "title", label: "Service name", type: "text" },
+    { name: "slug", label: "Page address", type: "text", hint: "The last part of the web address, e.g. german-hangers. Changing this changes the page's URL — old links will stop working." },
+    { name: "heading", label: "Heading on the page", type: "text" },
+    { name: "summary", label: "One-line summary", type: "textarea", hint: "Shown on the services index and used as the page's search-engine description." },
+    { name: "image", label: "Main photograph", type: "image" },
+    { name: "image.alt", label: "Photograph description", type: "text", hint: "Say what is in the picture. Read aloud to blind visitors and used by search engines." },
+    { name: "page", label: "Give this service its own page", type: "checkbox", hint: "Off means it still appears in the list, but has no page of its own." },
+  ],
+
+  solutions: [
+    { name: "label", label: "Short name", type: "text", hint: "Used on cards and in the menu." },
+    { name: "title", label: "Heading on the page", type: "text" },
+    { name: "slug", label: "Page address", type: "text", hint: "Changing this changes the page's URL." },
+    { name: "summary", label: "One-line summary", type: "textarea" },
+    { name: "audience", label: "Who this page is written for", type: "textarea" },
+    { name: "seoTitle", label: "Search-engine title", type: "text", hint: "Keep under about 55 characters — the site name is added automatically." },
+    { name: "seoDescription", label: "Search-engine description", type: "textarea", hint: "One or two sentences, under about 160 characters." },
+  ],
+
+  schedule: [
+    { name: "item", label: "What it is", type: "text", placeholder: "Imported German hangers" },
+    { name: "capacity", label: "How much", type: "text", hint: "The number as it should appear, e.g. 5,00,000+. Leave blank if unconfirmed — the line then shows no figure rather than a wrong one." },
+    { name: "unit", label: "Unit", type: "text", placeholder: "sq ft" },
+  ],
+
   projects: [
     { name: "title", label: "Project title", type: "text" },
     { name: "organization", label: "Client / organisation", type: "text" },
@@ -100,6 +126,16 @@ export const FIELDS: Record<Collection, Field[]> = {
 
 /** A blank record for each collection, so "Add new" starts from a valid shape. */
 export const BLANKS: Record<Collection, Record<string, unknown>> = {
+  services: {
+    slug: "", title: "", heading: "", summary: "", body: [], capacity: [], bundled: [],
+    image: null, page: false, order: 99, status: "provisional",
+  },
+  solutions: {
+    slug: "", label: "", title: "", summary: "", audience: "", category: "corporate",
+    scope: [], sections: [], seoTitle: "", seoDescription: "",
+  },
+  schedule: { item: "", capacity: null, unit: "", status: "provisional" },
+
   projects: {
     id: "", order: 99, published: true, featured: false, organization: "", eyebrow: "",
     title: "", year: "", summary: null, hero: null, gallery: [], video: null, logo: null,

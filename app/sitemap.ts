@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { pagedPillars } from "@/content/services";
-import { solutions } from "@/content/solutions";
+import { getPagedServices, getSolutions } from "@/lib/store";
 import { publishedLocations } from "@/content/locations";
 import { abs } from "@/lib/site";
 
@@ -40,13 +39,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: c.freq,
       priority: c.priority,
     })),
-    ...pagedPillars().map((s) => ({
+    ...getPagedServices().map((s) => ({
       url: abs(`/services/${s.slug}`),
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.85,
     })),
-    ...solutions.map((s) => ({
+    ...getSolutions().map((s) => ({
       url: abs(`/solutions/${s.slug}`),
       lastModified: now,
       changeFrequency: "monthly" as const,

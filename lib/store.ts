@@ -10,6 +10,9 @@ import { clientEvents as seedEvents, type ClientEvent } from "@/content/clientEv
 import { collage as seedCollage, type CollagePhoto } from "@/content/legacy";
 import { contact as seedContact, stats as seedStats, type Stat } from "@/content/company";
 import { hero as seedHero } from "@/content/site";
+import { servicePillars as seedServices, type ServicePillar } from "@/content/services";
+import { solutions as seedSolutions, type Solution } from "@/content/solutions";
+import { inventorySchedule as seedSchedule, type InventoryLine } from "@/content/inventorySchedule";
 import { publishable, publishableList } from "@/content/media";
 
 /**
@@ -39,6 +42,9 @@ export const COLLECTIONS = {
   clients: "clients",
   events: "events",
   collage: "collage",
+  services: "services",
+  solutions: "solutions",
+  schedule: "schedule",
 } as const;
 
 /** Seeds a collection reads from when the database has nothing for it. */
@@ -50,6 +56,9 @@ const SEEDS = {
   clients: seedClients,
   events: seedEvents,
   collage: seedCollage,
+  services: seedServices,
+  solutions: seedSolutions,
+  schedule: seedSchedule,
 } as const;
 
 type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
@@ -145,6 +154,43 @@ export function getContact(): ContactSettings {
 
 export function getStats(): Stat[] {
   return getSetting<Stat[]>("stats") ?? seedStats;
+}
+
+/**
+ * Service pillars, solution pages and the capacity schedule.
+ *
+ * These three were the largest remaining holes: six service pages, five
+ * solution pages and every capacity figure on the site were readable only from
+ * `content/`, which meant correcting a number or a paragraph was a code change
+ * and a deploy. They now go through the same seed-then-database path as
+ * everything else, so the owner can fix them from a phone.
+ *
+ * `read()` already drops unpublished rows, so an unpublished service cannot
+ * reach a page through a route that forgot to filter.
+ */
+export function getServices(): ServicePillar[] {
+  return read("services");
+}
+
+export function getSolutions(): Solution[] {
+  return read("solutions");
+}
+
+export function getSchedule(): InventoryLine[] {
+  return read("schedule");
+}
+
+/** Services that ship a page of their own. */
+export function getPagedServices(): ServicePillar[] {
+  return read("services").filter((s) => s.page);
+}
+
+export function findServiceBySlug(slug: string): ServicePillar | undefined {
+  return read("services").find((s) => s.slug === slug);
+}
+
+export function findSolutionBySlug(slug: string): Solution | undefined {
+  return read("solutions").find((s) => s.slug === slug);
 }
 
 export function getHero(): HeroSettings {
