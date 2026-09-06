@@ -7,6 +7,7 @@ import { inventoryTiles as seedInventory, type InventoryTile } from "@/content/i
 import { processSteps as seedProcess, type ProcessStep } from "@/content/process";
 import { clients as seedClients, type Client } from "@/content/clients";
 import { clientEvents as seedEvents, type ClientEvent } from "@/content/clientEvents";
+import { eventsWeBuildFor as seedEventFormats, type EventCategory } from "@/content/events";
 import { collage as seedCollage, type CollagePhoto } from "@/content/legacy";
 import { contact as seedContact, stats as seedStats, type Stat } from "@/content/company";
 import { hero as seedHero } from "@/content/site";
@@ -66,6 +67,7 @@ export const COLLECTIONS = {
   seo: "seo",
   copy: "copy",
   highlights: "highlights",
+  eventFormats: "eventFormats",
 } as const;
 
 /** Seeds a collection reads from when the database has nothing for it. */
@@ -91,6 +93,7 @@ const SEEDS = {
   seo: seedSeo,
   copy: seedCopyBlocks,
   highlights: seedHighlights,
+  eventFormats: seedEventFormats,
 } as const;
 
 type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
@@ -236,6 +239,7 @@ export function copyText(id: string): string {
 }
 
 export function getCatalog(): InventoryCategory[] { return read("catalog"); }
+export function getEventFormats(): EventCategory[] { return read("eventFormats"); }
 export function getInventoryHighlights(): InventoryItem[] { return read("highlights"); }
 export function getTimeline(): TimelineEra[] { return read("timeline"); }
 export function getMilestones(): MilestoneItem[] { return read("milestones"); }

@@ -8,6 +8,7 @@ import {
   getProcessSteps,
   getProjects,
   getSchedule,
+  getEventFormats,
 } from "@/lib/store";
 
 import { CapabilitiesView } from "./Capabilities";
@@ -17,6 +18,7 @@ import { LegacyView } from "./Legacy";
 import { ProcessView } from "./Process";
 import { ResourcesView } from "./Resources";
 import { WorksView } from "./Works";
+import { EventsWeBuildForView } from "./Events";
 
 /**
  * Server wrappers.
@@ -57,5 +59,8 @@ export function Clients() {
   );
 }
 
-export { EventsWeBuildFor } from "./Events";
+/** Server wrapper: reads the cards, the client view animates them. */
+export function EventsWeBuildFor() {
+  return <EventsWeBuildForView formats={getEventFormats()} />;
+}
 export { RecentExecutions } from "./RecentExecutions";

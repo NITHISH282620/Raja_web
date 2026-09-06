@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { readAll, COLLECTIONS } from "@/lib/store";
 import { PageHead, Notice, RecordRow } from "../ui";
+import { categoryBanner } from "@/content/projects";
 
 export const dynamic = "force-dynamic";
 
@@ -10,8 +11,21 @@ type Collection = keyof typeof COLLECTIONS;
 /** Per-collection labelling and the fields to summarise a row with. */
 export const META: Record<
   Collection,
-  { title: string; sub: string; label: (d: Record<string, unknown>) => string; meta?: (d: Record<string, unknown>) => string }
+  {
+    title: string;
+    sub: string;
+    label: (d: Record<string, unknown>) => string;
+    meta?: (d: Record<string, unknown>) => string;
+    /** Overrides the thumbnail when the picture does not live on the record. */
+    thumb?: (d: Record<string, unknown>) => string | null;
+  }
 > = {
+  eventFormats: {
+    title: "Event formats",
+    sub: "The four large photo cards on the homepage — the event types Raja builds for. Each card links to a service or solution page.",
+    label: (d) => String(d.title ?? "Untitled"),
+    meta: (d) => String(d.href ?? ""),
+  },
   highlights: {
     title: "About — inventory highlights",
     sub: "The owned-equipment figures shown on the About page.",
@@ -82,9 +96,15 @@ export const META: Record<
   },
   solutions: {
     title: "Solutions",
-    sub: "The five audience pages — corporate, exhibitions, conferences, launches, institutional.",
+    sub: "The five audience pages — corporate, exhibitions, conferences, launches, institutional. Each borrows the photograph for its category unless you set one.",
     label: (d) => String(d.title ?? "Untitled"),
     meta: (d) => String(d.slug ?? ""),
+    // A solution without its own image still shows one on the site — the shared
+    // banner for its category. Listing it as blank would say the opposite.
+    thumb: (d) =>
+      (d.image as string) ||
+      categoryBanner[d.category as keyof typeof categoryBanner]?.src ||
+      null,
   },
   schedule: {
     title: "Capacity figures",
@@ -99,7 +119,7 @@ export const META: Record<
     meta: (d) => [d.organization, d.year].filter(Boolean).join(" · "),
   },
   events: {
-    title: "Client events",
+    title: "Recent engagements",
     sub: "The recent-engagements table at the foot of the homepage. Add a row each time a job completes.",
     label: (d) => String(d.organisation ?? "Untitled"),
     meta: (d) => String(d.event ?? ""),
@@ -135,8 +155,13 @@ export const META: Record<
 };
 
 function thumbOf(data: Record<string, unknown>): string | null {
-  const candidates = [data.image, data.hero, data.logo];
-  for (const c of candidates) {
+  // Two shapes in play. Most collections store an asset object with a `src`;
+  // the About timeline, milestones, inventory highlights and the equipment
+  // catalogue store a bare path string. Reading only `.src` meant every one of
+  // those listed with an empty grey square, which reads as "this record has no
+  // picture" when it has one.
+  for (const c of [data.image, data.hero, data.logo]) {
+    if (typeof c === "string" && c) return c;
     const src = (c as { src?: string } | null)?.src;
     if (src) return src;
   }
@@ -191,7 +216,7 @@ export default async function CollectionPage({
                 published={row.published}
                 title={meta.label(data)}
                 meta={meta.meta?.(data)}
-                thumb={thumbOf(data)}
+                thumb={meta.thumb?.(data) ?? thumbOf(data)}
               />
             );
           })}

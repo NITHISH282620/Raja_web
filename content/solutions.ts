@@ -43,6 +43,16 @@ export interface Solution {
   audience: string;
   /** Pulls real projects onto the page. */
   category: ProjectCategory;
+  /**
+   * Optional hero override.
+   *
+   * Left unset, the page and the index card borrow the category banner from
+   * `content/projects.ts`, which is how this has always worked. Setting it lets
+   * the owner give one solution its own photograph without that meaning every
+   * solution needs one — a per-page image that has to be filled in before the
+   * page looks right is a worse default than a shared one that already does.
+   */
+  image?: string;
   /** What Raja actually installs for this kind of event. */
   scope: string[];
   sections: SolutionSection[];

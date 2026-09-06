@@ -58,11 +58,11 @@ export default function SolutionsIndex() {
                 {/* The card image is the same client-approved category banner the
                     detail page uses, so the index shows real Raja work rather
                     than a sourced stand-in. */}
-                {categoryBanner[s.category] && (
+                {(s.image || categoryBanner[s.category]) && (
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink/5">
                     <Image
-                      src={categoryBanner[s.category]!.src}
-                      alt={categoryBanner[s.category]!.alt}
+                      src={s.image || categoryBanner[s.category]!.src}
+                      alt={s.image ? s.summary : categoryBanner[s.category]!.alt}
                       fill
                       sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 360px"
                       className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.03]"

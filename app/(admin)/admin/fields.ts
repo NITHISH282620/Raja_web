@@ -33,6 +33,14 @@ export type Field =
  * silently destroyed the first time someone fixes a typo.
  */
 export const FIELDS: Record<Collection, Field[]> = {
+  eventFormats: [
+    { name: "title", label: "Card title", type: "text", placeholder: "Mega Exhibitions" },
+    { name: "summary", label: "Card description", type: "textarea" },
+    { name: "image", label: "Card photograph", type: "image" },
+    { name: "image.alt", label: "Photograph description", type: "text", hint: "Say what is in the picture. Read aloud to blind visitors and used by search engines." },
+    { name: "href", label: "Where the card links to", type: "text", hint: "A path on this site, e.g. /solutions/exhibitions-and-trade-fairs." },
+  ],
+
   highlights: [
     { name: "label", label: "Item", type: "text" },
     { name: "number", label: "Figure", type: "text", hint: "Leave blank if unconfirmed — the tile then shows no number rather than a wrong one." },
@@ -132,6 +140,7 @@ export const FIELDS: Record<Collection, Field[]> = {
     { name: "slug", label: "Page address", type: "text", hint: "Changing this changes the page's URL." },
     { name: "summary", label: "One-line summary", type: "textarea" },
     { name: "audience", label: "Who this page is written for", type: "textarea" },
+    { name: "image", label: "Page photograph", type: "imagePath", hint: "Optional. Leave blank and the page uses the shared photograph for its category." },
     { name: "seoTitle", label: "Search-engine title", type: "text", hint: "Keep under about 55 characters — the site name is added automatically." },
     { name: "seoDescription", label: "Search-engine description", type: "textarea", hint: "One or two sentences, under about 160 characters." },
   ],
@@ -220,6 +229,7 @@ export const FIELDS: Record<Collection, Field[]> = {
 
 /** A blank record for each collection, so "Add new" starts from a valid shape. */
 export const BLANKS: Record<Collection, Record<string, unknown>> = {
+  eventFormats: { id: "", title: "", summary: "", image: null, href: "/solutions" },
   highlights: { number: "", unit: "", label: "", description: "", tag: "", image: "" },
   copy: { id: "", label: "", body: "", order: 0, status: "approved" },
   catalog: { id: "", name: "", shortName: "", tagline: "", icon: "", totalCapacity: "", unit: "",
@@ -239,7 +249,7 @@ export const BLANKS: Record<Collection, Record<string, unknown>> = {
     image: null, page: false, order: 99, status: "provisional",
   },
   solutions: {
-    slug: "", label: "", title: "", summary: "", audience: "", category: "corporate",
+    slug: "", label: "", title: "", summary: "", audience: "", category: "corporate", image: "",
     scope: [], sections: [], seoTitle: "", seoDescription: "",
   },
   schedule: { item: "", capacity: null, unit: "", status: "provisional" },

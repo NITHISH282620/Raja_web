@@ -7,11 +7,11 @@ import { useGSAP } from "@gsap/react";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 import Link from "next/link";
-import { eventsWeBuildFor } from "@/content/events";
+import type { EventCategory } from "@/content/events";
 import { fadeUp, fadeIn, growRule, revealLines, riseCard, settle, entranceTrigger } from "@/motion/primitives";
 import { MOTION_OK, MOTION_DESKTOP, MOTION_COMPACT } from "@/motion/ease";
 
-export function EventsWeBuildFor() {
+export function EventsWeBuildForView({ formats }: { formats: EventCategory[] }) {
   const root = useRef<HTMLElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLUListElement>(null);
@@ -77,8 +77,8 @@ export function EventsWeBuildFor() {
               const counter = scope.querySelector<HTMLElement>("[data-track-index]");
               if (counter) {
                 const i = Math.min(
-                  eventsWeBuildFor.length - 1,
-                  Math.round(self.progress * (eventsWeBuildFor.length - 1)),
+                  formats.length - 1,
+                  Math.round(self.progress * (formats.length - 1)),
                 );
                 counter.textContent = "0" + (i + 1);
               }
@@ -111,7 +111,7 @@ export function EventsWeBuildFor() {
           if (bar) bar.style.transform = `scaleX(${progress})`;
           const counter = scope.querySelector<HTMLElement>("[data-track-index]");
           if (counter) {
-            const i = Math.min(eventsWeBuildFor.length - 1, Math.round(progress * (eventsWeBuildFor.length - 1)));
+            const i = Math.min(formats.length - 1, Math.round(progress * (formats.length - 1)));
             counter.textContent = "0" + (i + 1);
           }
         };
@@ -204,7 +204,7 @@ export function EventsWeBuildFor() {
             />
           </span>
           <span className="t-eyebrow text-ink/40">
-            0{eventsWeBuildFor.length}
+            0{formats.length}
           </span>
         </div>
       </div>
@@ -222,7 +222,7 @@ export function EventsWeBuildFor() {
             "lg:overflow-visible lg:px-0 lg:pr-[90px] lg:py-0 lg:snap-none",
           ].join(" ")}
         >
-          {eventsWeBuildFor.map((event, index) => (
+          {formats.map((event, index) => (
             <li
               key={event.id}
               data-slide

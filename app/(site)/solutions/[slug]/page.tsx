@@ -50,7 +50,11 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
   if (!solution) notFound();
 
   const proof = projectsByCategory(solution.category).slice(0, 6);
-  const banner = categoryBanner[solution.category];
+  // The solution's own photograph when it has one, otherwise the shared banner
+  // for its category — so an unset image is a sensible default, not a gap.
+  const banner = solution.image
+    ? { src: solution.image, alt: solution.summary }
+    : categoryBanner[solution.category];
 
   const jsonLd = {
     "@context": "https://schema.org",
