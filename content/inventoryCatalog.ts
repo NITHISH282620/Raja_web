@@ -60,7 +60,15 @@ export const inventoryCategories: InventoryCategory[] = [
       "Multi-Acre Cultural & Spiritual Convocations",
     ],
     image: "/media/inventory-german-hanger.1631d7b1.webp",
-    alt: "Engineered German clear-span aluminium hangar structure",
+    // NOT A HANGER. Opened this file: it is a large outdoor stage show under
+    // open sky with laser and pyrotechnic effects and a stadium crowd — there
+    // is no clear-span structure in the frame at all. The previous alt text
+    // asserted it was "an engineered German clear-span aluminium hangar
+    // structure", which is the one thing the picture demonstrably is not.
+    // Described here as what it actually shows, and reclassified as
+    // representative so it cannot stand as evidence of Raja's stock.
+    // NEEDS CLIENT IMAGE: a photograph of an actual German hanger.
+    alt: "A large open-air stage production at night, lit by laser effects before a standing crowd.",
   },
   {
     id: "modular-flooring",
@@ -119,7 +127,11 @@ export const inventoryCategories: InventoryCategory[] = [
       "Large-Scale Cultural Festivals & Mega Concerts",
     ],
     image: "/media/inventory-stage.b737c675.webp",
-    alt: "Engineered stage and dais infrastructure",
+    // NOT RAJA STAGING. This is an empty hotel conference room with fixed
+    // seating and a suspended ceiling — an indoor venue, not staging or rigging
+    // that Raja owns and installs.
+    // NEEDS CLIENT IMAGE: a photograph of Raja's own staging or dais build.
+    alt: "An empty conference room laid out with rows of seating.",
   },
   {
     id: "climate-control",

@@ -82,7 +82,7 @@ export function RecordRow({
   thumb?: string | null;
 }) {
   return (
-    <div className="admin-list-row">
+    <div className="admin-list-row" data-no-thumb={thumb === undefined ? "" : undefined}>
       {thumb ? (
         // A plain <img>: these are admin thumbnails at a fixed 56px, and
         // routing them through next/image would spin up an optimisation

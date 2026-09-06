@@ -307,6 +307,18 @@
 .admin-list-row {
   display: grid;
   grid-template-columns: 56px minmax(0, 1fr) auto;
+}
+/*
+ * Rows with no photograph drop the thumbnail column entirely.
+ *
+ * Without this the title falls into the 56px slot meant for the picture and
+ * wraps one word per line. Removing the empty frame is only half the fix —
+ * the grid has to stop reserving space for the thing that is no longer there.
+ */
+.admin-list-row[data-no-thumb] {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.admin-list-row {
   gap: 16px;
   align-items: center;
   padding: 12px 16px;

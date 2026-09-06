@@ -120,7 +120,15 @@ function labelFrom(file: string): string {
  * raja-original, client-approved and figma-supplied, so a stand-in can
  * illustrate a capability but can never become proof that Raja built something.
  */
-const NOT_RAJA = ["capability-structure", "capability-exhibition"];
+const NOT_RAJA = [
+  "capability-structure",
+  "capability-exhibition",
+  // Both opened and checked. inventory-german-hanger is an outdoor stage show
+  // with no structure in frame; inventory-stage is an empty hotel conference
+  // room. Each was captioned on /inventory as the equipment it is not.
+  "inventory-german-hanger",
+  "inventory-stage",
+];
 
 /**
  * Anything under this folder is sourced, not Raja's.

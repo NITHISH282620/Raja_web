@@ -15,17 +15,17 @@ import {
   q,
 } from "@/motion/primitives";
 import { MOTION_OK, STAGGER } from "@/motion/ease";
-import { inventoryTiles } from "@/content/inventory";
+import type { InventoryTile } from "@/content/inventory";
 import type { InventoryLine } from "@/content/inventorySchedule";
 import { SECTION_IDS, ROUTES } from "@/content/navigation";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
 
-export function ResourcesView({ schedule }: { schedule: InventoryLine[] }) {
+export function ResourcesView({ schedule, tiles }: { schedule: InventoryLine[]; tiles: InventoryTile[] }) {
   const root = useRef<HTMLElement>(null);
 
-  const topCards = inventoryTiles.slice(0, 2);
-  const bottomCards = inventoryTiles.slice(2, 6);
+  const topCards = tiles.slice(0, 2);
+  const bottomCards = tiles.slice(2, 6);
   const scheduleItems = schedule.slice(0, 4);
 
   useGSAP(

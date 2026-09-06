@@ -10,6 +10,7 @@ import {
   getSchedule,
   getEventFormats,
   getRecentEvents,
+  getInventoryTiles,
   pageImage,
 } from "@/lib/store";
 
@@ -53,7 +54,7 @@ export function Legacy() {
 }
 
 export function Resources() {
-  return <ResourcesView schedule={getSchedule()} />;
+  return <ResourcesView schedule={getSchedule()} tiles={getInventoryTiles()} />;
 }
 
 export function Clients() {
