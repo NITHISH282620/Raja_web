@@ -4,14 +4,13 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageMasthead, Band } from "@/components/PageShell";
 import {
-  publishedLocations,
   findLocation,
   locationLabel,
   projectsAt,
   VERIFICATION_LABELS,
 } from "@/content/locations";
 import { type InventoryLine } from "@/content/inventorySchedule";
-import { getSchedule, getSolutions } from "@/lib/store";
+import { getSchedule, getSolutions, getLocations } from "@/lib/store";
 
 import { company } from "@/content/company";
 import { CTA } from "@/content/site";
@@ -33,7 +32,7 @@ import { abs, SITE_URL } from "@/lib/site";
  */
 
 export function generateStaticParams() {
-  return publishedLocations()
+  return getLocations()
     .filter((l) => l.seoTitle)
     .map((l) => ({ city: l.id }));
 }

@@ -4,11 +4,12 @@ import { AboutTimeline } from "@/components/about/AboutTimeline";
 import { AboutInventoryBento } from "@/components/about/AboutInventoryBento";
 import { AboutMilestones } from "@/components/about/AboutMilestones";
 import { AboutPrinciples } from "@/components/about/AboutPrinciples";
-import { FOUNDED_YEAR, yearsInOperation } from "@/content/company";
+import { FOUNDED_YEAR } from "@/content/company";
+import { getPrinciples } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "About Us — 49 Years of Physical Infrastructure",
-  description: `Since ${FOUNDED_YEAR}, Raja Enterprises has engineered and built the physical ground for India's largest gatherings, state ceremonies, and industrial expos. ${yearsInOperation()} years of direct asset ownership, in-house crew of 460 personnel, nationwide turnkey execution.`,
+  description: `Event infrastructure contractor in Bengaluru since ${FOUNDED_YEAR}. Owned German hangers, flooring, staging and stalls, installed by an in-house crew.`,
 };
 
 export default function AboutPage() {
@@ -18,7 +19,7 @@ export default function AboutPage() {
       <AboutTimeline />
       <AboutInventoryBento />
       <AboutMilestones />
-      <AboutPrinciples />
+      <AboutPrinciples principles={getPrinciples()} />
     </main>
   );
 }

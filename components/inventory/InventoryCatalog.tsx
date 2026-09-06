@@ -3,17 +3,17 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { inventoryCategories } from "@/content/inventoryCatalog";
+import type { InventoryCategory } from "@/content/inventoryCatalog";
 import { Reveal } from "@/motion/Reveal";
 
-export function InventoryCatalog() {
+export function InventoryCatalog({ categories }: { categories: InventoryCategory[] }) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const listRef = useRef<HTMLDivElement>(null);
 
   const displayedCategories =
     selectedCategory === "all"
-      ? inventoryCategories
-      : inventoryCategories.filter((c) => c.id === selectedCategory);
+      ? categories
+      : categories.filter((c) => c.id === selectedCategory);
 
   const handleFilter = (catId: string) => {
     setSelectedCategory(catId);
@@ -52,7 +52,7 @@ export function InventoryCatalog() {
           >
             All Systems (6)
           </button>
-          {inventoryCategories.map((c) => (
+          {categories.map((c) => (
             <button
               key={c.id}
               type="button"

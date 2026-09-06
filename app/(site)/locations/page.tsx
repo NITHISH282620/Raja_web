@@ -7,9 +7,10 @@ import { locationSummaries, locationsIntro, locationLabel, VERIFICATION_LABELS }
 import { company } from "@/content/company";
 import { getContact } from "@/lib/store";
 import { abs } from "@/lib/site";
+import { getLocations } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: "Where We Build — Bengaluru & Pan-India Event Infrastructure",
+  title: "Where We Build",
   description:
     "Raja Enterprises is Bengaluru-based and deploys nationally. Every location shown is one Raja's own project records place it in.",
   alternates: { canonical: abs("/locations") },
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function LocationsPage() {
   const contact = getContact();
-  const summaries = locationSummaries();
+  const summaries = locationSummaries(getLocations());
   const total = summaries.reduce((n, s) => n + s.count, 0);
 
   return (

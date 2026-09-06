@@ -12,6 +12,56 @@ export const META: Record<
   Collection,
   { title: string; sub: string; label: (d: Record<string, unknown>) => string; meta?: (d: Record<string, unknown>) => string }
 > = {
+  catalog: {
+    title: "Inventory catalogue",
+    sub: "The detailed equipment categories on /inventory, including their specifications.",
+    label: (d) => String(d.name ?? "Untitled"),
+    meta: (d) => [d.totalCapacity, d.unit].filter(Boolean).join(" "),
+  },
+  timeline: {
+    title: "About — timeline",
+    sub: "The eras on the About page.",
+    label: (d) => String(d.title ?? d.era ?? "Untitled"),
+    meta: (d) => String(d.years ?? ""),
+  },
+  milestones: {
+    title: "About — milestones",
+    sub: "The notable moments listed on the About page.",
+    label: (d) => String(d.title ?? "Untitled"),
+    meta: (d) => String(d.year ?? ""),
+  },
+  principles: {
+    title: "About — principles",
+    sub: "How Raja delivers — the four principles on the About page.",
+    label: (d) => String(d.title ?? "Untitled"),
+  },
+  locations: {
+    title: "Locations",
+    sub: "Places on the footprint map. A location only gets its own page when it has a search title.",
+    label: (d) => String(d.city ?? "Untitled"),
+    meta: (d) => String(d.state ?? ""),
+  },
+  disciplines: {
+    title: "Careers — disciplines",
+    sub: "The kinds of work listed on the careers page.",
+    label: (d) => String(d.title ?? "Untitled"),
+  },
+  partnerPoints: {
+    title: "Partners — reasons",
+    sub: "The four cards making the case to agencies.",
+    label: (d) => String(d.heading ?? "Untitled"),
+  },
+  partnerSteps: {
+    title: "Partners — how it runs",
+    sub: "The numbered steps on the partners page.",
+    label: (d) => String(d.label ?? "Untitled"),
+  },
+  seo: {
+    title: "Page SEO",
+    sub: "Override the search title and description for one page. Add a row only for a page you want to control — every other page keeps the wording it writes for itself.",
+    label: (d) => String(d.route ?? "/"),
+    meta: (d) => String(d.title ?? ""),
+  },
   services: {
     title: "Services",
     sub: "The six service pages. Editing the title or body here changes that page directly.",

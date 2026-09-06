@@ -13,6 +13,14 @@ import { hero as seedHero } from "@/content/site";
 import { servicePillars as seedServices, type ServicePillar } from "@/content/services";
 import { solutions as seedSolutions, type Solution } from "@/content/solutions";
 import { inventorySchedule as seedSchedule, type InventoryLine } from "@/content/inventorySchedule";
+import { inventoryCategories as seedCatalog, type InventoryCategory } from "@/content/inventoryCatalog";
+import { aboutTimeline as seedTimeline, milestoneMoments as seedMilestones, principles as seedPrinciples,
+  type TimelineEra, type MilestoneItem, type Principle } from "@/content/about";
+import { locations as seedLocations, type LocationRecord } from "@/content/locations";
+import { disciplines as seedDisciplines, type Discipline } from "@/content/careers";
+import { partnerPoints as seedPartnerPoints, partnerSteps as seedPartnerSteps,
+  type PartnerPoint, type PartnerStep } from "@/content/partners";
+import { seoOverrides as seedSeo, type SeoOverride } from "@/content/seo";
 import { publishable, publishableList } from "@/content/media";
 
 /**
@@ -45,6 +53,15 @@ export const COLLECTIONS = {
   services: "services",
   solutions: "solutions",
   schedule: "schedule",
+  catalog: "catalog",
+  timeline: "timeline",
+  milestones: "milestones",
+  principles: "principles",
+  locations: "locations",
+  disciplines: "disciplines",
+  partnerPoints: "partnerPoints",
+  partnerSteps: "partnerSteps",
+  seo: "seo",
 } as const;
 
 /** Seeds a collection reads from when the database has nothing for it. */
@@ -59,6 +76,15 @@ const SEEDS = {
   services: seedServices,
   solutions: seedSolutions,
   schedule: seedSchedule,
+  catalog: seedCatalog,
+  timeline: seedTimeline,
+  milestones: seedMilestones,
+  principles: seedPrinciples,
+  locations: seedLocations,
+  disciplines: seedDisciplines,
+  partnerPoints: seedPartnerPoints,
+  partnerSteps: seedPartnerSteps,
+  seo: seedSeo,
 } as const;
 
 type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
@@ -191,6 +217,26 @@ export function findServiceBySlug(slug: string): ServicePillar | undefined {
 
 export function findSolutionBySlug(slug: string): Solution | undefined {
   return read("solutions").find((s) => s.slug === slug);
+}
+
+export function getCatalog(): InventoryCategory[] { return read("catalog"); }
+export function getTimeline(): TimelineEra[] { return read("timeline"); }
+export function getMilestones(): MilestoneItem[] { return read("milestones"); }
+export function getPrinciples(): Principle[] { return read("principles"); }
+export function getLocations(): LocationRecord[] { return read("locations"); }
+export function getDisciplines(): Discipline[] { return read("disciplines"); }
+export function getPartnerPoints(): PartnerPoint[] { return read("partnerPoints"); }
+export function getPartnerSteps(): PartnerStep[] { return read("partnerSteps"); }
+
+/**
+ * The SEO override for a route, or null.
+ *
+ * Null is the normal case and means "use whatever the page computes for
+ * itself", which is why this returns null rather than an empty object: a caller
+ * that spreads an empty object over its own metadata would blank every field.
+ */
+export function getSeo(route: string): SeoOverride | null {
+  return read("seo").find((s) => s.route === route) ?? null;
 }
 
 export function getHero(): HeroSettings {

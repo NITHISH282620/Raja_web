@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getPagedServices, getSolutions } from "@/lib/store";
-import { publishedLocations } from "@/content/locations";
+import { getPagedServices, getSolutions, getLocations } from "@/lib/store";
+
 import { abs } from "@/lib/site";
 
 /**
@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     // Only cities that actually have a page. The same `seoTitle` gate the route
     // uses, so the sitemap cannot advertise a URL that returns 404.
-    ...publishedLocations()
+    ...getLocations()
       .filter((l) => l.seoTitle)
       .map((l) => ({
         url: abs(`/locations/${l.id}`),

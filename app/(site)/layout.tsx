@@ -8,7 +8,7 @@ import { Analytics } from "@/components/Analytics";
 import { SiteFooter } from "@/sections/SiteFooter";
 import { company, FOUNDED_YEAR } from "@/content/company";
 import { getContact } from "@/lib/store";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, isProductionSite } from "@/lib/site";
 import "../globals.css";
 
 /* The design uses exactly two families and six weights. Nothing else loads.
@@ -59,7 +59,12 @@ export const metadata: Metadata = {
     description,
   },
   twitter: { card: "summary_large_image", title: company.name, description },
-  robots: { index: true, follow: true },
+  // Preview deployments are noindex at the document level as well as in
+  // robots.txt — belt and braces, because a stray link into staging can be
+  // crawled even when robots.txt disallows it.
+  robots: isProductionSite()
+    ? { index: true, follow: true }
+    : { index: false, follow: false, nocache: true },
   alternates: { canonical: "/" },
 };
 

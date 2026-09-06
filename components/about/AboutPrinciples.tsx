@@ -4,9 +4,9 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/motion/primitives";
 import { EASE, MOTION_OK } from "@/motion/ease";
-import { principles } from "@/content/about";
+import type { Principle } from "@/content/about";
 
-export function AboutPrinciples() {
+export function AboutPrinciples({ principles }: { principles: Principle[] }) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(

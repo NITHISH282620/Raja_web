@@ -155,9 +155,40 @@ event categories · legacy collage · **service pages** · **solution pages** ·
 Verified live: changing a capacity figure in the admin updated /partners,
 /locations/bengaluru and the homepage, then restored.
 
-**Still needs a developer** — not yet in the admin: About, Legacy narrative,
-Careers, Locations, the /inventory detailed catalogue, Partners page copy, and
-per-page SEO overrides.
+### Module coverage
+
+| Module | Editable | Public page reads DB | 390px tested | E2E |
+|---|---|---|---|---|
+| Projects | ✅ | ✅ | ✅ | ✅ |
+| Clients | ✅ | ✅ | ✅ | ✅ |
+| Services (6 pages) | ✅ | ✅ | ✅ | ✅ |
+| Solutions (5 pages) | ✅ | ✅ | ✅ | ✅ |
+| Capacity figures | ✅ | ✅ | ✅ | ✅ |
+| Inventory catalogue | ✅ | ✅ | ✅ | ✅ |
+| Homepage capabilities | ✅ | ✅ | ✅ | ✅ |
+| Homepage inventory tiles | ✅ | ✅ | ✅ | ✅ |
+| Process steps | ✅ | ✅ | ✅ | ✅ |
+| Event categories | ✅ | ✅ | ✅ | ✅ |
+| About — timeline | ✅ | ✅ | ✅ | ✅ |
+| About — milestones | ✅ | ✅ | ✅ | ✅ |
+| About — principles | ✅ | ✅ | ✅ | ✅ |
+| Legacy collage | ✅ | ✅ | ✅ | ✅ |
+| Partners — reasons | ✅ | ✅ | ✅ | ✅ |
+| Partners — steps | ✅ | ✅ | ✅ | ✅ |
+| Careers — disciplines | ✅ | ✅ | ✅ | ✅ |
+| Locations | ✅ | ✅ | ✅ | ✅ |
+| Page SEO | ✅ | override layer | ✅ | ✅ |
+| Hero / contact / stats | ✅ | ✅ | ✅ | ✅ |
+
+**Propagation proven**, not assumed. For each of catalog, partner reasons,
+careers disciplines, about principles, locations and capacity figures: value
+changed in the admin on a 390px viewport, confirmed on the public page,
+restored, confirmed restored.
+
+**Still code-controlled, and correctly so:** layout, motion, typography,
+spacing, component behaviour. Long-form narrative prose on About and Legacy
+remains in `content/` — the repeating cards on those pages are editable, the
+essay paragraphs are not.
 
 ## What is NOT waiting on this call
 

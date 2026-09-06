@@ -22,6 +22,73 @@ export type Field =
  * silently destroyed the first time someone fixes a typo.
  */
 export const FIELDS: Record<Collection, Field[]> = {
+  catalog: [
+    { name: "name", label: "Category name", type: "text" },
+    { name: "shortName", label: "Short name", type: "text" },
+    { name: "tagline", label: "One-line tagline", type: "text" },
+    { name: "totalCapacity", label: "Capacity", type: "text", hint: "The figure as it should read, e.g. 5,00,000. Leave blank if unconfirmed." },
+    { name: "unit", label: "Unit", type: "text", placeholder: "Sq. Ft." },
+    { name: "description", label: "Description", type: "textarea" },
+    { name: "image", label: "Photograph", type: "image" },
+    { name: "alt", label: "Photograph description", type: "text" },
+  ],
+
+  timeline: [
+    { name: "era", label: "Era", type: "text" },
+    { name: "years", label: "Years", type: "text", placeholder: "1977–1989" },
+    { name: "title", label: "Title", type: "text" },
+    { name: "body", label: "Narrative", type: "textarea" },
+    { name: "image", label: "Photograph", type: "image" },
+    { name: "image.alt", label: "Photograph description", type: "text" },
+  ],
+
+  milestones: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "year", label: "Year", type: "text" },
+    { name: "summary", label: "Description", type: "textarea" },
+    { name: "image", label: "Photograph", type: "image" },
+    { name: "image.alt", label: "Photograph description", type: "text" },
+  ],
+
+  principles: [
+    { name: "title", label: "Title", type: "text" },
+    { name: "body", label: "Description", type: "textarea" },
+  ],
+
+  locations: [
+    { name: "city", label: "City", type: "text" },
+    { name: "state", label: "State", type: "text" },
+    { name: "displayName", label: "Display name", type: "text", hint: "Use when the place is better known by another name. Leave blank to use the city." },
+    { name: "blurb", label: "Description", type: "textarea" },
+    { name: "seoTitle", label: "Search title", type: "text", hint: "IMPORTANT: a location only gets its own page when this is filled in. Leave blank and it stays a point on the map." },
+    { name: "seoDescription", label: "Search description", type: "textarea" },
+    { name: "image", label: "Photograph", type: "image" },
+    { name: "image.alt", label: "Photograph description", type: "text" },
+  ],
+
+  disciplines: [
+    { name: "title", label: "Discipline", type: "text" },
+    { name: "body", label: "Description", type: "textarea" },
+  ],
+
+  partnerPoints: [
+    { name: "heading", label: "Heading", type: "text" },
+    { name: "body", label: "Body", type: "textarea" },
+  ],
+
+  partnerSteps: [
+    { name: "label", label: "Step", type: "textarea" },
+  ],
+
+  seo: [
+    { name: "route", label: "Page address", type: "text", placeholder: "/partners", hint: "Exactly as it appears in the address bar, starting with a slash." },
+    { name: "title", label: "Search title", type: "text", hint: "About 55 characters reads best in Google. Longer is allowed — it may be shortened in results." },
+    { name: "description", label: "Search description", type: "textarea", hint: "About 155 characters. This is the grey text under the blue link." },
+    { name: "ogImage", label: "Social preview image path", type: "text", hint: "Shown when the page is shared. Leave blank to use the site default." },
+    { name: "canonical", label: "Canonical URL", type: "text", hint: "Leave blank unless this page duplicates another." },
+    { name: "noindex", label: "Hide this page from Google", type: "checkbox", hint: "The page stays live and reachable; it just stops being listed in search." },
+  ],
+
   services: [
     { name: "title", label: "Service name", type: "text" },
     { name: "slug", label: "Page address", type: "text", hint: "The last part of the web address, e.g. german-hangers. Changing this changes the page's URL — old links will stop working." },
@@ -126,6 +193,18 @@ export const FIELDS: Record<Collection, Field[]> = {
 
 /** A blank record for each collection, so "Add new" starts from a valid shape. */
 export const BLANKS: Record<Collection, Record<string, unknown>> = {
+  catalog: { id: "", name: "", shortName: "", tagline: "", icon: "", totalCapacity: "", unit: "",
+    description: "", specs: [], features: [], applications: [], image: null, alt: "" },
+  timeline: { id: "", era: "", years: "", title: "", body: "", image: null },
+  milestones: { id: "", title: "", year: "", summary: "", image: null },
+  principles: { id: "", title: "", body: "", status: "approved" },
+  locations: { id: "", city: "", state: "", country: "India", lat: 0, lng: 0, blurb: null,
+    verification: "client-provided", published: true, status: "provisional" },
+  disciplines: { id: "", title: "", body: "" },
+  partnerPoints: { id: "", heading: "", body: "", order: 0, status: "approved" },
+  partnerSteps: { id: "", label: "", order: 0, status: "approved" },
+  seo: { id: "", route: "", title: "", description: "", ogImage: "", canonical: "", noindex: false, order: 0, status: "approved" },
+
   services: {
     slug: "", title: "", heading: "", summary: "", body: [], capacity: [], bundled: [],
     image: null, page: false, order: 99, status: "provisional",

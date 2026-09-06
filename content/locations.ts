@@ -202,8 +202,12 @@ export interface LocationSummary {
 }
 
 /** Everything the map and the location panel need, computed from projects. */
-export function locationSummaries(): LocationSummary[] {
-  return publishedLocations()
+export function locationSummaries(records?: LocationRecord[]): LocationSummary[] {
+  // Takes the records rather than reaching for the module-level array, so the
+  // page can hand it whatever the admin currently holds. Falls back to the seed
+  // when nothing is passed, which keeps every existing caller working.
+  return (records ?? publishedLocations())
+    .filter((l) => l.published)
     .map((location) => {
       const projects = projectsAt(location);
       return {

@@ -5,7 +5,7 @@ import { PageMasthead, Band } from "@/components/PageShell";
 import { company } from "@/content/company";
 import { CTA } from "@/content/site";
 import { type InventoryLine } from "@/content/inventorySchedule";
-import { getSchedule } from "@/lib/store";
+import { getSchedule, getPartnerPoints, getPartnerSteps } from "@/lib/store";
 import { abs, SITE_URL } from "@/lib/site";
 
 /**
@@ -33,32 +33,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-
-const WHY = [
-  {
-    heading: "The stock is ours",
-    body: "Structures, flooring, staging, stalls, seating and barricading come out of Raja's own yard rather than being re-hired from someone else's. One less chain between your commitment to a client and the thing arriving on site.",
-  },
-  {
-    heading: "The crew is ours",
-    body: "Installation is done by Raja's own field crew, who travel with the stock. Scheduling, supervision and the strike are handled by the same organisation that supplied the material.",
-  },
-  {
-    heading: "We stay behind your name",
-    body: "Raja is the infrastructure partner, not a competing agency. The client relationship, the creative and the credit stay yours; we are accountable to you for the ground.",
-  },
-  {
-    heading: "One scope instead of six vendors",
-    body: "Hangers, floor, stage, stalls, seating and access structures under one scope and one schedule, so co-ordination between trades is our problem rather than a line on your critical path.",
-  },
-];
-
-const HOW = [
-  "Send the brief, the floor plan or the BOQ — whatever stage it is at",
-  "We survey the site and come back with quantities against your drawing",
-  "One scope, one schedule, one point of contact through the build",
-  "Our crew installs, stays through the event, and dismantles to your strike time",
-];
 
 export default function PartnersPage() {
   const jsonLd = {
@@ -142,7 +116,7 @@ export default function PartnersPage() {
 
       <Band>
         <div className="grid gap-[clamp(14px,1.6vw,22px)] sm:grid-cols-2">
-          {WHY.map((w) => (
+          {getPartnerPoints().map((w) => (
             <div
               key={w.heading}
               className="rounded-[15px] border border-ink/12 bg-white p-[clamp(20px,2.2vw,30px)]"
@@ -184,15 +158,15 @@ export default function PartnersPage() {
           <h2 className="t-work max-w-[18ch] text-ink">How a partnership runs</h2>
           <div>
             <ol className="flex flex-col">
-              {HOW.map((step, i) => (
+              {getPartnerSteps().map((step, i) => (
                 <li
-                  key={step}
+                  key={step.label}
                   className="t-body flex items-start gap-5 border-t border-ink/12 py-4 text-ink"
                 >
                   <span className="t-body-sm mt-0.5 font-mono text-accent">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span>{step}</span>
+                  <span>{step.label}</span>
                 </li>
               ))}
             </ol>

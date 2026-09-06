@@ -11,7 +11,7 @@ import { getStats, getPagedServices } from "@/lib/store";
 import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Event Infrastructure Services — Hangers, Stalls, Flooring, Staging",
+  title: "Event Infrastructure Services",
   description:
     "German hangers, exhibition stalls, event flooring, staging, scaffolding and turnkey event infrastructure. Owned inventory and in-house crew, Bengaluru since 1977.",
   alternates: { canonical: abs("/services") },

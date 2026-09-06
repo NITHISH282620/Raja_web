@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { PageMasthead, Band } from "@/components/PageShell";
 import { SectionTitle } from "@/components/SectionTitle";
-import { careersIntro, disciplines, roles } from "@/content/careers";
+import { careersIntro, roles } from "@/content/careers";
 import { company } from "@/content/company";
-import { getContact } from "@/lib/store";
+import { getContact, getDisciplines } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -40,7 +40,7 @@ export default function CareersPage() {
         <div className="frame">
           <SectionTitle lead="What we" trail="hire for" className="mb-[clamp(32px,4.4vw,64px)]" />
           <ol className="grid gap-[clamp(24px,3vw,44px)] md:grid-cols-2 lg:grid-cols-3">
-            {disciplines.map((d) => (
+            {getDisciplines().map((d) => (
               <li key={d.index} data-band-item className="flex flex-col gap-3 border-t border-ink/12 pt-6">
                 <span className="t-eyebrow tabular-nums text-accent">{d.index}</span>
                 <h3 className="t-tile text-balance text-ink">{d.title}</h3>
