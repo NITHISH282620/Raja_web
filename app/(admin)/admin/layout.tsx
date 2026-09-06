@@ -5,7 +5,7 @@ import { currentUser, ensureOwnerAccount, adminConfigured } from "@/lib/auth";
 import { AdminNav } from "./nav";
 import { signOut } from "./actions";
 import { db } from "@/lib/db";
-import { readAll } from "@/lib/store";
+import { readAll, COLLECTIONS } from "@/lib/store";
 
 /**
  * The signed-in admin shell.
@@ -27,14 +27,15 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const user = await currentUser();
   if (!user) redirect(`/admin/login?next=${encodeURIComponent(pathname || "/admin")}`);
 
+  // Every collection the sidebar lists, so a section never shows a blank count
+  // while its neighbours show one. Derived from COLLECTIONS rather than typed
+  // out, so registering a collection is still a one-line change.
+  const collectionCounts = Object.fromEntries(
+    (Object.keys(COLLECTIONS) as (keyof typeof COLLECTIONS)[]).map((c) => [c, readAll(c).length]),
+  );
+
   const counts = {
-    projects: readAll("projects").length,
-    events: readAll("events").length,
-    capabilities: readAll("capabilities").length,
-    inventory: readAll("inventory").length,
-    process: readAll("process").length,
-    clients: readAll("clients").length,
-    collage: readAll("collage").length,
+    ...collectionCounts,
     media: (db().prepare(`SELECT COUNT(*) AS n FROM media`).get() as { n: number }).n,
     enquiries: (
       db().prepare(`SELECT COUNT(*) AS n FROM enquiries WHERE status = 'new'`).get() as { n: number }
