@@ -9,6 +9,7 @@ import {
   getProjects,
   getSchedule,
   getEventFormats,
+  getRecentEvents,
 } from "@/lib/store";
 
 import { CapabilitiesView } from "./Capabilities";
@@ -19,6 +20,7 @@ import { ProcessView } from "./Process";
 import { ResourcesView } from "./Resources";
 import { WorksView } from "./Works";
 import { EventsWeBuildForView } from "./Events";
+import { RecentExecutionsView } from "./RecentExecutions";
 
 /**
  * Server wrappers.
@@ -63,4 +65,7 @@ export function Clients() {
 export function EventsWeBuildFor() {
   return <EventsWeBuildForView formats={getEventFormats()} />;
 }
-export { RecentExecutions } from "./RecentExecutions";
+/** Server wrapper: reads the grid, the client view animates it. */
+export function RecentExecutions() {
+  return <RecentExecutionsView events={getRecentEvents()} />;
+}

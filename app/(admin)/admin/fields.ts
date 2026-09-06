@@ -33,6 +33,20 @@ export type Field =
  * silently destroyed the first time someone fixes a typo.
  */
 export const FIELDS: Record<Collection, Field[]> = {
+  recentEvents: [
+    { name: "project", label: "Project", type: "text", placeholder: "Ambedkar Jayanti at Vidhana Soudha" },
+    { name: "year", label: "Year", type: "text", placeholder: "2024" },
+    { name: "image", label: "Photograph", type: "imagePath" },
+    { name: "slug", label: "Page address", type: "text", hint: "Used for this project's own page. Changing it changes that URL." },
+    {
+      name: "size",
+      label: "Tile size in the grid",
+      type: "select",
+      options: ["normal", "wide", "tall"],
+      hint: "Wide spans two columns, tall spans two rows. Changing these alters how the grid packs.",
+    },
+  ],
+
   eventFormats: [
     { name: "title", label: "Card title", type: "text", placeholder: "Mega Exhibitions" },
     { name: "summary", label: "Card description", type: "textarea" },
@@ -229,6 +243,7 @@ export const FIELDS: Record<Collection, Field[]> = {
 
 /** A blank record for each collection, so "Add new" starts from a valid shape. */
 export const BLANKS: Record<Collection, Record<string, unknown>> = {
+  recentEvents: { slug: "", year: "", project: "", image: "", size: "normal" },
   eventFormats: { id: "", title: "", summary: "", image: null, href: "/solutions" },
   highlights: { number: "", unit: "", label: "", description: "", tag: "", image: "" },
   copy: { id: "", label: "", body: "", order: 0, status: "approved" },

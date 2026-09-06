@@ -20,6 +20,12 @@ export const META: Record<
     thumb?: (d: Record<string, unknown>) => string | null;
   }
 > = {
+  recentEvents: {
+    title: "Recent events",
+    sub: "The photo grid on the homepage. Each tile is one completed job; the size setting controls how much of the grid it takes.",
+    label: (d) => String(d.project ?? "Untitled"),
+    meta: (d) => [d.year, d.size].filter(Boolean).join(" · "),
+  },
   eventFormats: {
     title: "Event formats",
     sub: "The four large photo cards on the homepage — the event types Raja builds for. Each card links to a service or solution page.",

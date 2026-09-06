@@ -7,7 +7,8 @@ import { inventoryTiles as seedInventory, type InventoryTile } from "@/content/i
 import { processSteps as seedProcess, type ProcessStep } from "@/content/process";
 import { clients as seedClients, type Client } from "@/content/clients";
 import { clientEvents as seedEvents, type ClientEvent } from "@/content/clientEvents";
-import { eventsWeBuildFor as seedEventFormats, type EventCategory } from "@/content/events";
+import { eventsWeBuildFor as seedEventFormats, recentExecutions as seedRecent,
+  type EventCategory, type RecentExecution } from "@/content/events";
 import { collage as seedCollage, type CollagePhoto } from "@/content/legacy";
 import { contact as seedContact, stats as seedStats, type Stat } from "@/content/company";
 import { hero as seedHero } from "@/content/site";
@@ -68,6 +69,7 @@ export const COLLECTIONS = {
   copy: "copy",
   highlights: "highlights",
   eventFormats: "eventFormats",
+  recentEvents: "recentEvents",
 } as const;
 
 /** Seeds a collection reads from when the database has nothing for it. */
@@ -94,6 +96,7 @@ const SEEDS = {
   copy: seedCopyBlocks,
   highlights: seedHighlights,
   eventFormats: seedEventFormats,
+  recentEvents: seedRecent,
 } as const;
 
 type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
@@ -239,6 +242,7 @@ export function copyText(id: string): string {
 }
 
 export function getCatalog(): InventoryCategory[] { return read("catalog"); }
+export function getRecentEvents(): RecentExecution[] { return read("recentEvents"); }
 export function getEventFormats(): EventCategory[] { return read("eventFormats"); }
 export function getInventoryHighlights(): InventoryItem[] { return read("highlights"); }
 export function getTimeline(): TimelineEra[] { return read("timeline"); }

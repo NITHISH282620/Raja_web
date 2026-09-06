@@ -14,10 +14,10 @@ import {
 } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
-import { recentExecutions } from "@/content/events";
+import type { RecentExecution } from "@/content/events";
 import { clsx } from "@/lib/clsx";
 
-export function RecentExecutions() {
+export function RecentExecutionsView({ events }: { events: RecentExecution[] }) {
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
@@ -76,7 +76,7 @@ export function RecentExecutions() {
   );
 
   // We duplicate the array to create the infinite seamless loop effect
-  const duplicatedExecutions = [...recentExecutions, ...recentExecutions];
+  const duplicatedExecutions = [...events, ...events];
 
   return (
     <section

@@ -65,11 +65,34 @@
   position: sticky;
   top: 0;
   height: 100dvh;
+
+  /*
+   * The sidebar scrolls inside itself.
+   *
+   * It was already sticky at a fixed 100dvh, which is right — but with the nav
+   * grown to twenty-seven sections its content is taller than the viewport, and
+   * without an overflow rule that content simply spilled out of the sticky box.
+   * Scrolling the page then dragged the list up and left a band of white
+   * beneath it. Giving the column its own scroll keeps it pinned and complete
+   * however long the list gets.
+   */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+.admin-side::-webkit-scrollbar {
+  width: 8px;
+}
+.admin-side::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
 }
 @media (max-width: 900px) {
   .admin-side {
     position: static;
     height: auto;
+    overflow-y: visible;
   }
 }
 
