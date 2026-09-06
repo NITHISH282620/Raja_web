@@ -31,7 +31,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   // while its neighbours show one. Derived from COLLECTIONS rather than typed
   // out, so registering a collection is still a one-line change.
   const collectionCounts = Object.fromEntries(
-    (Object.keys(COLLECTIONS) as (keyof typeof COLLECTIONS)[]).map((c) => [c, readAll(c).length]),
+    await Promise.all(
+      (Object.keys(COLLECTIONS) as (keyof typeof COLLECTIONS)[]).map(
+        async (c) => [c, (await readAll(c)).length] as const,
+      ),
+    ),
   );
 
   const counts = {

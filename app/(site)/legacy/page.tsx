@@ -13,13 +13,13 @@ export const metadata: Metadata = {
   description: `Raja Enterprises, established ${FOUNDED_YEAR} in Bengaluru — four decades of engineering the temporary cities and physical ground where India gathers.`,
 };
 
-export default function LegacyPage() {
+export default async function LegacyPage() {
   return (
     <main id="main" className="relative w-full bg-paper">
 
       <figure className="frame mt-[clamp(20px,3vw,44px)]">
         <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[20px] bg-ink/5">
-          <Image src={pageImage("legacy-hero")?.image ?? "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp"} alt={pageImage("legacy-hero")?.alt ?? ""} fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
+          <Image src={(await pageImage("legacy-hero"))?.image ?? "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp"} alt={(await pageImage("legacy-hero"))?.alt ?? ""} fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
         </div>
         <figcaption className="t-body-sm mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-light">
           <span className="rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">

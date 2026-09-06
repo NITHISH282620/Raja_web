@@ -12,14 +12,14 @@ export const metadata: Metadata = {
   description: `Event infrastructure contractor in Bengaluru since ${FOUNDED_YEAR}. Owned German hangers, flooring, staging and stalls, installed by an in-house crew.`,
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
   return (
     <main id="main" className="relative w-full bg-paper">
-      <AboutHero primary={pageImage("about-hero-primary")} secondary={pageImage("about-hero-secondary")} />
-      <AboutTimeline eras={getTimeline()} />
-      <AboutInventoryBento highlights={getInventoryHighlights()} />
-      <AboutMilestones milestones={getMilestones()} />
-      <AboutPrinciples principles={getPrinciples()} />
+      <AboutHero primary={await pageImage("about-hero-primary")} secondary={await pageImage("about-hero-secondary")} />
+      <AboutTimeline eras={await getTimeline()} />
+      <AboutInventoryBento highlights={await getInventoryHighlights()} />
+      <AboutMilestones milestones={await getMilestones()} />
+      <AboutPrinciples principles={await getPrinciples()} />
     </main>
   );
 }

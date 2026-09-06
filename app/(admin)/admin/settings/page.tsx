@@ -11,9 +11,9 @@ export default async function SettingsPage({
   searchParams: Promise<{ saved?: string; error?: string }>;
 }) {
   const { saved, error } = await searchParams;
-  const contact = getContact();
-  const hero = getHero();
-  const stats = getStats();
+  const contact = await getContact();
+  const hero = await getHero();
+  const stats = await getStats();
 
   return (
     <>

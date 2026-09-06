@@ -12,8 +12,8 @@ export const metadata: Metadata = {
     "Raja Enterprises builds India's largest temporary structures with its own crew. Site crew, fabrication, lighting and AV, project management, logistics and office roles in Bengaluru.",
 };
 
-export default function CareersPage() {
-  const contact = getContact();
+export default async function CareersPage() {
+  const contact = await getContact();
 
   return (
     <main id="main">
@@ -25,7 +25,7 @@ export default function CareersPage() {
 
       <figure className="frame mt-[clamp(20px,3vw,44px)]">
         <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[20px] bg-ink/5">
-          <Image src={pageImage("careers-hero")?.image ?? "/media/events/eima-delegates-stand.5c782f20.webp"} alt={pageImage("careers-hero")?.alt ?? ""} fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
+          <Image src={(await pageImage("careers-hero"))?.image ?? "/media/events/eima-delegates-stand.5c782f20.webp"} alt={(await pageImage("careers-hero"))?.alt ?? ""} fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
         </div>
         <figcaption className="t-body-sm mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-light">
           <span className="rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">
@@ -40,7 +40,7 @@ export default function CareersPage() {
         <div className="frame">
           <SectionTitle lead="What we" trail="hire for" className="mb-[clamp(32px,4.4vw,64px)]" />
           <ol className="grid gap-[clamp(24px,3vw,44px)] md:grid-cols-2 lg:grid-cols-3">
-            {getDisciplines().map((d) => (
+            {(await getDisciplines()).map((d) => (
               <li key={d.index} data-band-item className="flex flex-col gap-3 border-t border-ink/12 pt-6">
                 <span className="t-eyebrow tabular-nums text-accent">{d.index}</span>
                 <h3 className="t-tile text-balance text-ink">{d.title}</h3>

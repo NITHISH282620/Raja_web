@@ -16,9 +16,9 @@ export const metadata: Metadata = {
   alternates: { canonical: abs("/locations") },
 };
 
-export default function LocationsPage() {
-  const contact = getContact();
-  const summaries = locationSummaries(getLocations());
+export default async function LocationsPage() {
+  const contact = await getContact();
+  const summaries = locationSummaries(await getLocations());
   const total = summaries.reduce((n, s) => n + s.count, 0);
 
   return (

@@ -19,11 +19,11 @@ export default async function Dashboard() {
     db().prepare(`SELECT COUNT(*) AS n FROM enquiries WHERE status = 'new'`).get() as { n: number }
   ).n;
   const mediaCount = (db().prepare(`SELECT COUNT(*) AS n FROM media`).get() as { n: number }).n;
-  const contact = getContact();
+  const contact = await getContact();
 
   const tiles = [
-    { href: "/admin/projects", label: "Projects", value: readAll("projects").length },
-    { href: "/admin/events", label: "Client events", value: readAll("events").length },
+    { href: "/admin/projects", label: "Projects", value: (await readAll("projects")).length },
+    { href: "/admin/events", label: "Client events", value: (await readAll("events")).length },
     { href: "/admin/media", label: "Media files", value: mediaCount },
     { href: "/admin/enquiries", label: "New enquiries", value: newEnquiries },
   ];
@@ -34,7 +34,7 @@ export default async function Dashboard() {
   if (!adminConfigured()) todo.push("No administrator account exists — set RAJA_ADMIN_EMAIL and RAJA_ADMIN_PASSWORD.");
   if (mediaCount === 0) todo.push("Upload Raja's own photographs in the Media library, then swap them onto the cards.");
   if (!contact.email) todo.push("Add a contact email address in Settings.");
-  const unpublished = readAll("projects").filter((p) => !p.published).length;
+  const unpublished = (await readAll("projects")).filter((p) => !p.published).length;
   if (unpublished) todo.push(`${unpublished} project${unpublished > 1 ? "s are" : " is"} unpublished and not visible on the site.`);
 
   return (

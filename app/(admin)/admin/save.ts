@@ -42,7 +42,7 @@ export async function saveRecordForm(formData: FormData) {
 
   const base = isNew
     ? structuredClone(BLANKS[key])
-    : ((readOne(key, existingId) as unknown as Record<string, unknown> | null) ??
+    : ((await readOne(key, existingId) as unknown as Record<string, unknown> | null) ??
       structuredClone(BLANKS[key]));
 
   const next = structuredClone(base) as Record<string, unknown>;
@@ -59,7 +59,7 @@ export async function saveRecordForm(formData: FormData) {
     (db().prepare(`SELECT COUNT(*) AS n FROM records WHERE collection = ?`).get(key) as { n: number })
       .n === 0;
   if (empty) {
-    readAll(key).forEach((row, i) =>
+    (await readAll(key)).forEach((row, i) =>
       putRecord(key, row.id, row.data, { position: i, published: true }),
     );
   }

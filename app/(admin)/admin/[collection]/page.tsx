@@ -200,7 +200,7 @@ export default async function CollectionPage({
   const meta = META[key];
   const { saved, removed } = await searchParams;
 
-  const rows = readAll(key).sort((a, b) => a.position - b.position);
+  const rows = (await readAll(key)).sort((a, b) => a.position - b.position);
 
   return (
     <>

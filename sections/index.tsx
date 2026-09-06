@@ -33,41 +33,41 @@ import { RecentExecutionsView } from "./RecentExecutions";
  * without pushing the content fetch into a `useEffect` and giving up
  * server rendering, which on a marketing page would cost the LCP.
  */
-export function Hero() {
-  return <HeroView hero={getHero()} poster={pageImage("home-hero-poster")} />;
+export async function Hero() {
+  return <HeroView hero={await getHero()} poster={await pageImage("home-hero-poster")} />;
 }
 
-export function Capabilities() {
-  return <CapabilitiesView capabilities={getCapabilities()} />;
+export async function Capabilities() {
+  return <CapabilitiesView capabilities={await getCapabilities()} />;
 }
 
-export function Works() {
-  return <WorksView projects={getProjects()} />;
+export async function Works() {
+  return <WorksView projects={await getProjects()} />;
 }
 
-export function Process() {
-  return <ProcessView processSteps={getProcessSteps()} />;
+export async function Process() {
+  return <ProcessView processSteps={await getProcessSteps()} />;
 }
 
-export function Legacy() {
-  return <LegacyView collage={getCollage()} />;
+export async function Legacy() {
+  return <LegacyView collage={await getCollage()} />;
 }
 
-export function Resources() {
-  return <ResourcesView schedule={getSchedule()} tiles={getInventoryTiles()} />;
+export async function Resources() {
+  return <ResourcesView schedule={await getSchedule()} tiles={await getInventoryTiles()} />;
 }
 
-export function Clients() {
+export async function Clients() {
   return (
-    <ClientsView clients={getClients()} contact={getContact()} events={getClientEvents()} />
+    <ClientsView clients={await getClients()} contact={await getContact()} events={await getClientEvents()} />
   );
 }
 
 /** Server wrapper: reads the cards, the client view animates them. */
-export function EventsWeBuildFor() {
-  return <EventsWeBuildForView formats={getEventFormats()} />;
+export async function EventsWeBuildFor() {
+  return <EventsWeBuildForView formats={await getEventFormats()} />;
 }
 /** Server wrapper: reads the grid, the client view animates it. */
-export function RecentExecutions() {
-  return <RecentExecutionsView events={getRecentEvents()} />;
+export async function RecentExecutions() {
+  return <RecentExecutionsView events={await getRecentEvents()} />;
 }

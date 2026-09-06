@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PartnersPage() {
+export default async function PartnersPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -98,8 +98,8 @@ export default function PartnersPage() {
         <figure>
           <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[15px] bg-ink/5">
             <Image
-              src={pageImage("partners-hero")?.image ?? "/media/projects/aicog-2019-hanger-erection.webp"}
-              alt={pageImage("partners-hero")?.alt ?? ""}
+              src={(await pageImage("partners-hero"))?.image ?? "/media/projects/aicog-2019-hanger-erection.webp"}
+              alt={(await pageImage("partners-hero"))?.alt ?? ""}
               fill
               sizes="(max-width: 1024px) 94vw, 1180px"
               className="object-cover"
@@ -116,7 +116,7 @@ export default function PartnersPage() {
 
       <Band>
         <div className="grid gap-[clamp(14px,1.6vw,22px)] sm:grid-cols-2">
-          {getPartnerPoints().map((w) => (
+          {(await getPartnerPoints()).map((w) => (
             <div
               key={w.heading}
               className="rounded-[15px] border border-ink/12 bg-white p-[clamp(20px,2.2vw,30px)]"
@@ -139,7 +139,7 @@ export default function PartnersPage() {
             a blank number would read as a missing fact rather than an absent
             one. */}
         <dl className="mt-8 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-          {getSchedule()
+          {(await getSchedule())
             .filter((row: InventoryLine) => row.capacity && row.status === "approved")
             .map((row: InventoryLine) => (
             <div key={row.item} className="border-t border-white/20 pt-4">
@@ -158,7 +158,7 @@ export default function PartnersPage() {
           <h2 className="t-work max-w-[18ch] text-ink">How a partnership runs</h2>
           <div>
             <ol className="flex flex-col">
-              {getPartnerSteps().map((step, i) => (
+              {(await getPartnerSteps()).map((step, i) => (
                 <li
                   key={step.label}
                   className="t-body flex items-start gap-5 border-t border-ink/12 py-4 text-ink"

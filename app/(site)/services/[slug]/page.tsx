@@ -20,8 +20,8 @@ import { abs, SITE_URL } from "@/lib/site";
  * scaffolding currently has none.
  */
 
-export function generateStaticParams() {
-  return getPagedServices().map((s) => ({ slug: s.slug }));
+export async function generateStaticParams() {
+  return (await getPagedServices()).map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -30,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const s = findServiceBySlug(slug);
+  const s = await findServiceBySlug(slug);
   if (!s) return {};
   return {
     title: `${s.title} in Bengaluru`,
@@ -47,7 +47,7 @@ export async function generateMetadata({
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = findServiceBySlug(slug);
+  const service = await findServiceBySlug(slug);
   if (!service || !service.page) notFound();
 
   const jsonLd = {

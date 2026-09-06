@@ -1,13 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { COLLECTIONS, readAll, readOne } from "@/lib/store";
-import { db } from "@/lib/db";
+import { query } from "@/lib/db/neon";
 import { BLANKS, FIELDS, getPath, setPath, type Field } from "../../fields";
 import { META } from "../page";
 import { DeleteRecord, Notice, PageHead } from "../../ui";
 import { ImagePicker, type MediaChoice } from "../../image-picker";
 import { saveRecordForm } from "../../save";
-import { backfillMediaLibrary } from "@/lib/media-scan";
 
 export const dynamic = "force-dynamic";
 
@@ -19,19 +18,23 @@ type Collection = keyof typeof COLLECTIONS;
  * an editor opening a record on a fresh install would find an empty library and
  * no way to keep the photograph already on the page.
  */
-function mediaChoices(): MediaChoice[] {
-  // Backfills the library from disk the first time it is needed, so the picker
-  // is never an empty grid over a folder full of photographs.
-  backfillMediaLibrary();
-  const uploaded = db()
-    .prepare(`SELECT src, width, height, alt FROM media WHERE kind = 'image' ORDER BY created_at DESC`)
-    .all() as unknown as { src: string; width: number; height: number; alt: string }[];
+async function mediaChoices(): Promise<MediaChoice[]> {
+  // Reads the library from Neon rather than scanning public/media from disk.
+  // The old version called backfillMediaLibrary() on every render, which meant
+  // a readdirSync over 107 files per request — and, more importantly, a
+  // writable local filesystem the Worker runtime does not have.
+  const uploaded = await query<{
+    legacy_path: string; object_key: string; width: number; height: number; alt_text: string;
+  }>(
+    `SELECT legacy_path, object_key, width, height, alt_text
+       FROM media WHERE kind = 'image' ORDER BY created_at DESC`,
+  );
 
-  const seen = new Set(uploaded.map((m) => m.src));
+  const seen = new Set(uploaded.map((m) => m.legacy_path));
   const inUse: MediaChoice[] = [];
 
   for (const key of Object.keys(COLLECTIONS) as Collection[]) {
-    for (const row of readAll(key)) {
+    for (const row of await readAll(key)) {
       for (const field of ["image", "hero", "logo"]) {
         const asset = (row.data as unknown as Record<string, unknown>)[field] as
           | { src?: string; width?: number; height?: number; alt?: string }
@@ -51,7 +54,13 @@ function mediaChoices(): MediaChoice[] {
   }
 
   return [
-    ...uploaded.map((m) => ({ ...m, label: `Uploaded · ${m.src.split("/").pop()}` })),
+    ...uploaded.map((m) => ({
+      src: m.legacy_path,
+      width: m.width,
+      height: m.height,
+      alt: m.alt_text,
+      label: `Library · ${m.object_key.split("/").pop()}`,
+    })),
     ...inUse,
   ];
 }
@@ -71,11 +80,11 @@ export default async function RecordEditor({
   const isNew = id === "new";
   const record = isNew
     ? (BLANKS[key] as Record<string, unknown>)
-    : (readOne(key, decodeURIComponent(id)) as unknown as Record<string, unknown> | null);
+    : (await readOne(key, decodeURIComponent(id)) as unknown as Record<string, unknown> | null);
   if (!record) notFound();
 
   const fields = FIELDS[key];
-  const options = mediaChoices();
+  const options = await mediaChoices();
 
   return (
     <>

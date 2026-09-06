@@ -108,8 +108,8 @@ type Collection = keyof typeof COLLECTIONS;
  * the store from "seeds" to "database" and the other four projects would
  * vanish. Taking ownership of a collection has to be all-or-nothing.
  */
-function materialise(collection: Collection) {
-  const rows = readAll(collection);
+async function materialise(collection: Collection) {
+  const rows = await readAll(collection);
   const empty = (db().prepare(`SELECT COUNT(*) AS n FROM records WHERE collection = ?`)
     .get(collection) as { n: number }).n === 0;
   if (!empty) return;
@@ -135,7 +135,7 @@ export async function saveRecord(collection: Collection, id: string, json: strin
 export async function setPublished(collection: Collection, id: string, published: boolean) {
   await guard();
   materialise(collection);
-  const row = readAll(collection).find((r) => r.id === id);
+  const row = (await readAll(collection)).find((r) => r.id === id);
   if (row) putRecord(collection, id, row.data, { published });
   publish();
   revalidatePath(`/admin/${collection}`);
@@ -152,7 +152,7 @@ export async function removeRecord(collection: Collection, id: string) {
 export async function moveRecord(collection: Collection, id: string, direction: -1 | 1) {
   await guard();
   materialise(collection);
-  const ids = readAll(collection)
+  const ids = (await readAll(collection))
     .sort((a, b) => a.position - b.position)
     .map((r) => r.id);
   const i = ids.indexOf(id);

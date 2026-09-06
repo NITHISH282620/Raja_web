@@ -15,7 +15,7 @@ import { abs } from "@/lib/site";
  * no cleared photography exists for them yet. They join this list the moment
  * the route does.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const core: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
@@ -39,13 +39,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: c.freq,
       priority: c.priority,
     })),
-    ...getPagedServices().map((s) => ({
+    ...(await getPagedServices()).map((s) => ({
       url: abs(`/services/${s.slug}`),
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.85,
     })),
-    ...getSolutions().map((s) => ({
+    ...(await getSolutions()).map((s) => ({
       url: abs(`/solutions/${s.slug}`),
       lastModified: now,
       changeFrequency: "monthly" as const,
@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     // Only cities that actually have a page. The same `seoTitle` gate the route
     // uses, so the sitemap cannot advertise a URL that returns 404.
-    ...getLocations()
+    ...(await getLocations())
       .filter((l) => l.seoTitle)
       .map((l) => ({
         url: abs(`/locations/${l.id}`),

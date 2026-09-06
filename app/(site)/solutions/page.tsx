@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SolutionsIndex() {
+export default async function SolutionsIndex() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -49,7 +49,7 @@ export default function SolutionsIndex() {
 
       <Band>
         <ul className="grid gap-[clamp(14px,1.6vw,22px)] sm:grid-cols-2 lg:grid-cols-3">
-          {getSolutions().map((s) => (
+          {(await getSolutions()).map((s) => (
             <li key={s.slug}>
               <Link
                 href={`/solutions/${s.slug}`}

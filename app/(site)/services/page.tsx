@@ -25,8 +25,8 @@ export const metadata: Metadata = {
  * because nobody commissions barricading on its own; markets answer the
  * separate question of whether Raja builds for events like yours.
  */
-export default function ServicesPage() {
-  const stats = getStats();
+export default async function ServicesPage() {
+  const stats = await getStats();
 
   return (
     <main id="main">
@@ -40,7 +40,7 @@ export default function ServicesPage() {
         <div className="frame">
           <p className="t-eyebrow mb-[clamp(20px,2.4vw,34px)] text-ink/50">Core services</p>
           <ul className="grid gap-[clamp(18px,2.4vw,32px)] sm:grid-cols-2">
-            {getPagedServices().map((s) => {
+            {(await getPagedServices()).map((s) => {
               const inner = (
                 <>
                   {/* Image-led where an honest photograph exists. Where one does

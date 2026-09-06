@@ -8,7 +8,7 @@ import { getContact, pageImage } from "@/lib/store";
 import { whatsappLink, telHref as tel } from "@/lib/enquiry";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const contact = getContact();
+  const contact = await getContact();
   return {
     title: "Contact",
     description: `Talk to Raja Enterprises about your programme. ${contact.addressLines.join(", ")}.`,
@@ -20,7 +20,7 @@ export default async function ContactPage({
 }: {
   searchParams: Promise<{ sent?: string; ref?: string; error?: string }>;
 }) {
-  const contact = getContact();
+  const contact = await getContact();
   const { sent, ref, error } = await searchParams;
   const wa = whatsappLink(contact.phone);
 
@@ -38,7 +38,7 @@ export default async function ContactPage({
 
       <figure className="frame mt-[clamp(20px,3vw,44px)]">
         <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[20px] bg-ink/5">
-          <Image src={pageImage("contact-hero")?.image ?? "/media/events/aol-pavilion-night.67b84519.webp"} alt={pageImage("contact-hero")?.alt ?? ""} fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
+          <Image src={(await pageImage("contact-hero"))?.image ?? "/media/events/aol-pavilion-night.67b84519.webp"} alt={(await pageImage("contact-hero"))?.alt ?? ""} fill priority sizes="(max-width: 1024px) 96vw, 1280px" className="object-cover" />
         </div>
         <figcaption className="t-body-sm mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-light">
           <span className="rounded-full bg-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white">

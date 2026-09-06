@@ -11,11 +11,11 @@ export const metadata: Metadata = {
     "German clear-span hangers, wooden flooring, staging, mobile HVAC and barricading — owned outright by Raja Enterprises and deployed from its Bengaluru yard.",
 };
 
-export default function InventoryPage() {
+export default async function InventoryPage() {
   return (
     <main id="main" className="relative w-full bg-paper">
       <InventoryHero />
-      <InventoryCatalog categories={getCatalog()} />
+      <InventoryCatalog categories={await getCatalog()} />
       <InventoryEstimator />
       <InventoryCompliance />
     </main>

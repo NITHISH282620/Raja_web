@@ -19,8 +19,8 @@ import { abs, SITE_URL } from "@/lib/site";
  * project to balance a layout.
  */
 
-export function generateStaticParams() {
-  return getSolutions().map((s) => ({ slug: s.slug }));
+export async function generateStaticParams() {
+  return (await getSolutions()).map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -29,7 +29,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const s = findSolutionBySlug(slug);
+  const s = await findSolutionBySlug(slug);
   if (!s) return {};
   return {
     title: s.seoTitle,
@@ -46,7 +46,7 @@ export async function generateMetadata({
 
 export default async function SolutionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const solution = findSolutionBySlug(slug);
+  const solution = await findSolutionBySlug(slug);
   if (!solution) notFound();
 
   const proof = projectsByCategory(solution.category).slice(0, 6);

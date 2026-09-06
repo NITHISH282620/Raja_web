@@ -1,5 +1,5 @@
 import "server-only";
-import { getRecord, getSetting, isEmpty, listRecords } from "./db";
+import { getRecord, getSetting, isEmpty, listRecords } from "./db/content";
 
 import { projects as seedProjects, type Project } from "@/content/works";
 import { capabilities as seedCapabilities, type Capability } from "@/content/capabilities";
@@ -111,18 +111,18 @@ type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
  * caller, so an unpublished project cannot reach a page by being read through
  * a route that forgot to filter.
  */
-function read<K extends keyof typeof SEEDS>(collection: K): SeedOf<K>[] {
-  if (isEmpty(collection)) return [...SEEDS[collection]] as SeedOf<K>[];
-  return listRecords<SeedOf<K>>(collection)
+async function read<K extends keyof typeof SEEDS>(collection: K): Promise<SeedOf<K>[]> {
+  if (await isEmpty(collection)) return [...SEEDS[collection]] as SeedOf<K>[];
+  return (await listRecords<SeedOf<K>>(collection))
     .filter((row) => row.published)
     .map((row) => row.data);
 }
 
 /** Reads a collection INCLUDING unpublished rows. For the admin only. */
-export function readAll<K extends keyof typeof SEEDS>(
+export async function readAll<K extends keyof typeof SEEDS>(
   collection: K,
-): { id: string; position: number; published: boolean; data: SeedOf<K> }[] {
-  if (isEmpty(collection)) {
+): Promise<{ id: string; position: number; published: boolean; data: SeedOf<K> }[]> {
+  if (await isEmpty(collection)) {
     return (SEEDS[collection] as readonly SeedOf<K>[]).map((data, i) => ({
       id: idOf(collection, data, i),
       position: i,
@@ -130,15 +130,15 @@ export function readAll<K extends keyof typeof SEEDS>(
       data,
     }));
   }
-  return listRecords<SeedOf<K>>(collection);
+  return await listRecords<SeedOf<K>>(collection);
 }
 
-export function readOne<K extends keyof typeof SEEDS>(
+export async function readOne<K extends keyof typeof SEEDS>(
   collection: K,
   id: string,
-): SeedOf<K> | null {
-  if (!isEmpty(collection)) {
-    const row = getRecord<SeedOf<K>>(collection, id);
+): Promise<SeedOf<K> | null> {
+  if (!(await isEmpty(collection))) {
+    const row = await getRecord<SeedOf<K>>(collection, id);
     if (row) return row.data;
     return null;
   }
@@ -164,8 +164,8 @@ export function idOf(collection: string, data: unknown, index: number): string {
    ------------------------------------------------------------------------- */
 
 /** Published projects, featured first, then by order, media gated. */
-export function getProjects(): Project[] {
-  return read("projects")
+export async function getProjects(): Promise<Project[]> {
+  return (await read("projects"))
     .filter((p) => p.published)
     .sort((a, b) => Number(b.featured) - Number(a.featured) || a.order - b.order)
     .map((p) => ({
@@ -177,24 +177,24 @@ export function getProjects(): Project[] {
     }));
 }
 
-export const getCapabilities = (): Capability[] => read("capabilities");
-export const getInventoryTiles = (): InventoryTile[] => read("inventory");
-export const getProcessSteps = (): ProcessStep[] => read("process");
-export const getClients = (): Client[] => read("clients");
-export const getClientEvents = (): ClientEvent[] => read("events");
-export const getCollage = (): CollagePhoto[] => read("collage");
+export const getCapabilities = async (): Promise<Capability[]> => read("capabilities");
+export const getInventoryTiles = async (): Promise<InventoryTile[]> => read("inventory");
+export const getProcessSteps = async (): Promise<ProcessStep[]> => read("process");
+export const getClients = async (): Promise<Client[]> => read("clients");
+export const getClientEvents = async (): Promise<ClientEvent[]> => read("events");
+export const getCollage = async (): Promise<CollagePhoto[]> => read("collage");
 
 /* --------------------------------- settings -------------------------------- */
 
 export type ContactSettings = typeof seedContact;
 export type HeroSettings = { headline: string; body: string };
 
-export function getContact(): ContactSettings {
-  return { ...seedContact, ...(getSetting<Partial<ContactSettings>>("contact") ?? {}) };
+export async function getContact(): Promise<ContactSettings> {
+  return { ...seedContact, ...((await getSetting<Partial<ContactSettings>>("contact")) ?? {}) };
 }
 
-export function getStats(): Stat[] {
-  return getSetting<Stat[]>("stats") ?? seedStats;
+export async function getStats(): Promise<Stat[]> {
+  return (await getSetting<Stat[]>("stats")) ?? seedStats;
 }
 
 /**
@@ -209,29 +209,29 @@ export function getStats(): Stat[] {
  * `read()` already drops unpublished rows, so an unpublished service cannot
  * reach a page through a route that forgot to filter.
  */
-export function getServices(): ServicePillar[] {
+export async function getServices(): Promise<ServicePillar[]> {
   return read("services");
 }
 
-export function getSolutions(): Solution[] {
+export async function getSolutions(): Promise<Solution[]> {
   return read("solutions");
 }
 
-export function getSchedule(): InventoryLine[] {
+export async function getSchedule(): Promise<InventoryLine[]> {
   return read("schedule");
 }
 
 /** Services that ship a page of their own. */
-export function getPagedServices(): ServicePillar[] {
-  return read("services").filter((s) => s.page);
+export async function getPagedServices(): Promise<ServicePillar[]> {
+  return (await read("services")).filter((s) => s.page);
 }
 
-export function findServiceBySlug(slug: string): ServicePillar | undefined {
-  return read("services").find((s) => s.slug === slug);
+export async function findServiceBySlug(slug: string): Promise<ServicePillar | undefined> {
+  return (await read("services")).find((s) => s.slug === slug);
 }
 
-export function findSolutionBySlug(slug: string): Solution | undefined {
-  return read("solutions").find((s) => s.slug === slug);
+export async function findSolutionBySlug(slug: string): Promise<Solution | undefined> {
+  return (await read("solutions")).find((s) => s.slug === slug);
 }
 
 /**
@@ -244,25 +244,25 @@ export function findSolutionBySlug(slug: string): Solution | undefined {
  * A named image slot. Returns the record so a caller gets the alt text too —
  * an image whose description does not travel with it ends up mislabelled.
  */
-export function pageImage(id: string): PageImage | null {
-  return read("pageImages").find((i) => i.id === id) ?? null;
+export async function pageImage(id: string): Promise<PageImage | null> {
+  return (await read("pageImages")).find((i) => i.id === id) ?? null;
 }
 
-export function copyText(id: string): string {
-  return read("copy").find((b) => b.id === id)?.body ?? "";
+export async function copyText(id: string): Promise<string> {
+  return (await read("copy")).find((b) => b.id === id)?.body ?? "";
 }
 
-export function getCatalog(): InventoryCategory[] { return read("catalog"); }
-export function getRecentEvents(): RecentExecution[] { return read("recentEvents"); }
-export function getEventFormats(): EventCategory[] { return read("eventFormats"); }
-export function getInventoryHighlights(): InventoryItem[] { return read("highlights"); }
-export function getTimeline(): TimelineEra[] { return read("timeline"); }
-export function getMilestones(): MilestoneItem[] { return read("milestones"); }
-export function getPrinciples(): Principle[] { return read("principles"); }
-export function getLocations(): LocationRecord[] { return read("locations"); }
-export function getDisciplines(): Discipline[] { return read("disciplines"); }
-export function getPartnerPoints(): PartnerPoint[] { return read("partnerPoints"); }
-export function getPartnerSteps(): PartnerStep[] { return read("partnerSteps"); }
+export async function getCatalog(): Promise<InventoryCategory[]> { return read("catalog"); }
+export async function getRecentEvents(): Promise<RecentExecution[]> { return read("recentEvents"); }
+export async function getEventFormats(): Promise<EventCategory[]> { return read("eventFormats"); }
+export async function getInventoryHighlights(): Promise<InventoryItem[]> { return read("highlights"); }
+export async function getTimeline(): Promise<TimelineEra[]> { return read("timeline"); }
+export async function getMilestones(): Promise<MilestoneItem[]> { return read("milestones"); }
+export async function getPrinciples(): Promise<Principle[]> { return read("principles"); }
+export async function getLocations(): Promise<LocationRecord[]> { return read("locations"); }
+export async function getDisciplines(): Promise<Discipline[]> { return read("disciplines"); }
+export async function getPartnerPoints(): Promise<PartnerPoint[]> { return read("partnerPoints"); }
+export async function getPartnerSteps(): Promise<PartnerStep[]> { return read("partnerSteps"); }
 
 /**
  * The SEO override for a route, or null.
@@ -271,10 +271,10 @@ export function getPartnerSteps(): PartnerStep[] { return read("partnerSteps"); 
  * itself", which is why this returns null rather than an empty object: a caller
  * that spreads an empty object over its own metadata would blank every field.
  */
-export function getSeo(route: string): SeoOverride | null {
-  return read("seo").find((s) => s.route === route) ?? null;
+export async function getSeo(route: string): Promise<SeoOverride | null> {
+  return (await read("seo")).find((s) => s.route === route) ?? null;
 }
 
-export function getHero(): HeroSettings {
-  return { ...seedHero, ...(getSetting<Partial<HeroSettings>>("hero") ?? {}) };
+export async function getHero(): Promise<HeroSettings> {
+  return { ...seedHero, ...((await getSetting<Partial<HeroSettings>>("hero")) ?? {}) };
 }

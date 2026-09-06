@@ -78,7 +78,7 @@ export const viewport: Viewport = {
  * address, phone or founder, which is also why there is no `telephone` or
  * `address` property here yet.
  */
-function buildJsonLd(contact: ReturnType<typeof getContact>) {
+function buildJsonLd(contact: Awaited<ReturnType<typeof getContact>>) {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -120,8 +120,8 @@ function buildJsonLd(contact: ReturnType<typeof getContact>) {
  */
 const MOTION_READY = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion-ready")}}catch(e){}`;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const contact = getContact();
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const contact = await getContact();
 
   return (
     <html

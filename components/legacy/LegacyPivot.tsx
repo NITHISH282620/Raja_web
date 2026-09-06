@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Reveal } from "@/motion/Reveal";
 import { copyText, pageImage } from "@/lib/store";
 
-export function LegacyPivot() {
+export async function LegacyPivot() {
   return (
     <section className="relative w-full bg-paper py-16 sm:py-24 md:py-32 border-t border-ink/10">
       <div className="frame">
@@ -11,8 +11,8 @@ export function LegacyPivot() {
           <div className="lg:col-span-6 order-2 lg:order-1">
             <div className="group relative h-[360px] sm:h-[460px] w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-neutral-900 shadow-md">
               <Image
-                src={pageImage("legacy-pivot")?.image ?? "/media/events/kanha-canopy-seating.7a22707d.webp"}
-                alt={pageImage("legacy-pivot")?.alt ?? ""}
+                src={(await pageImage("legacy-pivot"))?.image ?? "/media/events/kanha-canopy-seating.7a22707d.webp"}
+                alt={(await pageImage("legacy-pivot"))?.alt ?? ""}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -25,7 +25,7 @@ export function LegacyPivot() {
                   The Transition to Clear-Span Modular Aerospace Aluminium
                 </p>
                 <p className="text-xs text-white/70 mt-1">
-                  {copyText("legacy-pivot-0")}
+                  {await copyText("legacy-pivot-0")}
                 </p>
               </div>
             </div>
@@ -41,7 +41,7 @@ export function LegacyPivot() {
               <span className="text-brand-blue">Direct Ownership of German Engineering.</span>
             </h2>
             <p className="text-base sm:text-lg text-body-light leading-relaxed">
-              {copyText("legacy-pivot-1")}
+              {await copyText("legacy-pivot-1")}
             </p>
             <p className="text-sm sm:text-base text-body-light leading-relaxed">
               While other event companies chose the broker model—renting disparate components from fragmented third parties—Raja Enterprises made a monumental capital commitment: <strong>directly acquiring industrial-scale German clear-span aluminium hangars and constructing our own staging and flooring production yards</strong>.
