@@ -22,6 +22,7 @@ export function HeroView({ hero }: { hero: HeroSettings }) {
   const root = useRef<HTMLElement>(null);
   const headline = useRef<HTMLHeadingElement>(null);
   const support = useRef<HTMLParagraphElement>(null);
+  const actions = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -35,6 +36,17 @@ export function HeroView({ hero }: { hero: HeroSettings }) {
         growRule(tl, q(scope, "[data-eyebrow] [data-reveal-rule]"), {}, 0.2);
         riseCard(tl, headline.current, { distance: 46, scaleFrom: 0.96, duration: 0.9 }, 0.35);
         fadeUp(tl, support.current, {}, 0.75);
+        /*
+         * The buttons have to be animated here, not just marked `data-reveal`.
+         *
+         * `.motion-ready [data-reveal]` sets opacity to 0 and it is the
+         * animation that puts it back. An element carrying the attribute but
+         * absent from a timeline is therefore hidden permanently — it flashes
+         * once before `motion-ready` lands on <html>, then vanishes, which is
+         * exactly how this reported. Marking an element revealed is a promise
+         * to reveal it.
+         */
+        fadeUp(tl, actions.current, {}, 0.95);
       });
 
       return () => mm.revert();
@@ -93,7 +105,7 @@ export function HeroView({ hero }: { hero: HeroSettings }) {
           is what turns an enquiry into a qualified one — and buyers who are not
           ready to do that have a second door next to it rather than no door.
         */}
-        <div data-reveal className="mt-6 flex flex-col gap-3 px-2 sm:mt-[clamp(24px,2.6vw,40px)] sm:flex-row sm:items-center">
+        <div ref={actions} data-reveal className="mt-6 flex flex-col gap-3 px-2 sm:mt-[clamp(24px,2.6vw,40px)] sm:flex-row sm:items-center">
           <Link
             href={CTA.primary.href}
             data-analytics="cta-primary"
