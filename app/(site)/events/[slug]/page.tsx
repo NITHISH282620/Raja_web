@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
 import { recentExecutions } from "@/content/events";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Band } from "@/components/PageShell";
@@ -71,10 +70,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
   return (
     <main id="main" className="relative bg-paper">
-      <Script
-        id={`event-${event.slug}-jsonld`}
+      <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
       <div className="frame pt-[clamp(96px,10vw,140px)]">

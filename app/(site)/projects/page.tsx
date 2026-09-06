@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import Image from "next/image";
 import { PageMasthead, Band } from "@/components/PageShell";
 import { Reveal } from "@/motion/Reveal";
@@ -17,7 +16,7 @@ import { company } from "@/content/company";
 import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Projects — Government, Exhibition & Cultural Event Infrastructure",
+  title: "Projects on Record",
   description:
     "Twenty-seven engagements: government programmes, trade fairs, congresses and cultural festivals across Karnataka and India, built by Raja Enterprises since 1977.",
   alternates: { canonical: abs("/projects") },
@@ -55,10 +54,9 @@ export default function ProjectsPage() {
 
   return (
     <main id="main">
-      <Script
-        id="projects-jsonld"
+      <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
       <PageMasthead

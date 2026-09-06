@@ -2,7 +2,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { deleteEnquiry, saveEnquiryNotes, setEnquiryStatus } from "../actions";
 import { Notice, PageHead } from "../ui";
-import { ENQUIRY_STATUSES, STATUS_LABELS, whatsappLink } from "@/lib/enquiry";
+import { ENQUIRY_STATUSES, STATUS_LABELS, BAND_LABELS, whatsappLink, type LeadBand } from "@/lib/enquiry";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +24,11 @@ interface Enquiry {
   phone: string;
   organisation: string;
   event_type: string;
+  attendance: string;
+  venue: string;
+  budget: string;
+  band: LeadBand;
+  brief_name: string;
   event_date: string;
   location: string;
   message: string;
@@ -121,9 +126,32 @@ export default async function EnquiriesPage({
                 </div>
               </header>
 
-              {(e.event_type || e.event_date || e.location || e.requirement) && (
+              {/* Triage band. Internal only — this is the admin inbox, and the
+                  band is never rendered anywhere the sender can reach. */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", marginTop: 6 }}>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)", fontSize: 10, textTransform: "uppercase",
+                    letterSpacing: "0.12em", padding: "2px 8px", borderRadius: 999,
+                    color: e.band === "high" ? "#0b3d2c" : e.band === "medium" ? "#3d340b" : "var(--color-body-light)",
+                    background: e.band === "high" ? "#d8f0e4" : e.band === "medium" ? "#f4ecd0" : "rgba(0,0,0,.05)",
+                  }}
+                >
+                  {BAND_LABELS[e.band] ?? e.band}
+                </span>
+                {e.budget && <span style={{ fontSize: 12, color: "var(--color-body-light)" }}>{e.budget}</span>}
+                {e.brief_name && (
+                  <a href={`/admin/enquiries/${e.id}/brief`} style={{ fontSize: 12 }}>
+                    &darr; {e.brief_name}
+                  </a>
+                )}
+              </div>
+
+              {(e.event_type || e.event_date || e.location || e.requirement || e.attendance || e.venue) && (
                 <p style={{ fontSize: 13, color: "var(--color-body-light)", marginTop: 12 }}>
-                  {[e.event_type, e.event_date, e.location, e.requirement].filter(Boolean).join(" · ")}
+                  {[e.event_type, e.event_date, e.venue, e.location, e.attendance, e.requirement]
+                    .filter(Boolean)
+                    .join(" · ")}
                 </p>
               )}
 

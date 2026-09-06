@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { pagedPillars } from "@/content/services";
+import { solutions } from "@/content/solutions";
+import { publishedLocations } from "@/content/locations";
 import { abs } from "@/lib/site";
 
 /**
@@ -20,6 +22,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const core: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
     { path: "/", priority: 1.0, freq: "monthly" },
     { path: "/services", priority: 0.9, freq: "monthly" },
+    { path: "/solutions", priority: 0.9, freq: "monthly" },
+    { path: "/partners", priority: 0.8, freq: "monthly" },
     { path: "/projects", priority: 0.9, freq: "weekly" },
     { path: "/inventory", priority: 0.8, freq: "monthly" },
     { path: "/about", priority: 0.7, freq: "yearly" },
@@ -42,5 +46,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.85,
     })),
+    ...solutions.map((s) => ({
+      url: abs(`/solutions/${s.slug}`),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    })),
+    // Only cities that actually have a page. The same `seoTitle` gate the route
+    // uses, so the sitemap cannot advertise a URL that returns 404.
+    ...publishedLocations()
+      .filter((l) => l.seoTitle)
+      .map((l) => ({
+        url: abs(`/locations/${l.id}`),
+        lastModified: now,
+        changeFrequency: "monthly" as const,
+        priority: 0.75,
+      })),
   ];
 }

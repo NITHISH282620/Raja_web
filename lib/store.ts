@@ -137,7 +137,7 @@ export const getCollage = (): CollagePhoto[] => read("collage");
 /* --------------------------------- settings -------------------------------- */
 
 export type ContactSettings = typeof seedContact;
-export type HeroSettings = { headline: string; body: string };
+export type HeroSettings = { headline: string; body: string; supporting: string };
 
 export function getContact(): ContactSettings {
   return { ...seedContact, ...(getSetting<Partial<ContactSettings>>("contact") ?? {}) };

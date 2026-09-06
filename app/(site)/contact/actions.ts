@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { db } from "@/lib/db";
-import { LIMITS, makeReference, type EnquiryField } from "@/lib/enquiry";
+import { LIMITS, makeReference, classify, type EnquiryField } from "@/lib/enquiry";
 
 /**
  * Receives an enquiry from the public contact form.
@@ -58,6 +58,28 @@ function field(formData: FormData, key: EnquiryField): string {
   return String(formData.get(key) ?? "").trim().slice(0, LIMITS[key]);
 }
 
+/**
+ * Attachment rules.
+ *
+ * Buyers send briefs as PDFs, and procurement sends BOQs as spreadsheets, so
+ * those are the types worth accepting. The allow-list is checked against the
+ * extension rather than the declared MIME type, because the browser's type
+ * string is supplied by the client and an allow-list that trusts it is not an
+ * allow-list. Nothing here is ever executed, rendered or served back to the
+ * public — it is written to a blob column and read only by the admin inbox.
+ */
+const MAX_BRIEF_BYTES = 8 * 1024 * 1024;
+const ALLOWED_BRIEF = new Set([
+  "pdf", "doc", "docx", "xls", "xlsx", "csv", "ppt", "pptx",
+  "png", "jpg", "jpeg", "webp", "zip",
+]);
+
+function safeName(name: string): string {
+  // Path separators and control characters out; the name is only ever shown as
+  // text in the admin inbox, but a filename is still untrusted input.
+  return name.replace(/[\u0000-\u001f\\/]/g, "").trim().slice(0, 160) || "brief";
+}
+
 export async function submitEnquiry(formData: FormData) {
   if (String(formData.get("website") ?? "")) redirect("/contact?sent=1");
 
@@ -76,26 +98,66 @@ export async function submitEnquiry(formData: FormData) {
     redirect("/contact?error=reach");
   }
 
+  const organisation = field(formData, "organisation");
+  const event_type = field(formData, "event_type");
+  const requirement = field(formData, "requirement");
+  const attendance = field(formData, "attendance");
+  const budget = field(formData, "budget");
+
+  // Triage band. Computed on the server from what was actually submitted, and
+  // written to the record — never returned to the sender.
+  const band = classify({ organisation, email, budget, attendance, requirement, event_type });
+
+  // The attachment is read before the insert so a file that fails validation
+  // does not leave a half-recorded enquiry behind.
+  const upload = formData.get("brief");
+  let brief: { name: string; mime: string; bytes: Uint8Array } | null = null;
+  if (upload && typeof upload === "object" && "arrayBuffer" in upload && upload.size > 0) {
+    const ext = upload.name.split(".").pop()?.toLowerCase() ?? "";
+    if (!ALLOWED_BRIEF.has(ext)) redirect("/contact?error=filetype");
+    if (upload.size > MAX_BRIEF_BYTES) redirect("/contact?error=filesize");
+    brief = {
+      name: safeName(upload.name),
+      mime: String(upload.type ?? "").slice(0, 120),
+      bytes: new Uint8Array(await upload.arrayBuffer()),
+    };
+  }
+
   const reference = makeReference();
 
-  db()
+  const result = db()
     .prepare(
       `INSERT INTO enquiries
-         (reference, name, email, phone, organisation, event_type, event_date, location, requirement, message)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         (reference, name, email, phone, organisation, event_type, event_date, location,
+          requirement, message, attendance, venue, budget, band, brief_name)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
     .run(
       reference,
       name,
       email,
       phone,
-      field(formData, "organisation"),
-      field(formData, "event_type"),
+      organisation,
+      event_type,
       field(formData, "event_date"),
       field(formData, "location"),
-      field(formData, "requirement"),
+      requirement,
       field(formData, "message"),
+      attendance,
+      field(formData, "venue"),
+      budget,
+      band,
+      brief?.name ?? "",
     );
+
+  if (brief) {
+    db()
+      .prepare(
+        `INSERT INTO enquiry_files (enquiry_id, filename, mime, bytes, data)
+         VALUES (?, ?, ?, ?, ?)`,
+      )
+      .run(Number(result.lastInsertRowid), brief.name, brief.mime, brief.bytes.byteLength, brief.bytes);
+  }
 
   // The reference travels back so the success state can offer a WhatsApp
   // hand-off carrying it. Nothing else about the record is exposed.

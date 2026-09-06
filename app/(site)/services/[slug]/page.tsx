@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageMasthead, Band } from "@/components/PageShell";
@@ -33,7 +32,7 @@ export async function generateMetadata({
   const s = findPillar(slug);
   if (!s) return {};
   return {
-    title: `${s.title} in Bengaluru & India`,
+    title: `${s.title} in Bengaluru`,
     description: s.summary,
     alternates: { canonical: abs(`/services/${s.slug}`) },
     openGraph: {
@@ -80,10 +79,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <main id="main">
-      <Script
-        id={`service-${service.slug}-jsonld`}
+      <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
       <nav aria-label="Breadcrumb" className="frame pt-[clamp(96px,10vw,140px)]">

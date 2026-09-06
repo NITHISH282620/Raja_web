@@ -13,6 +13,106 @@
  * recorded lead.
  */
 
+/**
+ * Budget bands.
+ *
+ * Asking for a band rather than a number is the single most useful qualifying
+ * question on the form: buyers who will not type a figure will still pick a
+ * range, and a range is all the triage below needs. "Not yet decided" is a
+ * deliberate option — refusing to offer it just produces a wrong answer, and an
+ * honest blank is more useful than a fabricated band.
+ */
+export const BUDGET_BANDS = [
+  "Under Rs 10L",
+  "Rs 10-25L",
+  "Rs 25-40L",
+  "Rs 40-75L",
+  "Rs 75L-1Cr",
+  "Rs 1Cr+",
+  "Not yet decided",
+] as const;
+export type BudgetBand = (typeof BUDGET_BANDS)[number];
+
+/** The buyer-side event categories, in the language buyers use for them. */
+export const EVENT_TYPES = [
+  "Exhibition or trade fair",
+  "Conference or summit",
+  "Corporate event or annual meet",
+  "Brand or product launch",
+  "Government or institutional programme",
+  "Cultural or public event",
+  "Agency or production partner enquiry",
+] as const;
+
+/**
+ * Internal lead triage.
+ *
+ * WHAT THIS IS FOR. Raja reads every enquiry by hand. The band exists so a
+ * substantial project does not sit behind ten small ones in the same inbox —
+ * nothing more. It is written to the record and shown in the admin inbox, and
+ * it is never rendered anywhere the sender can see it. Showing a person the
+ * score you gave them is a good way to lose the ones you scored wrong.
+ *
+ * WHY THESE SIGNALS. Budget band is the strongest single indicator and is
+ * weighted accordingly. Scale (covered area or headcount) is next, because this
+ * business is priced by what has to be built. A named organisation and a work
+ * email both suggest someone buying on an employer's behalf rather than for a
+ * private function, which is the commercial segment this site is for. None of
+ * it is arithmetic about money — it is a sort order for a human's attention.
+ */
+export type LeadBand = "high" | "medium" | "general";
+
+const BUDGET_WEIGHT: Record<string, number> = {
+  "Rs 1Cr+": 5,
+  "Rs 75L-1Cr": 4,
+  "Rs 40-75L": 3,
+  "Rs 25-40L": 2,
+  "Rs 10-25L": 1,
+};
+
+const FREE_EMAIL = /@(gmail|yahoo|hotmail|outlook|live|rediffmail|proton(mail)?|icloud|aol)\./i;
+
+export function classify(input: {
+  organisation?: string;
+  email?: string;
+  budget?: string;
+  attendance?: string;
+  requirement?: string;
+  event_type?: string;
+}): LeadBand {
+  let score = BUDGET_WEIGHT[input.budget ?? ""] ?? 0;
+
+  // Scale, read off whichever field the buyer actually filled in. Area and
+  // headcount are both quoted with Indian digit grouping often enough that the
+  // separators have to come out before this is a number.
+  const scaleText = `${input.attendance ?? ""} ${input.requirement ?? ""}`;
+  const numbers = [...scaleText.matchAll(/[\d][\d,]*/g)].map((m) => Number(m[0].replace(/,/g, "")));
+  const largest = numbers.length ? Math.max(...numbers) : 0;
+  if (largest >= 25000) score += 3;
+  else if (largest >= 5000) score += 2;
+  else if (largest >= 1000) score += 1;
+
+  // Buying on an employer's behalf.
+  if ((input.organisation ?? "").trim().length > 2) score += 1;
+  const email = (input.email ?? "").trim();
+  if (email.includes("@") && !FREE_EMAIL.test(email)) score += 1;
+
+  // The segments this site is built to win.
+  if (/exhibition|conference|corporate|launch|government|institutional|agency/i.test(input.event_type ?? "")) {
+    score += 1;
+  }
+
+  if (score >= 6) return "high";
+  if (score >= 3) return "medium";
+  return "general";
+}
+
+export const BAND_LABELS: Record<LeadBand, string> = {
+  high: "High value",
+  medium: "Medium",
+  general: "General",
+};
+
 export const ENQUIRY_STATUSES = ["new", "contacted", "qualified", "closed"] as const;
 export type EnquiryStatus = (typeof ENQUIRY_STATUSES)[number];
 
@@ -35,6 +135,13 @@ export interface Enquiry {
   location: string;
   requirement: string;
   message: string;
+  attendance: string;
+  venue: string;
+  budget: string;
+  /** Internal triage band. Never shown to the person who submitted. */
+  band: LeadBand;
+  /** Original filename of an attached brief, empty when none was sent. */
+  brief_name: string;
   status: EnquiryStatus;
   notes: string;
   created_at: string;
@@ -51,6 +158,9 @@ export const LIMITS = {
   location: 160,
   requirement: 200,
   message: 4000,
+  attendance: 80,
+  venue: 160,
+  budget: 40,
 } as const;
 
 export type EnquiryField = keyof typeof LIMITS;

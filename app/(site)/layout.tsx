@@ -4,6 +4,7 @@ import { Poppins, Roboto_Mono } from "next/font/google";
 import { MotionProvider } from "@/motion/MotionProvider";
 import { SiteNav } from "@/components/SiteNav";
 import { PageTransition } from "@/components/PageTransition";
+import { Analytics } from "@/components/Analytics";
 import { SiteFooter } from "@/sections/SiteFooter";
 import { company, FOUNDED_YEAR } from "@/content/company";
 import { getContact } from "@/lib/store";
@@ -30,7 +31,7 @@ const robotoMono = Roboto_Mono({
 });
 
 const description =
-  "Raja Enterprises designs, builds and delivers large-scale event infrastructure across India — German hangers, flooring, staging, stalls, lighting and catering, deployed by an in-house crew.";
+  "Turnkey event infrastructure since 1977: German hangers, flooring, staging, stalls and seating, installed by our own crew from a Bengaluru yard.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -127,10 +128,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         <Script id="motion-ready" dangerouslySetInnerHTML={{ __html: MOTION_READY }} />
-        <Script
-          id="structured-data"
+        {/* A plain <script>, not next/script: `afterInteractive` injects the
+            tag client-side, so the structured data was absent from the served
+            HTML and only appeared once JavaScript ran. Next's own JSON-LD guide
+            specifies this form, including escaping "<" so a value carrying
+            markup cannot close the tag early. */}
+        <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(contact)) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(buildJsonLd(contact)).replace(/</g, "\\u003c"),
+          }}
         />
       </head>
       <body className="antialiased">
@@ -145,7 +152,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <PageTransition>
             {children}
           </PageTransition>
-          <SiteFooter contact={contact} />
+          <Analytics />
+        <SiteFooter contact={contact} />
         </MotionProvider>
       </body>
     </html>

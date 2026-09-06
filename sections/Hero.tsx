@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, fadeUp, fadeIn, growRule, riseCard, q } from "@/motion/primitives";
@@ -7,6 +9,7 @@ import { MOTION_OK } from "@/motion/ease";
 import { HeroMedia } from "@/components/HeroMedia";
 import { FOUNDED_YEAR, yearsInOperation } from "@/content/company";
 import { SECTION_IDS } from "@/content/navigation";
+import { CTA } from "@/content/site";
 import type { HeroSettings } from "@/lib/store";
 
 /**
@@ -80,9 +83,41 @@ export function HeroView({ hero }: { hero: HeroSettings }) {
           <span className="block sm:inline">behind large-scale events.</span>
         </h1>
         
-        <p ref={support} data-reveal className="t-body max-w-[800px] text-white/85 text-xs sm:text-[clamp(14px,1.2vw,18px)] leading-relaxed font-light px-2">
+        <p ref={support} data-reveal className="t-body max-w-[760px] text-white/90 text-xs sm:text-[clamp(15px,1.25vw,19px)] leading-relaxed font-light px-2">
+          {hero.supporting}
+        </p>
+
+        <p data-reveal className="t-body-sm mt-2 max-w-[760px] px-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/55 sm:text-xs">
           {hero.body}
         </p>
+
+        {/*
+          The primary action on the site's first screen. It asks for a brief
+          rather than "contact", because naming the thing Raja wants to receive
+          is what turns an enquiry into a qualified one — and buyers who are not
+          ready to do that have a second door next to it rather than no door.
+        */}
+        <div data-reveal className="mt-6 flex flex-col gap-3 px-2 sm:mt-[clamp(24px,2.6vw,40px)] sm:flex-row sm:items-center">
+          <Link
+            href={CTA.primary.href}
+            data-analytics="cta-primary"
+            data-analytics-location="hero"
+            className="group inline-flex h-[54px] items-center justify-center gap-3 rounded-full bg-white px-8 text-ink transition-colors duration-300 hover:bg-accent hover:text-white"
+          >
+            <span className="t-body font-medium">{CTA.primary.label}</span>
+            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+              &rarr;
+            </span>
+          </Link>
+          <Link
+            href={CTA.secondary.href}
+            data-analytics="cta-secondary"
+            data-analytics-location="hero"
+            className="inline-flex h-[54px] items-center justify-center gap-3 rounded-full border border-white/35 px-8 text-white transition-colors duration-300 hover:border-white hover:bg-white/10"
+          >
+            <span className="t-body">{CTA.secondary.label}</span>
+          </Link>
+        </div>
       </div>
     </section>
   );

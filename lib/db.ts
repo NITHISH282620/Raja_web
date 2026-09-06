@@ -106,11 +106,35 @@ const SCHEMA = `
     location   TEXT NOT NULL DEFAULT '',
     requirement TEXT NOT NULL DEFAULT '',
     message    TEXT NOT NULL DEFAULT '',
+    attendance TEXT NOT NULL DEFAULT '',
+    venue      TEXT NOT NULL DEFAULT '',
+    budget     TEXT NOT NULL DEFAULT '',
+    band       TEXT NOT NULL DEFAULT 'general',
+    brief_name TEXT NOT NULL DEFAULT '',
     status     TEXT NOT NULL DEFAULT 'new',
     notes      TEXT NOT NULL DEFAULT '',
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
   CREATE INDEX IF NOT EXISTS enquiries_status ON enquiries(status, created_at DESC);
+
+  -- An attached brief, RFP or BOQ, held as a blob beside its enquiry.
+  --
+  -- WHY IN THE DATABASE. The application already requires a writable local disk
+  -- for this SQLite file, so keeping attachments in the same place adds no new
+  -- deployment requirement and no second thing to back up. Object storage would
+  -- be the right answer at volume; at this volume it is a dependency to
+  -- maintain for no gain. Size is capped hard at the upload path.
+  CREATE TABLE IF NOT EXISTS enquiry_files (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    enquiry_id  INTEGER NOT NULL,
+    filename    TEXT NOT NULL,
+    mime        TEXT NOT NULL DEFAULT '',
+    bytes       INTEGER NOT NULL DEFAULT 0,
+    data        BLOB NOT NULL,
+    created_at  TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY (enquiry_id) REFERENCES enquiries(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS enquiry_files_enquiry ON enquiry_files(enquiry_id);
 `;
 
 /**
@@ -124,20 +148,40 @@ const SCHEMA = `
 const MIGRATIONS = [
   `ALTER TABLE enquiries ADD COLUMN reference TEXT NOT NULL DEFAULT ''`,
   `ALTER TABLE enquiries ADD COLUMN requirement TEXT NOT NULL DEFAULT ''`,
+  `ALTER TABLE enquiries ADD COLUMN attendance TEXT NOT NULL DEFAULT ''`,
+  `ALTER TABLE enquiries ADD COLUMN venue TEXT NOT NULL DEFAULT ''`,
+  `ALTER TABLE enquiries ADD COLUMN budget TEXT NOT NULL DEFAULT ''`,
+  `ALTER TABLE enquiries ADD COLUMN band TEXT NOT NULL DEFAULT 'general'`,
+  `ALTER TABLE enquiries ADD COLUMN brief_name TEXT NOT NULL DEFAULT ''`,
+  // Must come after the ALTER above: an index cannot name a column that the
+  // table does not have yet, and on an existing database it does not have it
+  // until that statement has run.
+  `CREATE INDEX IF NOT EXISTS enquiries_band ON enquiries(band, created_at DESC)`,
 ];
 
 export function db(): DatabaseSync {
   if (instance) return instance;
   mkdirSync(dirname(DB_PATH), { recursive: true });
-  instance = new DatabaseSync(DB_PATH);
-  instance.exec(SCHEMA);
+
+  /*
+   * The handle is assigned to the module singleton only once it is fully set
+   * up. Assigning first and initialising after looks equivalent and is not: if
+   * anything in SCHEMA throws, the half-built handle is already cached, every
+   * later call takes the `if (instance)` early return, and the migrations never
+   * run again for the life of the process. That happened — a new index naming a
+   * column that only a migration adds aborted SCHEMA, and the failure surfaced
+   * hours later as "table enquiries has no column named ..." on insert.
+   */
+  const opened = new DatabaseSync(DB_PATH);
+  opened.exec(SCHEMA);
   for (const sql of MIGRATIONS) {
     try {
-      instance.exec(sql);
+      opened.exec(sql);
     } catch {
-      /* column already present */
+      /* already applied */
     }
   }
+  instance = opened;
   return instance;
 }
 

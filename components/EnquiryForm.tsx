@@ -1,6 +1,5 @@
 import { submitEnquiry } from "@/app/(site)/contact/actions";
-import { services } from "@/content/inventorySchedule";
-import { whatsappLink } from "@/lib/enquiry";
+import { whatsappLink, BUDGET_BANDS, EVENT_TYPES } from "@/lib/enquiry";
 
 /**
  * The enquiry form.
@@ -32,7 +31,14 @@ const ERRORS: Record<string, string> = {
   name: "Please tell us your name so we know who we are replying to.",
   reach: "Please add an email address or a phone number so we can reply.",
   rate: "That is several enquiries in a short time. Please wait a few minutes, or call the number on this page.",
+  filetype: "We can read PDF, Word, Excel, PowerPoint, images and ZIP. Please attach one of those, or send it on WhatsApp instead.",
+  filesize: "That file is over 8 MB. Please send a smaller version, or share a link in the notes.",
 };
+
+/** The attachment types the server accepts, mirrored here so the file picker
+ *  filters rather than letting someone choose a file that will be rejected. */
+const ACCEPT =
+  ".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.png,.jpg,.jpeg,.webp,.zip";
 
 export function EnquiryForm({
   sent,
@@ -88,7 +94,12 @@ export function EnquiryForm({
   const message = error ? (ERRORS[error] ?? ERRORS.reach) : null;
 
   return (
-    <form action={submitEnquiry} className="flex flex-col gap-[clamp(14px,1.6vw,20px)]">
+    <form
+      action={submitEnquiry}
+      encType="multipart/form-data"
+      data-analytics-form
+      className="flex flex-col gap-[clamp(18px,2.2vw,28px)]"
+    >
       {message && (
         <p
           role="alert"
@@ -108,55 +119,106 @@ export function EnquiryForm({
         <input id="website" name="website" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="grid gap-[clamp(14px,1.6vw,20px)] sm:grid-cols-2">
-        <Field label="Your name" name="name" required />
-        <Field label="Company or department" name="organisation" />
-        <Field label="Phone / WhatsApp" name="phone" type="tel" />
-        <Field label="Email" name="email" type="email" />
-      </div>
-      <p className="t-body-sm -mt-1 text-body-light">
-        A phone number or an email — either is enough for us to reply.
-      </p>
+      {/* ---------------------------------------------------------- who */}
+      <fieldset className="flex flex-col gap-[clamp(14px,1.6vw,20px)] border-0 p-0">
+        <legend className="t-eyebrow mb-1 text-ink/45">Who you are</legend>
+        <div className="grid gap-[clamp(14px,1.6vw,20px)] sm:grid-cols-2">
+          <Field label="Your name" name="name" required />
+          <Field label="Company or department" name="organisation" />
+          <Field label="Work email" name="email" type="email" />
+          <Field label="Phone / WhatsApp" name="phone" type="tel" />
+        </div>
+        <p className="t-body-sm -mt-1 text-body-light">
+          A phone number or an email &mdash; either is enough for us to reply.
+        </p>
+      </fieldset>
 
-      <label className="flex flex-col gap-2">
-        <span className="t-eyebrow text-ink/60">Kind of event</span>
-        <select name="event_type" className={INPUT} defaultValue="">
-          <option value="">Select one</option>
-          {services.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-          <option value="Other">Something else</option>
-        </select>
-      </label>
+      {/* -------------------------------------------------------- the event */}
+      <fieldset className="flex flex-col gap-[clamp(14px,1.6vw,20px)] border-0 p-0">
+        <legend className="t-eyebrow mb-1 text-ink/45">The event</legend>
 
-      <div className="grid gap-[clamp(14px,1.6vw,20px)] sm:grid-cols-2">
-        <Field label="Dates" name="event_date" placeholder="March 2027, or not yet fixed" />
-        <Field label="Location" name="location" placeholder="City or venue" />
-      </div>
+        <label className="flex flex-col gap-2">
+          <span className="t-eyebrow text-ink/60">Kind of event</span>
+          <select name="event_type" className={INPUT} defaultValue="">
+            <option value="">Select one</option>
+            {EVENT_TYPES.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+            <option value="Other">Something else</option>
+          </select>
+        </label>
 
-      <Field
-        label="Approximate requirement"
-        name="requirement"
-        placeholder="e.g. 40,000 sq ft covered, 5,000 guests"
-      />
+        <div className="grid gap-[clamp(14px,1.6vw,20px)] sm:grid-cols-2">
+          <Field label="City" name="location" placeholder="Bengaluru, or wherever it is being built" />
+          <Field label="Dates" name="event_date" placeholder="March 2027, or not yet fixed" />
+          <Field label="Venue" name="venue" placeholder="Named venue, or open ground" />
+          <Field label="Expected attendance" name="attendance" placeholder="e.g. 5,000 over three days" />
+        </div>
 
-      <label className="flex flex-col gap-2">
-        <span className="t-eyebrow text-ink/60">Anything else</span>
-        <textarea
-          name="message"
-          rows={5}
-          placeholder="Expected footfall, floor area, whether you need structures, staging, stalls or all three."
-          className="w-full rounded-[10px] border border-ink/15 bg-white p-4 text-base text-ink outline-none transition-colors placeholder:text-body-light/70 focus:border-brand-blue"
+        <Field
+          label="Scale of the build"
+          name="requirement"
+          placeholder="e.g. 40,000 sq ft covered, 60 stalls, raked seating for 2,000"
         />
-      </label>
+
+        {/*
+          Budget band, not a figure. Buyers who will not type a number will still
+          pick a range, and a range is all the internal triage needs. "Not yet
+          decided" is offered on purpose — leaving it out does not produce a
+          budget, it produces a wrong one.
+        */}
+        <label className="flex flex-col gap-2">
+          <span className="t-eyebrow text-ink/60">Indicative budget</span>
+          <select name="budget" className={INPUT} defaultValue="">
+            <option value="">Select a range</option>
+            {BUDGET_BANDS.map((band) => (
+              <option key={band} value={band}>
+                {band.replace(/^Rs /, "\u20b9 ").replace(/Rs /g, "\u20b9")}
+              </option>
+            ))}
+          </select>
+          <span className="t-body-sm text-body-light">
+            A range is enough. It tells us which of our crews and stock to put against it.
+          </span>
+        </label>
+      </fieldset>
+
+      {/* ------------------------------------------------------- the brief */}
+      <fieldset className="flex flex-col gap-[clamp(14px,1.6vw,20px)] border-0 p-0">
+        <legend className="t-eyebrow mb-1 text-ink/45">The brief</legend>
+
+        <label className="flex flex-col gap-2">
+          <span className="t-eyebrow text-ink/60">Anything else</span>
+          <textarea
+            name="message"
+            rows={5}
+            placeholder="What has to be built, what is already fixed, and what you still need decided."
+            className="w-full rounded-[10px] border border-ink/15 bg-white p-4 text-base text-ink outline-none transition-colors placeholder:text-body-light/70 focus:border-brand-blue"
+          />
+        </label>
+
+        <label className="flex flex-col gap-2">
+          <span className="t-eyebrow text-ink/60">Attach an RFP, BOQ or event brief</span>
+          <input
+            type="file"
+            name="brief"
+            accept={ACCEPT}
+            className="w-full rounded-[10px] border border-dashed border-ink/25 bg-white p-4 text-base text-ink file:mr-4 file:rounded-full file:border-0 file:bg-ink/[0.06] file:px-4 file:py-2 file:text-sm file:text-ink hover:border-brand-blue/60"
+          />
+          <span className="t-body-sm text-body-light">
+            Optional. PDF, Word, Excel, PowerPoint, images or ZIP, up to 8&nbsp;MB. If your
+            document is larger, send it on WhatsApp after submitting.
+          </span>
+        </label>
+      </fieldset>
 
       <button
         type="submit"
         className="group mt-2 inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-full bg-brand-blue px-9 text-white transition-colors duration-300 hover:bg-ink sm:w-fit sm:justify-start"
       >
-        <span className="t-body">Send enquiry</span>
+        <span className="t-body">Submit your event brief</span>
         <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
           &rarr;
         </span>

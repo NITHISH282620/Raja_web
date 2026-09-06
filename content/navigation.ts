@@ -14,6 +14,8 @@ export const ROUTES = {
   home: "/",
   about: "/about",
   services: "/services",
+  solutions: "/solutions",
+  partners: "/partners",
   inventory: "/inventory",
   projects: "/projects",
   legacy: "/legacy",
@@ -24,10 +26,12 @@ export const ROUTES = {
 
 export const navItems: NavItem[] = [
   { label: "About", href: ROUTES.about, blurb: "Who we are and how we work" },
+  { label: "Solutions", href: ROUTES.solutions, blurb: "Who we build for, by sector" },
   { label: "Services", href: ROUTES.services, blurb: "What we build and deploy" },
   { label: "Inventory", href: ROUTES.inventory, blurb: "What we own and deploy" },
   { label: "Projects", href: ROUTES.projects, blurb: "Programmes we have built" },
   { label: "Legacy", href: ROUTES.legacy, blurb: "1977 to now" },
+  { label: "Partners", href: ROUTES.partners, blurb: "For agencies and production houses" },
   { label: "Careers", href: ROUTES.careers, blurb: "Work with the crew" },
   { label: "Contact", href: ROUTES.contact, blurb: "Start a conversation" },
 ];
@@ -36,7 +40,13 @@ export const navItems: NavItem[] = [
  * The inline desktop bar.
  */
 export const primaryNav = navItems.filter(
-  (i) => i.href !== ROUTES.contact && i.href !== ROUTES.careers && i.href !== ROUTES.locations,
+  (i) =>
+    i.href !== ROUTES.contact &&
+    i.href !== ROUTES.careers &&
+    i.href !== ROUTES.locations &&
+    // Partners is aimed at one audience and would push the inline bar to seven
+    // items. It stays in the overlay, the footer and the solutions grid.
+    i.href !== ROUTES.partners,
 );
 
 /** Anchors within the homepage, used by on-page links. */

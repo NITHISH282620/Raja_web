@@ -1,5 +1,3 @@
-import type { ImageAsset } from "./types";
-import { clients, type Client } from "./clients";
 
 export interface ClientItem {
   id: string;
@@ -350,7 +348,9 @@ export interface RosterEntry {
   name: string;
   shortName: string;
   monogram: string;
-  logo: Client["logo"] | null;
+  /* Shaped from ClientItem rather than borrowed from content/clients.ts,
+     which this module no longer reads. */
+  logo: (ClientItem["logo"] & { clearance: "figma-supplied" }) | null;
   projects: number;
 }
 

@@ -33,7 +33,38 @@ export const brand = {
  */
 export const hero = {
   headline: "Building the physical infrastructure\nbehind large-scale events.",
-  body: "Since 1977, Raja Enterprises has delivered the physical infrastructure for government programmes, trade fairs, exhibitions, and corporate conferences. With substantial inventory and in-house field resources, we build the venue.",
+  /**
+   * The one line that has to do the work above the fold.
+   *
+   * It names the offer (turnkey infrastructure) and the four buyer categories
+   * this site is built to win, in the words those buyers use for themselves.
+   * The longer paragraph that used to sit here said the same thing in three
+   * times the words, which is the wrong trade on a first screen.
+   */
+  supporting:
+    "Turnkey event infrastructure for exhibitions, conferences, corporate events and large-format gatherings.",
+  body: "Established 1977, Bengaluru. We own the inventory and employ the crew that installs it.",
+} as const;
+
+/**
+ * Call-to-action language, declared once.
+ *
+ * The same three actions, in the same words, everywhere they appear. A site
+ * that says "Send enquiry" on one page, "Get in touch" on the next and
+ * "Request a quote" on a third is asking the buyer to work out three times
+ * whether these are the same thing.
+ *
+ *   PRIMARY   commits to a real next step and sets the expectation that a brief
+ *             is what Raja wants to receive — which is also what qualifies the
+ *             lead.
+ *   SECONDARY is for buyers not ready to name a project yet.
+ *   TERTIARY  is aimed at agencies and production houses, who are buying a
+ *             partner rather than a service.
+ */
+export const CTA = {
+  primary: { label: "Submit your event brief", href: "/contact" },
+  secondary: { label: "Explore capabilities", href: "/services" },
+  tertiary: { label: "Partner with Raja", href: "/partners" },
 } as const;
 
 /**

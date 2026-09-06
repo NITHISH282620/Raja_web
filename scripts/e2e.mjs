@@ -15,7 +15,13 @@ const BASE = process.env.BASE ?? "http://localhost:3210";
 const WIDTHS = [360, 390, 414, 768, 1024, 1280, 1440, 1920];
 const ROUTES = (process.env.ROUTES ?? [
   "/", "/about", "/legacy", "/inventory", "/services",
-  "/services/german-hangers", "/projects", "/locations", "/careers", "/contact",
+  "/services/german-hangers", "/services/exhibition-stalls", "/services/event-flooring",
+  "/services/staging-and-seating", "/services/event-scaffolding", "/services/government-events",
+  "/solutions", "/solutions/corporate-events", "/solutions/exhibitions-and-trade-fairs",
+  "/solutions/conferences-and-summits", "/solutions/brand-and-product-launches",
+  "/solutions/institutional-and-cultural-events", "/partners",
+  "/locations/bengaluru",
+  "/projects", "/locations", "/careers", "/contact",
 ].join(",")).split(",").filter(Boolean);
 
 let pass = 0;
