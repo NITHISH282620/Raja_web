@@ -1,0 +1,68 @@
+import "server-only";
+import { neon, neonConfig, Pool } from "@neondatabase/serverless";
+import { cache } from "react";
+
+/**
+ * The Neon connection.
+ *
+ * Two shapes, because the runtime has two very different needs:
+ *
+ *   `sql` is the HTTP driver. One request, one round trip, no socket to keep
+ *   alive — which is what a Worker wants, since a Worker may be torn down
+ *   between any two statements and pooled TCP connections leak in that model.
+ *
+ *   `pool()` is the WebSocket driver, used only where a real transaction is
+ *   required. It is opened and closed inside the operation that needs it.
+ *
+ * Everything read-side goes through `sql`.
+ */
+
+const url = process.env.DATABASE_URL;
+
+if (!url) {
+  // Fail loudly at import rather than producing empty pages that look like a
+  // content problem. A missing database URL is a deployment fault.
+  throw new Error("DATABASE_URL is not set");
+}
+
+// Cache fetch responses per request rather than across requests: Neon's HTTP
+// endpoint is already close to the Worker, and stale reads here would defeat
+// the revalidation the admin depends on.
+neonConfig.fetchConnectionCache = true;
+
+export const sql = neon(url);
+
+/** A pooled connection for transactional work. Caller must `end()` it. */
+export function pool() {
+  return new Pool({ connectionString: url });
+}
+
+/**
+ * Runs a query once per request no matter how many components ask.
+ *
+ * The public pages read the same handful of collections from several
+ * components each — the homepage alone touches clients, projects, capabilities
+ * and copy — and without this each one would be its own round trip to
+ * Singapore. `cache()` is request-scoped, so an admin save is still visible on
+ * the very next request.
+ */
+export const query = cache(async <T = Record<string, unknown>>(
+  text: string,
+  params: unknown[] = [],
+): Promise<T[]> => {
+  const rows = await sql.query(text, params);
+  return rows as T[];
+});
+
+/** Uncached read, for anything that must not be shared within a request. */
+export async function queryFresh<T = Record<string, unknown>>(
+  text: string,
+  params: unknown[] = [],
+): Promise<T[]> {
+  return (await sql.query(text, params)) as T[];
+}
+
+/** A single write. Never cached. */
+export async function execute(text: string, params: unknown[] = []): Promise<void> {
+  await sql.query(text, params);
+}
