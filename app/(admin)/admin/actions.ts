@@ -268,7 +268,7 @@ export async function uploadMedia(formData: FormData) {
                         mime_type, size_bytes, width, height, alt_text, credit, kind, clearance, visibility, verified)
      VALUES ($1, 'r2', 'raja-public-media', $2, $3, $4, $5, $6, $7, $8, $9, 'Raja Enterprises',
              $10, 'raja-original', 'public', true)`,
-    [id, key, `/media/${key}`, file.name, file.type || null, bytes.byteLength,
+    [id, key, `/${key}`, file.name, file.type || null, bytes.byteLength,
      width, height, String(formData.get("alt") ?? "").trim(), isVideo ? "video" : "image"],
   );
 
