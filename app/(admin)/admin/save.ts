@@ -65,7 +65,7 @@ export async function saveRecordForm(formData: FormData) {
     }
   }
 
-  putRecord(key, id, next);
+  await putRecord(key, id, next);
   revalidatePath("/", "layout");
   redirect(`/admin/${key}?saved=${encodeURIComponent(id)}`);
 }

@@ -52,7 +52,7 @@ function publish() {
 
 export async function signIn(formData: FormData) {
   await ensureOwnerAccount();
-  pruneSessions();
+  await pruneSessions();
 
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
@@ -64,7 +64,7 @@ export async function signIn(formData: FormData) {
   }
 
   await createSession(user.id);
-  recordAudit({ id: user.id, email: user.email }, "sign_in");
+  await recordAudit({ id: user.id, email: user.email }, "sign_in");
   // Only ever redirect to a path on this site — `next` arrives from a query
   // string, and an open redirect is how a login page becomes a phishing page.
   redirect(next.startsWith("/") && !next.startsWith("//") ? next : "/admin");
@@ -72,7 +72,7 @@ export async function signIn(formData: FormData) {
 
 export async function signOut() {
   const user = await currentUser();
-  recordAudit(user, "sign_out");
+  await recordAudit(user, "sign_out");
   await destroySession();
   redirect("/admin/login");
 }
