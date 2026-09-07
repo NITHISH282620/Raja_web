@@ -400,6 +400,46 @@
 .admin-list-row:hover {
   background: #fbfbfc;
 }
+
+/*
+ * On a phone the row stops being three columns.
+ *
+ * The actions column is sized to its contents — a status chip, two reorder
+ * arrows, Unpublish and Edit — which at 390px left almost nothing for the
+ * title. Long names then wrapped one word per line straight underneath the
+ * chip and the buttons, so the text and the controls sat on top of each other
+ * and the row was unreadable.
+ *
+ * Below 560px the picture and the title share the first row and the controls
+ * take the full width beneath them, where they have room to wrap.
+ */
+@media (max-width: 560px) {
+  .admin-list-row {
+    grid-template-columns: 56px minmax(0, 1fr);
+    row-gap: 12px;
+    align-items: start;
+  }
+  .admin-list-row > .admin-thumb {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .admin-list-row > div:not(.admin-actions) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .admin-list-row > .admin-actions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .admin-list-row[data-no-thumb] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .admin-list-row[data-no-thumb] > div:not(.admin-actions),
+  .admin-list-row[data-no-thumb] > .admin-actions {
+    grid-column: 1;
+  }
+}
 .admin-thumb {
   width: 56px;
   height: 42px;
