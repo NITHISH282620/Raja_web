@@ -88,11 +88,81 @@
   background: rgba(255, 255, 255, 0.22);
   border-radius: 999px;
 }
+/* -------------------------------------------------------------- mobile nav --
+ *
+ * On a phone the sidebar used to stack above the page: twenty-seven section
+ * links and a Sign out button between the owner and the thing he opened the
+ * admin to edit. Nothing overflowed — it was simply a very long scroll past
+ * navigation, every time, on every page.
+ *
+ * Below 900px the sidebar collapses to a sticky bar carrying the title and one
+ * Menu control, and the content starts immediately underneath. The section list
+ * is one tap away instead of always in the way.
+ *
+ * The toggle is a checkbox, so it works with no JavaScript — which is the point
+ * for someone administering the site from a handset on mobile data.
+ */
+.admin-menu-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.admin-side-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-left: 12px;
+}
+.admin-menu-btn {
+  display: none;
+}
+.admin-side-body {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  flex: 1;
+  min-height: 0;
+}
+
 @media (max-width: 900px) {
   .admin-side {
-    position: static;
+    position: sticky;
+    top: 0;
+    z-index: 20;
     height: auto;
-    overflow-y: visible;
+    max-height: 100dvh;
+    overflow-y: auto;
+    padding: 14px 16px;
+    gap: 14px;
+  }
+
+  .admin-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* 44px is the smallest reliably tappable target. */
+    min-height: 44px;
+    min-width: 84px;
+    padding: 0 16px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+  }
+  .admin-menu-btn-close { display: none; }
+  .admin-menu-toggle:checked ~ .admin-side .admin-menu-btn-open { display: none; }
+  .admin-menu-toggle:checked ~ .admin-side .admin-menu-btn-close { display: inline; }
+
+  /* Collapsed by default: the page content is what the owner came for. */
+  .admin-side-body { display: none; }
+  .admin-menu-toggle:checked ~ .admin-side .admin-side-body { display: flex; }
+
+  .admin-menu-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
   }
 }
 

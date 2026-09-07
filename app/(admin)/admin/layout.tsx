@@ -46,17 +46,29 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="admin-shell">
+      {/*
+        The menu toggle is a checkbox rather than a button because this layout
+        renders on the server and the owner works from a phone: a CSS-only
+        control opens before any JavaScript has loaded, on a slow connection,
+        every time. It is inert above 900px, where the sidebar is always shown.
+      */}
+      <input type="checkbox" id="admin-menu" className="admin-menu-toggle" />
+
       <aside className="admin-side">
-        <div>
-          <p
-            className="admin-label"
-            style={{ color: "rgba(255,255,255,.4)", paddingLeft: 12, marginBottom: 4 }}
-          >
-            Raja Enterprises
-          </p>
-          <p style={{ paddingLeft: 12, fontSize: 16, fontWeight: 600 }}>Content admin</p>
+        <div className="admin-side-head">
+          <div>
+            <p className="admin-label" style={{ color: "rgba(255,255,255,.4)", marginBottom: 4 }}>
+              Raja Enterprises
+            </p>
+            <p style={{ fontSize: 16, fontWeight: 600 }}>Content admin</p>
+          </div>
+          <label htmlFor="admin-menu" className="admin-menu-btn" aria-label="Show sections">
+            <span className="admin-menu-btn-open">Menu</span>
+            <span className="admin-menu-btn-close">Close</span>
+          </label>
         </div>
 
+        <div className="admin-side-body">
         <AdminNav counts={counts} />
 
         <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 10 }}>
@@ -83,6 +95,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               Sign out
             </button>
           </form>
+        </div>
         </div>
       </aside>
 
