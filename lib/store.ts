@@ -1,5 +1,5 @@
 import "server-only";
-import { getRecord, getSetting, isEmpty, listRecords } from "./db/content";
+import { collectionRowCounts, getRecord, getSetting, isEmpty, listRecords } from "./db/content";
 
 import { projects as seedProjects, type Project } from "@/content/works";
 import { capabilities as seedCapabilities, type Capability } from "@/content/capabilities";
@@ -277,4 +277,26 @@ export async function getSeo(route: string): Promise<SeoOverride | null> {
 
 export async function getHero(): Promise<HeroSettings> {
   return { ...seedHero, ...((await getSetting<Partial<HeroSettings>>("hero")) ?? {}) };
+}
+
+
+/**
+ * How many records each collection holds, for the admin sidebar.
+ *
+ * One aggregate query rather than reading all 24 collections. The previous
+ * version called readAll() per collection, which was 24 separate round trips to
+ * Singapore to render a set of numbers — and, on Workers, 24 of the 50
+ * subrequests a single request is allowed, which is what took the admin down
+ * once it was deployed.
+ *
+ * A collection with no rows still reports its seed length, because that is what
+ * the site is actually serving until someone saves.
+ */
+export async function collectionCounts(): Promise<Record<keyof typeof SEEDS, number>> {
+  const written = await collectionRowCounts();
+  const out = {} as Record<keyof typeof SEEDS, number>;
+  for (const key of Object.keys(SEEDS) as (keyof typeof SEEDS)[]) {
+    out[key] = written.get(key) ?? SEEDS[key].length;
+  }
+  return out;
 }

@@ -5,7 +5,7 @@ import { currentUser, ensureOwnerAccount, adminConfigured } from "@/lib/auth";
 import { AdminNav } from "./nav";
 import { signOut } from "./actions";
 import { query } from "@/lib/db/neon";
-import { readAll, COLLECTIONS } from "@/lib/store";
+import { collectionCounts, COLLECTIONS } from "@/lib/store";
 
 /**
  * The signed-in admin shell.
@@ -30,20 +30,18 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   // Every collection the sidebar lists, so a section never shows a blank count
   // while its neighbours show one. Derived from COLLECTIONS rather than typed
   // out, so registering a collection is still a one-line change.
-  const collectionCounts = Object.fromEntries(
-    await Promise.all(
-      (Object.keys(COLLECTIONS) as (keyof typeof COLLECTIONS)[]).map(
-        async (c) => [c, (await readAll(c)).length] as const,
-      ),
+  const [perCollection, tallies] = await Promise.all([
+    collectionCounts(),
+    query<{ media: number; enquiries: number }>(
+      `SELECT (SELECT COUNT(*) FROM media)::int AS media,
+              (SELECT COUNT(*) FROM enquiries WHERE status = 'new')::int AS enquiries`,
     ),
-  );
+  ]);
 
   const counts = {
-    ...collectionCounts,
-    media: (await query<{ n: number }>(`SELECT COUNT(*)::int AS n FROM media`))[0].n,
-    enquiries: (
-      (await query<{ n: number }>(`SELECT COUNT(*)::int AS n FROM enquiries WHERE status = 'new'`))[0]
-    ).n,
+    ...perCollection,
+    media: tallies[0]?.media ?? 0,
+    enquiries: tallies[0]?.enquiries ?? 0,
   };
 
   return (

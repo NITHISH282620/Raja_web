@@ -44,7 +44,35 @@ const SESSION_DAYS = 14;
 /* ---------------------------------- hashing ---------------------------------- */
 
 const KEYLEN = 32; // bytes
+
+/**
+ * The total PBKDF2 work factor. Unchanged at 210,000.
+ */
 const ITERATIONS = Number(process.env.RAJA_PBKDF2_ITERATIONS ?? 210_000);
+
+/**
+ * Cloudflare Workers refuses a single PBKDF2 call above 100,000 iterations:
+ *
+ *   NotSupportedError: Pbkdf2 failed: iteration counts above 100000 are not
+ *   supported (requested 210000).
+ *
+ * That is a cap in the runtime's WebCrypto implementation, not a CPU budget, so
+ * no paid plan lifts it. The work factor is therefore reached by CHAINING
+ * rounds that each sit under the cap: the output of one derivation is the input
+ * to the next, over the same salt.
+ *
+ * This is not a weakening. An attacker testing one candidate password still
+ * performs 210,000 iterations of PBKDF2-SHA256; the total is merely expressed
+ * in units the platform will accept. Chaining is sequential by construction, so
+ * it cannot be parallelised away either.
+ */
+const MAX_ITERATIONS_PER_CALL = 100_000;
+
+/** Splits a work factor into as few equal rounds as the platform allows. */
+function rounds(total: number): { count: number; per: number } {
+  const count = Math.max(1, Math.ceil(total / MAX_ITERATIONS_PER_CALL));
+  return { count, per: Math.ceil(total / count) };
+}
 
 const hex = (b: ArrayBuffer): string =>
   [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, "0")).join("");
@@ -67,11 +95,30 @@ async function derive(password: string, salt: Uint8Array, iterations: number): P
   );
 }
 
-/** `pbkdf2$<iterations>$<salt hex>$<key hex>`. */
+/**
+ * Derives the key by chaining `count` rounds of `per` iterations.
+ *
+ * Each round feeds on the previous round's output, so the rounds cannot be run
+ * in parallel and the cost is genuinely additive.
+ */
+async function deriveChained(
+  password: string, salt: Uint8Array, count: number, per: number,
+): Promise<ArrayBuffer> {
+  let secret = password;
+  let bits = await derive(secret, salt, per);
+  for (let i = 1; i < count; i++) {
+    secret = hex(bits);
+    bits = await derive(secret, salt, per);
+  }
+  return bits;
+}
+
+/** `pbkdf2c$<count>x<per>$<salt hex>$<key hex>` — total work is count × per. */
 export async function hashPassword(password: string): Promise<string> {
   const salt = crypto.getRandomValues(new Uint8Array(16));
-  const bits = await derive(password, salt, ITERATIONS);
-  return `pbkdf2$${ITERATIONS}$${hex(salt.buffer as ArrayBuffer)}$${hex(bits)}`;
+  const { count, per } = rounds(ITERATIONS);
+  const bits = await deriveChained(password, salt, count, per);
+  return `pbkdf2c$${count}x${per}$${hex(salt.buffer as ArrayBuffer)}$${hex(bits)}`;
 }
 
 /**
@@ -80,12 +127,31 @@ export async function hashPassword(password: string): Promise<string> {
  * existing account. Old hashes keep verifying at the count they were made with.
  */
 export async function verifyPassword(password: string, stored: string): Promise<boolean> {
-  const [scheme, iterStr, salt, key] = stored.split("$");
-  if (scheme !== "pbkdf2" || !iterStr || !salt || !key) return false;
-  const iterations = Number(iterStr);
-  if (!Number.isFinite(iterations) || iterations < 1) return false;
+  const [scheme, work, salt, key] = stored.split("$");
+  if (!scheme || !work || !salt || !key) return false;
 
-  const candidate = new Uint8Array(await derive(password, unhex(salt), iterations));
+  let candidate: Uint8Array;
+  if (scheme === "pbkdf2c") {
+    // Chained form: "<count>x<per>".
+    const [countStr, perStr] = work.split("x");
+    const count = Number(countStr);
+    const per = Number(perStr);
+    if (!Number.isFinite(count) || !Number.isFinite(per) || count < 1 || per < 1) return false;
+    candidate = new Uint8Array(await deriveChained(password, unhex(salt), count, per));
+  } else if (scheme === "pbkdf2") {
+    // Legacy single-call form, still verifiable wherever the runtime allows the
+    // full count. On Workers anything above 100,000 throws, which is exactly
+    // why these are re-hashed on the next successful sign-in.
+    const iterations = Number(work);
+    if (!Number.isFinite(iterations) || iterations < 1) return false;
+    try {
+      candidate = new Uint8Array(await derive(password, unhex(salt), iterations));
+    } catch {
+      return false;
+    }
+  } else {
+    return false;
+  }
   const expected = unhex(key);
   if (candidate.length !== expected.length) return false;
 
@@ -94,6 +160,11 @@ export async function verifyPassword(password: string, stored: string): Promise<
   let diff = 0;
   for (let i = 0; i < candidate.length; i++) diff |= candidate[i]! ^ expected[i]!;
   return diff === 0;
+}
+
+/** True when a stored hash is not in the chained form the runtime can verify. */
+export function needsRehash(stored: string): boolean {
+  return !stored.startsWith("pbkdf2c$");
 }
 
 /* ---------------------------------- users ------------------------------------ */

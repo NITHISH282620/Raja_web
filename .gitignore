@@ -68,3 +68,4 @@ public/uploads/
 /dist/
 .vinext/
 .wrangler/
+.dev.vars

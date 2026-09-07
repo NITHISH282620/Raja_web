@@ -157,3 +157,11 @@ export async function reorderRecords(collection: string, ids: string[]): Promise
     [collection, ids],
   );
 }
+
+/** Row counts for every collection that has been written, in one query. */
+export async function collectionRowCounts(): Promise<Map<string, number>> {
+  const rows = await query<{ collection: string; n: number }>(
+    `SELECT collection, COUNT(*)::int AS n FROM content_entries GROUP BY collection`,
+  );
+  return new Map(rows.map((r) => [r.collection, r.n]));
+}
