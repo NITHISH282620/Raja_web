@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // vinext build output. Linting a bundle reports thousands of problems in
+    // generated code and buries the handful in code we actually wrote.
+    "dist/**",
+    ".vinext/**",
   ]),
 ]);
 

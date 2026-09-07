@@ -5,7 +5,7 @@ import { currentUser, ensureOwnerAccount, adminConfigured } from "@/lib/auth";
 import { AdminNav } from "./nav";
 import { signOut } from "./actions";
 import { query } from "@/lib/db/neon";
-import { collectionCounts, COLLECTIONS } from "@/lib/store";
+import { collectionCounts } from "@/lib/store";
 
 /**
  * The signed-in admin shell.
