@@ -48,6 +48,22 @@ const nextConfig: NextConfig = {
    * `private, no-store` because they are per-request, and overriding that would
    * put an authenticated page into a shared cache.
    */
+  /**
+   * Server Actions accept a 1 MB request body by default, and every admin
+   * upload is a Server Action. A photograph shrunk to a sensible size still
+   * lands around 1–2 MB, so the default rejected real uploads with a bare 500
+   * — the failure happens inside the framework, before uploadMedia runs, so
+   * nothing could catch it or explain it.
+   *
+   * 4 MB is the ceiling worth asking for: the serverless platform itself
+   * refuses a request body above roughly 4.5 MB, so a larger number here would
+   * only move the same failure one layer down. The browser-side resizer keeps
+   * normal photographs far below this; the limit is the backstop, not the plan.
+   */
+  experimental: {
+    serverActions: { bodySizeLimit: "4mb" },
+  },
+
   async headers() {
     const HTML = "public, max-age=0, s-maxage=60, stale-while-revalidate=86400";
     const IMMUTABLE = "public, max-age=31536000, immutable";

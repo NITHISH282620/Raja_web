@@ -28,6 +28,21 @@ const QUALITY = 0.82;
 /** Below this, re-encoding usually makes the file bigger, not smaller. */
 const SKIP_UNDER_BYTES = 400 * 1024;
 
+/**
+ * The size the encoded image has to come in under.
+ *
+ * A Server Action request body is capped — by the framework and again by the
+ * platform — and an upload that exceeds it fails inside the framework, before
+ * any of our code runs, with a bare 500 that nothing can catch or explain. So
+ * the browser keeps re-encoding at lower quality until the result fits, rather
+ * than sending something hopeful and finding out afterwards.
+ *
+ * 1.5 MB leaves generous headroom under the 4 MB ceiling for the rest of the
+ * multipart body.
+ */
+const TARGET_BYTES = 1.5 * 1024 * 1024;
+const MIN_QUALITY = 0.5;
+
 type Status = "idle" | "working" | "done" | "skipped";
 
 export function ImageResizer({ inputId }: { inputId: string }) {
@@ -79,9 +94,17 @@ export function ImageResizer({ inputId }: { inputId: string }) {
         ctx.drawImage(bitmap, 0, 0, w, h);
         bitmap.close();
 
-        const blob = await new Promise<Blob | null>((resolve) =>
-          canvas.toBlob(resolve, "image/webp", QUALITY),
-        );
+        const encode = (q: number) =>
+          new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", q));
+
+        let blob = await encode(QUALITY);
+        // A dense photograph can still be large at the default quality. Step
+        // down until it fits; each pass is a few tens of milliseconds.
+        for (let q = QUALITY - 0.12; blob && blob.size > TARGET_BYTES && q >= MIN_QUALITY; q -= 0.12) {
+          const smaller = await encode(q);
+          if (!smaller) break;
+          blob = smaller;
+        }
         if (!blob) throw new Error("toBlob returned nothing");
 
         const name = file.name.replace(/\.[^.]+$/, "") + ".webp";
