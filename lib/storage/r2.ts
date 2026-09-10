@@ -110,12 +110,30 @@ export async function putObject(
 
   const aws = s3();
   if (!aws) throw new StorageUnavailableError(name);
+  /*
+   * Content-Length is set explicitly, and that is not optional.
+   *
+   * R2's S3 endpoint answers 411 "Length Required" to a PUT without one. Small
+   * bodies happen to get the header for free, because the runtime inlines them
+   * and can measure them; anything large enough to be streamed goes out with
+   * chunked encoding and no length, and is refused. The result was an upload
+   * that worked for a 20 KB file and failed for a 100 KB one — which reads
+   * like a size limit and is really a missing header.
+   */
+  const headers: Record<string, string> = {
+    "content-length": String(body.byteLength),
+  };
+  if (contentType) headers["content-type"] = contentType;
+
   const res = await aws.client.fetch(objectUrl(aws.endpoint, name, key), {
     method: "PUT",
     body,
-    headers: contentType ? { "content-type": contentType } : undefined,
+    headers,
   });
-  if (!res.ok) throw new Error(`R2 put failed (${res.status}) for ${key}`);
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    throw new Error(`R2 put failed (${res.status}) for ${key}${detail ? `: ${detail.slice(0, 160)}` : ""}`);
+  }
 }
 
 export async function getObject(
