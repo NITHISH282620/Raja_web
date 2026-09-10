@@ -1,5 +1,6 @@
 import { query } from "@/lib/db/neon";
 import { deleteMedia, updateMediaAlt, uploadMedia } from "../actions";
+import { ImageResizer } from "../image-resizer";
 import { Notice, PageHead } from "../ui";
 
 export const dynamic = "force-dynamic";
@@ -40,6 +41,18 @@ export default async function MediaPage({
       {saved && <Notice tone="ok">Description saved.</Notice>}
       {error === "size" && <Notice tone="error">That file is too large. The limit is 200 MB.</Notice>}
       {error === "empty" && <Notice tone="error">No file was selected.</Notice>}
+      {error === "storage" && (
+        <Notice tone="error">
+          Uploads are not configured on this deployment yet, so the file was not saved.
+          Everything else on this page still works.
+        </Notice>
+      )}
+      {error === "toolarge" && (
+        <Notice tone="error">
+          That file was too large to send. Photographs are normally shrunk automatically —
+          if this keeps happening, try a smaller image.
+        </Notice>
+      )}
 
       <form
         action={uploadMedia}
@@ -59,9 +72,10 @@ export default async function MediaPage({
             className="admin-input"
             style={{ padding: 9 }}
           />
+          <ImageResizer inputId="file" />
           <p className="hint">
             JPEG, PNG, WebP or HEIC for photographs; MP4 or WebM for video. Photographs straight
-            off a phone are fine — they are resized on upload.
+            off a phone are fine — they are shrunk in your browser before uploading.
           </p>
         </div>
 
