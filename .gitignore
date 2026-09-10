@@ -69,3 +69,4 @@ public/uploads/
 .vinext/
 .wrangler/
 .dev.vars
+*.tmp.mjs
