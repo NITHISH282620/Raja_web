@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Shrinks a photograph in the browser before it is uploaded.
@@ -33,8 +33,10 @@ type Status = "idle" | "working" | "done" | "skipped";
 export function ImageResizer({ inputId }: { inputId: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [detail, setDetail] = useState("");
-  const widthRef = useRef<HTMLInputElement>(null);
-  const heightRef = useRef<HTMLInputElement>(null);
+  // Held in state, not written onto the DOM node through a ref: setting an
+  // uncontrolled input's value imperatively and then triggering a re-render
+  // loses the value, which is how every upload was arriving as 0 x 0.
+  const [size, setSize] = useState({ w: 0, h: 0 });
 
   useEffect(() => {
     const input = document.getElementById(inputId) as HTMLInputElement | null;
@@ -58,8 +60,7 @@ export function ImageResizer({ inputId }: { inputId: string }) {
         const w = Math.round(bitmap.width * scale);
         const h = Math.round(bitmap.height * scale);
 
-        if (widthRef.current) widthRef.current.value = String(w);
-        if (heightRef.current) heightRef.current.value = String(h);
+        setSize({ w, h });
 
         // Already small and already on-scale: sending the original is better
         // than re-encoding it.
@@ -108,8 +109,8 @@ export function ImageResizer({ inputId }: { inputId: string }) {
 
   return (
     <>
-      <input ref={widthRef} type="hidden" name="width" defaultValue="0" />
-      <input ref={heightRef} type="hidden" name="height" defaultValue="0" />
+      <input type="hidden" name="width" value={size.w} readOnly />
+      <input type="hidden" name="height" value={size.h} readOnly />
       {status === "working" && <p className="hint">Preparing the photograph&hellip;</p>}
       {status === "done" && detail && <p className="hint">Ready to upload &mdash; {detail}</p>}
     </>
