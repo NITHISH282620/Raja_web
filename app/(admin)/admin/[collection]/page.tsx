@@ -126,11 +126,17 @@ export const META: Record<
     label: (d) => String(d.item ?? "Untitled"),
     meta: (d) => [d.capacity, d.unit].filter(Boolean).join(" "),
   },
-  projects: {
+  homepageWorks: {
     title: "Featured projects",
     sub: "The case studies on the homepage and the portfolio page. Order here is the order they appear in.",
     label: (d) => String(d.title ?? "Untitled"),
     meta: (d) => [d.organization, d.year].filter(Boolean).join(" · "),
+  },
+  projects: {
+    title: "All projects",
+    sub: "The complete directory of executed projects.",
+    label: (d) => String(d.event ?? "Untitled"),
+    meta: (d) => [d.client, d.year].filter(Boolean).join(" · "),
   },
   events: {
     title: "Recent engagements table",
@@ -179,7 +185,7 @@ function thumbOf(data: Record<string, unknown>): string | null {
   // catalogue store a bare path string. Reading only `.src` meant every one of
   // those listed with an empty grey square, which reads as "this record has no
   // picture" when it has one.
-  for (const c of [data.image, data.hero, data.logo]) {
+  for (const c of [data.image, data.hero, data.logo, (data.media as any[])?.[0]]) {
     if (typeof c === "string" && c) return c;
     const src = (c as { src?: string } | null)?.src;
     if (src) return src;

@@ -24,6 +24,8 @@ const VARIANTS = {
   fadeUp: { from: { opacity: 0, y: 32 }, duration: 0.8, stagger: 0.1 },
   /** Cards and tiles. Slightly further, slightly slower. */
   riseCard: { from: { opacity: 0, y: 48 }, duration: 0.9, stagger: 0.09 },
+  /** Ultra-premium cinematic card entrance. Deeper rise, scale up, slower. */
+  monumentalCard: { from: { opacity: 0, y: 80, scale: 0.95 }, duration: 1.2, stagger: 0.12 },
   /** Logos, marks, badges. Settles rather than travels. */
   land: { from: { opacity: 0, y: 16, scale: 0.96 }, duration: 0.7, stagger: 0.06 },
   /** Table rows and dividers. The rule draws, the row follows. */

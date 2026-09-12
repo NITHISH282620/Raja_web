@@ -203,6 +203,122 @@ export const servicePillars: ServicePillar[] = [
     order: 5,
     status: "approved",
   },
+  {
+    slug: "lighting-and-av",
+    title: "Lighting & AV Solutions",
+    heading: "Stage lighting, sound engineering and AV infrastructure",
+    summary:
+      "Engineered truss-mounted stage lighting, line-array audio delay systems, and high-definition LED video displays integrated directly into structural frames.",
+    body: [
+      "Lighting, sound and audiovisual rigging cannot be an afterthought clamped onto unrated structures. Raja designs and mounts stage illumination, concert audio arrays and wide LED walls directly integrated into our German hangars and ringlock scaffolding.",
+      "By calculating rigging loads and suspension geometry before the first bay is hoisted, point-load structural margins are strictly preserved, cables remain completely concealed, and sightlines are never obstructed by ad-hoc ground stands.",
+      "From broadcast-ready VIP plenary sessions and state inaugurations to high-decibel cultural concerts, our lighting and AV systems deploy with synchronized power distribution and whisper-quiet backup generators.",
+    ],
+    capacity: [
+      { label: "Rigging systems", value: "Heavy aluminium box truss (300/400mm)" },
+      { label: "Power & distribution", value: "Synchronized clean feeds & silent gensets" },
+      { label: "Deployment", value: "Pan-India turnkey delivery" },
+    ],
+    bundled: ["German hangers", "Staging, Seating & Dais", "Event Scaffolding", "Power distribution"],
+    image: {
+      src: "/media/inventory-lighting.25f99edf.webp",
+      width: 1200,
+      height: 800,
+      alt: "Professional stage lighting rigs, aerial trussing and illumination over an event arena.",
+      clearance: "client-approved",
+      credit: "Raja Enterprises",
+    },
+    page: true,
+    order: 6,
+    status: "approved",
+  },
+  {
+    slug: "climate-control",
+    title: "Mobile HVAC & Climate Control",
+    heading: "Temporary mobile HVAC and industrial climate control",
+    summary:
+      "3,000 tons of owned mobile chilling equipment, high-volume air handling units, and insulated ducting stabilizing indoor temperatures at 22°C–24°C across mega hangars.",
+    body: [
+      "A temporary structure during peak Indian summers is unusable without industrial-grade climate control. Raja owns and deploys 3,000 tons of mobile packaged chilling plants, precision air handling units, and textile laminar ducting.",
+      "Our HVAC solutions are sized specifically to the volume of each German hanger and the expected crowd density, maintaining a comfortable 22°C to 24°C environment even when exterior ambient temperatures exceed 45°C.",
+      "Quiet air handling units ensure conference and broadcast audio remain crystal clear, with engineered condensation barriers and concealed drain piping protecting subfloors and delegate footways.",
+    ],
+    capacity: [
+      { label: "Owned cooling fleet", value: "3,000 tons" },
+      { label: "Target temperature", value: "22°C – 24°C in 45°C ambient heat" },
+      { label: "Ducting technology", value: "Laminar textile air socks & spiral ducting" },
+    ],
+    bundled: ["German hangers", "Event flooring", "Power distribution"],
+    image: {
+      src: "/media/events/kanha-canopy-interior.0403268d.webp",
+      width: 1280,
+      height: 720,
+      alt: "Interior of temporary clear-span hall with integrated air-conditioning ducting.",
+      clearance: "client-approved",
+      credit: "Raja Enterprises",
+    },
+    page: true,
+    order: 7,
+    status: "approved",
+  },
+  {
+    slug: "barricades-and-safety",
+    title: "Barricades & Crowd Control Infrastructure",
+    heading: "Interlocking crowd-control barricades and security perimeters",
+    summary:
+      "Over 1,00,000 running feet of heavy-gauge interlocking steel barricades and mojo safety barriers for sterile VIP perimeters and dense crowd distribution.",
+    body: [
+      "Crowd safety and protocol security dictate the layout of any high-attendance gathering. Raja maintains over 1,00,000 running feet of interlocking galvanized steel barricades and crowd-control barriers.",
+      "Engineered with anti-trip flat baseplates and positive pin-and-eye interlocks, our barricades withstand intense lateral surges without separating, creating sterile VIP corridors, media enclosures, and controlled ingress channels.",
+      "Deployed by our own logistics fleet and handled by trained crews who understand security protocols, police cordons, and rapid evacuation contingencies.",
+    ],
+    capacity: [
+      { label: "Owned barricade stock", value: "1,00,000 running feet" },
+      { label: "Barrier types", value: "Interlocking galvanized steel & mojo barriers" },
+      { label: "Foot system", value: "Anti-trip flat plates & bridge feet" },
+    ],
+    bundled: ["German hangers", "Staging and Dais", "Event scaffolding"],
+    image: {
+      src: "/media/representative/inventory-barricades.f368fe44.webp",
+      width: 1200,
+      height: 800,
+      alt: "Interlocking galvanized crowd control barriers deployed for event perimeter security.",
+      clearance: "representative",
+      credit: "Raja Enterprises",
+    },
+    page: true,
+    order: 8,
+    status: "approved",
+  },
+  {
+    slug: "logistics-fleet",
+    title: "Logistics Fleet & Heavy Transport",
+    heading: "Company-owned logistics fleet and heavy site transport",
+    summary:
+      "Twenty owned multi-axle trucks, flatbeds, and mobile cranes delivering rapid statewide and pan-India deployment with zero third-party transport dependency.",
+    body: [
+      "Transit delays are the death of event construction schedules. Rather than brokering freight on the open spot market, Raja operates a dedicated fleet of 20+ owned commercial goods vehicles.",
+      "Our multi-axle flatbeds, covered container trucks, and hydraulic cranes move aluminum hangar bays, steel ringlock scaffolding, and subfloors directly from our Bengaluru central yard straight to the project site.",
+      "Experienced rigging drivers and site crews travel with the equipment convoys, ensuring immediate unloading, staging, and erection the moment the convoy arrives on site.",
+    ],
+    capacity: [
+      { label: "Dedicated fleet size", value: "20+ owned commercial vehicles" },
+      { label: "Vehicle classes", value: "10-wheelers, 6-wheelers, flatbeds & cranes" },
+      { label: "Depot hub", value: "Central Logistics Yard, Bengaluru" },
+    ],
+    bundled: ["German hangers", "Event scaffolding", "Event flooring", "Staging, Seating & Dais"],
+    image: {
+      src: "/media/representative/inventory-fleet.13f2e483.webp",
+      width: 1200,
+      height: 800,
+      alt: "Dedicated commercial fleet trucks parked at the Raja Enterprises logistics yard.",
+      clearance: "representative",
+      credit: "Raja Enterprises",
+    },
+    page: true,
+    order: 9,
+    status: "approved",
+  },
 ];
 
 /**

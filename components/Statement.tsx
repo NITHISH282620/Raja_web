@@ -57,7 +57,7 @@ export function Statement({
       className={clsx(tone === "light" ? "text-white" : "text-ink", "text-balance", className)}
     >
       {mergePunctuation(segments).map((segment, i) => (
-        <span key={i} id={segment.id} className={segment.accent ? "text-accent" : undefined}>
+        <span key={i} id={segment.id} className={segment.accent ? "text-brand-blue italic font-serif pr-1 md:pr-2" : undefined}>
           {segment.text.split("\n").map((line, j) => (
             <span key={j} className="contents">
               {j > 0 && <br />}

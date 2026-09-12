@@ -35,8 +35,17 @@ async function mediaChoices(): Promise<MediaChoice[]> {
 
   for (const key of Object.keys(COLLECTIONS) as Collection[]) {
     for (const row of await readAll(key)) {
-      for (const field of ["image", "hero", "logo"]) {
-        const asset = (row.data as unknown as Record<string, unknown>)[field] as
+      const data = row.data as unknown as Record<string, unknown>;
+      
+      const assets = [
+        data.image,
+        data.hero,
+        data.logo,
+        ...(Array.isArray(data.media) ? data.media : [])
+      ];
+
+      for (const rawAsset of assets) {
+        const asset = rawAsset as
           | { src?: string; width?: number; height?: number; alt?: string }
           | null;
         if (asset?.src && !seen.has(asset.src)) {

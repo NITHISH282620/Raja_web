@@ -101,14 +101,23 @@ export function InventoryEstimator() {
                   key={size}
                   type="button"
                   onClick={() => setSelectedCrowd(size)}
-                  className={`p-4 rounded-xl border font-mono text-center transition-all duration-300 cursor-pointer ${
+                  className={`relative overflow-hidden p-4 sm:p-5 rounded-2xl border font-mono text-center transition-all duration-500 cursor-pointer group flex flex-col items-center justify-center gap-1 ${
                     selectedCrowd === size
-                      ? "bg-brand-blue text-white border-brand-blue shadow-md font-bold scale-[1.02]"
-                      : "bg-neutral-50/80 border-ink/10 text-ink hover:bg-neutral-100"
+                      ? "bg-brand-blue text-white border-brand-blue shadow-lg scale-[1.03] z-10"
+                      : "bg-neutral-50/50 border-ink/10 text-ink hover:border-brand-blue/30 hover:bg-white hover:shadow-md hover:-translate-y-1"
                   }`}
                 >
-                  <p className="text-lg sm:text-xl">{size.toLocaleString()}+</p>
-                  <p className={`text-[10px] uppercase tracking-wider ${selectedCrowd === size ? "text-white/80" : "text-ink/50"}`}>
+                  {selectedCrowd === size && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+                  )}
+                  <p className={`text-xl sm:text-2xl transition-colors duration-300 ${
+                    selectedCrowd === size ? "font-bold text-white drop-shadow-sm" : "font-semibold text-ink group-hover:text-brand-blue"
+                  }`}>
+                    {size.toLocaleString()}+
+                  </p>
+                  <p className={`text-[9px] sm:text-[10px] uppercase tracking-wider transition-colors duration-300 ${
+                    selectedCrowd === size ? "text-white/90 font-medium" : "text-ink/50 group-hover:text-brand-blue/70"
+                  }`}>
                     Attendees
                   </p>
                 </button>

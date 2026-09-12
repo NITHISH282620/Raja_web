@@ -39,7 +39,7 @@ const GROUPS: {
     label: "Homepage",
     items: [
       { href: "/admin/capabilities", label: "Capability cards", key: "capabilities", sub: true },
-      { href: "/admin/projects", label: "Featured projects", key: "projects", sub: true },
+      { href: "/admin/homepageWorks", label: "Featured projects", key: "homepageWorks", sub: true },
       { href: "/admin/inventory", label: "Resource tiles", key: "inventory", sub: true },
       { href: "/admin/process", label: "Build process", key: "process", sub: true },
       { href: "/admin/eventFormats", label: "Event format cards", key: "eventFormats", sub: true },
@@ -53,6 +53,12 @@ const GROUPS: {
     items: [
       { href: "/admin/services", label: "Service pages", key: "services", sub: true },
       { href: "/admin/solutions", label: "Solution pages", key: "solutions", sub: true },
+    ],
+  },
+  {
+    label: "Projects page",
+    items: [
+      { href: "/admin/projects", label: "All projects", key: "projects", sub: true },
     ],
   },
   {

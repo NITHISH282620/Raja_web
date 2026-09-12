@@ -7,6 +7,7 @@ import {
   getHero,
   getProcessSteps,
   getProjects,
+  getHomepageWorks,
   getSchedule,
   getEventFormats,
   getRecentEvents,
@@ -42,7 +43,7 @@ export async function Capabilities() {
 }
 
 export async function Works() {
-  return <WorksView projects={await getProjects()} />;
+  return <WorksView projects={await getHomepageWorks()} />;
 }
 
 export async function Process() {

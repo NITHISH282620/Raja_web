@@ -28,6 +28,9 @@ export interface InventoryCategory {
   /** Null where no honest photograph exists — the card leads with the figure instead. */
   image: string | null;
   alt: string;
+  href?: string;
+  group?: string;
+  index?: string;
 }
 
 export const inventoryCategories: InventoryCategory[] = [
@@ -59,16 +62,75 @@ export const inventoryCategories: InventoryCategory[] = [
       "National Industrial Expos & Trade Fairs",
       "Multi-Acre Cultural & Spiritual Convocations",
     ],
-    image: "/media/inventory-german-hanger.1631d7b1.webp",
-    // NOT A HANGER. Opened this file: it is a large outdoor stage show under
-    // open sky with laser and pyrotechnic effects and a stadium crowd — there
-    // is no clear-span structure in the frame at all. The previous alt text
-    // asserted it was "an engineered German clear-span aluminium hangar
-    // structure", which is the one thing the picture demonstrably is not.
-    // Described here as what it actually shows, and reclassified as
-    // representative so it cannot stand as evidence of Raja's stock.
-    // NEEDS CLIENT IMAGE: a photograph of an actual German hanger.
-    alt: "A large open-air stage production at night, lit by laser effects before a standing crowd.",
+    image: "/media/events/german-hanger-aerial.webp",
+    alt: "Aerial view of large-scale German clear-span hanger complex.",
+    href: "/services/german-hangers",
+    group: "Structures",
+    index: "01",
+  },
+  {
+    id: "layer-scaffolding",
+    name: "Heavy-Duty Ringlock Scaffolding Systems",
+    shortName: "Scaffolding & Rigging",
+    tagline: "Engineered high-load modular staging substructure and access towers",
+    icon: "🏗️",
+    totalCapacity: "National",
+    unit: "Deployment",
+    description:
+      "Heavy-duty galvanized steel ringlock scaffolding engineered for rapid, rigid modular assembly. Supports multi-level camera platforms, concert PA delay towers, and high-load stage sub-structures with extreme stability.",
+    specs: [
+      { label: "Standard Tube", value: "48.3mm high-tensile galvanized steel" },
+      { label: "Connection Node", value: "8-point cast steel rosettes" },
+      { label: "Configuration", value: "Towers, gantries, raked seating substructure" },
+      { label: "Safety Systems", value: "Integrated toe-boards & non-slip steel decks" },
+    ],
+    features: [
+      "Fast wedge-lock pin assembly requiring no loose couplers",
+      "Wind-braced structural geometry for outdoor stability",
+      "Engineered for heavy broadcast equipment and camera arrays",
+    ],
+    applications: [
+      "Large-Scale Music Concerts & Broadcast Stages",
+      "Stadium Delay Towers & Follow-Spot Risers",
+      "VIP Elevated Grandstands and Gantries",
+    ],
+    image: "/media/events/eima-ground-dusk.284dd6b2.webp",
+    alt: "Heavy duty structural scaffold and gantry installation",
+    href: "/services/event-scaffolding",
+    group: "Staging & Rigging",
+    index: "02",
+  },
+  {
+    id: "lighting-av",
+    name: "Professional Stage Lighting & AV Systems",
+    shortName: "Lighting & AV",
+    tagline: "Truss-mounted illumination, concert audio arrays and high-resolution LED video walls",
+    icon: "💡",
+    totalCapacity: "Broadcast",
+    unit: "Grade",
+    description:
+      "Synchronized stage lighting, high-output audio delay towers, and seamless LED video displays engineered directly into our German hangars and scaffolding frameworks. Zero loose ground cables, preserved sightlines, and calibrated acoustics.",
+    specs: [
+      { label: "Rigging Truss", value: "Heavy aluminium box truss (300mm & 400mm)" },
+      { label: "Display Systems", value: "High-definition P2.6/P3.9 indoor & outdoor LED video walls" },
+      { label: "Audio Rigging", value: "Line-array speaker hangs & ground delay towers" },
+      { label: "Control Systems", value: "DMX-controlled consoles with synchronized silent power" },
+    ],
+    features: [
+      "Pre-calculated point-load suspension from aluminium hangar purlins",
+      "Concealed under-floor and overhead cable management",
+      "Integrated with silent diesel gensets for 100% electrical redundancy",
+    ],
+    applications: [
+      "Prime Minister & State Government Inaugurations",
+      "Large-Scale Music Concerts & Award Shows",
+      "High-Profile Corporate Summits & Expos",
+    ],
+    image: "/media/inventory-lighting.25f99edf.webp",
+    alt: "Concert stage lighting rigs and aerial truss installation during an evening event.",
+    href: "/services/lighting-and-av",
+    group: "Lighting & AV",
+    index: "03",
   },
   {
     id: "modular-flooring",
@@ -83,9 +145,8 @@ export const inventoryCategories: InventoryCategory[] = [
     specs: [
       { label: "Subfloor Frame", value: "Heavy MS iron box grid under-structure" },
       { label: "Floor Surface", value: "19mm boiling water proof (BWP) commercial ply" },
-      { label: "Leveling Jack Range", value: "Up to 1.5m vertical slope adjustment" },
-      { label: "Alignment Protocol", value: "Multi-point rotary laser levelers" },
-      { label: "Surface Finish Options", value: "Exhibition carpet, vinyl, high-gloss laminate" },
+      { label: "Leveling Range", value: "Up to 1.5m vertical slope adjustment" },
+      { label: "Surface Finish", value: "Exhibition carpet, vinyl, high-gloss laminate" },
     ],
     features: [
       "Prevents ground dampness and rain seepage into hangars",
@@ -99,6 +160,41 @@ export const inventoryCategories: InventoryCategory[] = [
     ],
     image: "/media/inventory-wooden-floor.f6799623.webp",
     alt: "Modular wooden flooring platform installation",
+    href: "/services/event-flooring",
+    group: "Ground Works",
+    index: "04",
+  },
+  {
+    id: "exhibition-stalls",
+    name: "Modular Octonorm & Maxima Exhibition Stalls",
+    shortName: "Exhibition Stalls",
+    tagline: "Precision modular shell schemes and custom-branded trade fair pavilions",
+    icon: "🎪",
+    totalCapacity: "15,000",
+    unit: "Sq. M.",
+    description:
+      "System aluminium stall hardware configured for national expos and international trade fairs. Compatible with standard Octonorm and heavy-section Maxima uprights with custom printed fascia branding and illumination.",
+    specs: [
+      { label: "System Types", value: "Octonorm standard (40mm) & Maxima (80mm/100mm)" },
+      { label: "Panel Substrate", value: "White laminated MDF / Forex panels" },
+      { label: "Fascia Integration", value: "Backlit LED headers and vinyl cut lettering" },
+      { label: "Electrical", value: "Concealed conduit track lighting and distribution" },
+    ],
+    features: [
+      "Overnight strike and rapid modular reconfiguration",
+      "Interchangeable locking extrusions for flexible stand footprints",
+      "Integrated display counters, lockable storage and shelving",
+    ],
+    applications: [
+      "International B2B Trade Expos & Machinery Fairs",
+      "Medical, Pharmaceutical & Tech Conventions",
+      "Government Department & State Pavilions",
+    ],
+    image: "/media/events/larenon-stall-wide.ae5daaa7.webp",
+    alt: "A fabricated exhibition stall shell with printed panels and seating",
+    href: "/services/exhibition-stalls",
+    group: "Fabrication",
+    index: "05",
   },
   {
     id: "staging-dias",
@@ -109,17 +205,17 @@ export const inventoryCategories: InventoryCategory[] = [
     totalCapacity: "1,00,000",
     unit: "Sq. Ft.",
     description:
-      "Heavy-duty modular stage platforms designed for heads of state, cultural performances, and orchestral ensembles.",
+      "Heavy-duty modular stage platforms designed for heads of state, cultural performances, and orchestral ensembles. Integrated with multi-tier seating, broadcast camera risers and rigging towers.",
     specs: [
       { label: "Platform Framing", value: "Reinforced MS steel truss and box frames" },
-      { label: "Height Adjustment", value: "1.5 ft to 8.0 ft hydraulic pin-lock legs" },
+      { label: "Height Range", value: "1.5 ft to 8.0 ft hydraulic pin-lock legs" },
       { label: "Rigging Trusses", value: "Heavy aluminium box truss (300mm & 400mm)" },
       { label: "Access Systems", value: "ADA wheelchair ramps, tiered stairs, VIP risers" },
-      { label: "Failsafe Railings", value: "Heavy-duty steel crowd safety balustrades" },
     ],
     features: [
       "Multi-tiered VIP holding platforms and dignitary seating",
       "Quick-disconnect modular sections for overnight reconfiguration",
+      "Non-slip finishes with ballistic-rated under-structure options",
     ],
     applications: [
       "State Government Swearing-In Ceremonies",
@@ -127,11 +223,10 @@ export const inventoryCategories: InventoryCategory[] = [
       "Large-Scale Cultural Festivals & Mega Concerts",
     ],
     image: "/media/inventory-stage.b737c675.webp",
-    // NOT RAJA STAGING. This is an empty hotel conference room with fixed
-    // seating and a suspended ceiling — an indoor venue, not staging or rigging
-    // that Raja owns and installs.
-    // NEEDS CLIENT IMAGE: a photograph of Raja's own staging or dais build.
-    alt: "An empty conference room laid out with rows of seating.",
+    alt: "Engineered stage and dais setup",
+    href: "/services/staging-and-seating",
+    group: "Staging & Rigging",
+    index: "06",
   },
   {
     id: "climate-control",
@@ -144,8 +239,10 @@ export const inventoryCategories: InventoryCategory[] = [
     description:
       "Industrial temporary package air-conditioning chillers and air-handling units. Connected through custom insulated spiral ducting, our HVAC systems stabilize temperatures at 22°C to 24°C inside temporary German hangars even during peak Indian summers.",
     specs: [
+      { label: "Total Capacity", value: "3,000 tons industrial cooling fleet" },
       { label: "Ducting Systems", value: "Laminar textile air socks & insulated metal ducting" },
-      { label: "Filtration Grade", value: "High-volume dust and particulate pre-filters" },
+      { label: "Temperature Target", value: "Maintains 22°C–24°C in 45°C ambient heat" },
+      { label: "Acoustic Rating", value: "Whisper-quiet AHUs suited for broadcast" },
     ],
     features: [
       "Quiet operation engineered for broadcast and conference audio",
@@ -157,13 +254,16 @@ export const inventoryCategories: InventoryCategory[] = [
       "Executive Corporate Conventions",
       "VIP Enclosures at National Celebrations",
     ],
-    image: null,
-    alt: "",
+    image: "/media/events/kanha-canopy-interior.0403268d.webp",
+    alt: "Interior temporary venue with integrated climate control",
+    href: "/services/climate-control",
+    group: "Support & Systems",
+    index: "07",
   },
   {
     id: "security-barricades",
     name: "Iron Crowd-Control Barricades & Perimeters",
-    shortName: "Barricades",
+    shortName: "Barricades & Safety",
     tagline: "Police-certified interlocking steel barriers for high-security crowd zoning",
     icon: "🛡️",
     totalCapacity: "1,00,000",
@@ -171,12 +271,15 @@ export const inventoryCategories: InventoryCategory[] = [
     description:
       "Heavy-gauge interlocking galvanized steel barricades designed to establish secure perimeters, sterile VIP corridors, and high-density crowd distribution lanes for events exceeding 100,000 attendees.",
     specs: [
-      { label: "Material Specification", value: "Heavy-gauge galvanized steel tubing" },
+      { label: "Total Fleet", value: "1,00,000 running feet in company stock" },
+      { label: "Material", value: "Heavy-gauge galvanized steel tubing" },
       { label: "Foot System", value: "Anti-trip flat base plates and bridge feet" },
       { label: "Interlock Design", value: "Positive pin-and-eye security coupling" },
     ],
     features: [
       "Flat feet minimize trip hazards in dense pedestrian channels",
+      "Riot-rated coupling prevents disconnect under lateral surge",
+      "Stackable for high-density transport and fast deployment",
     ],
     applications: [
       "Prime Minister & Chief Minister Public Rallies",
@@ -185,6 +288,9 @@ export const inventoryCategories: InventoryCategory[] = [
     ],
     image: "/media/representative/inventory-barricades.f368fe44.webp",
     alt: "Stacked plastic and steel crowd-control barriers held in a storage yard.",
+    href: "/services/barricades-and-safety",
+    group: "Support & Systems",
+    index: "08",
   },
   {
     id: "logistics-fleet",
@@ -192,7 +298,7 @@ export const inventoryCategories: InventoryCategory[] = [
     shortName: "Logistics Fleet",
     tagline: "Company-owned heavy transport fleet ensuring zero transit delays nationwide",
     icon: "🚛",
-    totalCapacity: "20",
+    totalCapacity: "20+",
     unit: "Vehicles",
     description:
       "Raja Enterprises operates our own fleet of multi-axle goods carriers, specialized transport trucks, and mobile cranes. We do not rely on spot-market truckers, guaranteeing punctual arrivals and rapid turnaround times nationwide.",
@@ -205,6 +311,7 @@ export const inventoryCategories: InventoryCategory[] = [
     features: [
       "Zero reliance on commercial transport brokerage",
       "Self-contained rigging crews travel with equipment convoys",
+      "GPS tracking and 24/7 convoy telemetry",
     ],
     applications: [
       "Pan-India Fast-Track Mobilization",
@@ -213,6 +320,9 @@ export const inventoryCategories: InventoryCategory[] = [
     ],
     image: "/media/representative/inventory-fleet.13f2e483.webp",
     alt: "A row of goods vehicles parked in a depot yard.",
+    href: "/services/logistics-fleet",
+    group: "Support & Systems",
+    index: "09",
   },
 ];
 

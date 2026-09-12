@@ -174,7 +174,7 @@ export const FIELDS: Record<Collection, Field[]> = {
     { name: "unit", label: "Unit", type: "text", placeholder: "sq ft" },
   ],
 
-  projects: [
+  homepageWorks: [
     { name: "title", label: "Project title", type: "text" },
     { name: "organization", label: "Client / organisation", type: "text" },
     { name: "eyebrow", label: "Category label", type: "text", placeholder: "National congress" },
@@ -196,6 +196,31 @@ export const FIELDS: Record<Collection, Field[]> = {
     },
     { name: "reverse", label: "Put the photograph on the right", type: "checkbox" },
     { name: "href", label: "Link to a case study page", type: "text", hint: "Leave blank until a page exists. A card with no link simply shows no button." },
+  ],
+
+  projects: [
+    { name: "event", label: "Event", type: "text" },
+    { name: "client", label: "Client / organisation", type: "text" },
+    { name: "year", label: "Year", type: "text", placeholder: "2024", hint: "Leave blank if unconfirmed." },
+    { name: "location", label: "Location", type: "text", placeholder: "Bengaluru", hint: "Leave blank if unconfirmed." },
+    {
+      name: "category",
+      label: "Category",
+      type: "select",
+      options: ["government", "exhibition", "conference", "cultural", "corporate", "social"],
+    },
+    { name: "scope", label: "Scope of work", type: "textarea", hint: "What Raja supplied." },
+    { name: "media.0", label: "Gallery image 1", type: "image" },
+    { name: "media.0.alt", label: "Description for image 1", type: "text", hint: "Say what is in it." },
+    { name: "media.1", label: "Gallery image 2", type: "image" },
+    { name: "media.1.alt", label: "Description for image 2", type: "text" },
+    { name: "media.2", label: "Gallery image 3", type: "image" },
+    { name: "media.2.alt", label: "Description for image 3", type: "text" },
+    { name: "media.3", label: "Gallery image 4", type: "image" },
+    { name: "media.3.alt", label: "Description for image 4", type: "text" },
+    { name: "media.4", label: "Gallery image 5", type: "image" },
+    { name: "media.4.alt", label: "Description for image 5", type: "text" },
+    { name: "featured", label: "Feature this project", type: "checkbox" },
   ],
 
   events: [
@@ -281,10 +306,15 @@ export const BLANKS: Record<Collection, Record<string, unknown>> = {
   },
   schedule: { item: "", capacity: null, unit: "", status: "provisional" },
 
-  projects: {
+  homepageWorks: {
     id: "", order: 99, published: true, featured: false, organization: "", eyebrow: "",
     title: "", year: "", summary: null, hero: null, gallery: [], video: null, logo: null,
     tint: "neutral", reverse: false, href: null, status: "approved",
+  },
+  projects: {
+    id: "", client: "", event: "", year: null, location: null, category: "corporate",
+    scope: null, services: [], media: [], provenance: "schedule",
+    published: true, featured: false, order: 99,
   },
   events: { organisation: "", event: "" },
   capabilities: { id: "", index: "", title: "", summary: null, image: null, status: "approved" },

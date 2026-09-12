@@ -1,7 +1,8 @@
 import "server-only";
 import { collectionRowCounts, getRecord, getSetting, isEmpty, listRecords } from "./db/content";
 
-import { projects as seedProjects, type Project } from "@/content/works";
+import { projects as seedProjects, type Project } from "@/content/projects";
+import { projects as seedHomepageWorks, type Project as HomepageWork } from "@/content/works";
 import { capabilities as seedCapabilities, type Capability } from "@/content/capabilities";
 import { inventoryTiles as seedInventory, type InventoryTile } from "@/content/inventory";
 import { processSteps as seedProcess, type ProcessStep } from "@/content/process";
@@ -72,6 +73,7 @@ export const COLLECTIONS = {
   eventFormats: "eventFormats",
   recentEvents: "recentEvents",
   pageImages: "pageImages",
+  homepageWorks: "homepageWorks",
 } as const;
 
 /** Seeds a collection reads from when the database has nothing for it. */
@@ -100,6 +102,7 @@ const SEEDS = {
   eventFormats: seedEventFormats,
   recentEvents: seedRecent,
   pageImages: seedPageImages,
+  homepageWorks: seedHomepageWorks,
 } as const;
 
 type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
@@ -163,18 +166,15 @@ export function idOf(collection: string, data: unknown, index: number): string {
    The public read API. These are what pages and sections call.
    ------------------------------------------------------------------------- */
 
+export async function getHomepageWorks(): Promise<HomepageWork[]> {
+  return read("homepageWorks");
+}
+
 /** Published projects, featured first, then by order, media gated. */
 export async function getProjects(): Promise<Project[]> {
   return (await read("projects"))
     .filter((p) => p.published)
-    .sort((a, b) => Number(b.featured) - Number(a.featured) || a.order - b.order)
-    .map((p) => ({
-      ...p,
-      hero: publishable(p.hero),
-      gallery: publishableList(p.gallery),
-      video: publishable(p.video),
-      logo: publishable(p.logo),
-    }));
+    .sort((a, b) => Number(b.featured) - Number(a.featured) || a.order - b.order);
 }
 
 export const getCapabilities = async (): Promise<Capability[]> => read("capabilities");

@@ -18,25 +18,41 @@ export function CallToAction() {
       mm.add(MOTION_OK, () => {
         gsap.fromTo(
           q(scope, "[data-cta-card]"),
-          { opacity: 0, y: 40, scale: 0.96 },
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
-            scale: 1,
-            duration: 0.9,
+            duration: 1.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: scope,
-              start: "top 82%",
+              start: "top 85%",
               once: true,
             },
-          },
+          }
+        );
+        
+        gsap.fromTo(
+          q(scope, "[data-cta-spec]"),
+          { opacity: 0, x: 20 },
+          {
+            opacity: 1,
+            x: 0,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: scope,
+              start: "top 75%",
+              once: true,
+            },
+          }
         );
       });
 
       return () => mm.revert();
     },
-    { scope: root },
+    { scope: root }
   );
 
   return (
@@ -44,80 +60,72 @@ export function CallToAction() {
       <div className="frame">
         <div
           data-cta-card
-          className="relative overflow-hidden rounded-[20px] sm:rounded-[26px] md:rounded-[30px] bg-gradient-to-b from-[#1862FF] via-[#0E54EC] to-[#083CA8] px-6 py-6 sm:px-9 sm:py-7 md:px-12 md:py-8 shadow-[0_20px_50px_-10px_rgba(13,84,236,0.36),0_8px_20px_-6px_rgba(0,0,0,0.12)] border border-white/25"
+          className="relative overflow-hidden rounded-[2rem] text-white flex flex-col md:flex-row shadow-2xl border border-white/10"
+          style={{background: "linear-gradient(135deg, #12305a 0%, #163660 50%, #1d4a82 100%)"}}
         >
-          {/* Subtle top light bloom */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(255,255,255,0.3),transparent_70%)]"
-          />
-
-          {/* Concentric spherical ripple rings (scaled down for sleek banner) */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
-          >
-            <div className="absolute h-[180px] w-[180px] rounded-full border border-white/[0.12]" />
-            <div className="absolute h-[320px] w-[320px] rounded-full border border-white/[0.08]" />
-            <div className="absolute h-[480px] w-[480px] rounded-full border border-white/[0.06]" />
-            <div className="absolute h-[680px] w-[680px] rounded-full border border-white/[0.04]" />
-            <div className="absolute h-[900px] w-[900px] rounded-full border border-white/[0.02]" />
-          </div>
-
-          {/* Bottom subtle ambient cyan glow */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-[radial-gradient(circle_at_50%_100%,rgba(56,189,248,0.18),transparent_70%)]"
-          />
-
-          {/* Main Card Content */}
-          <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-3 sm:gap-3.5 md:gap-4 text-center">
-            {/* Section Tag */}
-            <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-white/80 font-medium">
-              Monumental Event Infrastructure
-            </p>
-
-            {/* Headline */}
-            <h2 className="text-balance font-display text-[clamp(1.4rem,2.3vw,2.15rem)] font-bold leading-[1.08] tracking-tight text-white uppercase">
-              Ready to build at<br className="hidden sm:inline" /> monumental scale?
-            </h2>
-
-            {/* Subheading */}
-            <p className="max-w-[46ch] text-balance text-xs sm:text-[13px] md:text-sm leading-normal text-white/90">
-              From 100,000+ attendee national summits to high-precision industrial expos, our 49-year in-house crew and direct-owned inventory deliver turnkey execution across India.
-            </p>
-
-            {/* Primary Action Button */}
-            <div className="pt-0.5">
-              <Link
-                href="/contact"
-                className="group relative inline-flex items-center gap-2 rounded-full bg-ink px-6 py-2.5 font-display text-[11px] sm:text-xs font-semibold tracking-wider text-white uppercase shadow-lg transition-all duration-300 hover:scale-105 hover:bg-black hover:shadow-[0_0_24px_rgba(0,0,0,0.4)] active:scale-95"
-              >
-                <span>Discuss Your Event</span>
-                <span className="text-xs transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-              </Link>
+          {/* Left: Huge Typography */}
+          <div className="flex-1 p-6 sm:p-10 md:p-12 flex flex-col justify-between relative z-10">
+            <div>
+              <p className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-sky-300 font-semibold mb-3 sm:mb-4">
+                Monumental Event Infrastructure
+              </p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.05] mb-4 sm:mb-5 text-balance">
+                Ready to build at <br className="hidden md:block" />
+                <i className="font-serif text-sky-300 pr-2">monumental scale?</i>
+              </h2>
+              <p className="text-white/70 text-sm sm:text-base max-w-lg leading-relaxed text-balance">
+                From 100,000+ attendee national summits to high-precision industrial expos, our 49-year in-house crew and direct-owned inventory deliver turnkey execution across India.
+              </p>
             </div>
 
-            {/* Reassurance Trust Points */}
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 pt-0.5 text-[10px] sm:text-[11px] font-mono text-white/80">
-              <span className="inline-flex items-center gap-1">
-                <svg className="h-2.5 w-2.5 text-emerald-300 shrink-0" viewBox="0 0 16 16" fill="currentColor">
-                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                </svg>
-                Direct Owned Inventory
-              </span>
-              <span className="inline-flex items-center gap-1">
-                <svg className="h-2.5 w-2.5 text-emerald-300 shrink-0" viewBox="0 0 16 16" fill="currentColor">
-                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                </svg>
-                Zero Sub-Rentals
-              </span>
-              <span className="inline-flex items-center gap-1">
-                <svg className="h-2.5 w-2.5 text-emerald-300 shrink-0" viewBox="0 0 16 16" fill="currentColor">
-                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                </svg>
-                49+ Years Proven Execution
-              </span>
+            <div className="mt-8 sm:mt-10">
+              <Link
+                href="/contact"
+                className="group relative inline-flex items-center justify-between w-full sm:w-auto sm:min-w-[280px] bg-white text-ink rounded-full px-6 py-3.5 sm:py-4 font-semibold tracking-wide hover:bg-sky-400 hover:text-white transition-colors duration-500 shadow-xl shadow-black/10"
+              >
+                <span className="uppercase font-mono text-[11px] sm:text-xs tracking-widest">Discuss Your Event</span>
+                <span className="text-lg transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: The Grid / Features */}
+          <div className="w-full md:w-[40%] lg:w-[45%] relative bg-black/15 border-t md:border-t-0 md:border-l border-white/10 p-6 sm:p-10 md:p-12 flex flex-col justify-center">
+            {/* Blueprint grid background */}
+            <div
+              className="absolute inset-0 opacity-10 bg-[linear-gradient(rgba(255,255,255,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.2)_1px,transparent_1px)]"
+              style={{ backgroundSize: "32px 32px" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/20" />
+
+            <div className="relative z-10 flex flex-col gap-6 sm:gap-8">
+              {/* Trust points styled as engineering specs */}
+              <div data-cta-spec className="border-t border-white/20 pt-3 group">
+                <span className="font-mono text-[9px] text-sky-300 uppercase tracking-[0.2em] block mb-1 transition-colors duration-300 group-hover:text-accent">
+                  Asset Status
+                </span>
+                <span className="text-xl font-medium text-white/90">
+                  100% Direct Owned
+                </span>
+              </div>
+              
+              <div data-cta-spec className="border-t border-white/20 pt-3 group">
+                <span className="font-mono text-[9px] text-sky-300 uppercase tracking-[0.2em] block mb-1 transition-colors duration-300 group-hover:text-accent">
+                  Execution Model
+                </span>
+                <span className="text-xl font-medium text-white/90">
+                  Zero Sub-Rentals
+                </span>
+              </div>
+              
+              <div data-cta-spec className="border-t border-white/20 pt-3 group">
+                <span className="font-mono text-[9px] text-sky-300 uppercase tracking-[0.2em] block mb-1 transition-colors duration-300 group-hover:text-accent">
+                  Track Record
+                </span>
+                <span className="text-xl font-medium text-white/90">
+                  49+ Years Proven
+                </span>
+              </div>
             </div>
           </div>
         </div>

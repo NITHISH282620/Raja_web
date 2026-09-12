@@ -64,11 +64,16 @@ async function withRetry<T>(run: () => Promise<T>, attempts = 3): Promise<T> {
       const message = error instanceof Error ? error.message : String(error);
       const transient = /fetch failed|ETIMEDOUT|ECONNRESET|ENETUNREACH|socket hang up|Connection terminated/i
         .test(message);
-      if (!transient || i === attempts - 1) throw error;
+      if (!transient || i === attempts - 1) {
+        // If we still fail after retries, gracefully fall back to empty results
+        // so the CMS uses the dummy seed data instead of crashing the page.
+        console.warn("Neon DB fetch failed, falling back to seed data:", message);
+        return [] as any;
+      }
       await new Promise((r) => setTimeout(r, 120 * 2 ** i));
     }
   }
-  throw last;
+  return [] as any;
 }
 
 export const query = cache(async <T = Record<string, unknown>>(

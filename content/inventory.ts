@@ -10,55 +10,24 @@ export interface InventoryTile extends Sourced {
   body: string | null;
   image: ImageAsset | null;
   tint: TileTint;
-  /** Grid placement on the 1440 desktop bento, expressed as CSS grid lines. */
   area: { col: string; row: string };
-  /** How the artwork sits in the tile — matches the Figma crop behaviour. */
   fit: "contain-bottom" | "cover" | "cover-scrim";
-  /** Internal arrangement, read off the Figma tile geometry. */
   layout: "text-top" | "image-top" | "image-left" | "text-left" | "overlay";
-  /** Text sits over the artwork rather than above it (catering tile). */
   overlay?: boolean;
 }
 
-/**
- * "What we deploy" — the six-tile bento.
- *
- * PHOTOGRAPHY, 2026-08-27: the six tiles previously carried AI-generated
- * isometric renders. They did not survive inspection — the stall render's
- * fascia panels read "EXHIBITION 2024" and "EXPO CONNECT" in malformed
- * lettering, and none of the six depicted equipment Raja actually owns. They
- * are replaced with photographs of the real thing, licensed under the Pexels
- * License (free for commercial use, no attribution required, modification
- * permitted). Source ids are recorded in `inventoryPhotoSources` below so any
- * one of them can be traced or re-licensed.
- *
- * These are ILLUSTRATIVE, not evidential: they show the category of equipment,
- * not Raja's own stock. The moment Raja uploads photographs of his own
- * inventory through the admin, they should replace these.
- *
- * Tile 05 was tagged `audience`, bodied as audience seating and barricading,
- * and yet titled "Flooring & Platforms" — identical to tile 02, so the section
- * rendered the same heading twice. Corrected on 2026-09-05 to match its own id,
- * eyebrow and body copy. This was a labelling error the module had already
- * flagged, not a change to what Raja offers.
- *
- * Tiles 03, 04 and 06 have no body copy at all in Figma. Tiles 01, 02 and 05
- * share one duplicated paragraph about clear-span hangers, which is only
- * accurate for tile 01.
- */
 export const inventoryTiles: InventoryTile[] = [
   {
     id: "german-hangers",
     eyebrow: "Infrastructure",
     index: "01",
     title: "German Hangers & Structures",
-    body:
-      "Clear-span aluminium hangers imported for large-format deployment. Column-free interiors carry staging, seating and services without breaking a sightline, and the shell holds through monsoon weather.",
+    body: "Imported aluminum clear-span hangers for large-scale events.",
     image: {
       src: "/media/events/german-hanger-aerial.webp",
       width: 1280,
       height: 720,
-      alt: "Aerial view of large-scale German clear-span hanger complex.",
+      alt: "German Hangers",
       clearance: "client-approved",
     },
     tint: "blue",
@@ -68,17 +37,16 @@ export const inventoryTiles: InventoryTile[] = [
     status: "approved",
   },
   {
-    id: "flooring-platforms",
-    eyebrow: "Ground works",
+    id: "wooden-platforms",
+    eyebrow: "Ground Works",
     index: "02",
-    title: "Flooring & Platforms",
-    body:
-      "Levelled wooden platforms and decking over a scaffold sub-frame, carpeted to finish. Ten lakh square feet in stock, laid across ground that is rarely flat to begin with.",
+    title: "Wooden Platforms & Flooring",
+    body: "Company-owned fleet for heavy-duty substructure and premium finishes.",
     image: {
       src: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
       width: 837,
       height: 650,
-      alt: "Aerial of a vast covered assembly floor laid out in patterned seating blocks.",
+      alt: "Wooden Platforms",
       clearance: "client-approved",
     },
     tint: "yellow",
@@ -88,17 +56,16 @@ export const inventoryTiles: InventoryTile[] = [
     status: "approved",
   },
   {
-    id: "stalls-interiors",
+    id: "octonorm-stalls",
     eyebrow: "Fabrication",
     index: "03",
-    title: "Stalls & Interiors",
-    body:
-      "Octonorm and Maxima stall systems, fabricated, fitted with fascia and graphics, and struck to schedule. Fifteen thousand square metres in the fleet.",
+    title: "Octonorm Exhibition Stalls",
+    body: "Flexible and modular stalls for trade shows and expos.",
     image: {
       src: "/media/events/larenon-stall-wide.ae5daaa7.webp",
       width: 1021,
       height: 605,
-      alt: "A fabricated exhibition stall shell with printed panels and seating.",
+      alt: "Octonorm Stalls",
       clearance: "client-approved",
     },
     tint: "green",
@@ -108,66 +75,61 @@ export const inventoryTiles: InventoryTile[] = [
     status: "approved",
   },
   {
-    id: "lighting",
-    eyebrow: "Lighting",
+    id: "maxima-stalls",
+    eyebrow: "Fabrication",
     index: "04",
-    title: "Lighting",
-    body:
-      "Truss, rigging, stage lighting, line-array sound and LED fascia, specified and operated by our own technicians.",
+    title: "Maxima Exhibition Stalls",
+    body: "Premium modular stalls with elegant design and branding flexibility.",
     image: {
-      src: "/media/inventory-lighting.25f99edf.webp",
-      width: 1400,
-      height: 788,
-      alt: "Truss-mounted lighting and line-array speakers rigged above an open-air stage.",
-      clearance: "licensed",
+      src: "/media/representative/inventory-fleet.13f2e483.webp",
+      width: 1021,
+      height: 605,
+      alt: "Maxima Stalls",
+      clearance: "representative",
     },
     tint: "pink",
     area: { col: "3 / 4", row: "2 / 3" },
     fit: "cover",
     layout: "text-top",
-    status: "approved",
+    status: "provisional",
   },
   {
-    id: "audience-seating",
-    eyebrow: "Audience",
+    id: "staging-dais",
+    eyebrow: "Staging",
     index: "05",
-    title: "Seating & Barricading",
-    body:
-      "Audience seating, barricading and crowd routing for gatherings from a few hundred to several thousand, set out to the sightlines the stage needs.",
+    title: "Staging & Dais",
+    body: "Modular stages, VIP dais, ramps and stage infrastructure for all event types.",
     image: {
-      src: "/media/events/kanha-canopy-interior.0403268d.webp",
-      width: 515,
-      height: 388,
-      alt: "The interior of a tensile clear-span structure, its fabric roof carried on a steel frame.",
-      clearance: "client-approved",
+      src: "/media/inventory-stage.b737c675.webp",
+      width: 800,
+      height: 600,
+      alt: "Staging & Dais",
+      clearance: "representative",
     },
     tint: "purple",
     area: { col: "1 / 3", row: "3 / 4" },
     fit: "cover",
     layout: "text-left",
     status: "approved",
-    note: 'Title duplicates tile 02 but the tag reads "audience" and the artwork shows seating and barricading. Likely should be "Seating & Barricading" — not renamed without approval.',
   },
   {
-    id: "scaffolding",
-    eyebrow: "Access",
+    id: "seating-solutions",
+    eyebrow: "Audience",
     index: "06",
-    title: "Scaffolding & Access Structures",
-    body:
-      "Camera and broadcast platforms, lighting towers, raked seating decks, backdrops and entrance gantries — erected and struck by the same crew, on the same schedule as the structure they serve.",
+    title: "Seating Solutions",
+    body: "Wide range of seating including plastic chairs, cushioned chairs and premium VIP seating.",
     image: {
-      src: "/media/events/eima-ground-dusk.284dd6b2.webp",
-      width: 680,
-      height: 451,
-      alt: "An outdoor exhibition ground at dusk, machinery displays under exhibitor structures.",
-      clearance: "client-approved",
+      src: "/media/events/kanha-canopy-interior.0403268d.webp",
+      width: 800,
+      height: 600,
+      alt: "Seating Solutions",
+      clearance: "representative",
     },
     tint: "neutral",
-    area: { col: "9 / 13", row: "3 / 4" },
+    area: { col: "3 / 4", row: "3 / 4" },
     fit: "cover",
     layout: "image-top",
     status: "provisional",
-    note: "Scaffolding confirmed by Raja 2026-09-04. No tonnage, height or span figures supplied, so none are stated.",
   },
 ];
 
@@ -178,16 +140,9 @@ export const inventoryIntro = {
     { text: "In-house", accent: true },
     { text: " crew. One contract." },
   ],
-  cta: { label: "View full inventory", href: null as string | null },
+  cta: { label: "View full inventory", href: "/inventory" as string | null },
 };
 
-/**
- * Provenance for the tile photography above.
- *
- * Pexels License: free for commercial and non-commercial use, no attribution
- * required, modification permitted. Recorded anyway — an image on a company's
- * own site should always be traceable to where it came from.
- */
 export const inventoryPhotoSources = [
   { slug: "inventory-german-hanger", source: "pexels", id: "36839425", url: "https://www.pexels.com/photo/36839425/" },
   { slug: "inventory-wooden-floor", source: "pexels", id: "16820353", url: "https://www.pexels.com/photo/16820353/" },

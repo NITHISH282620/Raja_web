@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
 import { InventoryHero } from "@/components/inventory/InventoryHero";
-import { InventoryCatalog } from "@/components/inventory/InventoryCatalog";
+import { InventoryShowcase } from "@/components/inventory/InventoryShowcase";
 import { InventoryEstimator } from "@/components/inventory/InventoryEstimator";
 import { InventoryCompliance } from "@/components/inventory/InventoryCompliance";
 import { getCatalog } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: "Inventory & Systems — Direct Owned Physical Assets",
+  title: "Inventory & Systems — Direct Owned Physical Assets | Raja Enterprises",
   description:
-    "German clear-span hangers, wooden flooring, staging, mobile HVAC and barricading — owned outright by Raja Enterprises and deployed from its Bengaluru yard.",
+    "German clear-span hangers, modular wooden flooring, VIP staging, scaffolding, and mobile HVAC — directly owned by Raja Enterprises and deployed pan-India.",
 };
 
 export default async function InventoryPage() {
+  const categories = await getCatalog();
+
   return (
     <main id="main" className="relative w-full bg-paper">
       <InventoryHero />
-      <InventoryCatalog categories={await getCatalog()} />
+      <InventoryShowcase categories={categories} />
       <InventoryEstimator />
       <InventoryCompliance />
     </main>

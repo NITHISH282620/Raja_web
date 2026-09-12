@@ -47,62 +47,92 @@ const EVOLUTION_DATA: EvolutionRow[] = [
   },
 ];
 
-export function LegacyEvolution() {
+export async function LegacyEvolution() {
   return (
-    <section className="relative w-full bg-paper py-16 sm:py-24 md:py-32 border-t border-ink/10">
-      <div className="frame">
+    <section data-evolution-section className="relative w-full py-20 sm:py-28 md:py-36 overflow-hidden bg-paper">
+      {/* Ghost chapter numeral */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-8 -left-4 sm:-left-8 select-none leading-none font-mono font-black text-ink/5"
+        style={{ fontSize: "clamp(140px, 22vw, 320px)" }}
+      >
+        03
+      </div>
+
+      <div className="frame relative z-10">
         {/* Header */}
-        <div className="flex flex-col gap-4 mb-12 sm:mb-16 max-w-3xl">
-          <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
-            Chapter 03: Evolution of the Craft
-          </p>
-          <h2 className="t-statement text-ink text-balance font-semibold">
-            The Technological Leap. <br />
-            <span className="text-brand-blue">Then vs. Now Across Four Decades.</span>
-          </h2>
-          <p className="t-body text-body-light leading-relaxed max-w-[50ch]">
-            {copyText("legacy-evolution-0")}
+        <div className="flex items-center gap-4 mb-10 sm:mb-14">
+          <span className="h-px flex-1 max-w-[60px] bg-accent/60" />
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-accent font-semibold">
+            Chapter 03 · Evolution of the Craft
           </p>
         </div>
 
-        {/* Evolution Cards Progression */}
-        <Reveal as="div" variant="riseCard" select=":scope > div > *">
-        <div className="space-y-6">
+        <div className="flex flex-col gap-4 mb-14 sm:mb-20 max-w-3xl">
+          <h2
+            data-evolution-header
+            className="font-semibold tracking-tight text-ink text-balance"
+            style={{ fontSize: "clamp(28px, 4vw, 52px)", lineHeight: 1.1 }}
+          >
+            The Technological Leap.{" "}
+            <span className="text-brand-blue">Then vs. Now Across Four Decades.</span>
+          </h2>
+          <p data-evolution-header className="text-base text-body-light leading-relaxed max-w-[50ch]">
+            {await copyText("legacy-evolution-0")}
+          </p>
+        </div>
+
+        {/* Column headers */}
+        <div data-evolution-labels className="grid grid-cols-[1fr_auto_1fr] gap-4 mb-8 items-center">
+          <div className="rounded-xl border border-ink/10 bg-white/50 px-5 py-3 text-center">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-ink/60">
+              Foundational Heritage · 1970s–1980s
+            </span>
+          </div>
+          <div className="w-px bg-ink/10 self-stretch" />
+          <div className="rounded-xl border border-brand-blue/20 bg-brand-blue/5 px-5 py-3 text-center">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-brand-blue font-semibold">
+              Contemporary Standard · 2020s
+            </span>
+          </div>
+        </div>
+
+        {/* Evolution Rows */}
+        <Reveal as="div" variant="land" className="space-y-4">
           {EVOLUTION_DATA.map((row, index) => (
             <div
               key={row.domain}
-              className="rounded-2xl border border-ink/10 bg-white p-6 sm:p-8 shadow-xs transition-all duration-300 hover:border-brand-blue/30 hover:shadow-md"
+              data-evolution-row
+              className="rounded-2xl border border-ink/10 bg-white shadow-sm overflow-hidden hover:border-brand-blue/30 hover:shadow-md transition-all duration-300"
             >
-              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-brand-blue font-semibold border-b border-ink/10 pb-3 mb-6">
-                <span>Domain 0{index + 1}:</span>
-                <span>{row.domain}</span>
+              {/* Domain header */}
+              <div className="flex items-center gap-3 px-6 py-4 border-b border-ink/5 bg-neutral-50/50">
+                <span className="font-mono text-xs text-accent font-bold bg-accent/10 px-2 py-0.5 rounded-md">
+                  0{index + 1}
+                </span>
+                <span className="font-mono text-xs uppercase tracking-wider text-ink font-semibold">
+                  {row.domain}
+                </span>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-start">
+              <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-ink/10">
                 {/* Then */}
-                <div className="rounded-xl border border-ink/10 bg-neutral-50/70 p-5 space-y-2">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50 block">
-                    Foundational Heritage (1970s–1980s)
-                  </span>
-                  <h3 className="text-base sm:text-lg font-semibold text-ink/80">{row.thenTitle}</h3>
+                <div className="p-5 sm:p-6 space-y-3 bg-neutral-50/30">
+                  <h3 className="text-sm sm:text-base font-semibold text-ink/70">{row.thenTitle}</h3>
                   <p className="text-xs sm:text-sm text-body-light leading-relaxed">{row.thenDesc}</p>
                 </div>
 
                 {/* Now */}
-                <div className="rounded-xl border border-brand-blue/30 bg-brand-blue/[0.03] p-5 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-brand-blue font-semibold block">
-                      Contemporary Standard (2020s)
-                    </span>
-
+                <div className="p-5 sm:p-6 space-y-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-2 h-2 rounded-full bg-brand-blue shrink-0" />
+                    <h3 className="text-sm sm:text-base font-semibold text-brand-blue">{row.nowTitle}</h3>
                   </div>
-                  <h3 className="text-base sm:text-lg font-semibold text-ink">{row.nowTitle}</h3>
                   <p className="text-xs sm:text-sm text-body-light leading-relaxed">{row.nowDesc}</p>
                 </div>
               </div>
             </div>
           ))}
-        </div>
         </Reveal>
       </div>
     </section>

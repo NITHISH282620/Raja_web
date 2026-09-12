@@ -72,18 +72,18 @@ export function ResourcesView({ schedule, tiles }: { schedule: InventoryLine[]; 
         </div>
 
         {/* Top Row */}
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid gap-6 lg:grid-cols-3 items-stretch">
           
           {/* Top Cards */}
-          <div className="lg:col-span-2 lg:self-start grid gap-6 md:grid-cols-2">
+          <div className="lg:col-span-2 grid gap-6 md:grid-cols-2 items-stretch">
             {topCards.map((tile) => (
               <div
                 key={tile.id}
                 data-top-card
                 data-reveal
-                className="flex flex-col overflow-hidden rounded-[20px] bg-white shadow-sm border border-ink/5"
+                className="flex flex-col h-full overflow-hidden rounded-[20px] bg-white shadow-sm border border-ink/5"
               >
-                <div className="relative aspect-[16/10] w-full bg-mist overflow-hidden">
+                <div className="relative aspect-[16/10] w-full bg-mist overflow-hidden shrink-0">
                   {tile.image && (
                     <Image
                       src={tile.image.src}
@@ -94,15 +94,15 @@ export function ResourcesView({ schedule, tiles }: { schedule: InventoryLine[]; 
                     />
                   )}
                 </div>
-                <div className="flex flex-col flex-1 p-6 gap-3">
+                <div className="flex flex-col flex-1 p-5 xl:p-6 gap-2 xl:gap-3">
                   <div className="flex items-center gap-3">
                     <span className="t-eyebrow text-ink font-bold tabular-nums">{tile.index}</span>
                     <div className="h-px w-8 bg-ink/20"></div>
                     <span className="t-eyebrow text-ink/50 uppercase tracking-wider">{tile.eyebrow}</span>
                   </div>
-                  <h3 className="text-2xl font-serif text-ink leading-tight">{tile.title}</h3>
+                  <h3 className="text-xl xl:text-2xl font-serif text-ink leading-tight">{tile.title}</h3>
                   {tile.body && (
-                    <p className="t-body-sm text-body-light leading-relaxed">
+                    <p className="t-body-sm text-xs xl:text-sm text-body-light leading-relaxed">
                       {tile.body}
                     </p>
                   )}
@@ -115,35 +115,37 @@ export function ResourcesView({ schedule, tiles }: { schedule: InventoryLine[]; 
           <div 
             data-schedule-panel 
             data-reveal
-            className="flex flex-col overflow-hidden rounded-[20px] border border-ink/5 bg-white p-7 shadow-sm lg:self-start lg:p-8"
+            className="flex flex-col justify-between h-full overflow-hidden rounded-[20px] border border-ink/5 bg-white p-5 sm:p-6 lg:p-5 xl:p-7 2xl:p-8 shadow-sm"
           >
-            <div className="mb-4 flex items-center gap-3">
-              <div className="h-px w-8 bg-ink/20"></div>
-              <span className="t-eyebrow text-ink/50 uppercase tracking-wider">Held in stock</span>
+            <div className="flex flex-col">
+              <div className="mb-3 xl:mb-4 flex items-center gap-3">
+                <div className="h-px w-8 bg-ink/20"></div>
+                <span className="t-eyebrow text-ink/50 uppercase tracking-wider">Held in stock</span>
+              </div>
+              
+              <h3 className="mb-2 xl:mb-3 font-serif text-xl xl:text-2xl text-ink leading-tight">The inventory schedule</h3>
+              <p className="t-body-sm text-xs xl:text-sm mb-4 xl:mb-5 leading-relaxed text-body-light">
+                Raja Enterprises completely owns its entire inventory line. This eliminates reliance on third-party sub-rentals, giving us absolute control over deployment timelines and massive scale across India.
+              </p>
+
+              <ul className="flex flex-col gap-2 xl:gap-2.5">
+                {scheduleItems.map((item, i) => (
+                  <li key={i} data-schedule-item data-reveal className="flex items-end justify-between gap-3 border-b border-ink/5 pb-2 xl:pb-2.5">
+                    <span className="t-body-sm text-xs xl:text-sm text-ink/80">{item.item}</span>
+                    <span className="t-body-sm text-xs xl:text-sm font-bold text-ink text-right tabular-nums whitespace-nowrap shrink-0">
+                      {item.capacity} <span className="text-[9px] xl:text-[10px] uppercase tracking-wider text-ink/50 ml-1">{item.unit}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            
-            <h3 className="mb-3 font-serif text-2xl text-ink">The inventory schedule</h3>
-            <p className="t-body-sm mb-6 leading-relaxed text-body-light">
-              Raja Enterprises completely owns its entire inventory line. This eliminates reliance on third-party sub-rentals, giving us absolute control over deployment timelines and massive scale across India.
-            </p>
 
-            <ul className="flex flex-col gap-3">
-              {scheduleItems.map((item, i) => (
-                <li key={i} data-schedule-item data-reveal className="flex items-end justify-between gap-4 border-b border-ink/5 pb-3">
-                  <span className="t-body-sm text-ink/80">{item.item}</span>
-                  <span className="t-body-sm font-bold text-ink text-right tabular-nums whitespace-nowrap">
-                    {item.capacity} <span className="text-[10px] uppercase tracking-wider text-ink/50 ml-1">{item.unit}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-6">
+            <div className="mt-4 xl:mt-6 pt-2">
               <Link 
                 href={ROUTES.inventory}
-                className="t-eyebrow text-brand-blue uppercase tracking-widest flex items-center gap-2 hover:text-accent transition-colors"
+                className="t-eyebrow text-brand-blue uppercase tracking-widest flex items-center gap-2 hover:text-accent transition-colors text-xs xl:text-sm"
               >
-                Full schedule <span className="text-lg">&rarr;</span>
+                Full schedule <span className="text-base xl:text-lg">&rarr;</span>
               </Link>
             </div>
           </div>

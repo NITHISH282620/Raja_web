@@ -126,8 +126,8 @@ export function SiteNav({ contact }: { contact: ContactSettings }) {
         <div
           className={clsx(
             "pointer-events-auto relative flex items-center justify-between rounded-full transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500",
-            // 75% viewport width on desktop, strictly capped, creating the compact floating pill effect
-            "w-full max-w-[1100px] lg:w-[75vw]",
+            // Expanded to 95vw on tablet to prevent nav collapse, then 75vw on large desktops
+            "w-full max-w-[1100px] lg:w-[95vw] xl:w-[75vw]",
             // Fixed height to ensure perfect geometric proportions
             "h-[64px] lg:h-[76px]",
             // Asymmetric padding: generous on the left for the logo, tight on the right to hug the CTA
@@ -181,8 +181,8 @@ export function SiteNav({ contact }: { contact: ContactSettings }) {
             />
           </span>
 
-          {/* NAVIGATION: Absolutely centered within the pill to ensure perfect balance */}
-          <nav aria-label="Primary" className="hidden lg:flex lg:items-center lg:gap-[clamp(24px,2.5vw,40px)] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          {/* NAVIGATION: Flex-1 centered to ensure it never overlaps the logo or CTA on tight screens */}
+          <nav aria-label="Primary" className="hidden lg:flex lg:items-center lg:justify-center lg:flex-1 lg:gap-[clamp(16px,2vw,40px)]">
             {primaryNav.map((item) => {
               const active = pathname === item.href;
               return (
