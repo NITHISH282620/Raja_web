@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageMasthead, Band } from "@/components/PageShell";
-import { hangerInUse } from "@/content/services";
+import { hangarInUse } from "@/content/services";
 import { findServiceBySlug, getPagedServices } from "@/lib/store";
 import { company } from "@/content/company";
 import { abs, SITE_URL } from "@/lib/site";
@@ -191,8 +191,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </figcaption>
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[20px] bg-ink/5">
               <Image
-                src={hangerInUse.src}
-                alt={hangerInUse.alt}
+                src={hangarInUse.src}
+                alt={hangarInUse.alt}
                 fill
                 loading="lazy"
                 sizes="(max-width: 1024px) 96vw, 640px"
