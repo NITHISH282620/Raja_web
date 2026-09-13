@@ -44,17 +44,17 @@ export interface ServicePillar extends Sourced {
 export const servicePillars: ServicePillar[] = [
   {
     slug: "german-hangers",
-    title: "German Hangers & Temporary Structures",
-    heading: "German hangers and temporary structures",
+    title: "German Hangars & Temporary Structures",
+    heading: "German hangars and temporary structures",
     summary:
-      "Imported clear-span hangers erected on prepared ground — column-free interiors that carry staging, seating and services without breaking a sightline.",
+      "Imported clear-span hangars erected on prepared ground — column-free interiors that carry staging, seating and services without breaking a sightline.",
     body: [
-      "A German hanger is a clear-span aluminium structure: no internal columns, so the whole floor plate is usable and every seat has a sightline to the stage. It is the difference between a marquee and a building that happens to be temporary.",
-      "Raja owns its hangers rather than sub-hiring them. That matters on two counts — the structure is available when the calendar says it is, and the crew erecting it has put up the same frames hundreds of times.",
+      "A German hangar is a clear-span aluminium structure: no internal columns, so the whole floor plate is usable and every seat has a sightline to the stage. It is the difference between a marquee and a building that happens to be temporary.",
+      "Raja owns its hangars rather than sub-hiring them. That matters on two counts — the structure is available when the calendar says it is, and the crew erecting it has put up the same frames hundreds of times.",
       "Spans are configured to the site. The shell holds through monsoon weather, and flooring, climate control, staging and power are specified as one package rather than coordinated between four suppliers.",
     ],
     capacity: [
-      { label: "Owned hanger area", value: "5,00,000 sq ft" },
+      { label: "Owned hangar area", value: "5,00,000 sq ft" },
       { label: "Configuration", value: "Clear-span, column-free" },
       { label: "Weather", value: "Monsoon-rated shell" },
     ],
@@ -64,7 +64,7 @@ export const servicePillars: ServicePillar[] = [
       src: "/media/raja/hanger-frame-erection.8e578fc4.webp",
       width: 1600,
       height: 1204,
-      alt: "A German hanger frame part-erected on open ground at sunrise, its aluminium portal frames standing unclad against the sky.",
+      alt: "A German hangar frame part-erected on open ground at sunrise, its aluminium portal frames standing unclad against the sky.",
       clearance: "raja-original",
       credit: "Raja Enterprises",
     },
@@ -107,7 +107,7 @@ export const servicePillars: ServicePillar[] = [
       "Raja owns ten lakh square feet of decking and platform stock, laid and struck by its own crew.",
     ],
     capacity: [{ label: "Owned flooring area", value: "10,00,000 sq ft" }],
-    bundled: ["German hangers", "Carpeting", "Staging"],
+    bundled: ["German hangars", "Carpeting", "Staging"],
     image:
     {
       src: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
@@ -190,7 +190,7 @@ export const servicePillars: ServicePillar[] = [
       "Raja has built for state ceremonies, national programmes and public-sector conferences for decades, including high-security environments and stadium-scale turnkey builds against short turnarounds.",
     ],
     capacity: [],
-    bundled: ["German hangers", "Staging", "Event flooring", "Barricading", "Climate control"],
+    bundled: ["German hangars", "Staging", "Event flooring", "Barricading", "Climate control"],
     image:
     {
       src: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
@@ -219,7 +219,7 @@ export const servicePillars: ServicePillar[] = [
       { label: "Power & distribution", value: "Synchronized clean feeds & silent gensets" },
       { label: "Deployment", value: "Pan-India turnkey delivery" },
     ],
-    bundled: ["German hangers", "Staging, Seating & Dais", "Event Scaffolding", "Power distribution"],
+    bundled: ["German hangars", "Staging, Seating & Dais", "Event Scaffolding", "Power distribution"],
     image: {
       src: "/media/inventory-lighting.25f99edf.webp",
       width: 1200,
@@ -240,7 +240,7 @@ export const servicePillars: ServicePillar[] = [
       "3,000 tons of owned mobile chilling equipment, high-volume air handling units, and insulated ducting stabilizing indoor temperatures at 22°C–24°C across mega hangars.",
     body: [
       "A temporary structure during peak Indian summers is unusable without industrial-grade climate control. Raja owns and deploys 3,000 tons of mobile packaged chilling plants, precision air handling units, and textile laminar ducting.",
-      "Our HVAC solutions are sized specifically to the volume of each German hanger and the expected crowd density, maintaining a comfortable 22°C to 24°C environment even when exterior ambient temperatures exceed 45°C.",
+      "Our HVAC solutions are sized specifically to the volume of each German hangar and the expected crowd density, maintaining a comfortable 22°C to 24°C environment even when exterior ambient temperatures exceed 45°C.",
       "Quiet air handling units ensure conference and broadcast audio remain crystal clear, with engineered condensation barriers and concealed drain piping protecting subfloors and delegate footways.",
     ],
     capacity: [
@@ -248,7 +248,7 @@ export const servicePillars: ServicePillar[] = [
       { label: "Target temperature", value: "22°C – 24°C in 45°C ambient heat" },
       { label: "Ducting technology", value: "Laminar textile air socks & spiral ducting" },
     ],
-    bundled: ["German hangers", "Event flooring", "Power distribution"],
+    bundled: ["German hangars", "Event flooring", "Power distribution"],
     image: {
       src: "/media/events/kanha-canopy-interior.0403268d.webp",
       width: 1280,
@@ -277,7 +277,7 @@ export const servicePillars: ServicePillar[] = [
       { label: "Barrier types", value: "Interlocking galvanized steel & mojo barriers" },
       { label: "Foot system", value: "Anti-trip flat plates & bridge feet" },
     ],
-    bundled: ["German hangers", "Staging and Dais", "Event scaffolding"],
+    bundled: ["German hangars", "Staging and Dais", "Event scaffolding"],
     image: {
       src: "/media/representative/inventory-barricades.f368fe44.webp",
       width: 1200,
@@ -306,7 +306,7 @@ export const servicePillars: ServicePillar[] = [
       { label: "Vehicle classes", value: "10-wheelers, 6-wheelers, flatbeds & cranes" },
       { label: "Depot hub", value: "Central Logistics Yard, Bengaluru" },
     ],
-    bundled: ["German hangers", "Event scaffolding", "Event flooring", "Staging, Seating & Dais"],
+    bundled: ["German hangars", "Event scaffolding", "Event flooring", "Staging, Seating & Dais"],
     image: {
       src: "/media/representative/inventory-fleet.13f2e483.webp",
       width: 1200,
@@ -400,13 +400,13 @@ export const servicesIntro = {
 };
 
 /**
- * A second view of a hanger in use, for the German hangers page.
+ * A second view of a hangar in use, for the German hangars page.
  *
  * REPRESENTATIVE, not evidence: it shows what a clear-span structure looks like
  * full of people, which is the thing the frame photograph cannot show. It is
  * never captioned as Raja's work.
  */
-export const hangerInUse: ImageAsset = {
+export const hangarInUse: ImageAsset = {
       src: "/media/events/kanha-canopy-interior.0403268d.webp",
       width: 515,
       height: 388,

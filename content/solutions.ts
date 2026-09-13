@@ -4,7 +4,7 @@ import type { ProjectCategory } from "./projects";
  * Buyer-side solution pages.
  *
  * WHY THESE EXIST SEPARATELY FROM SERVICES. `content/services.ts` is organised
- * the way Raja thinks about the business — hangers, flooring, staging, stalls,
+ * the way Raja thinks about the business — hangars, flooring, staging, stalls,
  * scaffolding. That is the right structure for someone who already knows what
  * they need to hire. It is the wrong structure for the buyer this site is
  * trying to win, who does not arrive looking for "clear-span structures"; they

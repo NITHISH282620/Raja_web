@@ -13,7 +13,7 @@ export const metadata: Metadata = {
  * itself rather than a field to type into.
  */
 const ROUTES: { href: string; label: string; blurb: string }[] = [
-  { href: "/services", label: "Services", blurb: "Hangers, stalls, flooring, staging, scaffolding" },
+  { href: "/services", label: "Services", blurb: "Hangars, stalls, flooring, staging, scaffolding" },
   { href: "/projects", label: "Projects", blurb: "What we have built, and at what scale" },
   { href: "/inventory", label: "Inventory", blurb: "What we own and deploy" },
   { href: "/about", label: "About", blurb: "Who we are and how we work" },

@@ -47,7 +47,7 @@ export const partnerPoints: PartnerPoint[] = [
     id: "one-scope-instead-of-six-vendors",
     heading: "One scope instead of six vendors",
     body:
-      "Hangers, floor, stage, stalls, seating and access structures under one scope and one schedule, so co-ordination between trades is our problem rather than a line on your critical path.",
+      "Hangars, floor, stage, stalls, seating and access structures under one scope and one schedule, so co-ordination between trades is our problem rather than a line on your critical path.",
     order: 0,
     status: "approved",
   },

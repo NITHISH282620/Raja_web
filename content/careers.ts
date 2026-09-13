@@ -36,7 +36,7 @@ export const disciplines: Discipline[] = [
   {
     index: "01",
     title: "Site crew",
-    body: "Raising hangers and clear-span structures, laying wooden platforms and flooring, building and striking stalls. Physical work, on site, often to a fixed opening date.",
+    body: "Raising hangars and clear-span structures, laying wooden platforms and flooring, building and striking stalls. Physical work, on site, often to a fixed opening date.",
   },
   {
     index: "02",

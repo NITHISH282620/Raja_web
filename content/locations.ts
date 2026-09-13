@@ -84,7 +84,7 @@ export const locations: LocationRecord[] = [
     published: true,
     seoTitle: "Event Infrastructure in Bengaluru",
     seoDescription:
-      "German hangers, flooring, staging and exhibition build in Bengaluru, from an owned yard and an in-house crew. Raja Enterprises, established 1977.",
+      "German hangars, flooring, staging and exhibition build in Bengaluru, from an owned yard and an in-house crew. Raja Enterprises, established 1977.",
     status: "approved",
   },
   {

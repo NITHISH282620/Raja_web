@@ -274,7 +274,7 @@ export const projects: Project[] = [
         src: "/media/events/german-hanger-aerial.webp",
         width: 1280,
         height: 720,
-        alt: "Aerial view of engineered German clear-span hanger structures.",
+        alt: "Aerial view of engineered German clear-span hangar structures.",
         clearance: "client-approved",
       },
       {

@@ -15,7 +15,7 @@ export interface InventoryLine extends Sourced {
 }
 
 export const inventorySchedule: InventoryLine[] = [
-  { item: "Imported German hangers", capacity: "5,00,000+", unit: "sq ft", status: "approved" },
+  { item: "Imported German hangars", capacity: "5,00,000+", unit: "sq ft", status: "approved" },
   { item: "Wooden floor platforms", capacity: "10,00,000+", unit: "sq ft", status: "approved" },
   { item: "Octonorm & Maxima stalls", capacity: "15,000", unit: "sq m", status: "approved" },
   { item: "Air-conditioning", capacity: "3,000", unit: "tons", status: "approved" },

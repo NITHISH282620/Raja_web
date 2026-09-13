@@ -31,7 +31,7 @@ const robotoMono = Roboto_Mono({
 });
 
 const description =
-  "Turnkey event infrastructure since 1977: German hangers, flooring, staging, stalls and seating, installed by our own crew from a Bengaluru yard.";
+  "Turnkey event infrastructure since 1977: German hangars, flooring, staging, stalls and seating, installed by our own crew from a Bengaluru yard.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   applicationName: company.name,
   keywords: [
     "event infrastructure",
-    "German hangers",
+    "German hangars",
     "exhibition stalls",
     "staging contractor",
     "wooden flooring",
@@ -103,7 +103,7 @@ function buildJsonLd(contact: Awaited<ReturnType<typeof getContact>>) {
       : {}),
     knowsAbout: [
       "Event infrastructure",
-      "German hangers",
+      "German hangars",
       "Exhibition stall fabrication",
       "Event flooring",
       "Staging",

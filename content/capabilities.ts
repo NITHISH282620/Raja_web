@@ -44,14 +44,14 @@ export const capabilities: Capability[] = [
   {
     id: "structural-build",
     index: "01",
-    title: "German Hangers & Temporary Structures",
-    summary: "Imported German hangers and clear-span structures, erected on prepared ground.",
+    title: "German Hangars & Temporary Structures",
+    summary: "Imported German hangars and clear-span structures, erected on prepared ground.",
     image: {
       id: "capability-structure",
       src: "/media/events/german-hanger-aerial.webp",
       width: 1280,
       height: 720,
-      alt: "Aerial view of engineered German clear-span hanger structures and event pavilions.",
+      alt: "Aerial view of engineered German clear-span hangar structures and event pavilions.",
       focal: "center",
       clearance: "client-approved",
     },

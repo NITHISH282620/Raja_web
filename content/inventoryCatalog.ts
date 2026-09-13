@@ -47,7 +47,7 @@ export const inventoryCategories: InventoryCategory[] = [
       "Multi-Acre Cultural & Spiritual Convocations"
     ],
     image: "/media/events/german-hanger-aerial.webp",
-    alt: "Aerial view of large-scale German clear-span hanger complex.",
+    alt: "Aerial view of large-scale German clear-span hangar complex.",
     href: "/services/german-hangers",
     group: "Structures",
     index: "01",

@@ -42,7 +42,7 @@ export interface Stat extends Sourced {
 
 /** The four full-bleed rows in the "Our resource" band, in Figma order. */
 export const stats: Stat[] = [
-  { label: "Sq. ft. imported German hangers", value: "5,00,000", status: "approved" },
+  { label: "Sq. ft. imported German hangars", value: "5,00,000", status: "approved" },
   { label: "Sq. ft. wooden floor platforms", value: "10,00,000", status: "approved" },
   { label: "Sq. ft. stage infrastructure", value: "1,00,000", status: "approved" },
   { label: "Own goods vehicles", value: "20", status: "approved" },

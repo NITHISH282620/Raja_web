@@ -70,7 +70,7 @@ export const CTA = {
  * corner logo top-right, all burned in.
  *
  * What ships is a 20-second window (0:56-1:16) covering exhibition stalls, the
- * tent city at dawn, the packed hanger and the VIP lounge — the widest range of
+ * tent city at dawn, the packed hangar and the VIP lounge — the widest range of
  * Raja's work the film holds in one continuous stretch. It is cropped to the
  * middle 68% of the frame height, which removes all three burned-in overlays,
  * and re-encoded at 1600px CRF 30 (4.1 MB) and 960px CRF 32 (1.3 MB). The
@@ -89,7 +89,7 @@ export const heroMedia = {
     src: "/video/raja-hero-poster.webp",
     width: 1600,
     height: 612,
-    alt: "Exhibition stalls and delegate walkways inside a clear-span hanger built by Raja Enterprises.",
+    alt: "Exhibition stalls and delegate walkways inside a clear-span hangar built by Raja Enterprises.",
     focal: "center",
     clearance: "raja-original",
     credit: "Raja Enterprises",
@@ -114,7 +114,7 @@ export const heroMedia = {
     width: 1600,
     height: 612,
     description:
-      "Twenty seconds from Raja Enterprises' AICOG 2019 project film: exhibition stalls under a hanger roof, an aerial over the tent city at dawn, a full audience seated under a clear-span structure, and the VIP lounge frontage.",
+      "Twenty seconds from Raja Enterprises' AICOG 2019 project film: exhibition stalls under a hangar roof, an aerial over the tent city at dawn, a full audience seated under a clear-span structure, and the VIP lounge frontage.",
     clearance: "raja-original",
     credit: "Raja Enterprises",
   } satisfies VideoAsset,

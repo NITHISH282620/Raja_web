@@ -104,7 +104,7 @@ export const inventoryHighlights: InventoryItem[] = [
   {
     number: "5,00,000",
     unit: "Sq. Ft.",
-    label: "Imported German Hangers",
+    label: "Imported German Hangars",
     description: "Clear-span aluminium structures engineered for wind loads up to 120 km/h, fire-retardant membranes, and pillar-free sightlines.",
     tag: "Heavy Structures",
     image: "/media/events/kanha-canopy-seating.7a22707d.webp",
