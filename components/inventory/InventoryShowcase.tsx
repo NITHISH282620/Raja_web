@@ -247,25 +247,25 @@ export function InventoryShowcase({ categories }: InventoryShowcaseProps) {
         </div>
 
         {/* Enterprise Mobilization Banner */}
-        <div className="mt-6 sm:mt-10 rounded-3xl bg-neutral-900 text-white p-8 sm:p-12 md:p-16 relative overflow-hidden shadow-2xl">
+        <div className="mt-6 sm:mt-10 rounded-3xl bg-white text-ink border border-ink/5 p-8 sm:p-12 md:p-16 relative overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-500">
           <div
-            className="absolute inset-0 opacity-10 pointer-events-none"
+            className="absolute inset-0 opacity-20 pointer-events-none"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)",
+                "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0)",
               backgroundSize: "32px 32px",
             }}
           />
 
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 max-w-6xl">
             <div className="flex flex-col gap-3 sm:gap-4 max-w-2xl">
-              <span className="font-mono text-xs uppercase tracking-[0.25em] text-brand-yellow font-medium">
+              <span className="font-mono text-xs uppercase tracking-[0.25em] text-brand-blue font-semibold">
                 Direct Ownership Mobilization Guarantee
               </span>
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white font-medium leading-tight">
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-ink font-medium leading-tight">
                 Need a custom structural configuration or emergency site mobilization?
               </h3>
-              <p className="text-white/70 text-sm sm:text-base leading-relaxed">
+              <p className="text-body-light text-sm sm:text-base leading-relaxed">
                 Our in-house engineers assess ground topology, calculate clear-span wind ratings, and deploy our direct-owned fleet across pan-India venues within 24 to 48 hours.
               </p>
             </div>
@@ -273,14 +273,14 @@ export function InventoryShowcase({ categories }: InventoryShowcaseProps) {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 shrink-0">
               <Link
                 href="/contact"
-                className="inline-flex h-12 sm:h-13 items-center justify-center gap-3 rounded-full bg-white px-8 font-mono text-xs uppercase tracking-wider font-semibold text-ink transition-all duration-300 hover:bg-neutral-200 hover:shadow-lg"
+                className="inline-flex h-12 sm:h-13 items-center justify-center gap-3 rounded-full bg-brand-blue px-8 font-mono text-xs uppercase tracking-wider font-semibold text-white transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-md"
               >
                 <span>Request Site Inspection</span>
                 <span aria-hidden>&rarr;</span>
               </Link>
               <Link
                 href="/services"
-                className="inline-flex h-12 sm:h-13 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 font-mono text-xs uppercase tracking-wider text-white transition-all duration-300 hover:bg-white/10"
+                className="inline-flex h-12 sm:h-13 items-center justify-center gap-2 rounded-full border border-ink/10 bg-transparent px-7 font-mono text-xs uppercase tracking-wider text-ink transition-all duration-300 hover:bg-ink/5"
               >
                 <span>All Services</span>
               </Link>
