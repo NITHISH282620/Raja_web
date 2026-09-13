@@ -82,7 +82,7 @@ export function InventoryShowcase({ categories }: InventoryShowcaseProps) {
           <div className="flex items-center gap-2 text-ink/60 font-mono text-xs uppercase tracking-wider self-start md:self-end">
             <span>Showing:</span>
             <span className="font-bold text-ink bg-white px-3 py-1 rounded-full border border-ink/10 shadow-xs">
-              {filteredCategories.length} Systems Available
+              Systems Available
             </span>
           </div>
         </div>
@@ -111,18 +111,6 @@ export function InventoryShowcase({ categories }: InventoryShowcaseProps) {
                     )}
                   >
                     <span className="relative z-10 tracking-tight">{group.label}</span>
-                    {group.id === "all" && (
-                      <span
-                        className={clsx(
-                          "relative z-10 rounded-full px-1.5 py-0.5 sm:px-2 text-[9px] sm:text-[10px] tabular-nums font-bold transition-colors",
-                          isActive
-                            ? "bg-white/20 text-white"
-                            : "bg-ink/5 text-ink/50 group-hover:bg-ink/10 group-hover:text-ink/70"
-                        )}
-                      >
-                        {count}
-                      </span>
-                    )}
                   </button>
                 );
               })}

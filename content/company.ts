@@ -56,7 +56,7 @@ export const stats: Stat[] = [
  * Fill these in and every CTA and the footer wire themselves up automatically.
  */
 export const contact = {
-  email: "raju@rajaenterprises.co" as string | null,
+  email: "info@rajaenterprises.co" as string | null,
   /** Primary number shown in CTAs; the full list appears on the contact page. */
   phone: "+91 98450 44177" as string | null,
   landlines: ["080-26609751", "080-26609753", "080-26602958", "080-26602962"],
