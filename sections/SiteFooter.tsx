@@ -209,11 +209,16 @@ export function SiteFooter({ contact }: { contact: ContactSettings }) {
                     {contact.phone}
                   </a>
                 )}
-                {contact.email && (
-                  <a href={`mailto:${contact.email}`} className="block transition-colors hover:text-brand-blue font-medium text-ink">
-                    {contact.email}
+                {contact.landlines?.map((landline) => (
+                  <a key={landline} href={telHref(landline)} className="block transition-colors hover:text-brand-blue text-[14px] text-body-light pb-1">
+                    {landline}
                   </a>
-                )}
+                ))}
+                {[contact.email, ...(contact.secondaryEmails || [])].filter(Boolean).map((email) => (
+                  <a key={email} href={`mailto:${email}`} className="block transition-colors hover:text-brand-blue font-medium text-ink">
+                    {email}
+                  </a>
+                ))}
               </address>
             ) : (
               <Placeholder label="Contact details pending" note={contact.note} lines={3} />

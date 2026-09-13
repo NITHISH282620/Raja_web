@@ -98,12 +98,15 @@ export default async function ContactPage({
             {contact.email && (
               <div className="flex flex-col gap-3">
                 <p className="t-eyebrow text-ink/50">Email</p>
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="t-tile [overflow-wrap:anywhere] text-ink transition-colors hover:text-accent"
-                >
-                  {contact.email}
-                </a>
+                {[contact.email, ...(contact.secondaryEmails || [])].filter(Boolean).map((email) => (
+                  <a
+                    key={email}
+                    href={`mailto:${email}`}
+                    className="t-tile [overflow-wrap:anywhere] text-ink transition-colors hover:text-accent"
+                  >
+                    {email}
+                  </a>
+                ))}
               </div>
             )}
 

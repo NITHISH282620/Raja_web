@@ -57,9 +57,10 @@ export const stats: Stat[] = [
  */
 export const contact = {
   email: "info@rajaenterprises.co" as string | null,
+  secondaryEmails: ["raju_rajaenterprises@yahoo.com"] as string[],
   /** Primary number shown in CTAs; the full list appears on the contact page. */
   phone: "+91 98450 44177" as string | null,
-  landlines: ["080-26609751", "080-26609753", "080-26602958", "080-26602962"],
+  landlines: ["080 26609751", "080 26609753"],
   addressLines: ['"Venkat", #145, 5th Main Road', "Bengaluru 560018", "Karnataka, India"] as string[],
   status: "approved" as const,
   note: "Recovered from Raja's own published sites (rajaenterprises.co and the previous implementation). Confirm these are current before launch.",
