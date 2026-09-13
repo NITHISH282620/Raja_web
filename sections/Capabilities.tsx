@@ -170,6 +170,17 @@ export function CapabilitiesView({ capabilities }: { capabilities: Capability[] 
           onUpdate: () => {
             const max = trackEl.scrollWidth - trackEl.clientWidth;
             if (max > 0) trackEl.scrollLeft = proxy.p * max;
+
+            const viewCenter = window.innerWidth / 2;
+            cards.forEach((card) => {
+              const img = card.querySelector<HTMLElement>("[data-slide-image]");
+              if (img) {
+                const rect = card.getBoundingClientRect();
+                const center = rect.left + rect.width / 2;
+                const dist = (center - viewCenter) / window.innerWidth;
+                gsap.set(img, { xPercent: dist * 25, scale: 1.05 + Math.abs(dist) * 0.1 });
+              }
+            });
           },
         });
 

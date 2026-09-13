@@ -190,16 +190,16 @@ export function WorksView({ projects }: { projects: Project[] }) {
           if (img) {
             gsap.fromTo(
               img,
-              { yPercent: -6, scale: 1.08 },
+              { yPercent: -15, scale: 1.15 },
               {
-                yPercent: 6,
+                yPercent: 15,
                 scale: 1,
                 ease: "none",
                 scrollTrigger: {
                   trigger: card,
                   start: "top bottom",
                   end: "bottom top",
-                  scrub: 0.6,
+                  scrub: 0.8,
                 },
               },
             );
@@ -215,14 +215,14 @@ export function WorksView({ projects }: { projects: Project[] }) {
             card,
             { scale: 1, opacity: 1 },
             {
-              scale: 0.94,
-              opacity: 0.55,
+              scale: 0.88,
+              opacity: 0.3,
               ease: "none",
               scrollTrigger: {
                 trigger: next,
                 start: "top bottom",
                 end: "top top+=120",
-                scrub: 0.4,
+                scrub: 0.6,
               },
             },
           );

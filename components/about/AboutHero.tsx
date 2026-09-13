@@ -64,6 +64,26 @@ export function AboutHero({
           { opacity: 1, y: 0, duration: 0.75, clearProps: "transform,opacity" },
           "-=0.3"
         );
+
+        // Universal Parallax for hero images
+        const images = scope.querySelectorAll<HTMLElement>("[data-hero-img-wrap] img");
+        images.forEach((img) => {
+          gsap.fromTo(
+            img,
+            { yPercent: -8, scale: 1.05 },
+            {
+              yPercent: 8,
+              scale: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: img.parentElement,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              }
+            }
+          );
+        });
       });
 
       return () => mm.revert();

@@ -47,6 +47,22 @@ export function HeroView({ hero, poster }: { hero: HeroSettings; poster: { image
          * to reveal it.
          */
         fadeUp(tl, actions.current, {}, 0.95);
+
+        gsap.fromTo(
+          q(scope, "[data-hero-parallax]"),
+          { yPercent: 0, scale: 1 },
+          {
+            yPercent: 12,
+            scale: 1.05,
+            ease: "none",
+            scrollTrigger: {
+              trigger: scope,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
       });
 
       return () => mm.revert();
@@ -60,7 +76,9 @@ export function HeroView({ hero, poster }: { hero: HeroSettings; poster: { image
       id={SECTION_IDS.hero}
       className="relative h-svh min-h-[560px] max-h-[1080px] w-full overflow-hidden bg-ink"
     >
-      <HeroMedia poster={poster} />
+      <div data-hero-parallax className="absolute inset-0 origin-center">
+        <HeroMedia poster={poster} />
+      </div>
       {/*
         Figma authored a flat 72% scrim over a bright festival photograph. The
         hero image is now Raja's own dawn aerial, which is already dark and

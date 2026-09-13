@@ -130,10 +130,10 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
 
         const cards = q(scope, "[data-mobile-legacy-card]");
         if (cards.length >= 4) {
-          gsap.to(cards[0], { yPercent: -15, xPercent: -10, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 0.5 } });
-          gsap.to(cards[1], { yPercent: -15, xPercent: 10, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 0.5 } });
-          gsap.to(cards[2], { yPercent: 15, xPercent: -10, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 0.5 } });
-          gsap.to(cards[3], { yPercent: 15, xPercent: 10, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 0.5 } });
+          gsap.to(cards[0], { yPercent: -25, xPercent: -15, scale: 1.05, rotate: -2, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 1 } });
+          gsap.to(cards[1], { yPercent: -25, xPercent: 15, scale: 1.05, rotate: 2, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 1 } });
+          gsap.to(cards[2], { yPercent: 25, xPercent: -15, scale: 1.05, rotate: -2, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 1 } });
+          gsap.to(cards[3], { yPercent: 25, xPercent: 15, scale: 1.05, rotate: 2, ease: "none", scrollTrigger: { trigger: scope, start: "top top", end: "bottom top", scrub: 1 } });
         }
       });
 
