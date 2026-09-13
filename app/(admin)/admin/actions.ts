@@ -1,9 +1,11 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { ENQUIRY_STATUSES } from "@/lib/enquiry";
 import { revalidatePath } from "next/cache";
 import { randomUUID } from "node:crypto";
+import { validateContent } from "@/lib/validation";
 
 import {
   createSession,
@@ -51,6 +53,17 @@ function publish() {
 /* --------------------------------- auth ----------------------------------- */
 
 export async function signIn(formData: FormData) {
+  const h = await headers();
+  const fwd = h.get("x-forwarded-for");
+  const ip = (fwd?.split(",")[0] ?? h.get("x-real-ip") ?? "unknown").trim();
+
+  await execute(`DELETE FROM login_attempts WHERE created_at < now() - interval '15 minutes'`);
+  const attempts = await query<{n: number}>(`SELECT COUNT(*)::int AS n FROM login_attempts WHERE ip = $1`, [ip]);
+  if (attempts[0]?.n >= 5) {
+    redirect(`/admin/login?error=rate`);
+  }
+  await execute(`INSERT INTO login_attempts (ip) VALUES ($1)`, [ip]);
+
   await ensureOwnerAccount();
   await pruneSessions();
 
@@ -122,7 +135,7 @@ export async function saveRecord(collection: Collection, id: string, json: strin
 
   let data: unknown;
   try {
-    data = JSON.parse(json);
+    data = validateContent(collection, JSON.parse(json));
   } catch {
     redirect(`/admin/${collection}/${encodeURIComponent(id)}?error=json`);
   }
@@ -213,7 +226,7 @@ export async function saveStats(formData: FormData) {
 
 /* --------------------------------- media ----------------------------------- */
 
-const MAX_BYTES = 200 * 1024 * 1024;
+const MAX_BYTES = 20 * 1024 * 1024;
 
 /**
  * Accepts an image or a video and records it in the media library.

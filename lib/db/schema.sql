@@ -47,6 +47,12 @@ CREATE TABLE IF NOT EXISTS sessions (
 CREATE INDEX IF NOT EXISTS sessions_expires ON sessions (expires_at);
 CREATE INDEX IF NOT EXISTS sessions_user ON sessions (user_id);
 
+CREATE TABLE IF NOT EXISTS login_attempts (
+  ip         TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS login_attempts_ip_time ON login_attempts (ip, created_at);
+
 /* ----------------------------------------------------------------- media -- */
 
 -- `clearance` is load-bearing, not descriptive. Thirteen of these files are

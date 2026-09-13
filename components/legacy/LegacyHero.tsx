@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { FOUNDED_YEAR, yearsInOperation } from "@/content/company";
 
-export function LegacyHero() {
+export function LegacyHero({ imageSrc }: { imageSrc?: string }) {
   return (
     <section data-hero-section className="relative w-full min-h-screen bg-paper flex flex-col items-center pt-32 sm:pt-44 pb-20 overflow-hidden">
       
@@ -47,7 +47,7 @@ export function LegacyHero() {
         {/* Left tall image */}
         <div data-hero-grid-item className="md:col-span-5 lg:col-span-4 aspect-[4/5] md:aspect-auto md:h-[600px] lg:h-[640px] rounded-[2rem] overflow-hidden relative shadow-lg bg-neutral-100">
           <Image
-            src="/media/projects/aicog-2019-hanger-erection.webp"
+            src={imageSrc || "/media/projects/aicog-2019-hanger-erection.webp"}
             alt="Historical infrastructure construction"
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
