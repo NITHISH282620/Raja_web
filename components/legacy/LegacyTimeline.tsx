@@ -72,27 +72,11 @@ export function LegacyTimeline() {
                   className="relative flex flex-col md:grid md:grid-cols-2 items-center w-full group gap-6 md:gap-0 pl-[4rem] md:pl-0"
                 >
                   {/* Central Dot Marker */}
-                  <div className="absolute left-[2rem] md:left-1/2 -translate-x-1/2 top-[4rem] md:top-1/2 md:-translate-y-1/2 w-4 h-4 rounded-full bg-paper border-[3px] border-brand-blue z-10 transition-all duration-500 group-hover:scale-125 group-hover:bg-brand-blue shadow-sm" />
+                  <div className="absolute left-[2rem] md:left-1/2 -translate-x-1/2 top-[3rem] md:top-1/2 md:-translate-y-1/2 w-4 h-4 rounded-full bg-paper border-[3px] border-brand-blue z-10 transition-all duration-500 group-hover:scale-125 group-hover:bg-brand-blue shadow-sm" />
 
-                  {/* Image Side */}
+                  {/* Text Card Side - First on mobile */}
                   <div
-                    className={`w-full ${
-                      isEven ? "md:pr-10 lg:pr-16 md:order-1" : "md:pl-10 lg:pl-16 md:order-2"
-                    }`}
-                  >
-                    <div className="relative w-full aspect-[4/3] rounded-[1.5rem] overflow-hidden bg-neutral-100 shadow-md">
-                      <Image
-                        src={m.image}
-                        alt={m.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Text Card Side */}
-                  <div
-                    className={`w-full ${
+                    className={`w-full order-1 ${
                       isEven ? "md:pl-10 lg:pl-16 md:order-2" : "md:pr-10 lg:pr-16 md:order-1"
                     }`}
                   >
@@ -111,6 +95,22 @@ export function LegacyTimeline() {
                       <p className="text-sm sm:text-base text-body-light leading-relaxed">
                         {m.desc}
                       </p>
+                    </div>
+                  </div>
+
+                  {/* Image Side - Second on mobile */}
+                  <div
+                    className={`w-full order-2 ${
+                      isEven ? "md:pr-10 lg:pr-16 md:order-1" : "md:pl-10 lg:pl-16 md:order-2"
+                    }`}
+                  >
+                    <div className="relative w-full aspect-[4/3] rounded-[1.5rem] overflow-hidden bg-neutral-100 shadow-md">
+                      <Image
+                        src={m.image}
+                        alt={m.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
                     </div>
                   </div>
 
