@@ -72,7 +72,7 @@ export function LegacyTimeline() {
                   className="relative flex flex-col md:grid md:grid-cols-2 items-center w-full group gap-6 md:gap-0 pl-[4rem] md:pl-0"
                 >
                   {/* Central Dot Marker */}
-                  <div className="absolute left-[2rem] md:left-1/2 -translate-x-1/2 top-[3rem] md:top-1/2 md:-translate-y-1/2 w-4 h-4 rounded-full bg-paper border-[3px] border-brand-blue z-10 transition-all duration-500 group-hover:scale-125 group-hover:bg-brand-blue shadow-sm" />
+                  <div className="absolute left-[2rem] md:left-1/2 -translate-x-1/2 top-[1.5rem] md:top-1/2 md:-translate-y-1/2 w-4 h-4 rounded-full bg-paper border-[3px] border-brand-blue z-10 transition-all duration-500 group-hover:scale-125 group-hover:bg-brand-blue shadow-sm" />
 
                   {/* Text Card Side - First on mobile */}
                   <div
@@ -80,9 +80,9 @@ export function LegacyTimeline() {
                       isEven ? "md:pl-10 lg:pl-16 md:order-2" : "md:pr-10 lg:pr-16 md:order-1"
                     }`}
                   >
-                    <div className="flex flex-col gap-4 bg-white rounded-[1.5rem] p-6 sm:p-8 shadow-sm border border-ink/5 hover:shadow-xl hover:shadow-ink/5 transition-all duration-500">
+                    <div className="flex flex-col gap-4 py-2 sm:py-4 transition-all duration-500">
                       <div className="flex items-end justify-between mb-2">
-                        <span className="font-mono text-4xl sm:text-5xl font-black text-ink tracking-tighter leading-none">
+                        <span className="font-serif text-5xl sm:text-6xl font-medium text-ink leading-none">
                           {m.year}
                         </span>
                         <span className="font-mono text-[9px] sm:text-[10px] text-accent uppercase tracking-widest font-semibold bg-accent/5 px-3 py-1 rounded-full">
