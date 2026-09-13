@@ -194,7 +194,7 @@ export function ProcessView({ processSteps }: { processSteps: ProcessStep[] }) {
                       alt={step.image.alt}
                       fill
                       sizes="(max-width: 1023px) 78vw, 28vw"
-                      className="object-cover"
+                      className="object-cover" quality={100}
                     />
                   </div>
                 )}
