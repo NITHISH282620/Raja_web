@@ -23,7 +23,7 @@ export interface InventoryCategory {
 export const inventoryCategories: InventoryCategory[] = [
   {
     id: "german-hangars",
-    name: "German Hangers & Structures",
+    name: "German Hangars & Structures",
     shortName: "German Hangars",
     tagline: "Aerospace-grade modular temporary halls with zero interior columns",
     icon: "⛺",
