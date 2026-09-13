@@ -124,7 +124,7 @@ export function ProcessView({ processSteps }: { processSteps: ProcessStep[] }) {
 
       {/* ---------- Progress track ---------- */}
       <div className="frame mb-[clamp(28px,3.4vw,48px)] flex justify-center">
-        <div className="relative flex w-full max-w-[940px] items-center justify-between">
+        <div className="relative flex w-full max-w-[807px] items-center justify-between">
           <span
             data-track
             aria-hidden
@@ -166,8 +166,8 @@ export function ProcessView({ processSteps }: { processSteps: ProcessStep[] }) {
               className={clsx(
                 "group flex w-[78vw] max-w-[420px] shrink-0 snap-center flex-col gap-[10px]",
                 active
-                  ? "lg:w-[31vw] lg:max-w-[460px]"
-                  : "lg:w-[28vw] lg:max-w-[420px]",
+                  ? "lg:w-[27.8vw] lg:max-w-[400px]"
+                  : "lg:w-[25.4vw] lg:max-w-[366px]",
               )}
             >
               <div className="flex items-baseline justify-between gap-4">
@@ -182,7 +182,7 @@ export function ProcessView({ processSteps }: { processSteps: ProcessStep[] }) {
               <div
                 className={clsx(
                   "relative w-full overflow-hidden rounded-[15px]",
-                  active ? "aspect-[400/450]" : "aspect-[366/412]",
+                  active ? "aspect-[400/300]" : "aspect-[366/275]",
                 )}
               >
                 {step.image && (
