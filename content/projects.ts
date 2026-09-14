@@ -280,11 +280,15 @@ export const projects: Project[] = [
   },
   {
     ...P("fc-expo-2025", "First Circle Biztech", "FC Expo 2025", "2025", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
-    media: [REP_EXHIBITION],
+    media: [
+      { src: "/media/projects/fc-expo-2025-firstcircle.webp", width: 1600, height: 1064, alt: "A First Circle Biztech conference speaker addressing delegates beneath FC Expo and FCNEXT branded signage.", clearance: "client-approved" }
+    ] satisfies ImageAsset[],
   },
   {
     ...P("krishi-mela-2024-25", "University of Agricultural Sciences", "Krishi Mela 2024–25", "2024", "exhibition", ["german-hangers", "exhibition-stalls"], "GKVK Campus, Bengaluru"),
-    media: [REP_EXHIBITION],
+    media: [
+      { src: "/media/projects/krishi-mela-2024-25.webp", width: 1600, height: 1058, alt: "A clear-span tent with blue barricading holding a large seated crowd at Krishi Mela, GKVK campus.", clearance: "client-approved" }
+    ] satisfies ImageAsset[],
   },
   {
     ...P("pourakarmika-samavesha", "Karnataka State Marketing Communication & Advertising Ltd", "Pourakarmika Samavesha", null, "government", ["german-hangers", "staging-and-seating"], "Bengaluru"),
@@ -292,7 +296,9 @@ export const projects: Project[] = [
   },
   {
     ...P("buildtek-silver-jubilee", "Buildtek Polymers", "Silver Jubilee Celebration", null, "corporate", ["staging-and-seating"]),
-    media: [REP_CONFERENCE],
+    media: [
+      { src: "/media/projects/buildtek-silver-jubilee.webp", width: 1200, height: 1200, alt: "A speaker at the podium beneath the Buildtek Polymers 25 Years Silver Jubilee Celebration backdrop.", clearance: "client-approved" }
+    ] satisfies ImageAsset[],
   },
   {
     ...P("vaidic-dharma-navaratri", "Vaidic Dharma Sansthan", "Navaratri Function", null, "cultural", ["german-hangers", "event-flooring"]),
@@ -312,11 +318,15 @@ export const projects: Project[] = [
   },
   {
     ...P("biffes-17", "Karnataka Chalanachitra Academy", "17th Bengaluru International Film Festival", null, "cultural", ["staging-and-seating", "event-flooring"], "Bengaluru", true),
-    media: [REP_CULTURAL],
+    media: [
+      { src: "/media/projects/biffes-17.webp", width: 1600, height: 892, alt: "Dignitaries on stage at a Karnataka Chalanachitra Academy film festival ceremony.", clearance: "client-approved" }
+    ] satisfies ImageAsset[],
   },
   {
     ...P("karthik-live", "TribeVibe Entertainment", "Karthik Live", null, "corporate", ["staging-and-seating", "event-scaffolding"]),
-    media: [REP_CONFERENCE],
+    media: [
+      { src: "/media/projects/karthik-live.webp", width: 1200, height: 2139, alt: "A performer singing on a lit concert stage with truss rigging visible behind him.", clearance: "client-approved" }
+    ] satisfies ImageAsset[],
   },
   {
     ...P("dam-safety-conference", "Karnataka State Marketing Communication & Advertising Ltd", "International Conference on Dam Safety", null, "conference", ["german-hangers", "staging-and-seating"]),
