@@ -192,8 +192,10 @@ export default async function ProjectsPage() {
                       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-brand-blue/[0.02] opacity-0 transition-opacity duration-700 group-hover:opacity-100 pointer-events-none" />
 
                       <div className="relative z-10">
-                        {/* A project's own photographs */}
-                        {p.media.length > 0 && (
+                        {/* A project's own photographs, or an honest placeholder in their
+                            place — never blank, so a card without a photo doesn't just
+                            leave a gap where the equal-height row stretches it. */}
+                        {p.media.length > 0 ? (
                           <span className="relative -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 mb-6 block aspect-[16/10] overflow-hidden rounded-t-[1.5rem] bg-ink/5 border-b border-ink/5">
                             <Image
                               src={p.media[0].src}
@@ -213,8 +215,15 @@ export default async function ProjectsPage() {
                               </span>
                             )}
                           </span>
+                        ) : (
+                          <span className="relative -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 mb-6 flex aspect-[16/10] items-center justify-center overflow-hidden rounded-t-[1.5rem] border-b border-ink/5 bg-[linear-gradient(135deg,#eef1f6_0%,#e4e9f1_100%)]">
+                            <span className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(rgba(0,0,0,1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,1)_1px,transparent_1px)]" style={{ backgroundSize: "20px 20px" }} />
+                            <span className="relative rounded-full border border-ink/10 bg-white/70 px-4 py-1.5 font-mono text-[9px] uppercase tracking-widest text-ink/40">
+                              No photograph supplied
+                            </span>
+                          </span>
                         )}
-                        
+
                         <div className="flex items-baseline justify-between gap-3 mb-4">
                           <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-brand-blue font-bold">
                             {CATEGORY_LABELS[p.category].split(" ")[0]}
