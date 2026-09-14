@@ -159,19 +159,19 @@ export const servicePillars: ServicePillar[] = [
     capacity: [],
     bundled: ["Staging", "Lighting and AV", "Barricading"],
     /*
-     * NEEDS CLIENT IMAGE. Raja holds no photograph of scaffolding proper —
-     * no camera platform, lighting tower or raked seating deck. This is a
-     * genuine Raja photograph of structural erection on site, which is the
-     * same trade and the same crew, and the alt text says precisely what it
-     * shows rather than implying it is a scaffold. Replace it with a real
-     * scaffolding photograph as soon as one is supplied.
+     * 2026-09-14: this now uses the same ringlock stage photograph approved
+     * for the /inventory Ring Lock Scaffolding card (same clearance tier,
+     * same system) instead of the unrelated hangar-erection stand-in — it
+     * actually shows scaffolding, which the previous image did not. Still
+     * not a Raja-attributed photo of Raja's own build; a real one supersedes
+     * this whenever Raja supplies one.
      */
     image: {
-      src: "/media/raja/hanger-frame-erection.8e578fc4.webp",
-      width: 1600,
-      height: 1204,
-      alt: "Aluminium portal frames standing unclad on open ground during erection, before cladding is fitted.",
-      clearance: "raja-original",
+      src: "/uploads/582a959a-5d66-4778-8fe1-8b8e77b77aef.webp",
+      width: 1672,
+      height: 940,
+      alt: "A concert stage built on heavy-duty ringlock scaffolding, with line-array speaker towers and rigging.",
+      clearance: "client-approved",
       credit: "Raja Enterprises",
     },
     page: true,
@@ -278,13 +278,19 @@ export const servicePillars: ServicePillar[] = [
       { label: "Foot system", value: "Anti-trip flat plates & bridge feet" },
     ],
     bundled: ["German hangars", "Staging and Dais", "Event scaffolding"],
+    /*
+     * 2026-09-14: replaced a photo of plastic water-filled traffic barriers
+     * (wrong material, wrong barrier type entirely) with a real photograph
+     * of interlocking galvanized steel crowd barriers — the type this page
+     * actually describes. Not Raja's own stock; representative only.
+     */
     image: {
-      src: "/media/representative/inventory-barricades.f368fe44.webp",
-      width: 1200,
-      height: 800,
-      alt: "Interlocking galvanized crowd control barriers deployed for event perimeter security.",
-      clearance: "representative",
-      credit: "Raja Enterprises",
+      src: "/media/representative/event-crowd-control-barricades.webp",
+      width: 1600,
+      height: 1200,
+      alt: "Interlocking galvanized steel crowd-control barricades with flat anti-trip feet, stacked in a row.",
+      clearance: "licensed",
+      credit: "4028mdk09, CC BY-SA 3.0, via Wikimedia Commons",
     },
     page: true,
     order: 8,
@@ -307,13 +313,19 @@ export const servicePillars: ServicePillar[] = [
       { label: "Depot hub", value: "Central Logistics Yard, Bengaluru" },
     ],
     bundled: ["German hangars", "Event scaffolding", "Event flooring", "Staging, Seating & Dais"],
+    /*
+     * 2026-09-14: replaced a photo of a Nigerian minibus fleet (wrong
+     * country, wrong vehicle class — this page describes multi-axle flatbed
+     * trucks and cranes) with a real photograph of a multi-axle Indian
+     * heavy-goods truck. Not Raja's own fleet; representative only.
+     */
     image: {
-      src: "/media/representative/inventory-fleet.13f2e483.webp",
-      width: 1200,
-      height: 800,
-      alt: "Dedicated commercial fleet trucks parked at the Raja Enterprises logistics yard.",
-      clearance: "representative",
-      credit: "Raja Enterprises",
+      src: "/media/representative/logistics-fleet-indian-highway-trucks.webp",
+      width: 1600,
+      height: 1067,
+      alt: "A multi-axle heavy-goods truck on an Indian highway, the type used for hauling structural inventory.",
+      clearance: "licensed",
+      credit: "Shantum Singh, Pexels License",
     },
     page: true,
     order: 9,
