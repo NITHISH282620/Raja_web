@@ -207,7 +207,7 @@ export default async function ProjectsPage() {
                             />
                             <span className="absolute inset-0 bg-brand-blue/10 mix-blend-overlay opacity-0 transition-opacity duration-700 group-hover:opacity-100 pointer-events-none" />
                             <span className="absolute bottom-3 left-3 rounded-full bg-ink/80 backdrop-blur-md px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-white shadow-sm transition-transform duration-700 group-hover:-translate-y-1">
-                              Client photograph
+                              {p.media[0].clearance === "representative" ? "Representative" : "Client photograph"}
                             </span>
                             {p.media.length > 1 && (
                               <span className="absolute bottom-3 right-3 rounded-full bg-ink/80 backdrop-blur-md px-2 py-1 font-mono text-[9px] text-white transition-transform duration-700 group-hover:-translate-y-1">
@@ -222,6 +222,12 @@ export default async function ProjectsPage() {
                               No photograph supplied
                             </span>
                           </span>
+                        )}
+
+                        {p.media[0]?.clearance === "representative" && (
+                          <p className="-mt-4 mb-4 text-[11px] leading-snug text-ink/40">
+                            Shows this type of event. Not a photograph of this job.
+                          </p>
                         )}
 
                         <div className="flex items-baseline justify-between gap-3 mb-4">

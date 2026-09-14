@@ -70,9 +70,21 @@ export interface Project extends Sourced {
   /** Slugs from `content/services.ts`, only where the event type makes it certain. */
   services: string[];
   /**
-   * Raja-original or client-approved media only. Representative imagery never
-   * attaches to a project — a project's photographs are its evidence, and
-   * stock would make that evidence false.
+   * A project's own photographs are evidence (`raja-original` /
+   * `client-approved` / `figma-supplied`), and the card badges them
+   * "Client photograph" accordingly.
+   *
+   * REVISED 2026-09-14. Until now, a project with no supplied photograph
+   * simply had no image — the card stayed text-only rather than risk
+   * presenting stock as documentary proof, which is still the rule for
+   * `raja-original`/`client-approved` media. What changed: a `clearance:
+   * "representative"` entry is now permitted here too, for a real (not
+   * fabricated), honestly-sourced photograph of the same TYPE of event —
+   * e.g. a real Indian convocation ceremony standing in for one whose own
+   * photograph hasn't been supplied. The card renders these with a
+   * "Representative" badge, never "Client photograph", and the caption says
+   * outright that it is not evidence of this specific job — the same
+   * distinction `categoryBanner` below has always drawn.
    */
   media: ImageAsset[];
   /**
@@ -112,6 +124,58 @@ const P = (
   status: "approved",
   note: "Client and event title from Raja's supplied 27-event schedule. Scope, area, attendance and photographs not yet supplied.",
 });
+
+/**
+ * Representative images for project rows with no supplied photograph.
+ *
+ * Each is a real, licensed photograph of the same type of event — never
+ * Raja's own work, never claimed as such. Sourced 2026-09-14 from government
+ * open-data releases, Wikimedia Commons and Pexels; full credit lines below.
+ */
+const REP_EXHIBITION: ImageAsset = {
+  src: "/media/events/representative-exhibition-expo.webp",
+  width: 1600,
+  height: 1015,
+  alt: "A wide view of an exhibition floor with multiple stalls and visitors, Pride of India Expo.",
+  clearance: "representative",
+  credit: "Ministry of Science & Technology, Government of India (GODL-India)",
+};
+
+const REP_CULTURAL: ImageAsset = {
+  src: "/media/events/representative-cultural-dasara.webp",
+  width: 1024,
+  height: 739,
+  alt: "A caparisoned elephant leads a procession through a dense crowd at the Mysore Dasara festival, Karnataka.",
+  clearance: "representative",
+  credit: "Kalyan Kumar, CC BY-SA 2.0, via Wikimedia Commons",
+};
+
+const REP_GOVERNMENT: ImageAsset = {
+  src: "/media/events/representative-government-ceremony.webp",
+  width: 1600,
+  height: 1030,
+  alt: "A government minister addressing a large seated audience from a stage at a public function.",
+  clearance: "representative",
+  credit: "Government of India (GODL-India)",
+};
+
+const REP_CONFERENCE: ImageAsset = {
+  src: "/media/events/representative-conference-auditorium.webp",
+  width: 1600,
+  height: 2400,
+  alt: "A large tiered auditorium filled with a seated audience, viewed from an upper gallery.",
+  clearance: "representative",
+  credit: "João Guerreiro, Pexels License",
+};
+
+const REP_CONVOCATION: ImageAsset = {
+  src: "/media/events/representative-convocation-lamp.webp",
+  width: 1600,
+  height: 1323,
+  alt: "Dignitaries in academic regalia light a ceremonial lamp on stage at a university convocation.",
+  clearance: "representative",
+  credit: "Ministry of Culture, Government of India (GODL-India)",
+};
 
 /** All 27 rows of Raja's schedule, in the order supplied. */
 export const projects: Project[] = [
@@ -308,27 +372,99 @@ export const projects: Project[] = [
     ] satisfies ImageAsset[]),
     featured: true,
   },
-  P("abs-education-fair", "ABS Business Solutions", "Education fair", null, "exhibition", ["exhibition-stalls"], "Bengaluru"),
-  P("collegedunia-education-fair", "Collegedunia Web", "Collegedunia Education Fair", null, "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
-  P("gte-2024", "Garment Technology Expo", "GTE 2024", "2024", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
-  P("central-silk-board-conference", "Central Silk Board — National Silkworm Seed Organisation", "Central Silk Board Conference", null, "conference", ["staging-and-seating"]),
-  P("vaidic-dharma-navaratri-2024", "Vaidic Dharma Sansthan", "Navaratri Function 2024", "2024", "cultural", ["german-hangers", "event-flooring"]),
-  P("hampi-utsav-2024", "Karnataka State Habitat Centre", "Hampi Utsav 2024", "2024", "cultural", ["german-hangers", "staging-and-seating", "event-flooring"], "Hampi", true),
-  P("adichunchanagiri-founders-day", "Sri Adichunchanagiri Shikshana Trust", "Founder's Day", null, "cultural", ["staging-and-seating"]),
-  P("fc-expo-2025", "First Circle Biztech", "FC Expo 2025", "2025", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
-  P("krishi-mela-2024-25", "University of Agricultural Sciences", "Krishi Mela 2024–25", "2024", "exhibition", ["german-hangers", "exhibition-stalls"], "GKVK Campus, Bengaluru"),
-  P("pourakarmika-samavesha", "Karnataka State Marketing Communication & Advertising Ltd", "Pourakarmika Samavesha", null, "government", ["german-hangers", "staging-and-seating"], "Bengaluru"),
-  P("buildtek-silver-jubilee", "Buildtek Polymers", "Silver Jubilee Celebration", null, "corporate", ["staging-and-seating"]),
-  P("vaidic-dharma-navaratri", "Vaidic Dharma Sansthan", "Navaratri Function", null, "cultural", ["german-hangers", "event-flooring"]),
-  P("valmiki-jayanti-2025", "Tribal Welfare Department, Government of Karnataka", "Valmiki Jayanti 2025", "2025", "government", ["german-hangers", "staging-and-seating"], "Bengaluru"),
-  P("mm-hills", "Sri Male Mahadeshwara Swamy", "MM Hills", null, "cultural", ["german-hangers"], "Male Mahadeshwara Hills"),
-  P("world-fisheries-day-2024", "Skyblue Event Management India", "World Fisheries Day 2024", "2024", "government", ["exhibition-stalls", "staging-and-seating"], "Bengaluru"),
-  P("biffes-17", "Karnataka Chalanachitra Academy", "17th Bengaluru International Film Festival", null, "cultural", ["staging-and-seating", "event-flooring"], "Bengaluru", true),
-  P("karthik-live", "TribeVibe Entertainment", "Karthik Live", null, "corporate", ["staging-and-seating", "event-scaffolding"]),
-  P("dam-safety-conference", "Karnataka State Marketing Communication & Advertising Ltd", "International Conference on Dam Safety", null, "conference", ["german-hangers", "staging-and-seating"]),
-  P("fifth-annual-convocation", "Karnataka State Marketing Communication & Advertising Ltd", "5th Annual Convocation", null, "government", ["staging-and-seating"]),
-  P("babu-jagjivan-ram-119", "Karnataka State Marketing Communication & Advertising Ltd", "119th birth anniversary of Dr Babu Jagjivan Ram", null, "government", ["staging-and-seating"]),
-  P("vidyapeeta-education-expo", "ABS Business Solutions", "Vidyapeeta Education Expo", null, "exhibition", ["exhibition-stalls"], "Bengaluru"),
+  /**
+   * REPRESENTATIVE IMAGES, added 2026-09-14. None of the 21 rows below had a
+   * supplied photograph. Each now carries one real, licensed photo of the
+   * same TYPE of event — clearance "representative", never claimed as
+   * evidence of this specific job (see the `media` field comment above).
+   * Reused across rows in the same category rather than sourced uniquely per
+   * row, so several cards in one category share a photo; that is the same
+   * trade-off `categoryBanner` already makes for its section banners.
+   */
+  {
+    ...P("abs-education-fair", "ABS Business Solutions", "Education fair", null, "exhibition", ["exhibition-stalls"], "Bengaluru"),
+    media: [REP_EXHIBITION],
+  },
+  {
+    ...P("collegedunia-education-fair", "Collegedunia Web", "Collegedunia Education Fair", null, "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
+    media: [REP_EXHIBITION],
+  },
+  {
+    ...P("gte-2024", "Garment Technology Expo", "GTE 2024", "2024", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
+    media: [REP_EXHIBITION],
+  },
+  {
+    ...P("central-silk-board-conference", "Central Silk Board — National Silkworm Seed Organisation", "Central Silk Board Conference", null, "conference", ["staging-and-seating"]),
+    media: [REP_CONFERENCE],
+  },
+  {
+    ...P("vaidic-dharma-navaratri-2024", "Vaidic Dharma Sansthan", "Navaratri Function 2024", "2024", "cultural", ["german-hangers", "event-flooring"]),
+    media: [REP_CULTURAL],
+  },
+  {
+    ...P("hampi-utsav-2024", "Karnataka State Habitat Centre", "Hampi Utsav 2024", "2024", "cultural", ["german-hangers", "staging-and-seating", "event-flooring"], "Hampi", true),
+    media: [REP_CULTURAL],
+  },
+  {
+    ...P("adichunchanagiri-founders-day", "Sri Adichunchanagiri Shikshana Trust", "Founder's Day", null, "cultural", ["staging-and-seating"]),
+    media: [REP_CULTURAL],
+  },
+  {
+    ...P("fc-expo-2025", "First Circle Biztech", "FC Expo 2025", "2025", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
+    media: [REP_EXHIBITION],
+  },
+  {
+    ...P("krishi-mela-2024-25", "University of Agricultural Sciences", "Krishi Mela 2024–25", "2024", "exhibition", ["german-hangers", "exhibition-stalls"], "GKVK Campus, Bengaluru"),
+    media: [REP_EXHIBITION],
+  },
+  {
+    ...P("pourakarmika-samavesha", "Karnataka State Marketing Communication & Advertising Ltd", "Pourakarmika Samavesha", null, "government", ["german-hangers", "staging-and-seating"], "Bengaluru"),
+    media: [REP_GOVERNMENT],
+  },
+  {
+    ...P("buildtek-silver-jubilee", "Buildtek Polymers", "Silver Jubilee Celebration", null, "corporate", ["staging-and-seating"]),
+    media: [REP_CONFERENCE],
+  },
+  {
+    ...P("vaidic-dharma-navaratri", "Vaidic Dharma Sansthan", "Navaratri Function", null, "cultural", ["german-hangers", "event-flooring"]),
+    media: [REP_CULTURAL],
+  },
+  {
+    ...P("valmiki-jayanti-2025", "Tribal Welfare Department, Government of Karnataka", "Valmiki Jayanti 2025", "2025", "government", ["german-hangers", "staging-and-seating"], "Bengaluru"),
+    media: [REP_GOVERNMENT],
+  },
+  {
+    ...P("mm-hills", "Sri Male Mahadeshwara Swamy", "MM Hills", null, "cultural", ["german-hangers"], "Male Mahadeshwara Hills"),
+    media: [REP_CULTURAL],
+  },
+  {
+    ...P("world-fisheries-day-2024", "Skyblue Event Management India", "World Fisheries Day 2024", "2024", "government", ["exhibition-stalls", "staging-and-seating"], "Bengaluru"),
+    media: [REP_GOVERNMENT],
+  },
+  {
+    ...P("biffes-17", "Karnataka Chalanachitra Academy", "17th Bengaluru International Film Festival", null, "cultural", ["staging-and-seating", "event-flooring"], "Bengaluru", true),
+    media: [REP_CULTURAL],
+  },
+  {
+    ...P("karthik-live", "TribeVibe Entertainment", "Karthik Live", null, "corporate", ["staging-and-seating", "event-scaffolding"]),
+    media: [REP_CONFERENCE],
+  },
+  {
+    ...P("dam-safety-conference", "Karnataka State Marketing Communication & Advertising Ltd", "International Conference on Dam Safety", null, "conference", ["german-hangers", "staging-and-seating"]),
+    media: [REP_CONFERENCE],
+  },
+  {
+    ...P("fifth-annual-convocation", "Karnataka State Marketing Communication & Advertising Ltd", "5th Annual Convocation", null, "government", ["staging-and-seating"]),
+    media: [REP_CONVOCATION],
+  },
+  {
+    ...P("babu-jagjivan-ram-119", "Karnataka State Marketing Communication & Advertising Ltd", "119th birth anniversary of Dr Babu Jagjivan Ram", null, "government", ["staging-and-seating"]),
+    media: [REP_GOVERNMENT],
+  },
+  {
+    ...P("vidyapeeta-education-expo", "ABS Business Solutions", "Vidyapeeta Education Expo", null, "exhibition", ["exhibition-stalls"], "Bengaluru"),
+    media: [REP_EXHIBITION],
+  },
 
   // --- Published by Raja on rajaenterprises.co, read 2026-09-04. These are the
   // client's own public claims and so are citable, but the site states no year,
