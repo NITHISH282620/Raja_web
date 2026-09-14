@@ -36,7 +36,7 @@ export const aboutTimeline: TimelineEra[] = [
       "Civic state convocations and government dais construction",
       "Foundational Bangalore headquarters establishment",
     ],
-    image: "/media/projects/02-02-isgcon-bengaluru-1764810125216.webp",
+    image: "/media/events/isgcon-stage-award.1423a9d8.webp",
     alt: "Foundational civic event infrastructure in Karnataka",
   },
   {
@@ -51,7 +51,7 @@ export const aboutTimeline: TimelineEra[] = [
       "Transition from sub-hiring to 100% direct-owned asset fleet",
       "Heavy wooden platform fabrication yards established",
     ],
-    image: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
+    image: "/media/events/german-hanger-aerial.webp",
     alt: "Directly owned German clear-span structure engineering",
   },
   {
@@ -66,7 +66,7 @@ export const aboutTimeline: TimelineEra[] = [
       "3,000-ton temporary mobile HVAC cooling division",
       "National industrial trade fair execution in New Delhi, Mumbai, and Bengaluru",
     ],
-    image: "/media/projects/07-05-ficci-eima-india-s-farm-equipment-market-to-grow-to-18-bn-by-2025-report.webp",
+    image: "/media/events/eima-mahindra-stall.526d34c1.webp",
     alt: "Exhibition stall systems and interior expo design",
   },
   {
@@ -86,7 +86,7 @@ export const aboutTimeline: TimelineEra[] = [
       "EIMA Agrimach international agricultural machinery fair",
       "ICGS Akshay commissioning, Goa Shipyard Limited",
     ],
-    image: "/media/projects/04-03-larenon-healthcare-1.webp",
+    image: "/media/events/larenon-stall-counter.33e301ef.webp",
     alt: "A fabricated exhibition stall with branded fascia and display counters",
   },
 ];
@@ -107,7 +107,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Imported German Hangars",
     description: "Clear-span aluminium structures engineered for wind loads up to 120 km/h, fire-retardant membranes, and pillar-free sightlines.",
     tag: "Heavy Structures",
-    image: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
+    image: "/media/events/kanha-canopy-seating.7a22707d.webp",
   },
   {
     number: "10,00,000",
@@ -115,7 +115,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Modular Wooden Floor Platforms",
     description: "Heavy-duty load-bearing subfloors, leveling laser-aligned platforms capable of supporting industrial machinery and massive crowds.",
     tag: "Ground Engineering",
-    image: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp",
+    image: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
   },
   {
     number: "1,00,000",
@@ -123,7 +123,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Engineered Stage Infrastructure",
     description: "Reinforced steel-truss staging and tiered platforms engineered for high-security VIP protocols, orchestral setups, and state ceremonies.",
     tag: "Dais & Staging",
-    image: "/media/projects/02-02-isgcon-bengaluru-1764810125216.webp",
+    image: "/media/events/isgcon-stage-lamp.5633cdec.webp",
   },
   {
     number: "3,000",
@@ -131,7 +131,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Temporary Climate Control & HVAC",
     description: "Mobile chillers, air-handling ducting, and industrial environmental systems ensuring ambient comfort inside temporary structures.",
     tag: "Climate Control",
-    image: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp",
+    image: "/media/events/kanha-canopy-interior.0403268d.webp",
   },
   {
     number: "1,00,000",
@@ -139,7 +139,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Iron Crowd-Control Barricades",
     description: "10,000 heavy-gauge interlocking steel barrier units certified for police cordons, VIP security perimeters, and stadium crowd zoning.",
     tag: "Security Perimeter",
-    image: "/media/projects/18-11-vaidicdharma-navaratri-images-2.webp",
+    image: "/media/events/aol-crowd-aerial.72481eb2.webp",
   },
   {
     number: "20",
@@ -147,7 +147,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Dedicated Heavy Logistics Fleet",
     description: "Company-owned goods carriers, multi-axle transport vehicles, and emergency support units ensuring zero transit delays across India.",
     tag: "Logistics Fleet",
-    image: "/media/projects/15-09-gte2024-images-8.webp",
+    image: "/media/events/eima-ground-dusk.284dd6b2.webp",
   },
 ];
 
@@ -182,7 +182,7 @@ export const milestoneMoments: MilestoneItem[] = [
     venue: "Kanha Shanti Vanam",
     scale: "Assembly of many thousands, under cover",
     scope: "Clear-span cover across the full assembly floor, levelled flooring, seating and circulation planned as one scope.",
-    image: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
+    image: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp",
   },
   {
     id: "eima-agrimach-2024",
@@ -191,7 +191,7 @@ export const milestoneMoments: MilestoneItem[] = [
     venue: "Bengaluru",
     scale: "International agricultural machinery fair",
     scope: "Exhibition ground build — fabricated stands, printed fascia and flooring across an open site carrying heavy machinery displays.",
-    image: "/media/projects/07-05-ficci-eima-india-s-farm-equipment-market-to-grow-to-18-bn-by-2025-report.webp",
+    image: "/media/events/eima-expo-crowd.11d4b8f2.webp",
   },
   {
     id: "isgcon-2023",
@@ -200,7 +200,7 @@ export const milestoneMoments: MilestoneItem[] = [
     venue: "Bengaluru",
     scale: "National medical congress",
     scope: "Conference staging, dais and audience infrastructure with printed backdrop and lighting rig.",
-    image: "/media/projects/02-02-isgcon-bengaluru-1764810125216.webp",
+    image: "/media/events/isgcon-stage-award.1423a9d8.webp",
   },
   {
     id: "icgs-akshay",
@@ -209,7 +209,7 @@ export const milestoneMoments: MilestoneItem[] = [
     venue: "Goa Shipyard Limited, Vasco",
     scale: "Indian Coast Guard fast patrol vessel",
     scope: "Ceremonial dais, canopy and parade infrastructure for a naval commissioning.",
-    image: "/media/projects/22-13-hampiutsav2024-whatsapp-image-2024-02-02-at-15-36-50-5e3f1cc5-jpg.webp",
+    image: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
   },
 ];
 

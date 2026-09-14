@@ -48,7 +48,7 @@ export const capabilities: Capability[] = [
     summary: "Imported German hangars and clear-span structures, erected on prepared ground.",
     image: {
       id: "capability-structure",
-      src: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
+      src: "/media/events/german-hanger-aerial.webp",
       width: 1280,
       height: 720,
       alt: "Aerial view of engineered German clear-span hangar structures and event pavilions.",
@@ -64,7 +64,7 @@ export const capabilities: Capability[] = [
     summary: "Wooden decking, levelled platforms and carpeting laid across the full floor plate.",
     image: {
       id: "capability-flooring",
-      src: "/media/projects/15-09-gte2024-images-8.webp",
+      src: "/media/events/eima-ground-dusk.284dd6b2.webp",
       width: 680,
       height: 451,
       alt: "An outdoor exhibition ground at dusk, machinery displays under exhibitor structures.",
@@ -80,7 +80,7 @@ export const capabilities: Capability[] = [
     summary: "Dais, stage, lighting rig and audience seating, delivered as one package.",
     image: {
       id: "capability-staging",
-      src: "/media/projects/02-02-isgcon-bengaluru-1764810125216.webp",
+      src: "/media/events/isgcon-stage-lamp.5633cdec.webp",
       width: 800,
       height: 533,
       alt: "A lamp-lighting ceremony on a conference stage in front of a large printed backdrop.",
@@ -96,7 +96,7 @@ export const capabilities: Capability[] = [
     summary: "Octonorm and Maxima stalls fabricated, fitted and struck on schedule.",
     image: {
       id: "capability-exhibition",
-      src: "/media/projects/07-05-ficci-eima-india-s-farm-equipment-market-to-grow-to-18-bn-by-2025-report.webp",
+      src: "/media/events/eima-mahindra-stall.526d34c1.webp",
       width: 1000,
       height: 603,
       alt: "A fabricated exhibition stall with branded fascia and machinery on display at an agricultural trade fair.",

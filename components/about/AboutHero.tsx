@@ -127,7 +127,7 @@ export function AboutHero({
             className="group relative md:col-span-7 h-[360px] sm:h-[440px] md:h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white shadow-sm"
           >
             <Image
-              src={primary?.image ?? "/media/projects/08-06-kanha-shanti-vanam-images.webp"}
+              src={primary?.image ?? "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp"}
               alt={primary?.alt ?? ""}
               fill
               priority
@@ -155,7 +155,7 @@ export function AboutHero({
             className="group relative md:col-span-5 h-[320px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white shadow-sm"
           >
             <Image
-              src={secondary?.image ?? "/media/projects/08-06-kanha-shanti-vanam-images.webp"}
+              src={secondary?.image ?? "/media/events/german-hanger-aerial.webp"}
               alt={secondary?.alt ?? ""}
               fill
               priority

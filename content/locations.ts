@@ -74,7 +74,7 @@ export const locations: LocationRecord[] = [
     blurb:
       "Home city, yard and fleet. The majority of Raja's recorded engagements are built here — Palace Grounds, Gayathri Vihar, the GKVK campus and Vidhana Soudha among them.",
     image: {
-      src: "/media/projects/07-05-ficci-eima-india-s-farm-equipment-market-to-grow-to-18-bn-by-2025-report.webp",
+      src: "/media/events/eima-expo-crowd.11d4b8f2.webp",
       width: 595,
       height: 336,
       alt: "A crowded outdoor trade-fair ground with exhibitor stands and agricultural machinery.",
@@ -121,7 +121,7 @@ export const locations: LocationRecord[] = [
     lng: 78.4867,
     blurb: "Kanha Shanti Vanam — tent city and assembly infrastructure.",
     image: {
-      src: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
+      src: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp",
       width: 644,
       height: 388,
       alt: "Aerial view over an immense clear-span canopy sheltering a seated assembly of many thousands.",
@@ -155,7 +155,7 @@ export const locations: LocationRecord[] = [
     blurb:
       "ICGS Akshay commissioning at Goa Shipyard Limited, Vasco — the Coast Guard's fourth Adamya-class fast patrol vessel.",
     image: {
-      src: "/media/projects/22-13-hampiutsav2024-whatsapp-image-2024-02-02-at-15-36-50-5e3f1cc5-jpg.webp",
+      src: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
       width: 1280,
       height: 720,
       alt: "The ICGS Akshay commissioning ceremony at Goa Shipyard.",

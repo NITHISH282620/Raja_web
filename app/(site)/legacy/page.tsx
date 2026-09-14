@@ -22,7 +22,7 @@ export default async function LegacyPage() {
   return (
     <main id="main" className="relative w-full bg-paper">
       <LegacyChoreographer />
-      <LegacyHero imageSrc={heroImage?.image ?? "/media/projects/08-06-kanha-shanti-vanam-images.webp"} />
+      <LegacyHero imageSrc={heroImage?.image ?? "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp"} />
       <LegacyOrigins />
       <LegacyTimeline />
       <LegacyPivot />

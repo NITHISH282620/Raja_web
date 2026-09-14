@@ -183,20 +183,20 @@ export const projects: Project[] = [
     ...P("art-of-living-navaratri-2023", "The Art of Living Trust", "Navaratri Function 2023", "2023", "cultural", ["german-hangers", "event-flooring", "staging-and-seating"], "Bengaluru", true),
     media: [
       { src: "/media/projects/01-01-artofliving-navaratri-g2aevntbcaam9cy.webp", width: 2400, height: 1350, alt: "Art of Living Navaratri Function", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("isgcon-2023", "Indian Society of Gastroenterology", "ISGCON 2023 — 64th Annual Congress", "2023", "conference", ["german-hangers", "staging-and-seating", "exhibition-stalls"], "Bengaluru"),
     media: [
       { src: "/media/projects/02-02-isgcon-bengaluru-1764810125216.webp", width: 1600, height: 900, alt: "ISGCON 2023 Bengaluru", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("la-renon-company-event", "La Renon Healthcare", "Company event", null, "corporate", ["exhibition-stalls", "staging-and-seating"]),
     media: [
       { src: "/media/projects/03-03-larenon-healthcare-2-jpg.webp", width: 5000, height: 3285, alt: "La Renon Healthcare Event Wide", clearance: "client-approved" },
       { src: "/media/projects/04-03-larenon-healthcare-1.webp", width: 2042, height: 1210, alt: "La Renon Healthcare Event", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
     featured: true,
   },
   {
@@ -204,20 +204,20 @@ export const projects: Project[] = [
     media: [
       { src: "/media/projects/05-04-firstcircle-fcexpo-3.webp", width: 5000, height: 3326, alt: "FC Expo Stage", clearance: "client-approved" },
       { src: "/media/projects/06-04-firstcircle-fcexpo-images-2.webp", width: 1600, height: 1067, alt: "FC Expo Event Floor", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("eima-agrimach-2024", "Federation of Indian Chambers of Commerce & Industry (FICCI)", "EIMA Agrimach 2024", "2024", "exhibition", ["german-hangers", "exhibition-stalls", "event-flooring"], "Bengaluru", true),
     media: [
       { src: "/media/projects/07-05-ficci-eima-india-s-farm-equipment-market-to-grow-to-18-bn-by-2025-report.webp", width: 2000, height: 1206, alt: "FICCI EIMA India Exhibition", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("kanha-shanti-vanam-tent-city", "Kanha Shanti Vanam", "Tent city, Bengaluru", null, "cultural", ["german-hangers", "event-flooring", "staging-and-seating"], "Bengaluru"),
     media: [
       { src: "/media/projects/08-06-kanha-shanti-vanam-images.webp", width: 1600, height: 899, alt: "Kanha Shanti Vanam Tent City", clearance: "client-approved" },
       { src: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp", width: 1288, height: 776, alt: "Kanha Shanti Vanam Event", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
     featured: true,
   },
   /**
@@ -234,49 +234,49 @@ export const projects: Project[] = [
     media: [
       { src: "/media/projects/10-07-abs-educationfair-images-2.webp", width: 1600, height: 1067, alt: "ABS Education Fair Entrance", clearance: "client-approved" },
       { src: "/media/projects/11-07-abs-educationfair-images-3.webp", width: 1456, height: 842, alt: "ABS Education Fair Hall", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("collegedunia-education-fair", "Collegedunia Web", "Collegedunia Education Fair", null, "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
     media: [
       { src: "/media/projects/12-08-collegedunia-educationfair-21.webp", width: 2400, height: 1602, alt: "Collegedunia Education Fair Wide", clearance: "client-approved" },
       { src: "/media/projects/13-08-collegedunia-educationfair-11.webp", width: 2400, height: 1600, alt: "Collegedunia Education Fair Stalls", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("gte-2024", "Garment Technology Expo", "GTE 2024", "2024", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
     media: [
       { src: "/media/projects/14-09-gte2024-gte-the-biggest-garment-technology-shows-is-back-to-nsic-okhla-new-delhi.webp", width: 2400, height: 1260, alt: "GTE 2024 Expo", clearance: "client-approved" },
       { src: "/media/projects/15-09-gte2024-images-8.webp", width: 1350, height: 906, alt: "GTE 2024 Visitors", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("central-silk-board-conference", "Central Silk Board — National Silkworm Seed Organisation", "Central Silk Board Conference", null, "conference", ["staging-and-seating"]),
     media: [
       { src: "/media/projects/16-10-csb-silkworm-conference-images-13.webp", width: 1600, height: 1067, alt: "CSB Silkworm Conference Stage", clearance: "client-approved" },
       { src: "/media/projects/17-10-csb-silkworm-conference-images-10.webp", width: 1600, height: 1066, alt: "CSB Silkworm Conference Assembly", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("vaidic-dharma-navaratri-2024", "Vaidic Dharma Sansthan", "Navaratri Function 2024", "2024", "cultural", ["german-hangers", "event-flooring"]),
     media: [
       { src: "/media/projects/18-11-vaidicdharma-navaratri-images-2.webp", width: 1360, height: 902, alt: "Vaidic Dharma Navaratri Pavilion", clearance: "client-approved" },
       { src: "/media/projects/19-11-vaidicdharma-navaratri-images-5.webp", width: 1292, height: 594, alt: "Vaidic Dharma Navaratri Assembly", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("hampi-utsav-2024", "Karnataka State Habitat Centre", "Hampi Utsav 2024", "2024", "cultural", ["german-hangers", "staging-and-seating", "event-flooring"], "Hampi", true),
     media: [
       { src: "/media/projects/22-13-hampiutsav2024-whatsapp-image-2024-02-02-at-15-36-50-5e3f1cc5-jpg.webp", width: 1800, height: 900, alt: "Hampi Utsav 2024 Illumination", clearance: "client-approved" },
       { src: "/media/projects/23-13-hampiutsav2024-images-8.webp", width: 1332, height: 920, alt: "Hampi Utsav 2024 Structure", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("adichunchanagiri-founders-day", "Sri Adichunchanagiri Shikshana Trust", "Founder's Day", null, "cultural", ["staging-and-seating"]),
     media: [
       { src: "/media/projects/20-12-adichunchanagiri-founderday-images-2.webp", width: 1360, height: 902, alt: "Adichunchanagiri Founder's Day Event", clearance: "client-approved" },
       { src: "/media/projects/21-12-adichunchanagiri-founderday-images-7.webp", width: 1600, height: 1064, alt: "Adichunchanagiri Founder's Day Stage", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("fc-expo-2025", "First Circle Biztech", "FC Expo 2025", "2025", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),

@@ -32,12 +32,12 @@ export interface CollagePhoto extends Placed {
 export const collage: CollagePhoto[] = [
   {
     id: "structural-hanger",
-    left: 11.5,
+    left: 17.5,
     top: 4.5,
     width: 23.0,
     height: 21.0,
     image: {
-      src: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
+      src: "/media/events/german-hanger-aerial.webp",
       width: 1280,
       height: 720,
       alt: "Aerial view of engineered German clear-span hangar structures.",
@@ -51,7 +51,7 @@ export const collage: CollagePhoto[] = [
     width: 23.0,
     height: 21.0,
     image: {
-      src: "/media/projects/02-02-isgcon-bengaluru-1764810125216.webp",
+      src: "/media/events/isgcon-stage-lamp.5633cdec.webp",
       width: 800,
       height: 533,
       alt: "A lamp-lighting ceremony on a conference stage in front of a large printed backdrop.",
@@ -65,7 +65,7 @@ export const collage: CollagePhoto[] = [
     width: 18.0,
     height: 21.0,
     image: {
-      src: "/media/projects/07-05-ficci-eima-india-s-farm-equipment-market-to-grow-to-18-bn-by-2025-report.webp",
+      src: "/media/events/eima-mahindra-stall.526d34c1.webp",
       width: 1000,
       height: 603,
       alt: "A fabricated exhibition stall with branded fascia and machinery on display at an agricultural trade fair.",
@@ -79,7 +79,7 @@ export const collage: CollagePhoto[] = [
     width: 22.0,
     height: 23.0,
     image: {
-      src: "/media/projects/01-01-artofliving-navaratri-g2aevntbcaam9cy.webp",
+      src: "/media/events/aol-assembly-rows.7e11d21d.webp",
       width: 1200,
       height: 800,
       alt: "Row after row of seated participants across an immense covered gathering.",
@@ -108,7 +108,7 @@ export const collage: CollagePhoto[] = [
     width: 22.0,
     height: 21.0,
     image: {
-      src: "/media/projects/03-03-larenon-healthcare-2-jpg.webp",
+      src: "/media/events/larenon-stall-arch.0f7c47d8.webp",
       width: 1800,
       height: 1350,
       alt: "An arched-fascia exhibition stall with visitors passing its frontage.",
