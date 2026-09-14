@@ -22,7 +22,7 @@ export default async function LegacyPage() {
   return (
     <main id="main" className="relative w-full bg-paper">
       <LegacyChoreographer />
-      <LegacyHero imageSrc={heroImage?.image ?? /media/projects/2x/la-renon-company-event.webp} />
+      <LegacyHero imageSrc={heroImage?.image ?? "/media/projects/2x/la-renon-company-event.webp"} />
       <LegacyOrigins />
       <LegacyTimeline />
       <LegacyPivot />

@@ -47,7 +47,7 @@ export function LegacyHero({ imageSrc }: { imageSrc?: string }) {
         {/* Left tall image */}
         <div data-hero-grid-item className="md:col-span-5 lg:col-span-4 aspect-[4/5] md:aspect-auto md:h-[600px] lg:h-[640px] rounded-[2rem] overflow-hidden relative shadow-lg bg-neutral-100">
           <Image
-            src={imageSrc || /media/projects/2x/collegedunia-education-fair.webp}
+            src={imageSrc || "/media/projects/2x/collegedunia-education-fair.webp"}
             alt="Historical infrastructure construction"
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
@@ -61,7 +61,7 @@ export function LegacyHero({ imageSrc }: { imageSrc?: string }) {
           {/* Top wide image */}
           <div data-hero-grid-item className="h-[280px] sm:h-[340px] lg:h-[380px] rounded-[2rem] overflow-hidden relative shadow-lg bg-neutral-100">
             <Image
-              src=/media/projects/2x/gte-2024.webp
+              src="/media/projects/2x/gte-2024.webp"
               alt="Scale of massive hangar operations"
               fill
               sizes="(max-width: 768px) 100vw, 66vw"
@@ -83,7 +83,7 @@ export function LegacyHero({ imageSrc }: { imageSrc?: string }) {
             
             <div data-hero-grid-item className="aspect-square sm:aspect-auto sm:h-full rounded-[2rem] overflow-hidden relative shadow-lg bg-neutral-100">
               <Image
-                src=/media/projects/2x/central-silk-board-conference.webp
+                src="/media/projects/2x/central-silk-board-conference.webp"
                 alt="Modern infrastructure deployment"
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"

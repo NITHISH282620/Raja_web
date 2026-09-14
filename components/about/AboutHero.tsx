@@ -127,7 +127,7 @@ export function AboutHero({
             className="group relative md:col-span-7 h-[360px] sm:h-[440px] md:h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white shadow-sm"
           >
             <Image
-              src={primary?.image ?? /media/projects/2x/eima-agrimach-2024.webp}
+              src={primary?.image ?? "/media/projects/2x/eima-agrimach-2024.webp"}
               alt={primary?.alt ?? ""}
               fill
               priority
@@ -155,7 +155,7 @@ export function AboutHero({
             className="group relative md:col-span-5 h-[320px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white shadow-sm"
           >
             <Image
-              src={secondary?.image ?? /media/projects/2x/kanha-shanti-vanam-tent-city.webp}
+              src={secondary?.image ?? "/media/projects/2x/kanha-shanti-vanam-tent-city.webp"}
               alt={secondary?.alt ?? ""}
               fill
               priority

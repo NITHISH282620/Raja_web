@@ -133,7 +133,7 @@ const P = (
  * open-data releases, Wikimedia Commons and Pexels; full credit lines below.
  */
 const REP_EXHIBITION: ImageAsset = {
-  src: /media/projects/2x/buildtek-silver-jubilee.webp,
+  src: "/media/projects/2x/buildtek-silver-jubilee.webp",
   width: 1600,
   height: 1015,
   alt: "A wide view of an exhibition floor with multiple stalls and visitors, Pride of India Expo.",
@@ -142,7 +142,7 @@ const REP_EXHIBITION: ImageAsset = {
 };
 
 const REP_CULTURAL: ImageAsset = {
-  src: /media/projects/2x/vaidic-dharma-navaratri.webp,
+  src: "/media/projects/2x/vaidic-dharma-navaratri.webp",
   width: 1024,
   height: 739,
   alt: "A caparisoned elephant leads a procession through a dense crowd at the Mysore Dasara festival, Karnataka.",
@@ -151,7 +151,7 @@ const REP_CULTURAL: ImageAsset = {
 };
 
 const REP_GOVERNMENT: ImageAsset = {
-  src: /media/projects/2x/valmiki-jayanti-2025.webp,
+  src: "/media/projects/2x/valmiki-jayanti-2025.webp",
   width: 1600,
   height: 1030,
   alt: "A government minister addressing a large seated audience from a stage at a public function.",
@@ -160,7 +160,7 @@ const REP_GOVERNMENT: ImageAsset = {
 };
 
 const REP_CONFERENCE: ImageAsset = {
-  src: /media/projects/2x/mm-hills.webp,
+  src: "/media/projects/2x/mm-hills.webp",
   width: 1600,
   height: 2400,
   alt: "A large tiered auditorium filled with a seated audience, viewed from an upper gallery.",
@@ -169,7 +169,7 @@ const REP_CONFERENCE: ImageAsset = {
 };
 
 const REP_CONVOCATION: ImageAsset = {
-  src: /media/projects/2x/world-fisheries-day-2024.webp,
+  src: "/media/projects/2x/world-fisheries-day-2024.webp",
   width: 1600,
   height: 1323,
   alt: "Dignitaries in academic regalia light a ceremonial lamp on stage at a university convocation.",
@@ -360,7 +360,7 @@ export const projects: Project[] = [
     ...P("indian-science-congress-107", "Government of India", "107th Indian Science Congress", "2020", "conference", ["german-hangers", "staging-and-seating", "exhibition-stalls"], "University of Agricultural Sciences, Bengaluru"),
     media: ([
       {
-        src: /media/projects/2x/biffes-17.webp,
+        src: "/media/projects/2x/biffes-17.webp",
         width: 580,
         height: 311,
         alt: "Prime Minister Narendra Modi with delegates on stage at the inauguration of the 107th Indian Science Congress, University of Agricultural Sciences, Bengaluru, 3 January 2020.",
@@ -384,7 +384,7 @@ export const projects: Project[] = [
     ...P("icgs-akshay-commissioning", "Indian Coast Guard / Goa Shipyard Limited", "ICGS Akshay commissioning", "2026", "government", ["staging-and-seating"], "Vasco, Goa"),
     media: ([
 {
-        src: /media/projects/2x/karthik-live.webp,
+        src: "/media/projects/2x/karthik-live.webp",
         width: 1280,
         height: 720,
         alt: "The commissioning of ICGS Akshay: the ship's nameplate unveiled, the vessel at sea, and the ceremonial parade beneath a canopied dais.",
@@ -410,7 +410,7 @@ export const projects: Project[] = [
     provenance: "client-provided" as const,
     media: ([
       {
-        src: /media/projects/2x/dam-safety-conference.webp,
+        src: "/media/projects/2x/dam-safety-conference.webp",
         width: 1800,
         height: 1288,
         alt: "A ceremonial plaque unveiling on a red-carpeted dais, the drape drawn back before assembled dignitaries.",
@@ -418,7 +418,7 @@ export const projects: Project[] = [
         credit: "Press Information Bureau, Government of India",
       },
       {
-        src: /media/projects/2x/fifth-annual-convocation.webp,
+        src: "/media/projects/2x/fifth-annual-convocation.webp",
         width: 1800,
         height: 1419,
         alt: "Dignitaries walking the concourse of Kempegowda International Airport Terminal 2 beside its planted green wall.",
@@ -506,35 +506,35 @@ export const activeCategories = (): ProjectCategory[] => {
  */
 export const categoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
   exhibition: {
-      src: /media/projects/2x/babu-jagjivan-ram-119.webp,
+      src: "/media/projects/2x/babu-jagjivan-ram-119.webp",
       width: 595,
       height: 336,
       alt: "A crowded outdoor trade-fair ground with exhibitor stands and agricultural machinery.",
       clearance: "client-approved",
     },
   conference: {
-      src: /media/projects/2x/vidyapeeta-education-expo.webp,
+      src: "/media/projects/2x/vidyapeeta-education-expo.webp",
     width: 800,
     height: 450,
     alt: "An award presentation on a conference stage beneath a branded backdrop.",
       clearance: "client-approved",
     },
   cultural: {
-      src: /media/projects/2x/art-of-living-navaratri-2023.webp,
+      src: "/media/projects/2x/art-of-living-navaratri-2023.webp",
       width: 644,
       height: 388,
       alt: "Aerial view over an immense clear-span canopy sheltering a seated assembly of many thousands.",
       clearance: "client-approved",
     },
   corporate: {
-      src: /media/projects/2x/isgcon-2023.webp,
+      src: "/media/projects/2x/isgcon-2023.webp",
       width: 1800,
       height: 1350,
       alt: "An arched-fascia exhibition stall with visitors passing its frontage.",
       clearance: "client-approved",
     },
   government: {
-      src: /media/projects/2x/la-renon-company-event.webp,
+      src: "/media/projects/2x/la-renon-company-event.webp",
     width: 1280,
     height: 720,
     alt: "The commissioning of ICGS Akshay at Goa Shipyard: nameplate unveiling, the vessel at sea, and the ceremonial parade beneath a canopied dais.",

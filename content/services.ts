@@ -86,7 +86,7 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["Event flooring", "Lighting", "Power distribution", "Signage and fascia"],
     image:
     {
-      src: /media/projects/2x/valmiki-jayanti-2025.webp,
+      src: "/media/projects/2x/valmiki-jayanti-2025.webp",
       width: 1800,
       height: 1468,
       alt: "An exhibition stall interior: branded back wall, display counters, seating and planting.",
@@ -110,7 +110,7 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["German hangars", "Carpeting", "Staging"],
     image:
     {
-      src: /media/projects/2x/mm-hills.webp,
+      src: "/media/projects/2x/mm-hills.webp",
       width: 837,
       height: 650,
       alt: "Aerial of a vast covered assembly floor laid out in patterned seating blocks.",
@@ -134,7 +134,7 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["Lighting and AV", "Barricading", "Event flooring", "Seating"],
     image:
     {
-      src: /media/projects/2x/world-fisheries-day-2024.webp,
+      src: "/media/projects/2x/world-fisheries-day-2024.webp",
       width: 800,
       height: 533,
       alt: "A lamp-lighting ceremony on a conference stage in front of a large printed backdrop.",
@@ -193,7 +193,7 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["German hangars", "Staging", "Event flooring", "Barricading", "Climate control"],
     image:
     {
-      src: /media/projects/2x/biffes-17.webp,
+      src: "/media/projects/2x/biffes-17.webp",
       width: 1280,
       height: 720,
       alt: "The commissioning of ICGS Akshay at Goa Shipyard: nameplate unveiling, the vessel at sea, and the ceremonial parade beneath a canopied dais.",
@@ -250,7 +250,7 @@ export const servicePillars: ServicePillar[] = [
     ],
     bundled: ["German hangars", "Event flooring", "Power distribution"],
     image: {
-      src: /media/projects/2x/karthik-live.webp,
+      src: "/media/projects/2x/karthik-live.webp",
       width: 1280,
       height: 720,
       alt: "Interior of temporary clear-span hall with integrated air-conditioning ducting.",
@@ -419,7 +419,7 @@ export const servicesIntro = {
  * never captioned as Raja's work.
  */
 export const hangarInUse: ImageAsset = {
-      src: /media/projects/2x/dam-safety-conference.webp,
+      src: "/media/projects/2x/dam-safety-conference.webp",
       width: 515,
       height: 388,
       alt: "The interior of a tensile clear-span structure, its fabric roof carried on a steel frame.",

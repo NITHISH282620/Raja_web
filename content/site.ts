@@ -98,7 +98,7 @@ export const heroMedia = {
   /** The tent-city dawn frame, kept as an alternative poster. */
   image: {
     id: "aicog-2019-tent-city-dawn",
-    src: /media/projects/2x/vidyapeeta-education-expo.webp,
+    src: "/media/projects/2x/vidyapeeta-education-expo.webp",
     width: 1920,
     height: 1080,
     alt: "Aerial view at dawn over several hundred white peaked tents laid out in ordered rows for AICOG 2019.",
