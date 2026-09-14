@@ -63,8 +63,14 @@ export const pageImages: PageImage[] = [
   {
     id: "legacy-origins",
     label: "Legacy — the Bengaluru Genesis section",
-    image: "/media/events/kanha-campus-aerial.fbf4b561.webp",
-    alt: "An aerial view across a large event campus.",
+    /*
+     * 2026-09-14: the previous image (kanha-campus-aerial) was only 320x178 —
+     * roughly a third the resolution of every other image on the site, and
+     * visibly soft rendered `fill` at this section's actual display size.
+     * Swapped to a higher-resolution aerial from the same approved set.
+     */
+    image: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
+    alt: "Aerial of a vast covered assembly floor laid out in patterned seating blocks.",
     order: 4,
     status: "approved",
   },

@@ -97,7 +97,8 @@ export const collage: CollagePhoto[] = [
       width: 1920,
       height: 1080,
       alt: "Aerial view of high-capacity event complex and temporary infrastructure.",
-      clearance: "licensed",
+      clearance: "raja-original",
+      credit: "Raja Enterprises",
     },
   },
   {
