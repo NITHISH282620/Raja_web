@@ -1,45 +1,9 @@
 import Image from "next/image";
+import { getLegacyMilestones } from "@/lib/store";
 
-const MILESTONES = [
-  {
-    year: "1977",
-    title: "Founded in Bengaluru",
-    desc: "Timber poles and cotton shamianas for civic convocations on 5th Main Road.",
-    image: "/media/legacy/legacy-1.png",
-  },
-  {
-    year: "1985",
-    title: "State-Level Contracts",
-    desc: "First Karnataka government mandates — Republic Day grounds and political summits.",
-    image: "/media/legacy/legacy-2.png",
-  },
-  {
-    year: "1991",
-    title: "The German Pivot",
-    desc: "Direct acquisition of aerospace-grade 6061-T6 aluminium clear-span hangar systems.",
-    image: "/media/legacy/legacy-3.png",
-  },
-  {
-    year: "2000",
-    title: "National Expansion",
-    desc: "Deployments across Tamil Nadu, Andhra Pradesh, and Maharashtra for multi-thousand delegate events.",
-    image: "/media/projects/aicog-2019-tent-city-dawn.webp",
-  },
-  {
-    year: "2010",
-    title: "The Flooring Guild",
-    desc: "In-house precision wooden sub-floor production yard commissioned. 10,00,000+ sq. ft. deployed.",
-    image: "/media/projects/aicog-2019-flooring-install.webp",
-  },
-  {
-    year: "2024",
-    title: "Full-Stack Infrastructure",
-    desc: "Structures, staging, lighting, AV, flooring, barricading — all owned, all operated by Raja crew.",
-    image: "/media/projects/aicog-2019-hanger-complex-aerial.webp",
-  },
-];
+export async function LegacyTimeline() {
+  const MILESTONES = await getLegacyMilestones();
 
-export function LegacyTimeline() {
   return (
     <section data-timeline-section className="relative w-full py-20 sm:py-28 md:py-36 overflow-hidden bg-paper">
 
@@ -107,7 +71,7 @@ export function LegacyTimeline() {
                     <div className="relative w-full aspect-[4/3] rounded-[1.5rem] overflow-hidden bg-neutral-100 shadow-md">
                       <Image
                         src={m.image}
-                        alt={m.title}
+                        alt={m.alt}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />

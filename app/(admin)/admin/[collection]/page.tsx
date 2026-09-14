@@ -70,6 +70,12 @@ export const META: Record<
     label: (d) => String(d.title ?? "Untitled"),
     meta: (d) => String(d.year ?? ""),
   },
+  legacyMilestones: {
+    title: "Key milestones",
+    sub: "The 1977–2024 timeline on the Legacy page.",
+    label: (d) => String(d.title ?? "Untitled"),
+    meta: (d) => String(d.year ?? ""),
+  },
   principles: {
     title: "Principles",
     sub: "How Raja delivers — the four principles on the About page.",

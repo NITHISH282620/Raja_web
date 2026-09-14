@@ -20,6 +20,7 @@ import { inventoryCategories as seedCatalog, type InventoryCategory } from "@/co
 import { aboutTimeline as seedTimeline, milestoneMoments as seedMilestones, principles as seedPrinciples,
   inventoryHighlights as seedHighlights,
   type TimelineEra, type MilestoneItem, type Principle, type InventoryItem } from "@/content/about";
+import { legacyMilestones as seedLegacyMilestones, type LegacyMilestone } from "@/content/legacyMilestones";
 import { locations as seedLocations, type LocationRecord } from "@/content/locations";
 import { disciplines as seedDisciplines, type Discipline } from "@/content/careers";
 import { partnerPoints as seedPartnerPoints, partnerSteps as seedPartnerSteps,
@@ -74,6 +75,7 @@ export const COLLECTIONS = {
   recentEvents: "recentEvents",
   pageImages: "pageImages",
   homepageWorks: "homepageWorks",
+  legacyMilestones: "legacyMilestones",
 } as const;
 
 /** Seeds a collection reads from when the database has nothing for it. */
@@ -103,6 +105,7 @@ const SEEDS = {
   recentEvents: seedRecent,
   pageImages: seedPageImages,
   homepageWorks: seedHomepageWorks,
+  legacyMilestones: seedLegacyMilestones,
 } as const;
 
 type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
@@ -258,6 +261,7 @@ export async function getEventFormats(): Promise<EventCategory[]> { return read(
 export async function getInventoryHighlights(): Promise<InventoryItem[]> { return read("highlights"); }
 export async function getTimeline(): Promise<TimelineEra[]> { return read("timeline"); }
 export async function getMilestones(): Promise<MilestoneItem[]> { return read("milestones"); }
+export async function getLegacyMilestones(): Promise<LegacyMilestone[]> { return read("legacyMilestones"); }
 export async function getPrinciples(): Promise<Principle[]> { return read("principles"); }
 export async function getLocations(): Promise<LocationRecord[]> { return read("locations"); }
 export async function getDisciplines(): Promise<Discipline[]> { return read("disciplines"); }

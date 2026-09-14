@@ -88,7 +88,7 @@ export async function LegacyOrigins() {
               style={{ aspectRatio: "4/3" }}
             >
               <Image
-                src={(await pageImage("legacy-origins"))?.image ?? "/media/legacy/legacy-2.png"}
+                src={(await pageImage("legacy-origins"))?.image ?? "/media/events/kanha-assembly-floor-aerial.da511112.webp"}
                 alt={(await pageImage("legacy-origins"))?.alt ?? "Raja Enterprises founding era"}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"

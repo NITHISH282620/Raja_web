@@ -108,6 +108,14 @@ export const FIELDS: Record<Collection, Field[]> = {
     { name: "image", label: "Photograph", type: "imagePath" },
   ],
 
+  legacyMilestones: [
+    { name: "year", label: "Year", type: "text", placeholder: "1977" },
+    { name: "title", label: "Title", type: "text" },
+    { name: "desc", label: "Description", type: "textarea" },
+    { name: "image", label: "Photograph", type: "imagePath" },
+    { name: "alt", label: "Photograph description", type: "text", hint: "Say what is in the picture. Read aloud to blind visitors and used by search engines." },
+  ],
+
   principles: [
     { name: "title", label: "Title", type: "text" },
     { name: "body", label: "Description", type: "textarea" },
@@ -288,6 +296,7 @@ export const BLANKS: Record<Collection, Record<string, unknown>> = {
     description: "", specs: [], features: [], applications: [], image: null, alt: "" },
   timeline: { year: "", period: "", tag: "", headline: "", description: "", deliverables: [], image: "", alt: "" },
   milestones: { id: "", year: "", title: "", venue: "", scale: "", scope: "", image: "" },
+  legacyMilestones: { year: "", title: "", desc: "", image: "", alt: "" },
   principles: { id: "", title: "", body: "", status: "approved" },
   locations: { id: "", city: "", state: "", country: "India", lat: 0, lng: 0, blurb: null,
     verification: "client-provided", published: true, status: "provisional" },

@@ -75,6 +75,7 @@ const GROUPS: {
     items: [
       { href: "/admin/copy", label: "Paragraphs", key: "copy", sub: true },
       { href: "/admin/collage", label: "Photo collage", key: "collage", sub: true },
+      { href: "/admin/legacyMilestones", label: "Key milestones timeline", key: "legacyMilestones", sub: true },
     ],
   },
   {
