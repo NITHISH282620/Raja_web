@@ -485,11 +485,11 @@ export const projects: Project[] = [
     status: "provisional" as const,
     note: "Event verified: 107th Indian Science Congress, inaugurated by the Prime Minister at UAS Bengaluru, 3–7 January 2020 (source: Raja's own published claim, corroborated by the event's public record). Raja's involvement is stated on Raja's own website; no independent source names the infrastructure contractor. The photograph records the inauguration ceremony, not the build.",
   },
-  { ...P("ambedkar-jayanti-vidhana-soudha", "Government of Karnataka", "Ambedkar Jayanti at Vidhana Soudha", null, "government", ["staging-and-seating"], "Vidhana Soudha, Bengaluru"), provenance: "raja-published" as const },
-  { ...P("karnataka-cabinet-meeting", "Government of Karnataka", "Karnataka Government Cabinet Meeting", null, "government", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
-  { ...P("global-investors-summit-2023", "Government of Uttarakhand", "Global Investors Summit 2023", "2023", "government", ["german-hangers", "exhibition-stalls", "staging-and-seating"], "Dehradun"), provenance: "raja-published" as const },
-  { ...P("ds-max-anniversary-2023", "DS Max", "DS Max Anniversary 2023", "2023", "corporate", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
-  { ...P("bhima-diamonds", "Bhima Diamonds", "Bhima Diamonds event", null, "corporate", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
+  { ...P("ambedkar-jayanti-vidhana-soudha", "Government of Karnataka", "Ambedkar Jayanti at Vidhana Soudha", null, "government", ["staging-and-seating"], "Vidhana Soudha, Bengaluru"), provenance: "raja-published" as const, media: [REP_GOVERNMENT] },
+  { ...P("karnataka-cabinet-meeting", "Government of Karnataka", "Karnataka Government Cabinet Meeting", null, "government", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const, media: [REP_GOVERNMENT] },
+  { ...P("global-investors-summit-2023", "Government of Uttarakhand", "Global Investors Summit 2023", "2023", "government", ["german-hangers", "exhibition-stalls", "staging-and-seating"], "Dehradun"), provenance: "raja-published" as const, media: [REP_EXHIBITION] },
+  { ...P("ds-max-anniversary-2023", "DS Max", "DS Max Anniversary 2023", "2023", "corporate", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const, media: [REP_CONFERENCE] },
+  { ...P("bhima-diamonds", "Bhima Diamonds", "Bhima Diamonds event", null, "corporate", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const, media: [REP_CONFERENCE] },
 
   // Event verified against published reporting; Raja's involvement is the
   // client's own statement plus the photographs they hold. See the note above.
@@ -546,13 +546,15 @@ export const projects: Project[] = [
     ...P("karnataka-swearing-in-2023", "Government of Karnataka", "Karnataka Government Swearing-In Ceremony", "2023", "government", ["staging-and-seating", "event-flooring"], "Kanteerava Stadium, Bengaluru"),
     provenance: "client-provided" as const,
     status: "provisional" as const,
-    note: "Event verified: sworn in at Sri Kanteerava Stadium 20 May 2023. Raja's involvement client-stated. No photograph published — available press imagery is news-agency copyright, not PIB, so rights are unresolved. Supply one photograph and this record gains a hero.",
+    media: [REP_GOVERNMENT],
+    note: "Event verified: sworn in at Sri Kanteerava Stadium 20 May 2023. Raja's involvement client-stated. No photograph of THIS event is published — available press imagery is news-agency copyright, not PIB, so rights are unresolved. The photograph shown is representative (see its own caption), not this ceremony; supply a real one and this record gains a hero.",
   },
   {
     ...P("kannada-sahitya-sammelana", "Kannada Sahitya Parishat", "Kannada Sahitya Sammelana", null, "cultural", ["german-hangers", "staging-and-seating", "event-flooring"], "Karnataka"),
     provenance: "client-provided" as const,
     status: "provisional" as const,
-    note: "Client-stated. Edition number and year not supplied, and the delegate figure previously attached to it is not restored. No photograph with clear reuse rights located.",
+    media: [REP_CULTURAL],
+    note: "Client-stated. Edition number and year not supplied, and the delegate figure previously attached to it is not restored. No photograph of THIS event has clear reuse rights — the photograph shown is representative (see its own caption), not this event.",
   },
 ].map((p, i) => ({ ...p, order: i }));
 
