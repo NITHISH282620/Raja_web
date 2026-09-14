@@ -32,7 +32,7 @@ export interface CollagePhoto extends Placed {
 export const collage: CollagePhoto[] = [
   {
     id: "structural-hanger",
-    left: 17.5,
+    left: 11.5,
     top: 4.5,
     width: 23.0,
     height: 21.0,
