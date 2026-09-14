@@ -70,3 +70,4 @@ public/uploads/
 .wrangler/
 .dev.vars
 *.tmp.mjs
+.gstack/

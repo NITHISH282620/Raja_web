@@ -6,12 +6,14 @@ import { company, FOUNDED_YEAR } from "@/content/company";
 import { services } from "@/content/inventorySchedule";
 import { getContact, pageImage } from "@/lib/store";
 import { whatsappLink, telHref as tel } from "@/lib/enquiry";
+import { abs } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
   const contact = await getContact();
   return {
     title: "Contact",
     description: `Talk to Raja Enterprises about your programme. ${contact.addressLines.join(", ")}.`,
+    alternates: { canonical: abs("/contact") },
   };
 }
 

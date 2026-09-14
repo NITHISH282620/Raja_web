@@ -6,10 +6,12 @@ import { AboutMilestones } from "@/components/about/AboutMilestones";
 import { AboutPrinciples } from "@/components/about/AboutPrinciples";
 import { FOUNDED_YEAR } from "@/content/company";
 import { getPrinciples, getTimeline, getMilestones, getInventoryHighlights, pageImage } from "@/lib/store";
+import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About Us — 49 Years of Physical Infrastructure",
   description: `Event infrastructure contractor in Bengaluru since ${FOUNDED_YEAR}. Owned German hangers, flooring, staging and stalls, installed by an in-house crew.`,
+  alternates: { canonical: abs("/about") },
 };
 
 export default async function AboutPage() {

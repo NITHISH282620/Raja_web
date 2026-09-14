@@ -5,11 +5,13 @@ import { SectionTitle } from "@/components/SectionTitle";
 import { careersIntro, roles } from "@/content/careers";
 import { company } from "@/content/company";
 import { getContact, getDisciplines, pageImage } from "@/lib/store";
+import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Careers",
   description:
     "Raja Enterprises builds India's largest temporary structures with its own crew. Site crew, fabrication, lighting and AV, project management, logistics and office roles in Bengaluru.",
+  alternates: { canonical: abs("/careers") },
 };
 
 export default async function CareersPage() {

@@ -13,6 +13,7 @@ import { getProjects } from "@/lib/store";
 import { findPillar } from "@/content/services";
 import { company } from "@/content/company";
 import { abs } from "@/lib/site";
+import { isEvidence } from "@/content/media";
 
 export const metadata: Metadata = {
   title: "Projects on Record",
@@ -207,7 +208,7 @@ export default async function ProjectsPage() {
                             />
                             <span className="absolute inset-0 bg-brand-blue/10 mix-blend-overlay opacity-0 transition-opacity duration-700 group-hover:opacity-100 pointer-events-none" />
                             <span className="absolute bottom-3 left-3 rounded-full bg-ink/80 backdrop-blur-md px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-white shadow-sm transition-transform duration-700 group-hover:-translate-y-1">
-                              {p.media[0].clearance === "representative" ? "Representative" : "Client photograph"}
+                              {isEvidence(p.media[0]) ? "Client photograph" : "Representative"}
                             </span>
                             {p.media.length > 1 && (
                               <span className="absolute bottom-3 right-3 rounded-full bg-ink/80 backdrop-blur-md px-2 py-1 font-mono text-[9px] text-white transition-transform duration-700 group-hover:-translate-y-1">
@@ -224,7 +225,7 @@ export default async function ProjectsPage() {
                           </span>
                         )}
 
-                        {p.media[0]?.clearance === "representative" && (
+                        {p.media[0] && !isEvidence(p.media[0]) && (
                           <p className="-mt-4 mb-4 text-[11px] leading-snug text-ink/40">
                             Shows this type of event. Not a photograph of this job.
                           </p>
