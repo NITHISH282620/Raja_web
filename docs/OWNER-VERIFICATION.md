@@ -99,9 +99,13 @@ Found by opening every file rather than trusting its name:
 Currently **unused**. They must not be assigned to any Raja project.
 
 ### D2. Missing imagery — NEEDS CLIENT IMAGE
-- **Event scaffolding** — no photograph of a camera platform, lighting tower or
-  raked seating deck exists. The page currently shows structural erection, with
-  alt text saying exactly that.
+- **Event scaffolding** (`/services/event-scaffolding`) — no photograph of a
+  camera platform, lighting tower or raked seating deck exists. The page
+  currently shows structural erection, with alt text saying exactly that.
+  **Still outstanding as of 2026-09-14.** A photo of a real ringlock concert
+  stage is now live on `/inventory` and the homepage (see H below), but that
+  one image has not been re-licensed onto this service page — the service page
+  needs its own confirmed-Raja photograph, not a swap of the inventory one.
 
 ### D3. Reused images — same photo in many places
 | Photo | Uses |
@@ -204,3 +208,36 @@ categories, the legacy collage, hero text, contact details and site stats.
 service pages, solution pages, locations, About, Legacy, Careers, the
 `/inventory` detailed catalogue, capacity figures, and per-page SEO. These are
 the next build step.
+
+---
+
+## H. 2026-09-14 — Ring Lock Scaffolding inventory card fixed
+
+The scaffolding entry in the `/inventory` grid (and its matching homepage
+tile) had been part-filled through the admin: title had a typo ("layer Ring
+lock Scaffolding"), and it was missing its tagline, spec grid, feature list,
+applications, group/index and link — which made the card fall back to a
+broken URL (`/services/safhold-1`, 404) and show a blank capacity band.
+
+**Fixed, using only already-published, client-approved copy — nothing
+invented:**
+- Title corrected to "Ring Lock Scaffolding" (catalog card + homepage tile).
+- Card now links to the real page, `/services/event-scaffolding`.
+- Specs, features and applications filled from the same description already
+  on the record and from `content/services.ts`'s event-scaffolding copy
+  (camera platforms, lighting towers, raked seating decks, Raja's own crew).
+- Assigned to the "Staging & Rigging" group and given icon 🏗️.
+- The photograph was already correctly uploaded via the admin (a ringlock
+  concert-stage photo) — that part was never broken.
+
+**Deliberately left blank:** total capacity / tonnage. No verified figure for
+scaffolding has been supplied (same gap noted in D2 and in
+`content/services.ts`) — the card and its underlying component were changed
+to omit the capacity band and spec grid entirely when the figures aren't set,
+rather than showing a blank gap or a guessed number. **Ask:** a real
+capacity/tonnage figure for the ringlock stock, if one exists, so this card
+can carry it like every other one.
+
+Also ran a full crawl of all 40 public routes reachable from the homepage:
+every link resolved (200) and all 70 distinct image files in use resolved
+(200) — no other broken links or missing images were found this round.
