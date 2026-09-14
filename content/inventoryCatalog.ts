@@ -4,8 +4,9 @@ export interface InventoryCategory {
   shortName: string;
   tagline: string;
   icon: string;
-  totalCapacity: string;
-  unit: string;
+  /** Null when no verified figure has been supplied — omit rather than guess. */
+  totalCapacity: string | null;
+  unit: string | null;
   description: string;
   specs: {
     label: string;
@@ -51,6 +52,40 @@ export const inventoryCategories: InventoryCategory[] = [
     href: "/services/german-hangers",
     group: "Structures",
     index: "01",
+  },
+  {
+    id: "safhold-1",
+    name: "Ring Lock Scaffolding",
+    shortName: "Ring Lock Scaffolding",
+    tagline: "Heavy-duty ringlock structure for portable stages and concert stages, built for safe, stable, professional event setups.",
+    icon: "🏗️",
+    // No verified capacity/tonnage figure has been supplied for scaffolding —
+    // see content/services.ts event-scaffolding note (confirmed 2026-09-04).
+    // Do not add totalCapacity/unit here until Raja supplies one.
+    totalCapacity: null,
+    unit: null,
+    description: "Large Event Portable Stage and Concert Stage featuring a heavy-duty ringlock structure for safe, stable, and professional event setups.",
+    specs: [
+      { label: "System Type", value: "Heavy-duty ringlock modular system" },
+      { label: "Typical Use", value: "Portable & concert stage structures" },
+      { label: "Also Used For", value: "Camera platforms, lighting towers, seating decks, elevated access" },
+      { label: "Crew", value: "Erected & struck by Raja's own in-house crew" }
+    ],
+    features: [
+      "Supports camera and broadcast platforms, lighting and delay towers",
+      "Builds raised, raked seating decks and tall backdrop structures",
+      "Erected and struck by Raja's own crew on the same schedule as the rest of the build"
+    ],
+    applications: [
+      "Concert & Festival Stage Structures",
+      "Broadcast Camera & Lighting Towers",
+      "Elevated Seating & Access Structures"
+    ],
+    image: "/uploads/582a959a-5d66-4778-8fe1-8b8e77b77aef.webp",
+    alt: "Ring lock scaffolding stage structure with line-array speakers, rigging and LED screens at dusk",
+    href: "/services/event-scaffolding",
+    group: "Staging & Rigging",
+    index: "13",
   },
   {
     id: "wooden-platforms",

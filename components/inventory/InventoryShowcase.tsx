@@ -162,20 +162,22 @@ export function InventoryShowcase({ categories }: InventoryShowcaseProps) {
                     </span>
                   </div>
 
-                  {/* Bottom Capacity Banner Overlay */}
-                  <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white z-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                    <div>
-                      <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-white/70 mb-0.5">
-                        Total Capacity
-                      </p>
-                      <p className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white drop-shadow-md">
-                        {category.totalCapacity}{" "}
-                        <span className="text-xs uppercase font-mono tracking-wider text-white/80 font-normal">
-                          {category.unit}
-                        </span>
-                      </p>
+                  {/* Bottom Capacity Banner Overlay — omitted when no verified figure exists */}
+                  {category.totalCapacity && (
+                    <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white z-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                      <div>
+                        <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-white/70 mb-0.5">
+                          Total Capacity
+                        </p>
+                        <p className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white drop-shadow-md">
+                          {category.totalCapacity}{" "}
+                          <span className="text-xs uppercase font-mono tracking-wider text-white/80 font-normal">
+                            {category.unit}
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Card Content */}
@@ -212,21 +214,23 @@ export function InventoryShowcase({ categories }: InventoryShowcaseProps) {
                     </p>
 
                     {/* Specifications Grid */}
-                    <div className="mt-3 grid grid-cols-2 gap-2 sm:gap-3">
-                      {topSpecs.map((spec, idx) => (
-                        <div
-                          key={idx}
-                          className="flex flex-col items-start gap-1 p-3 sm:p-4 rounded-2xl bg-neutral-50/80 border border-ink/5 group-hover:bg-brand-blue/[0.03] group-hover:border-brand-blue/10 transition-colors duration-500"
-                        >
-                          <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-ink/50">
-                            {spec.label}
-                          </span>
-                          <span className="text-xs sm:text-[13px] text-ink font-medium leading-snug">
-                            {spec.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                    {topSpecs.length > 0 && (
+                      <div className="mt-3 grid grid-cols-2 gap-2 sm:gap-3">
+                        {topSpecs.map((spec, idx) => (
+                          <div
+                            key={idx}
+                            className="flex flex-col items-start gap-1 p-3 sm:p-4 rounded-2xl bg-neutral-50/80 border border-ink/5 group-hover:bg-brand-blue/[0.03] group-hover:border-brand-blue/10 transition-colors duration-500"
+                          >
+                            <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-ink/50">
+                              {spec.label}
+                            </span>
+                            <span className="text-xs sm:text-[13px] text-ink font-medium leading-snug">
+                              {spec.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </article>

@@ -40,7 +40,7 @@ export const inventoryTiles: InventoryTile[] = [
     id: "scaffolding",
     eyebrow: "Scaffolding",
     index: "02",
-    title: "layer Ring lock Scaffolding",
+    title: "Ring Lock Scaffolding",
     body: "Large Event Portable Stage and Concert Stage featuring a heavy-duty ringlock structure for safe, stable, and professional event setups.",
     image: {
       src: "/media/inventory-lighting.25f99edf.webp",
