@@ -24,7 +24,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "German Hangars & Structures",
     body: "Clear-span aluminium hangars imported for large-format deployment. Column-free interiors carry staging, seating and services without breaking a sightline, and the shell holds through monsoon weather.",
     image: {
-      src: "/media/events/german-hanger-aerial.webp",
+      src: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
       width: 1280,
       height: 720,
       alt: "German Hangars",
@@ -62,7 +62,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Flooring & Platforms",
     body: "Levelled wooden platforms and decking over a scaffold sub-frame, carpeted to finish. Ten lakh square feet in stock, laid across ground that is rarely flat to begin with.",
     image: {
-      src: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
+      src: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp",
       width: 837,
       height: 650,
       alt: "Wooden Platforms",
@@ -100,7 +100,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Stalls & Interiors",
     body: "Octonorm and Maxima stall systems, fabricated, fitted with fascia and graphics, and struck to schedule. Fifteen thousand square metres in the fleet.",
     image: {
-      src: "/media/events/larenon-stall-wide.ae5daaa7.webp",
+      src: "/media/projects/04-03-larenon-healthcare-1.webp",
       width: 1021,
       height: 605,
       alt: "Stalls & Interiors",
@@ -119,7 +119,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Stage and Seating",
     body: "Audience seating, barricading and crowd routing for gatherings from a few hundred to several thousand, set out to the sightlines the stage needs.",
     image: {
-      src: "/media/events/kanha-canopy-interior.0403268d.webp",
+      src: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp",
       width: 800,
       height: 600,
       alt: "Stage and Seating",

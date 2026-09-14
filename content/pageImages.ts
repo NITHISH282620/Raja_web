@@ -39,7 +39,7 @@ export const pageImages: PageImage[] = [
   {
     id: "about-hero-primary",
     label: "About — main photograph",
-    image: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp",
+    image: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
     alt: "Aerial view over an immense clear-span canopy sheltering a seated assembly of many thousands.",
     order: 1,
     status: "approved",
@@ -47,7 +47,7 @@ export const pageImages: PageImage[] = [
   {
     id: "about-hero-secondary",
     label: "About — second photograph",
-    image: "/media/events/german-hanger-aerial.webp",
+    image: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
     alt: "A clear-span hangar structure seen from above at dusk.",
     order: 2,
     status: "approved",
@@ -55,7 +55,7 @@ export const pageImages: PageImage[] = [
   {
     id: "legacy-hero",
     label: "Legacy — photograph at the top",
-    image: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp",
+    image: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
     alt: "Aerial view over an immense clear-span canopy sheltering a seated assembly of many thousands.",
     order: 3,
     status: "approved",
@@ -69,7 +69,7 @@ export const pageImages: PageImage[] = [
      * visibly soft rendered `fill` at this section's actual display size.
      * Swapped to a higher-resolution aerial from the same approved set.
      */
-    image: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
+    image: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp",
     alt: "Aerial of a vast covered assembly floor laid out in patterned seating blocks.",
     order: 4,
     status: "approved",
@@ -77,7 +77,7 @@ export const pageImages: PageImage[] = [
   {
     id: "legacy-pivot",
     label: "Legacy — the Asset Moat section",
-    image: "/media/events/kanha-canopy-seating.7a22707d.webp",
+    image: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
     alt: "Seating laid out beneath a clear-span canopy.",
     order: 5,
     status: "approved",
@@ -93,7 +93,7 @@ export const pageImages: PageImage[] = [
   {
     id: "careers-hero",
     label: "Careers — photograph",
-    image: "/media/events/eima-delegates-stand.5c782f20.webp",
+    image: "/media/projects/14-09-gte2024-gte-the-biggest-garment-technology-shows-is-back-to-nsic-okhla-new-delhi.webp",
     alt: "Delegates at an exhibition stand during a trade fair.",
     order: 7,
     status: "approved",
@@ -101,7 +101,7 @@ export const pageImages: PageImage[] = [
   {
     id: "contact-hero",
     label: "Contact — photograph beside the form",
-    image: "/media/events/aol-pavilion-night.67b84519.webp",
+    image: "/media/projects/01-01-artofliving-navaratri-g2aevntbcaam9cy.webp",
     alt: "A large illuminated pavilion at night, reflected in still water.",
     order: 8,
     status: "approved",

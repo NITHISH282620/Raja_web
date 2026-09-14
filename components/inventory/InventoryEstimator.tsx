@@ -92,7 +92,7 @@ export function InventoryEstimator() {
         <div className="rounded-2xl sm:rounded-3xl border border-ink/10 bg-white p-6 sm:p-10 md:p-12 shadow-sm">
           {/* Crowd Selector Buttons */}
           <div className="space-y-4 mb-10 pb-8 border-b border-ink/10">
-            <label className="font-mono text-xs uppercase tracking-wider text-ink/70 block font-semibold">
+            <label className="text-xs uppercase tracking-widest text-ink/70 block font-bold">
               Step 1: Select Anticipated Attendance Scale
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
@@ -101,7 +101,7 @@ export function InventoryEstimator() {
                   key={size}
                   type="button"
                   onClick={() => setSelectedCrowd(size)}
-                  className={`relative overflow-hidden p-4 sm:p-5 rounded-2xl border font-mono text-center transition-all duration-500 cursor-pointer group flex flex-col items-center justify-center gap-1 ${
+                  className={`relative overflow-hidden p-4 sm:p-5 rounded-2xl border text-center transition-all duration-500 cursor-pointer group flex flex-col items-center justify-center gap-1 ${
                     selectedCrowd === size
                       ? "bg-brand-blue text-white border-brand-blue shadow-lg scale-[1.03] z-10"
                       : "bg-neutral-50/50 border-ink/10 text-ink hover:border-brand-blue/30 hover:bg-white hover:shadow-md hover:-translate-y-1"
@@ -128,19 +128,19 @@ export function InventoryEstimator() {
           {/* Results Grid */}
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="font-mono text-xs uppercase tracking-wider text-brand-blue font-semibold">
+              <h3 className="text-xs uppercase tracking-widest text-brand-blue font-bold">
                 Step 2: Recommended Structural Deployment Model ({selectedCrowd.toLocaleString()} Pax)
               </h3>
-              <span className="text-xs font-mono text-ink/50">Based on Raja Field Standards</span>
+              <span className="text-xs font-medium tracking-wide text-ink/50">Based on Raja Field Standards</span>
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {/* Result 1: German Hangers */}
               <div className="rounded-xl border border-ink/10 bg-neutral-50 p-5">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50 block mb-1">
+                <span className="text-[10px] uppercase tracking-widest text-ink/50 block font-semibold mb-1">
                   German Clear-Span Hangers
                 </span>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">
+                <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
                   {estimate.hangarSqFt}{" "}
                   <span className="text-xs font-normal text-brand-blue">Sq. Ft.</span>
                 </p>
@@ -149,10 +149,10 @@ export function InventoryEstimator() {
 
               {/* Result 2: Wooden Flooring */}
               <div className="rounded-xl border border-ink/10 bg-neutral-50 p-5">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50 block mb-1">
+                <span className="text-[10px] uppercase tracking-widest text-ink/50 block font-semibold mb-1">
                   Laser-Aligned Wooden Floor
                 </span>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">
+                <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
                   {estimate.flooringSqFt}{" "}
                   <span className="text-xs font-normal text-brand-blue">Sq. Ft.</span>
                 </p>
@@ -161,10 +161,10 @@ export function InventoryEstimator() {
 
               {/* Result 3: HVAC */}
               <div className="rounded-xl border border-ink/10 bg-neutral-50 p-5">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50 block mb-1">
+                <span className="text-[10px] uppercase tracking-widest text-ink/50 block font-semibold mb-1">
                   Temporary Mobile HVAC
                 </span>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">
+                <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
                   {estimate.hvacTons}{" "}
                   <span className="text-xs font-normal text-brand-blue">Tons</span>
                 </p>
@@ -173,10 +173,10 @@ export function InventoryEstimator() {
 
               {/* Result 4: Barricades */}
               <div className="rounded-xl border border-ink/10 bg-neutral-50 p-5">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50 block mb-1">
+                <span className="text-[10px] uppercase tracking-widest text-ink/50 block font-semibold mb-1">
                   Iron Barricades &amp; Perimeters
                 </span>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">
+                <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
                   {estimate.barricadeRft}{" "}
                   <span className="text-xs font-normal text-brand-blue">RFT</span>
                 </p>
@@ -185,10 +185,10 @@ export function InventoryEstimator() {
 
               {/* Result 5: Staging */}
               <div className="rounded-xl border border-ink/10 bg-neutral-50 p-5">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50 block mb-1">
+                <span className="text-[10px] uppercase tracking-widest text-ink/50 block font-semibold mb-1">
                   Engineered Stage &amp; Dais
                 </span>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">
+                <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
                   {estimate.stageSqFt}{" "}
                   <span className="text-xs font-normal text-brand-blue">Sq. Ft.</span>
                 </p>
@@ -197,10 +197,10 @@ export function InventoryEstimator() {
 
               {/* Result 6: Fleet & Crew */}
               <div className="rounded-xl border border-ink/10 bg-neutral-50 p-5">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50 block mb-1">
+                <span className="text-[10px] uppercase tracking-widest text-ink/50 block font-semibold mb-1">
                   Logistics &amp; In-House Crew
                 </span>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">
+                <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
                   {estimate.trucks}{" "}
                   <span className="text-xs font-normal text-brand-blue">Trucks</span>
                   {" · "}
@@ -221,7 +221,7 @@ export function InventoryEstimator() {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-xs font-mono font-medium text-white shadow-sm transition-all duration-300 hover:bg-ink hover:shadow-md shrink-0"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-xs font-semibold tracking-wide text-white shadow-sm transition-all duration-300 hover:bg-ink hover:shadow-md shrink-0"
               >
                 <span>Request Custom RFP for this Scale</span>
                 <span>→</span>
@@ -233,3 +233,4 @@ export function InventoryEstimator() {
     </section>
   );
 }
+

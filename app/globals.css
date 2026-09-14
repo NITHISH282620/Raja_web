@@ -134,16 +134,16 @@
     line-height: 1.55;
   }
   .t-eyebrow {
-    font-family: var(--font-mono);
-    font-weight: 300;
+    font-family: var(--font-sans);
+    font-weight: 600;
     font-size: clamp(0.6875rem, 0.903vw, 0.8125rem);
     letter-spacing: 0.11em;
     line-height: 1.2;
     text-transform: uppercase;
   }
   .t-stat-label {
-    font-family: var(--font-mono);
-    font-weight: 300;
+    font-family: var(--font-sans);
+    font-weight: 600;
     font-size: clamp(0.6875rem, 1.042vw, 0.9375rem);
     letter-spacing: 0.11em;
     line-height: 1.2;

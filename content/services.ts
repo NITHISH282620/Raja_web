@@ -86,7 +86,7 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["Event flooring", "Lighting", "Power distribution", "Signage and fascia"],
     image:
     {
-      src: "/media/events/larenon-stall-counter.33e301ef.webp",
+      src: "/media/projects/04-03-larenon-healthcare-1.webp",
       width: 1800,
       height: 1468,
       alt: "An exhibition stall interior: branded back wall, display counters, seating and planting.",
@@ -110,7 +110,7 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["German hangars", "Carpeting", "Staging"],
     image:
     {
-      src: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
+      src: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp",
       width: 837,
       height: 650,
       alt: "Aerial of a vast covered assembly floor laid out in patterned seating blocks.",
@@ -134,7 +134,7 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["Lighting and AV", "Barricading", "Event flooring", "Seating"],
     image:
     {
-      src: "/media/events/isgcon-stage-lamp.5633cdec.webp",
+      src: "/media/projects/02-02-isgcon-bengaluru-1764810125216.webp",
       width: 800,
       height: 533,
       alt: "A lamp-lighting ceremony on a conference stage in front of a large printed backdrop.",
@@ -193,7 +193,7 @@ export const servicePillars: ServicePillar[] = [
     bundled: ["German hangars", "Staging", "Event flooring", "Barricading", "Climate control"],
     image:
     {
-      src: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
+      src: "/media/projects/22-13-hampiutsav2024-whatsapp-image-2024-02-02-at-15-36-50-5e3f1cc5-jpg.webp",
       width: 1280,
       height: 720,
       alt: "The commissioning of ICGS Akshay at Goa Shipyard: nameplate unveiling, the vessel at sea, and the ceremonial parade beneath a canopied dais.",
@@ -250,7 +250,7 @@ export const servicePillars: ServicePillar[] = [
     ],
     bundled: ["German hangars", "Event flooring", "Power distribution"],
     image: {
-      src: "/media/events/kanha-canopy-interior.0403268d.webp",
+      src: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp",
       width: 1280,
       height: 720,
       alt: "Interior of temporary clear-span hall with integrated air-conditioning ducting.",
@@ -419,7 +419,7 @@ export const servicesIntro = {
  * never captioned as Raja's work.
  */
 export const hangarInUse: ImageAsset = {
-      src: "/media/events/kanha-canopy-interior.0403268d.webp",
+      src: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp",
       width: 515,
       height: 388,
       alt: "The interior of a tensile clear-span structure, its fabric roof carried on a steel frame.",
