@@ -333,7 +333,22 @@ export const projects: Project[] = [
   // --- Published by Raja on rajaenterprises.co, read 2026-09-04. These are the
   // client's own public claims and so are citable, but the site states no year,
   // area or attendance for any of them and none is inferred here.
-  { ...P("indian-science-congress-107", "Government of India", "107th Indian Science Congress", null, "conference", ["german-hangers", "staging-and-seating", "exhibition-stalls"], null), provenance: "raja-published" as const },
+  {
+    ...P("indian-science-congress-107", "Government of India", "107th Indian Science Congress", "2020", "conference", ["german-hangers", "staging-and-seating", "exhibition-stalls"], "University of Agricultural Sciences, Bengaluru"),
+    media: ([
+      {
+        src: "/media/events/indian-science-congress-107.webp",
+        width: 580,
+        height: 311,
+        alt: "Prime Minister Narendra Modi with delegates on stage at the inauguration of the 107th Indian Science Congress, University of Agricultural Sciences, Bengaluru, 3 January 2020.",
+        clearance: "licensed",
+        credit: "Indian Science Congress Association, CC BY-SA 4.0, via Wikimedia Commons",
+      },
+    ] satisfies ImageAsset[]),
+    provenance: "raja-published" as const,
+    status: "provisional" as const,
+    note: "Event verified: 107th Indian Science Congress, inaugurated by the Prime Minister at UAS Bengaluru, 3–7 January 2020 (source: Raja's own published claim, corroborated by the event's public record). Raja's involvement is stated on Raja's own website; no independent source names the infrastructure contractor. The photograph records the inauguration ceremony, not the build.",
+  },
   { ...P("ambedkar-jayanti-vidhana-soudha", "Government of Karnataka", "Ambedkar Jayanti at Vidhana Soudha", null, "government", ["staging-and-seating"], "Vidhana Soudha, Bengaluru"), provenance: "raja-published" as const },
   { ...P("karnataka-cabinet-meeting", "Government of Karnataka", "Karnataka Government Cabinet Meeting", null, "government", ["staging-and-seating"], "Bengaluru"), provenance: "raja-published" as const },
   { ...P("global-investors-summit-2023", "Government of Uttarakhand", "Global Investors Summit 2023", "2023", "government", ["german-hangers", "exhibition-stalls", "staging-and-seating"], "Dehradun"), provenance: "raja-published" as const },
