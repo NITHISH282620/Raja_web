@@ -133,7 +133,7 @@ const P = (
  * open-data releases, Wikimedia Commons and Pexels; full credit lines below.
  */
 const REP_EXHIBITION: ImageAsset = {
-  src: "/media/projects/12-08-collegedunia-educationfair-21.webp",
+  src: /media/projects/2x/buildtek-silver-jubilee.webp,
   width: 1600,
   height: 1015,
   alt: "A wide view of an exhibition floor with multiple stalls and visitors, Pride of India Expo.",
@@ -142,7 +142,7 @@ const REP_EXHIBITION: ImageAsset = {
 };
 
 const REP_CULTURAL: ImageAsset = {
-  src: "/media/projects/20-12-adichunchanagiri-founderday-images-2.webp",
+  src: /media/projects/2x/vaidic-dharma-navaratri.webp,
   width: 1024,
   height: 739,
   alt: "A caparisoned elephant leads a procession through a dense crowd at the Mysore Dasara festival, Karnataka.",
@@ -151,7 +151,7 @@ const REP_CULTURAL: ImageAsset = {
 };
 
 const REP_GOVERNMENT: ImageAsset = {
-  src: "/media/projects/16-10-csb-silkworm-conference-images-13.webp",
+  src: /media/projects/2x/valmiki-jayanti-2025.webp,
   width: 1600,
   height: 1030,
   alt: "A government minister addressing a large seated audience from a stage at a public function.",
@@ -160,7 +160,7 @@ const REP_GOVERNMENT: ImageAsset = {
 };
 
 const REP_CONFERENCE: ImageAsset = {
-  src: "/media/projects/17-10-csb-silkworm-conference-images-10.webp",
+  src: /media/projects/2x/mm-hills.webp,
   width: 1600,
   height: 2400,
   alt: "A large tiered auditorium filled with a seated audience, viewed from an upper gallery.",
@@ -169,7 +169,7 @@ const REP_CONFERENCE: ImageAsset = {
 };
 
 const REP_CONVOCATION: ImageAsset = {
-  src: "/media/projects/18-11-vaidicdharma-navaratri-images-2.webp",
+  src: /media/projects/2x/world-fisheries-day-2024.webp,
   width: 1600,
   height: 1323,
   alt: "Dignitaries in academic regalia light a ceremonial lamp on stage at a university convocation.",
@@ -182,41 +182,38 @@ export const projects: Project[] = [
   {
     ...P("art-of-living-navaratri-2023", "The Art of Living Trust", "Navaratri Function 2023", "2023", "cultural", ["german-hangers", "event-flooring", "staging-and-seating"], "Bengaluru", true),
     media: [
-      { src: "/media/projects/01-01-artofliving-navaratri-g2aevntbcaam9cy.webp", width: 2400, height: 1350, alt: "Art of Living Navaratri Function", clearance: "client-approved" }
+      { src: "/media/projects/2x/art-of-living-navaratri-2023.webp", width: 1440, height: 960, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("isgcon-2023", "Indian Society of Gastroenterology", "ISGCON 2023 — 64th Annual Congress", "2023", "conference", ["german-hangers", "staging-and-seating", "exhibition-stalls"], "Bengaluru"),
     media: [
-      { src: "/media/projects/02-02-isgcon-bengaluru-1764810125216.webp", width: 1600, height: 900, alt: "ISGCON 2023 Bengaluru", clearance: "client-approved" }
+      { src: "/media/projects/2x/isgcon-2023.webp", width: 1600, height: 1178, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("la-renon-company-event", "La Renon Healthcare", "Company event", null, "corporate", ["exhibition-stalls", "staging-and-seating"]),
     media: [
-      { src: "/media/projects/03-03-larenon-healthcare-2-jpg.webp", width: 5000, height: 3285, alt: "La Renon Healthcare Event Wide", clearance: "client-approved" },
-      { src: "/media/projects/04-03-larenon-healthcare-1.webp", width: 2042, height: 1210, alt: "La Renon Healthcare Event", clearance: "client-approved" }
+      { src: "/media/projects/2x/la-renon-company-event.webp", width: 2560, height: 1920, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
     featured: true,
   },
   {
     ...P("fc-expo-2024", "First Circle Biztech", "FC Expo 2024", "2024", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
     media: [
-      { src: "/media/projects/05-04-firstcircle-fcexpo-3.webp", width: 5000, height: 3326, alt: "FC Expo Stage", clearance: "client-approved" },
-      { src: "/media/projects/06-04-firstcircle-fcexpo-images-2.webp", width: 1600, height: 1067, alt: "FC Expo Event Floor", clearance: "client-approved" }
+      { src: "/media/projects/2x/fc-expo-2024.webp", width: 3000, height: 1996, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("eima-agrimach-2024", "Federation of Indian Chambers of Commerce & Industry (FICCI)", "EIMA Agrimach 2024", "2024", "exhibition", ["german-hangers", "exhibition-stalls", "event-flooring"], "Bengaluru", true),
     media: [
-      { src: "/media/projects/07-05-ficci-eima-india-s-farm-equipment-market-to-grow-to-18-bn-by-2025-report.webp", width: 2000, height: 1206, alt: "FICCI EIMA India Exhibition", clearance: "client-approved" }
+      { src: "/media/projects/2x/eima-agrimach-2024.webp", width: 1706, height: 940, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("kanha-shanti-vanam-tent-city", "Kanha Shanti Vanam", "Tent city, Bengaluru", null, "cultural", ["german-hangers", "event-flooring", "staging-and-seating"], "Bengaluru"),
     media: [
-      { src: "/media/projects/08-06-kanha-shanti-vanam-images.webp", width: 1600, height: 899, alt: "Kanha Shanti Vanam Tent City", clearance: "client-approved" },
-      { src: "/media/projects/09-06-kanha-shanti-vanam-images-copy.webp", width: 1288, height: 776, alt: "Kanha Shanti Vanam Event", clearance: "client-approved" }
+      { src: "/media/projects/2x/kanha-shanti-vanam-tent-city.webp", width: 4000, height: 2666, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
     featured: true,
   },
@@ -232,117 +229,128 @@ export const projects: Project[] = [
   {
     ...P("abs-education-fair", "ABS Business Solutions", "Education fair", null, "exhibition", ["exhibition-stalls"], "Bengaluru"),
     media: [
-      { src: "/media/projects/10-07-abs-educationfair-images-2.webp", width: 1600, height: 1067, alt: "ABS Education Fair Entrance", clearance: "client-approved" },
-      { src: "/media/projects/11-07-abs-educationfair-images-3.webp", width: 1456, height: 842, alt: "ABS Education Fair Hall", clearance: "client-approved" }
+      { src: "/media/projects/2x/abs-education-fair.webp", width: 1600, height: 1742, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("collegedunia-education-fair", "Collegedunia Web", "Collegedunia Education Fair", null, "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
     media: [
-      { src: "/media/projects/12-08-collegedunia-educationfair-21.webp", width: 2400, height: 1602, alt: "Collegedunia Education Fair Wide", clearance: "client-approved" },
-      { src: "/media/projects/13-08-collegedunia-educationfair-11.webp", width: 2400, height: 1600, alt: "Collegedunia Education Fair Stalls", clearance: "client-approved" }
+      { src: "/media/projects/2x/collegedunia-education-fair.webp", width: 2400, height: 1600, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("gte-2024", "Garment Technology Expo", "GTE 2024", "2024", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
     media: [
-      { src: "/media/projects/14-09-gte2024-gte-the-biggest-garment-technology-shows-is-back-to-nsic-okhla-new-delhi.webp", width: 2400, height: 1260, alt: "GTE 2024 Expo", clearance: "client-approved" },
-      { src: "/media/projects/15-09-gte2024-images-8.webp", width: 1350, height: 906, alt: "GTE 2024 Visitors", clearance: "client-approved" }
+      { src: "/media/projects/2x/gte-2024.webp", width: 2400, height: 1800, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("central-silk-board-conference", "Central Silk Board — National Silkworm Seed Organisation", "Central Silk Board Conference", null, "conference", ["staging-and-seating"]),
     media: [
-      { src: "/media/projects/16-10-csb-silkworm-conference-images-13.webp", width: 1600, height: 1067, alt: "CSB Silkworm Conference Stage", clearance: "client-approved" },
-      { src: "/media/projects/17-10-csb-silkworm-conference-images-10.webp", width: 1600, height: 1066, alt: "CSB Silkworm Conference Assembly", clearance: "client-approved" }
+      { src: "/media/projects/2x/central-silk-board-conference.webp", width: 1600, height: 1066, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("vaidic-dharma-navaratri-2024", "Vaidic Dharma Sansthan", "Navaratri Function 2024", "2024", "cultural", ["german-hangers", "event-flooring"]),
     media: [
-      { src: "/media/projects/18-11-vaidicdharma-navaratri-images-2.webp", width: 1360, height: 902, alt: "Vaidic Dharma Navaratri Pavilion", clearance: "client-approved" },
-      { src: "/media/projects/19-11-vaidicdharma-navaratri-images-5.webp", width: 1292, height: 594, alt: "Vaidic Dharma Navaratri Assembly", clearance: "client-approved" }
+      { src: "/media/projects/2x/vaidic-dharma-navaratri-2024.webp", width: 1600, height: 1067, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("hampi-utsav-2024", "Karnataka State Habitat Centre", "Hampi Utsav 2024", "2024", "cultural", ["german-hangers", "staging-and-seating", "event-flooring"], "Hampi", true),
     media: [
-      { src: "/media/projects/22-13-hampiutsav2024-whatsapp-image-2024-02-02-at-15-36-50-5e3f1cc5-jpg.webp", width: 1800, height: 900, alt: "Hampi Utsav 2024 Illumination", clearance: "client-approved" },
-      { src: "/media/projects/23-13-hampiutsav2024-images-8.webp", width: 1332, height: 920, alt: "Hampi Utsav 2024 Structure", clearance: "client-approved" }
+      { src: "/media/projects/2x/hampi-utsav-2024.webp", width: 1600, height: 896, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("adichunchanagiri-founders-day", "Sri Adichunchanagiri Shikshana Trust", "Founder's Day", null, "cultural", ["staging-and-seating"]),
     media: [
-      { src: "/media/projects/20-12-adichunchanagiri-founderday-images-2.webp", width: 1360, height: 902, alt: "Adichunchanagiri Founder's Day Event", clearance: "client-approved" },
-      { src: "/media/projects/21-12-adichunchanagiri-founderday-images-7.webp", width: 1600, height: 1064, alt: "Adichunchanagiri Founder's Day Stage", clearance: "client-approved" }
+      { src: "/media/projects/2x/adichunchanagiri-founders-day.webp", width: 1600, height: 900, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("fc-expo-2025", "First Circle Biztech", "FC Expo 2025", "2025", "exhibition", ["exhibition-stalls", "event-flooring"], "Bengaluru"),
     media: [
-      { src: "/media/projects/fc-expo-2025-firstcircle.webp", width: 1600, height: 1064, alt: "A First Circle Biztech conference speaker addressing delegates beneath FC Expo and FCNEXT branded signage.", clearance: "client-approved" }
+      { src: "/media/projects/2x/fc-expo-2025.webp", width: 2048, height: 792, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("krishi-mela-2024-25", "University of Agricultural Sciences", "Krishi Mela 2024–25", "2024", "exhibition", ["german-hangers", "exhibition-stalls"], "GKVK Campus, Bengaluru"),
     media: [
-      { src: "/media/projects/krishi-mela-2024-25.webp", width: 1600, height: 1058, alt: "A clear-span tent with blue barricading holding a large seated crowd at Krishi Mela, GKVK campus.", clearance: "client-approved" }
+      { src: "/media/projects/2x/krishi-mela-2024-25.webp", width: 1600, height: 1058, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("pourakarmika-samavesha", "Karnataka State Marketing Communication & Advertising Ltd", "Pourakarmika Samavesha", null, "government", ["german-hangers", "staging-and-seating"], "Bengaluru"),
-    media: [REP_GOVERNMENT],
+    media: [
+      { src: "/media/projects/2x/pourakarmika-samavesha.webp", width: 1600, height: 1205, alt: "Final Production Photograph", clearance: "client-approved" }
+    ],
   },
   {
     ...P("buildtek-silver-jubilee", "Buildtek Polymers", "Silver Jubilee Celebration", null, "corporate", ["staging-and-seating"]),
     media: [
-      { src: "/media/projects/buildtek-silver-jubilee.webp", width: 1200, height: 1200, alt: "A speaker at the podium beneath the Buildtek Polymers 25 Years Silver Jubilee Celebration backdrop.", clearance: "client-approved" }
+      { src: "/media/projects/2x/buildtek-silver-jubilee.webp", width: 1600, height: 1600, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("vaidic-dharma-navaratri", "Vaidic Dharma Sansthan", "Navaratri Function", null, "cultural", ["german-hangers", "event-flooring"]),
-    media: [REP_CULTURAL],
+    media: [
+      { src: "/media/projects/2x/vaidic-dharma-navaratri.webp", width: 1600, height: 1209, alt: "Final Production Photograph", clearance: "client-approved" }
+    ],
   },
   {
     ...P("valmiki-jayanti-2025", "Tribal Welfare Department, Government of Karnataka", "Valmiki Jayanti 2025", "2025", "government", ["german-hangers", "staging-and-seating"], "Bengaluru"),
-    media: [REP_GOVERNMENT],
+    media: [
+      { src: "/media/projects/2x/valmiki-jayanti-2025.webp", width: 1476, height: 828, alt: "Final Production Photograph", clearance: "client-approved" }
+    ],
   },
   {
     ...P("mm-hills", "Sri Male Mahadeshwara Swamy", "MM Hills", null, "cultural", ["german-hangers"], "Male Mahadeshwara Hills"),
-    media: [REP_CULTURAL],
+    media: [
+      { src: "/media/projects/2x/mm-hills.webp", width: 1600, height: 900, alt: "Final Production Photograph", clearance: "client-approved" }
+    ],
   },
   {
     ...P("world-fisheries-day-2024", "Skyblue Event Management India", "World Fisheries Day 2024", "2024", "government", ["exhibition-stalls", "staging-and-seating"], "Bengaluru"),
-    media: [REP_GOVERNMENT],
+    media: [
+      { src: "/media/projects/2x/world-fisheries-day-2024.webp", width: 1600, height: 1067, alt: "Final Production Photograph", clearance: "client-approved" }
+    ],
   },
   {
     ...P("biffes-17", "Karnataka Chalanachitra Academy", "17th Bengaluru International Film Festival", null, "cultural", ["staging-and-seating", "event-flooring"], "Bengaluru", true),
     media: [
-      { src: "/media/projects/biffes-17.webp", width: 1600, height: 892, alt: "Dignitaries on stage at a Karnataka Chalanachitra Academy film festival ceremony.", clearance: "client-approved" }
+      { src: "/media/projects/2x/biffes-17.webp", width: 1600, height: 891, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("karthik-live", "TribeVibe Entertainment", "Karthik Live", null, "corporate", ["staging-and-seating", "event-scaffolding"]),
     media: [
-      { src: "/media/projects/karthik-live.webp", width: 1200, height: 2139, alt: "A performer singing on a lit concert stage with truss rigging visible behind him.", clearance: "client-approved" }
+      { src: "/media/projects/2x/karthik-live.webp", width: 1600, height: 2851, alt: "Final Production Photograph", clearance: "client-approved" }
     ] satisfies ImageAsset[],
   },
   {
     ...P("dam-safety-conference", "Karnataka State Marketing Communication & Advertising Ltd", "International Conference on Dam Safety", null, "conference", ["german-hangers", "staging-and-seating"]),
-    media: [REP_CONFERENCE],
+    media: [
+      { src: "/media/projects/2x/dam-safety-conference.webp", width: 1600, height: 897, alt: "Final Production Photograph", clearance: "client-approved" }
+    ],
   },
   {
     ...P("fifth-annual-convocation", "Karnataka State Marketing Communication & Advertising Ltd", "5th Annual Convocation", null, "government", ["staging-and-seating"]),
-    media: [REP_CONVOCATION],
+    media: [
+      { src: "/media/projects/2x/fifth-annual-convocation.webp", width: 1600, height: 1067, alt: "Final Production Photograph", clearance: "client-approved" }
+    ],
   },
   {
     ...P("babu-jagjivan-ram-119", "Karnataka State Marketing Communication & Advertising Ltd", "119th birth anniversary of Dr Babu Jagjivan Ram", null, "government", ["staging-and-seating"]),
-    media: [REP_GOVERNMENT],
+    media: [
+      { src: "/media/projects/2x/babu-jagjivan-ram-119.webp", width: 1600, height: 930, alt: "Final Production Photograph", clearance: "client-approved" }
+    ],
   },
   {
     ...P("vidyapeeta-education-expo", "ABS Business Solutions", "Vidyapeeta Education Expo", null, "exhibition", ["exhibition-stalls"], "Bengaluru"),
-    media: [REP_EXHIBITION],
+    media: [
+      { src: "/media/projects/2x/vidyapeeta-education-expo.webp", width: 1600, height: 1067, alt: "Final Production Photograph", clearance: "client-approved" }
+    ],
   },
 
   // --- Published by Raja on rajaenterprises.co, read 2026-09-04. These are the
@@ -352,7 +360,7 @@ export const projects: Project[] = [
     ...P("indian-science-congress-107", "Government of India", "107th Indian Science Congress", "2020", "conference", ["german-hangers", "staging-and-seating", "exhibition-stalls"], "University of Agricultural Sciences, Bengaluru"),
     media: ([
       {
-        src: "/media/projects/10-07-abs-educationfair-images-2.webp",
+        src: /media/projects/2x/biffes-17.webp,
         width: 580,
         height: 311,
         alt: "Prime Minister Narendra Modi with delegates on stage at the inauguration of the 107th Indian Science Congress, University of Agricultural Sciences, Bengaluru, 3 January 2020.",
@@ -376,7 +384,7 @@ export const projects: Project[] = [
     ...P("icgs-akshay-commissioning", "Indian Coast Guard / Goa Shipyard Limited", "ICGS Akshay commissioning", "2026", "government", ["staging-and-seating"], "Vasco, Goa"),
     media: ([
 {
-        src: "/media/projects/22-13-hampiutsav2024-whatsapp-image-2024-02-02-at-15-36-50-5e3f1cc5-jpg.webp",
+        src: /media/projects/2x/karthik-live.webp,
         width: 1280,
         height: 720,
         alt: "The commissioning of ICGS Akshay: the ship's nameplate unveiled, the vessel at sea, and the ceremonial parade beneath a canopied dais.",
@@ -402,7 +410,7 @@ export const projects: Project[] = [
     provenance: "client-provided" as const,
     media: ([
       {
-        src: "/media/projects/23-13-hampiutsav2024-images-8.webp",
+        src: /media/projects/2x/dam-safety-conference.webp,
         width: 1800,
         height: 1288,
         alt: "A ceremonial plaque unveiling on a red-carpeted dais, the drape drawn back before assembled dignitaries.",
@@ -410,7 +418,7 @@ export const projects: Project[] = [
         credit: "Press Information Bureau, Government of India",
       },
       {
-        src: "/media/projects/20-12-adichunchanagiri-founderday-images-2.webp",
+        src: /media/projects/2x/fifth-annual-convocation.webp,
         width: 1800,
         height: 1419,
         alt: "Dignitaries walking the concourse of Kempegowda International Airport Terminal 2 beside its planted green wall.",
@@ -498,35 +506,35 @@ export const activeCategories = (): ProjectCategory[] => {
  */
 export const categoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
   exhibition: {
-      src: "/media/projects/07-05-ficci-eima-india-s-farm-equipment-market-to-grow-to-18-bn-by-2025-report.webp",
+      src: /media/projects/2x/babu-jagjivan-ram-119.webp,
       width: 595,
       height: 336,
       alt: "A crowded outdoor trade-fair ground with exhibitor stands and agricultural machinery.",
       clearance: "client-approved",
     },
   conference: {
-      src: "/media/projects/02-02-isgcon-bengaluru-1764810125216.webp",
+      src: /media/projects/2x/vidyapeeta-education-expo.webp,
     width: 800,
     height: 450,
     alt: "An award presentation on a conference stage beneath a branded backdrop.",
       clearance: "client-approved",
     },
   cultural: {
-      src: "/media/projects/08-06-kanha-shanti-vanam-images.webp",
+      src: /media/projects/2x/art-of-living-navaratri-2023.webp,
       width: 644,
       height: 388,
       alt: "Aerial view over an immense clear-span canopy sheltering a seated assembly of many thousands.",
       clearance: "client-approved",
     },
   corporate: {
-      src: "/media/projects/03-03-larenon-healthcare-2-jpg.webp",
+      src: /media/projects/2x/isgcon-2023.webp,
       width: 1800,
       height: 1350,
       alt: "An arched-fascia exhibition stall with visitors passing its frontage.",
       clearance: "client-approved",
     },
   government: {
-      src: "/media/projects/22-13-hampiutsav2024-whatsapp-image-2024-02-02-at-15-36-50-5e3f1cc5-jpg.webp",
+      src: /media/projects/2x/la-renon-company-event.webp,
     width: 1280,
     height: 720,
     alt: "The commissioning of ICGS Akshay at Goa Shipyard: nameplate unveiling, the vessel at sea, and the ceremonial parade beneath a canopied dais.",

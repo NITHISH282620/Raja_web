@@ -56,7 +56,7 @@ export const projects: Project[] = [
       "Clear-span cover and levelled flooring for an assembly of many thousands — column-free across the full floor plate, with seating, services and circulation planned into the same scope.",
     hero: {
       id: "work-kanha",
-      src: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp",
+      src: /media/projects/2x/adichunchanagiri-founders-day.webp,
       width: 644,
       height: 388,
       alt: "Aerial view over an immense clear-span canopy sheltering a seated assembly of many thousands.",
@@ -84,7 +84,7 @@ export const projects: Project[] = [
       "Exhibition ground build for an international agricultural machinery fair — fabricated stands, fascia and flooring across an open site carrying heavy machinery displays.",
     hero: {
       id: "work-agrimach-expo",
-      src: "/media/events/eima-expo-crowd.11d4b8f2.webp",
+      src: /media/projects/2x/fc-expo-2025.webp,
       width: 595,
       height: 336,
       alt: "A crowded outdoor trade-fair ground with exhibitor stands and agricultural machinery.",
@@ -112,7 +112,7 @@ export const projects: Project[] = [
       "Fabricated exhibition stalls: branded shell, printed fascia panels, product display counters, lighting and seating, delivered against the exhibitor's own opening date.",
     hero: {
       id: "work-larenon",
-      src: "/media/events/larenon-stall-counter.33e301ef.webp",
+      src: /media/projects/2x/krishi-mela-2024-25.webp,
       width: 1800,
       height: 1468,
       alt: "An exhibition stall interior: branded back wall, display counters, seating and planting.",
@@ -140,7 +140,7 @@ export const projects: Project[] = [
       "Infrastructure for a mass gathering — covered assembly, flooring and staging laid out for participants numbering in the tens of thousands.",
     hero: {
       id: "work-aol",
-      src: "/media/events/aol-assembly-rows.7e11d21d.webp",
+      src: /media/projects/2x/pourakarmika-samavesha.webp,
       width: 1200,
       height: 800,
       alt: "Row after row of seated participants across an immense covered gathering.",

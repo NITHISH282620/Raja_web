@@ -36,7 +36,7 @@ export const aboutTimeline: TimelineEra[] = [
       "Civic state convocations and government dais construction",
       "Foundational Bangalore headquarters establishment",
     ],
-    image: "/media/events/isgcon-stage-award.1423a9d8.webp",
+    image: /media/projects/2x/fc-expo-2024.webp,
     alt: "Foundational civic event infrastructure in Karnataka",
   },
   {
@@ -51,7 +51,7 @@ export const aboutTimeline: TimelineEra[] = [
       "Transition from sub-hiring to 100% direct-owned asset fleet",
       "Heavy wooden platform fabrication yards established",
     ],
-    image: "/media/events/german-hanger-aerial.webp",
+    image: /media/projects/2x/eima-agrimach-2024.webp,
     alt: "Directly owned German clear-span structure engineering",
   },
   {
@@ -66,7 +66,7 @@ export const aboutTimeline: TimelineEra[] = [
       "3,000-ton temporary mobile HVAC cooling division",
       "National industrial trade fair execution in New Delhi, Mumbai, and Bengaluru",
     ],
-    image: "/media/events/eima-mahindra-stall.526d34c1.webp",
+    image: /media/projects/2x/kanha-shanti-vanam-tent-city.webp,
     alt: "Exhibition stall systems and interior expo design",
   },
   {
@@ -86,7 +86,7 @@ export const aboutTimeline: TimelineEra[] = [
       "EIMA Agrimach international agricultural machinery fair",
       "ICGS Akshay commissioning, Goa Shipyard Limited",
     ],
-    image: "/media/events/larenon-stall-counter.33e301ef.webp",
+    image: /media/projects/2x/abs-education-fair.webp,
     alt: "A fabricated exhibition stall with branded fascia and display counters",
   },
 ];
@@ -107,7 +107,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Imported German Hangars",
     description: "Clear-span aluminium structures engineered for wind loads up to 120 km/h, fire-retardant membranes, and pillar-free sightlines.",
     tag: "Heavy Structures",
-    image: "/media/events/kanha-canopy-seating.7a22707d.webp",
+    image: /media/projects/2x/collegedunia-education-fair.webp,
   },
   {
     number: "10,00,000",
@@ -115,7 +115,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Modular Wooden Floor Platforms",
     description: "Heavy-duty load-bearing subfloors, leveling laser-aligned platforms capable of supporting industrial machinery and massive crowds.",
     tag: "Ground Engineering",
-    image: "/media/events/kanha-assembly-floor-aerial.da511112.webp",
+    image: /media/projects/2x/gte-2024.webp,
   },
   {
     number: "1,00,000",
@@ -123,7 +123,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Engineered Stage Infrastructure",
     description: "Reinforced steel-truss staging and tiered platforms engineered for high-security VIP protocols, orchestral setups, and state ceremonies.",
     tag: "Dais & Staging",
-    image: "/media/events/isgcon-stage-lamp.5633cdec.webp",
+    image: /media/projects/2x/central-silk-board-conference.webp,
   },
   {
     number: "3,000",
@@ -131,7 +131,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Temporary Climate Control & HVAC",
     description: "Mobile chillers, air-handling ducting, and industrial environmental systems ensuring ambient comfort inside temporary structures.",
     tag: "Climate Control",
-    image: "/media/events/kanha-canopy-interior.0403268d.webp",
+    image: /media/projects/2x/vaidic-dharma-navaratri-2024.webp,
   },
   {
     number: "1,00,000",
@@ -139,7 +139,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Iron Crowd-Control Barricades",
     description: "10,000 heavy-gauge interlocking steel barrier units certified for police cordons, VIP security perimeters, and stadium crowd zoning.",
     tag: "Security Perimeter",
-    image: "/media/events/aol-crowd-aerial.72481eb2.webp",
+    image: /media/projects/2x/hampi-utsav-2024.webp,
   },
   {
     number: "20",
@@ -147,7 +147,7 @@ export const inventoryHighlights: InventoryItem[] = [
     label: "Dedicated Heavy Logistics Fleet",
     description: "Company-owned goods carriers, multi-axle transport vehicles, and emergency support units ensuring zero transit delays across India.",
     tag: "Logistics Fleet",
-    image: "/media/events/eima-ground-dusk.284dd6b2.webp",
+    image: /media/projects/2x/adichunchanagiri-founders-day.webp,
   },
 ];
 
@@ -182,7 +182,7 @@ export const milestoneMoments: MilestoneItem[] = [
     venue: "Kanha Shanti Vanam",
     scale: "Assembly of many thousands, under cover",
     scope: "Clear-span cover across the full assembly floor, levelled flooring, seating and circulation planned as one scope.",
-    image: "/media/events/kanha-canopy-assembly-aerial.56be51e1.webp",
+    image: /media/projects/2x/fc-expo-2025.webp,
   },
   {
     id: "eima-agrimach-2024",
@@ -191,7 +191,7 @@ export const milestoneMoments: MilestoneItem[] = [
     venue: "Bengaluru",
     scale: "International agricultural machinery fair",
     scope: "Exhibition ground build — fabricated stands, printed fascia and flooring across an open site carrying heavy machinery displays.",
-    image: "/media/events/eima-expo-crowd.11d4b8f2.webp",
+    image: /media/projects/2x/krishi-mela-2024-25.webp,
   },
   {
     id: "isgcon-2023",
@@ -200,7 +200,7 @@ export const milestoneMoments: MilestoneItem[] = [
     venue: "Bengaluru",
     scale: "National medical congress",
     scope: "Conference staging, dais and audience infrastructure with printed backdrop and lighting rig.",
-    image: "/media/events/isgcon-stage-award.1423a9d8.webp",
+    image: /media/projects/2x/pourakarmika-samavesha.webp,
   },
   {
     id: "icgs-akshay",
@@ -209,7 +209,7 @@ export const milestoneMoments: MilestoneItem[] = [
     venue: "Goa Shipyard Limited, Vasco",
     scale: "Indian Coast Guard fast patrol vessel",
     scope: "Ceremonial dais, canopy and parade infrastructure for a naval commissioning.",
-    image: "/media/events/icgs-akshay-commissioning.4d56e6c2.webp",
+    image: /media/projects/2x/buildtek-silver-jubilee.webp,
   },
 ];
 

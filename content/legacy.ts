@@ -37,7 +37,7 @@ export const collage: CollagePhoto[] = [
     width: 23.0,
     height: 21.0,
     image: {
-      src: "/media/events/german-hanger-aerial.webp",
+      src: /media/projects/2x/art-of-living-navaratri-2023.webp,
       width: 1280,
       height: 720,
       alt: "Aerial view of engineered German clear-span hangar structures.",
@@ -51,7 +51,7 @@ export const collage: CollagePhoto[] = [
     width: 23.0,
     height: 21.0,
     image: {
-      src: "/media/events/isgcon-stage-lamp.5633cdec.webp",
+      src: /media/projects/2x/isgcon-2023.webp,
       width: 800,
       height: 533,
       alt: "A lamp-lighting ceremony on a conference stage in front of a large printed backdrop.",
@@ -65,7 +65,7 @@ export const collage: CollagePhoto[] = [
     width: 18.0,
     height: 21.0,
     image: {
-      src: "/media/events/eima-mahindra-stall.526d34c1.webp",
+      src: /media/projects/2x/la-renon-company-event.webp,
       width: 1000,
       height: 603,
       alt: "A fabricated exhibition stall with branded fascia and machinery on display at an agricultural trade fair.",
@@ -79,7 +79,7 @@ export const collage: CollagePhoto[] = [
     width: 22.0,
     height: 23.0,
     image: {
-      src: "/media/events/aol-assembly-rows.7e11d21d.webp",
+      src: /media/projects/2x/fc-expo-2024.webp,
       width: 1200,
       height: 800,
       alt: "Row after row of seated participants across an immense covered gathering.",
@@ -93,7 +93,7 @@ export const collage: CollagePhoto[] = [
     width: 21.0,
     height: 22.0,
     image: {
-      src: "/media/projects/aicog-2019-tent-city-dawn.webp",
+      src: /media/projects/2x/eima-agrimach-2024.webp,
       width: 1920,
       height: 1080,
       alt: "Aerial view of high-capacity event complex and temporary infrastructure.",
@@ -108,7 +108,7 @@ export const collage: CollagePhoto[] = [
     width: 22.0,
     height: 21.0,
     image: {
-      src: "/media/events/larenon-stall-arch.0f7c47d8.webp",
+      src: /media/projects/2x/kanha-shanti-vanam-tent-city.webp,
       width: 1800,
       height: 1350,
       alt: "An arched-fascia exhibition stall with visitors passing its frontage.",

@@ -98,7 +98,7 @@ export default async function PartnersPage() {
         <figure>
           <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[15px] bg-ink/5">
             <Image
-              src={(await pageImage("partners-hero"))?.image ?? "/media/projects/aicog-2019-hanger-erection.webp"}
+              src={(await pageImage("partners-hero"))?.image ?? /media/projects/2x/isgcon-2023.webp}
               alt={(await pageImage("partners-hero"))?.alt ?? ""}
               fill
               sizes="(max-width: 1024px) 94vw, 1180px"

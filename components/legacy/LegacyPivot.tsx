@@ -32,7 +32,7 @@ export async function LegacyPivot() {
               style={{ aspectRatio: "4/3" }}
             >
               <Image
-                src={(await pageImage("legacy-pivot"))?.image ?? "/media/events/kanha-canopy-seating.7a22707d.webp"}
+                src={(await pageImage("legacy-pivot"))?.image ?? /media/projects/2x/vaidic-dharma-navaratri-2024.webp}
                 alt={(await pageImage("legacy-pivot"))?.alt ?? "The 1991 German hangar pivot"}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
