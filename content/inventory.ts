@@ -24,7 +24,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "German Hangars",
     body: "Clear-span aluminium hangars imported for large-format deployment. Column-free interiors carry staging, seating and services without breaking a sightline.",
     image: {
-      src: "/media/projects/2x/fifth-annual-convocation.webp",
+      src: "/media/events/german-hanger-aerial.webp",
       width: 1600,
       height: 900,
       alt: "German Hangars",
@@ -81,7 +81,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Octonorm Stalls",
     body: "Rapid-deployment exhibition stalls engineered from premium German Octonorm profiles, offering clean lines and seamless branding integration.",
     image: {
-      src: "/media/projects/2x/babu-jagjivan-ram-119.webp",
+      src: "/media/events/larenon-stall-wide.ae5daaa7.webp",
       width: 1600,
       height: 900,
       alt: "Octonorm Stalls",

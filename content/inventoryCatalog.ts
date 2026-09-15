@@ -47,7 +47,7 @@ export const inventoryCategories: InventoryCategory[] = [
       "National Industrial Expos & Trade Fairs",
       "Multi-Acre Cultural & Spiritual Convocations"
     ],
-    image: "/media/projects/2x/fifth-annual-convocation.webp",
+    image: "/media/events/german-hanger-aerial.webp",
     alt: "Aerial view of large-scale German clear-span hangar complex.",
     href: "/services/german-hangers",
     group: "Structures",
@@ -143,7 +143,7 @@ export const inventoryCategories: InventoryCategory[] = [
       "Medical, Pharmaceutical & Tech Conventions",
       "Government Department & State Pavilions"
     ],
-    image: "/media/projects/2x/babu-jagjivan-ram-119.webp",
+    image: "/media/events/larenon-stall-wide.ae5daaa7.webp",
     alt: "A fabricated Octonorm exhibition stall shell",
     href: "/services/exhibition-stalls",
     group: "Fabrication",
