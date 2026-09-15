@@ -55,12 +55,10 @@ export function pool() {
  * fault and rethrows immediately, because retrying it would just be slower.
  */
 async function withRetry<T>(run: () => Promise<T>, attempts = 3): Promise<T> {
-  let last: unknown;
   for (let i = 0; i < attempts; i++) {
     try {
       return await run();
     } catch (error) {
-      last = error;
       const message = error instanceof Error ? error.message : String(error);
       const transient = /fetch failed|ETIMEDOUT|ECONNRESET|ENETUNREACH|socket hang up|Connection terminated/i
         .test(message);
@@ -68,12 +66,12 @@ async function withRetry<T>(run: () => Promise<T>, attempts = 3): Promise<T> {
         // If we still fail after retries, gracefully fall back to empty results
         // so the CMS uses the dummy seed data instead of crashing the page.
         console.warn("Neon DB fetch failed, falling back to seed data:", message);
-        return [] as any;
+        return [] as unknown as T;
       }
       await new Promise((r) => setTimeout(r, 120 * 2 ** i));
     }
   }
-  return [] as any;
+  return [] as unknown as T;
 }
 
 export const query = cache(async <T = Record<string, unknown>>(

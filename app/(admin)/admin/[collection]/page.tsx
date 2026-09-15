@@ -191,7 +191,7 @@ function thumbOf(data: Record<string, unknown>): string | null {
   // catalogue store a bare path string. Reading only `.src` meant every one of
   // those listed with an empty grey square, which reads as "this record has no
   // picture" when it has one.
-  for (const c of [data.image, data.hero, data.logo, (data.media as any[])?.[0]]) {
+  for (const c of [data.image, data.hero, data.logo, (data.media as unknown[])?.[0]]) {
     if (typeof c === "string" && c) return c;
     const src = (c as { src?: string } | null)?.src;
     if (src) return src;

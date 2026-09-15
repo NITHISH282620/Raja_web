@@ -284,7 +284,7 @@ export const projects: Project[] = [
     ...P("pourakarmika-samavesha", "Karnataka State Marketing Communication & Advertising Ltd", "Pourakarmika Samavesha", null, "government", ["german-hangers", "staging-and-seating"], "Bengaluru"),
     media: [
       { src: "/media/projects/2x/pourakarmika-samavesha.webp", width: 1600, height: 1205, alt: "Final Production Photograph", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("buildtek-silver-jubilee", "Buildtek Polymers", "Silver Jubilee Celebration", null, "corporate", ["staging-and-seating"]),
@@ -296,25 +296,25 @@ export const projects: Project[] = [
     ...P("vaidic-dharma-navaratri", "Vaidic Dharma Sansthan", "Navaratri Function", null, "cultural", ["german-hangers", "event-flooring"]),
     media: [
       { src: "/media/projects/2x/vaidic-dharma-navaratri.webp", width: 1600, height: 1209, alt: "Final Production Photograph", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("valmiki-jayanti-2025", "Tribal Welfare Department, Government of Karnataka", "Valmiki Jayanti 2025", "2025", "government", ["german-hangers", "staging-and-seating"], "Bengaluru"),
     media: [
       { src: "/media/projects/2x/valmiki-jayanti-2025.webp", width: 1476, height: 828, alt: "Final Production Photograph", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("mm-hills", "Sri Male Mahadeshwara Swamy", "MM Hills", null, "cultural", ["german-hangers"], "Male Mahadeshwara Hills"),
     media: [
       { src: "/media/projects/2x/mm-hills.webp", width: 1600, height: 900, alt: "Final Production Photograph", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("world-fisheries-day-2024", "Skyblue Event Management India", "World Fisheries Day 2024", "2024", "government", ["exhibition-stalls", "staging-and-seating"], "Bengaluru"),
     media: [
       { src: "/media/projects/2x/world-fisheries-day-2024.webp", width: 1600, height: 1067, alt: "Final Production Photograph", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("biffes-17", "Karnataka Chalanachitra Academy", "17th Bengaluru International Film Festival", null, "cultural", ["staging-and-seating", "event-flooring"], "Bengaluru", true),
@@ -332,25 +332,25 @@ export const projects: Project[] = [
     ...P("dam-safety-conference", "Karnataka State Marketing Communication & Advertising Ltd", "International Conference on Dam Safety", null, "conference", ["german-hangers", "staging-and-seating"]),
     media: [
       { src: "/media/projects/2x/dam-safety-conference.webp", width: 1600, height: 897, alt: "Final Production Photograph", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("fifth-annual-convocation", "Karnataka State Marketing Communication & Advertising Ltd", "5th Annual Convocation", null, "government", ["staging-and-seating"]),
     media: [
       { src: "/media/projects/2x/fifth-annual-convocation.webp", width: 1600, height: 1067, alt: "Final Production Photograph", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("babu-jagjivan-ram-119", "Karnataka State Marketing Communication & Advertising Ltd", "119th birth anniversary of Dr Babu Jagjivan Ram", null, "government", ["staging-and-seating"]),
     media: [
       { src: "/media/projects/2x/babu-jagjivan-ram-119.webp", width: 1600, height: 930, alt: "Final Production Photograph", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
   {
     ...P("vidyapeeta-education-expo", "ABS Business Solutions", "Vidyapeeta Education Expo", null, "exhibition", ["exhibition-stalls"], "Bengaluru"),
     media: [
       { src: "/media/projects/2x/vidyapeeta-education-expo.webp", width: 1600, height: 1067, alt: "Final Production Photograph", clearance: "client-approved" }
-    ],
+    ] satisfies ImageAsset[],
   },
 
   // --- Published by Raja on rajaenterprises.co, read 2026-09-04. These are the

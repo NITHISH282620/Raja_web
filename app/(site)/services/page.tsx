@@ -141,7 +141,7 @@ export default async function ServicesPage() {
               </h2>
             </div>
             <p className="text-white/70 max-w-md text-sm sm:text-base leading-relaxed pb-2">
-              We provide complete turnkey execution. These essential services are engineered into the structure's load rather than bolted on as an afterthought.
+              We provide complete turnkey execution. These essential services are engineered into the structure&apos;s load rather than bolted on as an afterthought.
             </p>
           </div>
           
