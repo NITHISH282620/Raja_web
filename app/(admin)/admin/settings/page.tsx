@@ -54,7 +54,7 @@ export default async function SettingsPage({
       </section>
 
       {/* ------------------------------- hero --------------------------------- */}
-      <section className="admin-card" style={{ maxWidth: 760, marginBottom: 24 }}>
+      <section id="hero" className="admin-card" style={{ maxWidth: 760, marginBottom: 24 }}>
         <h2 className="admin-h2" style={{ marginBottom: 6 }}>Front page headline</h2>
         <p className="admin-sub" style={{ marginBottom: 16 }}>
           The large type over the video at the top of the site.

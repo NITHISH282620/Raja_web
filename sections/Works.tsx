@@ -17,7 +17,7 @@ import {
 import { MOTION_OK, MOTION_DESKTOP, MOTION_COMPACT, EASE } from "@/motion/ease";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Statement } from "@/components/Statement";
-import { PlaceholderImage } from "@/components/Placeholder";
+import { Placeholder, PlaceholderImage } from "@/components/Placeholder";
 import { worksIntro, type Project } from "@/content/works";
 import { ROUTES, SECTION_IDS } from "@/content/navigation";
 
@@ -299,10 +299,12 @@ export function WorksView({ projects }: { projects: Project[] }) {
                 <h3 className="text-[clamp(1.6rem,2.8vw,2.5rem)] font-bold text-ink tracking-tight leading-[1.12] text-balance">
                   {work.title}
                 </h3>
-                {work.summary && (
+                {work.summary ? (
                   <p className="t-body text-body-light leading-relaxed text-sm lg:text-base">
                     {work.summary}
                   </p>
+                ) : (
+                  <Placeholder label="Case study summary pending" note={work.note} lines={3} />
                 )}
                 {work.href && (
                   <div className="mt-3">
@@ -402,10 +404,12 @@ export function WorksView({ projects }: { projects: Project[] }) {
               <h3 className="text-xl font-bold text-ink tracking-tight leading-tight group-hover:text-brand-blue transition-colors">
                 {work.title}
               </h3>
-              {work.summary && (
+              {work.summary ? (
                 <p className="t-body text-body-light text-sm leading-relaxed line-clamp-3">
                   {work.summary}
                 </p>
+              ) : (
+                <Placeholder label="Case study summary pending" note={work.note} lines={2} />
               )}
               {work.href && (
                 <Link

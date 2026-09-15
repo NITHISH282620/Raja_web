@@ -38,6 +38,8 @@ const GROUPS: {
   {
     label: "Homepage",
     items: [
+      { href: "/admin/settings#hero", label: "Hero headline", sub: true },
+      { href: "/admin/collage", label: "Since 1977 photo grid", key: "collage", sub: true },
       { href: "/admin/capabilities", label: "Capability cards", key: "capabilities", sub: true },
       { href: "/admin/homepageWorks", label: "Featured projects", key: "homepageWorks", sub: true },
       { href: "/admin/inventory", label: "Resource tiles", key: "inventory", sub: true },
@@ -74,7 +76,6 @@ const GROUPS: {
     label: "Legacy page",
     items: [
       { href: "/admin/copy", label: "Paragraphs", key: "copy", sub: true },
-      { href: "/admin/collage", label: "Photo collage", key: "collage", sub: true },
       { href: "/admin/legacyMilestones", label: "Key milestones timeline", key: "legacyMilestones", sub: true },
     ],
   },
