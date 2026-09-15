@@ -24,10 +24,6 @@ import { Statement } from "@/components/Statement";
 export function ResourcesView({ schedule, tiles }: { schedule: InventoryLine[]; tiles: InventoryTile[] }) {
   const root = useRef<HTMLElement>(null);
 
-  const topCards = tiles.slice(0, 2);
-  const bottomCards = tiles.slice(2, 6);
-  const scheduleItems = schedule.slice(0, 4);
-
   useGSAP(
     () => {
       const scope = root.current;
@@ -40,17 +36,9 @@ export function ResourcesView({ schedule, tiles }: { schedule: InventoryLine[]; 
           onComplete: releaseScope(scope),
         });
 
-        // Animate the top row cards and schedule panel
         fadeIn(tl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.04 }, 0);
         revealLines(q(scope, "[data-statement] h2"), { stagger: 0.09, trigger: { trigger: scope, start: "top 78%", once: true } });
-        riseCard(tl, q(scope, "[data-top-card]"), { stagger: STAGGER.works }, 0.4);
-        fadeIn(tl, q(scope, "[data-schedule-panel]"), { distance: 20 }, 0.2);
-        
-        // Animate schedule items
-        fadeUp(tl, q(scope, "[data-schedule-item]"), { stagger: 0.05, distance: 10 }, 0.3);
-
-        // Animate the bottom row cards
-        riseCard(tl, q(scope, "[data-bottom-card]"), { stagger: STAGGER.bento }, 0.4);
+        riseCard(tl, q(scope, "[data-inventory-card]"), { stagger: STAGGER.bento }, 0.4);
       });
 
       return () => mm.revert();
@@ -62,7 +50,7 @@ export function ResourcesView({ schedule, tiles }: { schedule: InventoryLine[]; 
     <section ref={root} id={SECTION_IDS.resources} className="relative w-full overflow-hidden bg-paper py-[clamp(56px,8vw,104px)]">
       <div className="frame flex flex-col gap-6 lg:gap-10">
         
-                <div className="flex flex-col items-center gap-5 pb-8 text-center">
+        <div className="flex flex-col items-center gap-5 pb-8 text-center">
           <div data-eyebrow>
             <Eyebrow items={["our", "resource"]} tone="dark" align="center" />
           </div>
@@ -71,93 +59,12 @@ export function ResourcesView({ schedule, tiles }: { schedule: InventoryLine[]; 
           </div>
         </div>
 
-        {/* Top Row */}
-        <div className="grid gap-6 lg:grid-cols-3 items-stretch">
-          
-          {/* Top Cards */}
-          <div className="lg:col-span-2 grid gap-6 md:grid-cols-2 items-stretch">
-            {topCards.map((tile) => (
-              <div
-                key={tile.id}
-                data-top-card
-                data-reveal
-                className="flex flex-col h-full overflow-hidden rounded-[20px] bg-white shadow-sm border border-ink/5"
-              >
-                <div className="relative aspect-[16/10] w-full bg-mist overflow-hidden shrink-0">
-                  {tile.image && (
-                    <Image
-                      src={tile.image.src}
-                      alt={tile.image.alt}
-                      fill
-                      sizes="(max-width: 767px) 100vw, 33vw"
-                      className="object-cover"
-                    />
-                  )}
-                </div>
-                <div className="flex flex-col flex-1 p-5 xl:p-6 gap-2 xl:gap-3">
-                  <div className="flex items-center gap-3">
-                    <span className="t-eyebrow text-ink font-bold tabular-nums">{tile.index}</span>
-                    <div className="h-px w-8 bg-ink/20"></div>
-                    <span className="t-eyebrow text-ink/50 uppercase tracking-wider">{tile.eyebrow}</span>
-                  </div>
-                  <h3 className="text-xl xl:text-2xl font-serif text-ink leading-tight">{tile.title}</h3>
-                  {tile.body && (
-                    <p className="t-body-sm text-xs xl:text-sm text-body-light leading-relaxed">
-                      {tile.body}
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Schedule Panel */}
-          <div 
-            data-schedule-panel 
-            data-reveal
-            className="flex flex-col justify-between h-full overflow-hidden rounded-[20px] border border-ink/5 bg-white p-5 sm:p-6 lg:p-5 xl:p-7 2xl:p-8 shadow-sm"
-          >
-            <div className="flex flex-col">
-              <div className="mb-3 xl:mb-4 flex items-center gap-3">
-                <div className="h-px w-8 bg-ink/20"></div>
-                <span className="t-eyebrow text-ink/50 uppercase tracking-wider">Held in stock</span>
-              </div>
-              
-              <h3 className="mb-2 xl:mb-3 font-serif text-xl xl:text-2xl text-ink leading-tight">The inventory schedule</h3>
-              <p className="t-body-sm text-xs xl:text-sm mb-4 xl:mb-5 leading-relaxed text-body-light">
-                Raja Enterprises completely owns its entire inventory line. This eliminates reliance on third-party sub-rentals, giving us absolute control over deployment timelines and massive scale across India.
-              </p>
-
-              <ul className="flex flex-col gap-2 xl:gap-2.5">
-                {scheduleItems.map((item, i) => (
-                  <li key={i} data-schedule-item data-reveal className="flex items-end justify-between gap-3 border-b border-ink/5 pb-2 xl:pb-2.5">
-                    <span className="t-body-sm text-xs xl:text-sm text-ink/80">{item.item}</span>
-                    <span className="t-body-sm text-xs xl:text-sm font-bold text-ink text-right tabular-nums whitespace-nowrap shrink-0">
-                      {item.capacity} <span className="text-[9px] xl:text-[10px] uppercase tracking-wider text-ink/50 ml-1">{item.unit}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-4 xl:mt-6 pt-2">
-              <Link 
-                href={ROUTES.inventory}
-                className="t-eyebrow text-brand-blue uppercase tracking-widest flex items-center gap-2 hover:text-accent transition-colors text-xs xl:text-sm"
-              >
-                Full schedule <span className="text-base xl:text-lg">&rarr;</span>
-              </Link>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Bottom Row */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {bottomCards.map((tile) => (
+        {/* All Inventory Cards */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {tiles.map((tile) => (
             <div
               key={tile.id}
-              data-bottom-card
+              data-inventory-card
               data-reveal
               className="flex flex-col overflow-hidden rounded-[20px] bg-white shadow-sm border border-ink/5"
             >
@@ -167,7 +74,7 @@ export function ResourcesView({ schedule, tiles }: { schedule: InventoryLine[]; 
                     src={tile.image.src}
                     alt={tile.image.alt}
                     fill
-                    sizes="(max-width: 1023px) 50vw, 25vw"
+                    sizes="(max-width: 1023px) 50vw, 33vw"
                     className="object-cover"
                   />
                 )}
