@@ -24,7 +24,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "German Hangars",
     body: "Clear-span aluminium hangars imported for large-format deployment. Column-free interiors carry staging, seating and services without breaking a sightline.",
     image: {
-      src: "/media/projects/2x/eima-agrimach-2024.webp",
+      src: "/media/projects/2x/fifth-annual-convocation.webp",
       width: 1600,
       height: 900,
       alt: "German Hangars",
@@ -43,7 +43,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Ring Lock Scaffolding",
     body: "Large Event Portable Stage and Concert Stage featuring a heavy-duty ringlock structure for safe, stable, and professional event setups.",
     image: {
-      src: "/media/inventory-lighting.25f99edf.webp",
+      src: "/uploads/582a959a-5d66-4778-8fe1-8b8e77b77aef.webp",
       width: 1600,
       height: 900,
       alt: "Ring Lock Scaffolding",
@@ -62,7 +62,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Wooden Platforms",
     body: "Levelled wooden platforms and decking over a scaffold sub-frame, carpeted to finish. Ten lakh square feet in stock, laid across ground that is rarely flat.",
     image: {
-      src: "/media/projects/2x/kanha-shanti-vanam-tent-city.webp",
+      src: "/media/inventory-wooden-floor.f6799623.webp",
       width: 1600,
       height: 900,
       alt: "Wooden Platforms",
@@ -81,7 +81,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Octonorm Stalls",
     body: "Rapid-deployment exhibition stalls engineered from premium German Octonorm profiles, offering clean lines and seamless branding integration.",
     image: {
-      src: "/media/projects/2x/abs-education-fair.webp",
+      src: "/media/projects/2x/babu-jagjivan-ram-119.webp",
       width: 1600,
       height: 900,
       alt: "Octonorm Stalls",
@@ -100,7 +100,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Maxima Stalls",
     body: "Heavy-duty Maxima profile systems for custom, large-format exhibition pavilions. Supports double-height structures and extensive overhead branding.",
     image: {
-      src: "/media/projects/2x/collegedunia-education-fair.webp",
+      src: "/media/inventory/maxima_stalls.jpg",
       width: 1600,
       height: 900,
       alt: "Maxima Stalls",
@@ -119,7 +119,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Staging & Dais",
     body: "Heavy-duty modular staging systems engineered for high load capacities, accommodating everything from cultural performances to heavy equipment displays.",
     image: {
-      src: "/media/projects/2x/isgcon-2023.webp",
+      src: "/media/inventory-stage.b737c675.webp",
       width: 1600,
       height: 900,
       alt: "Staging & Dais",
@@ -138,7 +138,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Seating Solutions",
     body: "Audience seating, barricading and crowd routing for gatherings from a few hundred to several thousand, set out to the sightlines the stage needs.",
     image: {
-      src: "/media/projects/2x/fc-expo-2024.webp",
+      src: "/media/inventory/seating_solutions.jpg",
       width: 1600,
       height: 900,
       alt: "Seating Solutions",
@@ -157,7 +157,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Climate Control",
     body: "Industrial-grade HVAC units and spot cooling systems to maintain comfortable temperatures in temporary structures, even during peak summer.",
     image: {
-      src: "/media/projects/2x/vaidic-dharma-navaratri.webp",
+      src: "/media/inventory/climate_control.jpg",
       width: 1600,
       height: 900,
       alt: "Climate Control",
@@ -176,7 +176,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Crowd Barricades",
     body: "Heavy-gauge interlocking galvanized steel barricades designed to establish secure perimeters, sterile VIP corridors, and high-density crowd distribution lanes.",
     image: {
-      src: "/media/projects/2x/la-renon-company-event.webp",
+      src: "/media/inventory/crowd_barricades.jpg",
       width: 1600,
       height: 900,
       alt: "Crowd Barricades",
@@ -214,7 +214,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Generators & Power",
     body: "Industrial-grade acoustic diesel generators delivering uncompromised, redundant power for massive temporary setups.",
     image: {
-      src: "/media/projects/2x/hampi-utsav-2024.webp",
+      src: "/media/inventory/generators_power.jpg",
       width: 1600,
       height: 900,
       alt: "Generators & Power",
@@ -233,7 +233,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Logistics & Transport",
     body: "Raja Enterprises operates our own fleet of multi-axle goods carriers, specialized transport trucks, and mobile cranes.",
     image: {
-      src: "/media/projects/2x/krishi-mela-2024-25.webp",
+      src: "/media/inventory/logistics_fleet.jpg",
       width: 1600,
       height: 900,
       alt: "Logistics & Transport",
@@ -252,7 +252,7 @@ export const inventoryTiles: InventoryTile[] = [
     title: "Catering Services",
     body: "Complete food and beverage infrastructure, from hygienic prep kitchens to elegant buffet setups serving thousands of guests seamlessly.",
     image: {
-      src: "/media/projects/2x/pourakarmika-samavesha.webp",
+      src: "/media/inventory/event_catering.jpg",
       width: 1600,
       height: 900,
       alt: "Catering Services",
