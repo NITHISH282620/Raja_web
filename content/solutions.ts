@@ -262,6 +262,91 @@ export const solutions: Solution[] = [
     seoDescription:
       "Covered assembly, public seating, staging and circulation for state programmes, festivals and institutional gatherings on open ground. Raja Enterprises, Bengaluru, since 1977.",
   },
+  // Added per the 2026-09 content audit, §10: Government/Public Sector and
+  // College/University were the two largest gaps in the Solutions taxonomy —
+  // government is 11 of 37 recorded projects with previously no page to
+  // point to, and College/University was a direct client request. Both are
+  // also live in the `solutions` DB collection (solutions-5, solutions-6) —
+  // this seed entry only takes effect on a fresh install with an empty DB.
+  {
+    slug: "government-public-sector",
+    label: "Government & public sector",
+    title: "Government and public-sector event infrastructure",
+    summary:
+      "Turnkey infrastructure for state ceremonies, national programmes and public-sector conferences, delivered under protocol and to a fixed date.",
+    audience:
+      "Government departments, public-sector bodies, and event management agencies working on official state and national programmes.",
+    category: "government",
+    image: "/media/projects/2x/world-fisheries-day-2024.webp",
+    scope: [
+      "Clear-span structures for state ceremonies and public programmes",
+      "Ceremonial dais and staging construction",
+      "Levelled flooring across open ground",
+      "Public seating, barricading and crowd circulation",
+      "Climate control for VIP and public assembly areas",
+      "Work scheduled and sited within security protocol and site-access restrictions",
+      "Installation and dismantling to a fixed, non-negotiable date",
+    ],
+    sections: [
+      {
+        heading: "Government work has different constraints",
+        body:
+          "A date that cannot move, a security protocol that governs who may be on site and when, and a procurement process that is scored before it is priced. Raja has built for state ceremonies, national programmes and public-sector conferences for decades, including high-security environments and stadium-scale turnkey builds against short turnarounds.",
+      },
+      {
+        heading: "How the engagement runs",
+        body:
+          "A site visit and a measured plan first, then a scope that names quantities rather than adjectives, then installation to a dated schedule with Raja's own crew on site for the duration. Send a brief, an RFP or a tender document and the reply will be against your numbers.",
+      },
+    ],
+    seoTitle: "Government & Public Sector Event Infrastructure, Bengaluru",
+    seoDescription:
+      "Turnkey infrastructure for state ceremonies, national programmes and public-sector conferences in Bengaluru and across India. Owned inventory, in-house crew, since 1977.",
+  },
+  {
+    slug: "college-festivals-and-university-events",
+    label: "College Festivals & University Events",
+    title: "Infrastructure for college festivals and university events",
+    summary:
+      "Stages, seating, flooring, barricading and exhibition space for campus fests, convocations and department events — sized to the ground a college or university actually has.",
+    audience:
+      "College and university event committees, student affairs offices, and campus administration teams.",
+    // No dedicated "college"/"university" ProjectCategory exists, and none of
+    // the recorded projects is tagged as a student fest specifically. Tried
+    // "exhibition" first (the closest real evidence — Krishi Mela 2024-25 at
+    // University of Agricultural Sciences, plus a few genuine education
+    // fairs), but that category also pulls in unrelated industrial/tech
+    // expos under a proof-band heading that never says "college" or
+    // "university" — visually inspected and it read as weak, unrelated
+    // evidence rather than as none. "social" has zero tagged projects, so
+    // the proof band simply doesn't render (the page's own established
+    // pattern for "no evidence yet" — see projectsByCategory().length > 0
+    // in app/(site)/solutions/[slug]/page.tsx), which is more honest than a
+    // mismatched six.
+    // [CLIENT VERIFICATION REQUIRED]: confirm whether a dedicated
+    // college-fest project should be added, at which point this should
+    // become its own category or that project's real category.
+    category: "social",
+    image: "/media/projects/2x/krishi-mela-2024-25.webp",
+    scope: [
+      "Temporary stages for cultural nights, competitions and department events",
+      "Audience seating for auditoriums, grounds and open-air venues",
+      "Barricading and crowd circulation for large student gatherings",
+      "Levelled flooring and walkways over campus grounds and fields",
+      "Exhibition stalls and pavilions for department and club stalls",
+      "Clear-span structures for covered fest grounds where the campus has none",
+    ],
+    sections: [
+      {
+        heading: "Campus events run on a fixed calendar and a fixed budget",
+        body:
+          "College and university events run on fixed academic calendars and fixed budgets, with student organisers who need infrastructure that goes up and comes down reliably around exams and term dates. Raja supplies the same owned staging, seating, barricading and flooring used for corporate and government events, scoped to a campus ground or open field.",
+      },
+    ],
+    seoTitle: "College Fest & University Event Infrastructure, Bengaluru",
+    seoDescription:
+      "Stages, seating, flooring, barricading and exhibition space for college festivals, convocations and university events in Bengaluru. Owned inventory, in-house crew.",
+  },
 ];
 
 export const findSolution = (slug: string): Solution | undefined =>

@@ -442,5 +442,5 @@ export const clientsMeta = {
 };
 
 export const closingCta = {
-  heading: "Ready to build at monumental scale?",
+  heading: "Ready to build your next event?",
 } as const;

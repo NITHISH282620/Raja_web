@@ -52,7 +52,7 @@ export function AboutInventoryBento({ highlights }: { highlights: InventoryItem[
             </p>
             <h2 className="t-statement text-ink text-balance font-semibold">
               The Heavy Metal: <br className="hidden sm:inline" />
-              <span className="text-brand-blue">Owned Infrastructure at National Scale.</span>
+              <span className="italic font-serif font-normal text-brand-blue">Owned Infrastructure at National Scale.</span>
             </h2>
           </div>
           <p className="t-body text-body-light leading-relaxed max-w-[42ch]">
@@ -86,7 +86,7 @@ export function AboutInventoryBento({ highlights }: { highlights: InventoryItem[
                     {item.unit}
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold tracking-tight text-ink mt-1">
+                <h3 className="t-tile text-ink mt-1">
                   {item.label}
                 </h3>
               </div>

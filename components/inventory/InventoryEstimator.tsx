@@ -138,7 +138,7 @@ export function InventoryEstimator() {
               {/* Result 1: German Hangers */}
               <div className="rounded-xl border border-ink/10 bg-neutral-50 p-5">
                 <span className="text-[10px] uppercase tracking-widest text-ink/50 block font-semibold mb-1">
-                  German Clear-Span Hangers
+                  German Clear-Span Hangars
                 </span>
                 <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
                   {estimate.hangarSqFt}{" "}

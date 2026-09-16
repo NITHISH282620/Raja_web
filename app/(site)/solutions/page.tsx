@@ -8,14 +8,14 @@ import { company } from "@/content/company";
 import { abs, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Who We Build For",
+  title: "Who We Build For — Corporate, Government, Exhibitions & Institutions",
   description:
-    "Exhibitions, conferences, corporate events, product launches and institutional programmes. The same owned inventory and in-house crew, indexed by what you are building.",
+    "Raja Enterprises builds event infrastructure for corporate, government, exhibition, conference and institutional clients across Bengaluru and India.",
   alternates: { canonical: abs("/solutions") },
   openGraph: {
     title: "Who We Build For — Raja Enterprises",
     description:
-      "Event infrastructure for exhibitions, conferences, corporate events, launches and institutional programmes.",
+      "Event infrastructure for government, corporate, exhibition, conference and institutional clients across Bengaluru and India.",
     url: abs("/solutions"),
     type: "website",
   },
@@ -74,7 +74,7 @@ export default async function SolutionsIndex() {
 
                 {/* Text Side */}
                 <div className="w-full lg:w-[45%] flex flex-col justify-center">
-                  <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-sky-500 font-semibold mb-4 sm:mb-6 block">
+                  <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-brand-blue font-semibold mb-4 sm:mb-6 block">
                     0{idx + 1} &mdash; {s.label}
                   </span>
                   <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-ink mb-6 sm:mb-8 text-balance leading-[1.1]">

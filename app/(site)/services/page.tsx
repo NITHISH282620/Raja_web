@@ -4,26 +4,26 @@ import Image from "next/image";
 import { PageMasthead, Band } from "@/components/PageShell";
 import {
   groupedCapabilities,
-  markets,
   servicesIntro,
 } from "@/content/services";
 import { getStats, getPagedServices } from "@/lib/store";
 import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Event Infrastructure Services",
+  title: "Event Infrastructure Services in Bengaluru — Raja Enterprises",
   description:
-    "German hangers, exhibition stalls, event flooring, staging, scaffolding and turnkey event infrastructure. Owned inventory and in-house crew, Bengaluru since 1977.",
+    "Structures, flooring, staging, exhibition stalls, scaffolding, lighting and climate control for large events in Bengaluru — owned inventory, in-house crew.",
   alternates: { canonical: abs("/services") },
 };
 
 /**
- * The services hub.
+ * The services hub — answers "what can Raja physically deliver?"
  *
- * Three tiers, matching `content/services.ts`: pillars get cards and, where
+ * Two tiers, matching `content/services.ts`: pillars get cards and, where
  * `page` is true, their own route; grouped capabilities are listed plainly
- * because nobody commissions barricading on its own; markets answer the
- * separate question of whether Raja builds for events like yours.
+ * because nobody commissions barricading on its own. "Who Raja builds for"
+ * is answered once, on /solutions, not duplicated here — see the 2026-09
+ * content audit, §9.
  */
 export default async function ServicesPage() {
   const stats = await getStats();
@@ -160,35 +160,20 @@ export default async function ServicesPage() {
         </div>
       </div>
 
-      {/* Who we build for */}
-      <div className="py-24 sm:py-32 bg-paper">
-        <div className="frame">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 sm:mb-24">
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <span className="h-[2px] w-8 sm:w-12 bg-brand-blue" />
-                <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-brand-blue font-bold">
-                  Client Sectors
-                </span>
-              </div>
-              <h2 className="font-display text-4xl sm:text-5xl font-medium text-ink tracking-tight">
-                Who we build for
-              </h2>
-            </div>
-          </div>
-          
-          <div className="grid gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-            {markets.map((m, idx) => (
-              <div key={m.title} className="group flex flex-col relative pl-6">
-                <div className="absolute left-0 top-2 bottom-0 w-[2px] bg-ink/10 transition-colors duration-500 group-hover:bg-brand-blue" />
-                <span className="font-mono text-5xl text-ink/10 font-light mb-4 transition-colors duration-500 group-hover:text-brand-blue/30 leading-none">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-                <h3 className="font-display text-2xl sm:text-3xl text-ink mb-4">{m.title}</h3>
-                <p className="text-body-light leading-relaxed text-sm sm:text-base">{m.body}</p>
-              </div>
-            ))}
-          </div>
+      {/* Cross-link to Solutions rather than a second "who we build for"
+          section — this page answers what Raja builds; /solutions answers
+          who it's for. Having both here duplicated that question with a
+          different, non-matching list of sectors. See the 2026-09 content
+          audit, §9/§21. `markets` is kept in content/services.ts as source
+          material for the Solutions consolidation, not rendered here. */}
+      <div className="py-16 sm:py-20 bg-paper border-t border-ink/5">
+        <div className="frame text-center">
+          <p className="text-lg sm:text-xl text-ink">
+            Looking for infrastructure for a specific type of event?{" "}
+            <Link href="/solutions" className="font-medium text-brand-blue underline underline-offset-4 hover:text-ink transition-colors">
+              See who we build for &rarr;
+            </Link>
+          </p>
         </div>
       </div>
 

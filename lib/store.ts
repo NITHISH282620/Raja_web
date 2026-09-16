@@ -180,6 +180,12 @@ export async function getProjects(): Promise<Project[]> {
     .sort((a, b) => Number(b.featured) - Number(a.featured) || a.order - b.order);
 }
 
+/** One project's case study, by id. Null if unpublished or unknown. */
+export async function findProjectById(id: string): Promise<Project | null> {
+  const p = await readOne("projects", id);
+  return p && p.published ? p : null;
+}
+
 export const getCapabilities = async (): Promise<Capability[]> => read("capabilities");
 export const getInventoryTiles = async (): Promise<InventoryTile[]> => read("inventory");
 export const getProcessSteps = async (): Promise<ProcessStep[]> => read("process");

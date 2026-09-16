@@ -120,7 +120,7 @@ export const capabilitiesIntro = {
    * the approved figure, so the copy now agrees with it rather than asserting a
    * second, higher number the company has not confirmed.
    */
-  body: "Structures, flooring, staging, and exhibitions ┠ delivered by our field crews using our own substantial inventory. Complete turnkey physical execution.",
+  body: "Structures, flooring, staging and exhibitions — delivered by our own field crews, from our own inventory.",
   status: "provisional" as const,
   note: "Headcount aligned to the approved 300+ field workforce stat. Confirm whether the 460 figure from the Figma copy is total headcount including workshop and office staff; if so, both can be stated.",
 };

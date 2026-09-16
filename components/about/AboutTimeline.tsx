@@ -7,6 +7,7 @@ import { gsap, ScrollTrigger } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
 import type { TimelineEra } from "@/content/about";
 import { FOUNDED_YEAR, yearsInOperation } from "@/content/company";
+import { PlaceholderImage } from "@/components/Placeholder";
 
 export function AboutTimeline({ eras }: { eras: TimelineEra[] }) {
   const root = useRef<HTMLElement>(null);
@@ -115,11 +116,11 @@ export function AboutTimeline({ eras }: { eras: TimelineEra[] }) {
         {/* Section Header */}
         <div className="flex flex-col gap-4 mb-16 sm:mb-20 max-w-3xl">
           <p className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
-            Choreography of Scale
+            Company Timeline
           </p>
           <h2 className="t-statement text-ink text-balance font-semibold">
             The 49-Year Heritage. <br className="hidden sm:inline" />
-            <span className="text-brand-blue">Four Defining Eras.</span>
+            <span className="italic font-serif font-normal text-brand-blue">Four Defining Eras.</span>
           </h2>
           <p className="t-body text-body-light leading-relaxed max-w-[50ch]">
             From local civic convocations in 1977 to constructing multi-acre pop-up cities for Prime Ministers and state ceremonies, explore the structural milestones that defined Raja Enterprises.
@@ -320,7 +321,7 @@ export function AboutTimeline({ eras }: { eras: TimelineEra[] }) {
 
                   {/* Headline & Description */}
                   <div className="space-y-4 mb-8">
-                    <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink group-hover:text-brand-blue transition-colors duration-300">
+                    <h3 className="t-work text-ink group-hover:text-brand-blue transition-colors duration-300">
                       {era.headline}
                     </h3>
                     <p className="text-base text-body-light leading-relaxed max-w-[56ch]">
@@ -330,23 +331,33 @@ export function AboutTimeline({ eras }: { eras: TimelineEra[] }) {
 
                   {/* Archival Project Visual with Parallax Zoom */}
                   <div className="relative h-[240px] sm:h-[320px] md:h-[380px] w-full overflow-hidden rounded-xl sm:rounded-2xl border border-ink/10 mb-8 bg-neutral-900">
-                    <div data-archival-img className="relative w-full h-[115%] -top-[7%]">
-                      <Image
-                        src={era.image}
-                        alt={era.alt}
-                        fill
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      />
-                    </div>
+                    {era.image ? (
+                      <div data-archival-img className="relative w-full h-[115%] -top-[7%]">
+                        <Image
+                          src={era.image}
+                          alt={era.alt}
+                          fill
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        />
+                      </div>
+                    ) : (
+                      /* No period-accurate photography exists for this era —
+                         an unrelated modern photo previously stood in here.
+                         Honest placeholder, matching the pattern used
+                         elsewhere on the site, rather than a wrong photo. */
+                      <PlaceholderImage className="absolute inset-0 h-full w-full" tone="light" note={era.note} />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs pointer-events-none">
-                      <span className="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 t-eyebrow text-[10px]">
-                        {era.alt}
-                      </span>
-                      <span className="hidden sm:inline-block opacity-75 t-eyebrow text-[10px]">
-                        Historical Record
-                      </span>
-                    </div>
+                    {era.image && (
+                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs pointer-events-none">
+                        <span className="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 t-eyebrow text-[10px]">
+                          {era.alt}
+                        </span>
+                        <span className="hidden sm:inline-block opacity-75 t-eyebrow text-[10px]">
+                          Historical Record
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Key Deliverables */}

@@ -32,10 +32,10 @@ export interface CollagePhoto extends Placed {
 export const collage: CollagePhoto[] = [
   {
     id: "structural-hanger",
-    left: 17.5,
-    top: 4.5,
-    width: 23.0,
-    height: 21.0,
+    left: 15.5,
+    top: 1.5,
+    width: 21.0,
+    height: 19.0,
     image: {
       src: "/media/projects/2x/art-of-living-navaratri-2023.webp",
       width: 1280,
@@ -46,10 +46,10 @@ export const collage: CollagePhoto[] = [
   },
   {
     id: "national-congress",
-    left: 63.5,
-    top: 7.5,
-    width: 23.0,
-    height: 21.0,
+    left: 65.5,
+    top: 3.0,
+    width: 21.0,
+    height: 19.0,
     image: {
       src: "/media/projects/2x/isgcon-2023.webp",
       width: 800,

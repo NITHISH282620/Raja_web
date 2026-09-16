@@ -8,9 +8,11 @@ import { getContact, getDisciplines, pageImage } from "@/lib/store";
 import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Careers",
+  title: "Careers, Bengaluru",
   description:
-    "Raja Enterprises builds India's largest temporary structures with its own crew. Site crew, fabrication, lighting and AV, project management, logistics and office roles in Bengaluru.",
+    // [VERIFY] softened to match the same claim-discipline fix applied to
+    // careersIntro.lead in content/careers.ts — see the 2026-09 content audit.
+    "Raja Enterprises builds some of the largest temporary structures in India with its own crew. Site crew, fabrication, lighting and AV, project management, logistics and office roles in Bengaluru.",
   alternates: { canonical: abs("/careers") },
 };
 

@@ -70,8 +70,8 @@ export function CallToAction() {
                 Monumental Event Infrastructure
               </p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.05] mb-4 sm:mb-5 text-balance">
-                Ready to build at <br className="hidden md:block" />
-                <i className="font-serif text-sky-300 pr-2">monumental scale?</i>
+                Ready to build <br className="hidden md:block" />
+                <i className="font-serif text-sky-300 pr-2">your next event?</i>
               </h2>
               <p className="text-white/70 text-sm sm:text-base max-w-lg leading-relaxed text-balance">
                 From 100,000+ attendee national summits to high-precision industrial expos, our 49-year in-house crew and direct-owned inventory deliver turnkey execution across India.
@@ -83,7 +83,7 @@ export function CallToAction() {
                 href="/contact"
                 className="group relative inline-flex items-center justify-between w-full sm:w-auto sm:min-w-[280px] bg-white text-ink rounded-full px-6 py-3.5 sm:py-4 font-semibold tracking-wide hover:bg-sky-400 hover:text-white transition-colors duration-500 shadow-xl shadow-black/10"
               >
-                <span className="uppercase font-mono text-[11px] sm:text-xs tracking-widest">Discuss Your Event</span>
+                <span className="uppercase font-mono text-[11px] sm:text-xs tracking-widest">Submit Your Event Brief</span>
                 <span className="text-lg transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
               </Link>
             </div>

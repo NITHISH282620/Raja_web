@@ -129,7 +129,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </span>
                 <span>
                   {service.image.clearance === "raja-original"
-                    ? "A Raja hanger frame going up on open ground, before cladding."
+                    ? "A Raja hangar frame going up on open ground, before cladding."
                     : "From a Raja build, supplied by the client."}
                 </span>
               </>

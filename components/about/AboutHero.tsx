@@ -110,7 +110,7 @@ export function AboutHero({
             <span data-hero-line className="inline sm:block">
               Building the physical ground{" "}
             </span>
-            <span data-hero-line className="inline sm:block text-brand-blue">
+            <span data-hero-line className="inline sm:block italic font-serif font-normal text-brand-blue">
               where India&rsquo;s largest moments stand.
             </span>
           </h1>
@@ -167,7 +167,7 @@ export function AboutHero({
                 Direct Owned Assets
               </span>
               <p className="text-base sm:text-lg font-medium text-white">
-                5,00,000 Sq. Ft. German Clear-Span Hangers
+                5,00,000 Sq. Ft. German Clear-Span Hangars
               </p>
               <p className="text-xs text-white/70 mt-1">
                 Engineered for wind resistance, acoustic damping &amp; column-free sightlines.
@@ -186,25 +186,25 @@ export function AboutHero({
               <span className="t-eyebrow text-xs uppercase tracking-[0.2em] text-accent font-medium">
                 Our Core Doctrine
               </span>
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink">
-                A contractor, not a middleman.
+              <h2 className="t-work text-ink">
+                A contractor, not <span className="italic font-serif font-normal text-brand-blue">a middleman</span>.
               </h2>
               <p className="text-sm sm:text-base text-body-light leading-relaxed">
                 Most event companies broker equipment from third-party yards. Raja owns its structures, employs its field crew, and carries single-contract accountability from bare ground to handover.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 shrink-0 border-t lg:border-t-0 lg:border-l border-ink/10 pt-4 lg:pt-0 lg:pl-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-6 sm:gap-x-10 shrink-0 border-t lg:border-t-0 lg:border-l border-ink/10 pt-4 lg:pt-0 lg:pl-10">
               <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">100%</p>
+                <p className="font-mono text-3xl sm:text-4xl font-bold tracking-tight text-ink">100%</p>
                 <p className="t-eyebrow text-[11px] text-ink/60 uppercase tracking-wider">Owned Assets</p>
               </div>
               <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-ink">In&nbsp;house</p>
+                <p className="font-mono text-3xl sm:text-4xl font-bold tracking-tight text-ink">In&nbsp;house</p>
                 <p className="t-eyebrow text-[11px] text-ink/60 uppercase tracking-wider">In-House Crew</p>
               </div>
               <div className="col-span-2 sm:col-span-1">
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-brand-blue">0</p>
+                <p className="font-mono text-3xl sm:text-4xl font-bold tracking-tight text-ink">0</p>
                 <p className="t-eyebrow text-[11px] text-ink/60 uppercase tracking-wider">Sub-Rentals</p>
               </div>
             </div>

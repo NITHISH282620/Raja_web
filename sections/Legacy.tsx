@@ -62,6 +62,11 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
         growRule(tl, q(scope, "[data-reveal-rule]"), { duration: 0.5 }, 0.2);
         fadeIn(tl, q(scope, "[data-eyebrow] [data-reveal]"), { stagger: 0.03, duration: 0.4 }, 0.2);
         fadeUp(tl, q(scope, "[data-statement]"), { duration: 0.6, distance: 16 }, 0.3);
+        // The "About Us" button carries data-reveal (so it starts hidden via
+        // the .motion-ready[data-reveal] rule) but sits outside [data-eyebrow]
+        // and isn't [data-statement], so it needs its own explicit reveal —
+        // without this it stayed at opacity:0 forever on desktop.
+        fadeUp(tl, q(scope, "[data-legacy-cta]"), { duration: 0.5, distance: 12 }, 0.45);
 
         // Cards land FAST - staggered but quick
         land(tl, q(scope, "[data-collage]"), {
@@ -205,6 +210,16 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
                 priority={i < 4}
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
+              {/* Caption revealed on hover, aria-hidden since the Image's own
+                  alt already carries this text for assistive tech. */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-black/75 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              >
+                <p className="p-3 text-[11px] font-medium leading-snug text-white sm:p-4 sm:text-xs md:text-[13px]">
+                  {photo.image.alt}
+                </p>
+              </div>
             </div>
           );
         })}
@@ -212,7 +227,7 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
         {/* Central Text */}
         <div
           data-statement-wrap
-          className="absolute left-1/2 top-[22%] sm:top-[24%] w-[66%] sm:w-[60%] -translate-x-1/2 text-center z-20 pointer-events-none"
+          className="absolute left-1/2 top-[25%] sm:top-[26%] w-[66%] sm:w-[58%] -translate-x-1/2 text-center z-20 pointer-events-none"
         >
           <div data-eyebrow className="pointer-events-auto mb-[2%] flex justify-center">
             <Eyebrow items={eyebrow} align="center" />
@@ -220,12 +235,12 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
           <div data-statement data-reveal className="pointer-events-auto">
             <Statement segments={legacyIntro.statement} className="t-intro" />
           </div>
-          <div data-reveal className="pointer-events-auto mt-[3%]">
+          <div data-legacy-cta data-reveal className="pointer-events-auto mt-[3%]">
             <Link
               href="/about"
               className="group inline-flex items-center gap-2.5 rounded-full bg-brand-blue px-7 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-xl hover:scale-105"
             >
-              <span>About Us</span>
+              <span>About Raja Enterprises</span>
               <span
                 aria-hidden
                 className="transition-transform duration-300 group-hover:translate-x-1"
@@ -238,14 +253,14 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
       </div>
 
       {/* Mobile Presentation: Pinned constellation of 4 drifting memory cards around the central statement */}
-      <div data-mobile-legacy-wrap className="lg:hidden relative w-full h-full max-w-[420px] mx-auto flex flex-col items-center justify-center py-6 select-none overflow-hidden">
+      <div data-mobile-legacy-wrap className="lg:hidden relative w-full h-full max-w-[420px] sm:max-w-[560px] md:max-w-[680px] mx-auto flex flex-col items-center justify-center py-6 select-none overflow-hidden">
         {/* 4 Drifting Floating Photograph Cards */}
         {collage.slice(0, 4).map((photo, i) => {
           const positions = [
-            "top-[3%] left-[1%] -rotate-6 w-[36vw] max-w-[135px]",
-            "top-[5%] right-[1%] rotate-6 w-[38vw] max-w-[145px]",
-            "bottom-[5%] left-[1%] rotate-3 w-[40vw] max-w-[150px]",
-            "bottom-[3%] right-[1%] -rotate-3 w-[36vw] max-w-[135px]",
+            "top-[15%] left-[9%] -rotate-10 w-[32vw] max-w-[135px] sm:max-w-[175px] md:max-w-[205px]",
+            "top-[10%] right-[12%] rotate-9 w-[34vw] max-w-[145px] sm:max-w-[185px] md:max-w-[215px]",
+            "bottom-[10%] left-[12%] rotate-7 w-[34vw] max-w-[145px] sm:max-w-[185px] md:max-w-[215px]",
+            "bottom-[15%] right-[9%] -rotate-8 w-[32vw] max-w-[135px] sm:max-w-[175px] md:max-w-[205px]",
           ];
           return (
             <div
@@ -269,19 +284,19 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
         })}
 
         {/* Central Statement & CTA */}
-        <div className="relative z-20 flex flex-col items-center text-center gap-4 px-4 max-w-[290px]">
+        <div className="relative z-20 flex flex-col items-center text-center gap-4 px-4 max-w-[290px] sm:max-w-[380px] md:max-w-[460px]">
           <div data-eyebrow className="flex justify-center">
             <Eyebrow items={eyebrow} align="center" />
           </div>
           <div data-statement data-reveal>
-            <Statement segments={legacyIntro.statement} className="t-statement text-ink text-balance text-[1.4rem] sm:text-[1.7rem] font-bold leading-[1.18]" />
+            <Statement segments={legacyIntro.statement} className="t-statement text-ink text-balance text-[1.4rem] sm:text-[1.85rem] md:text-[2.15rem] font-bold leading-[1.18]" />
           </div>
           <div data-reveal className="mt-1">
             <Link
               href="/about"
-              className="group inline-flex items-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-xs sm:text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-lg active:scale-95"
+              className="group inline-flex items-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-xs sm:text-sm md:text-base font-semibold text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-lg active:scale-95"
             >
-              <span>Discover Our 49-Year Journey</span>
+              <span>About Raja Enterprises</span>
               <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
                 &rarr;
               </span>

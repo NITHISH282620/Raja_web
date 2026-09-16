@@ -67,15 +67,27 @@ export function WorksView({ projects }: { projects: Project[] }) {
         const imgs = q(scope, "[data-work-img]");
         const textTrack = scope.querySelector("[data-text-track]");
 
+        // The wipe/pan animation below drives objectPosition directly (for the
+        // vertical pan as each image wipes away), which overwrites whatever
+        // horizontal framing the image was given via its `focal` field unless
+        // we carry that framing through here too. Defaults to "center" for
+        // every project that doesn't set one, so this is a no-op for them.
+        const focalX = (i: number) => {
+          const raw = projects[i]?.hero?.focal?.trim();
+          return raw ? raw.split(/\s+/)[0] : "center";
+        };
+
         // Set z-index: first image on top (highest z), last on bottom
         imgs.forEach((img, i) => {
           (img as HTMLElement).style.zIndex = String(imgs.length - i);
         });
 
         // Initial clip state
-        gsap.set(imgs, {
-          clipPath: "inset(0)",
-          objectPosition: "center 0%",
+        imgs.forEach((img, i) => {
+          gsap.set(img, {
+            clipPath: "inset(0)",
+            objectPosition: `${focalX(i)} 0%`,
+          });
         });
 
         const archCard = scope.querySelector("[data-arch-card]");
@@ -103,7 +115,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
             img,
             {
               clipPath: "inset(0px 0px 100%)",
-              objectPosition: "center 60%",
+              objectPosition: `${focalX(i)} 60%`,
               duration: 1.5,
               ease: "none",
             },
@@ -114,7 +126,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
           sectionTl.to(
             nextImg,
             {
-              objectPosition: "center 40%",
+              objectPosition: `${focalX(i + 1)} 40%`,
               duration: 1.5,
               ease: "none",
             },
@@ -252,7 +264,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
             href={ROUTES.projects}
             className="group inline-flex items-center gap-3 rounded-full bg-brand-blue px-7 py-3.5 text-sm font-medium text-white shadow-md transition-all duration-300 hover:bg-brand-blue/90 hover:shadow-xl hover:scale-105"
           >
-            <span>Explore All Notable Events</span>
+            <span>View All Projects</span>
             <svg
               width="15"
               height="15"
@@ -315,7 +327,7 @@ export function WorksView({ projects }: { projects: Project[] }) {
                       <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none" className="opacity-70">
                         <path fill="currentColor" d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z" />
                       </svg>
-                      <span>Learn More</span>
+                      <span>Explore Architecture</span>
                     </Link>
                   </div>
                 )}

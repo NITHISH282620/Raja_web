@@ -7,9 +7,9 @@ import { getCatalog } from "@/lib/store";
 import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Inventory & Systems — Direct Owned Physical Assets",
+  title: "Inventory & Systems — Raja Enterprises, Bengaluru",
   description:
-    "German clear-span hangers, modular wooden flooring, VIP staging, scaffolding, and mobile HVAC — directly owned by Raja Enterprises and deployed pan-India.",
+    "German clear-span hangars, modular wooden flooring, VIP staging, scaffolding, and mobile HVAC — directly owned by Raja Enterprises and deployed pan-India.",
   alternates: { canonical: abs("/inventory") },
 };
 

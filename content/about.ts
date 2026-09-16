@@ -8,7 +8,7 @@ export const aboutIntro = {
     { text: "largest moments stand", accent: true },
     { text: "." },
   ],
-  lead: `Founded in Bengaluru in 1977, Raja Enterprises is an event infrastructure and experiential architecture firm with a 49-year heritage of constructing temporary cities, state ceremonies, and industrial expos at monumental scale.`,
+  lead: `Raja Enterprises is an event infrastructure contractor based in Bengaluru, building temporary structures, staging and exhibition space for government, corporate, cultural and institutional clients.`,
   tagline: "49 Years of Direct Asset Ownership · Zero Sub-Rentals · Nationwide Deployment",
 };
 
@@ -19,8 +19,20 @@ export interface TimelineEra {
   headline: string;
   description: string;
   deliverables: string[];
+  /** Empty string renders the sitewide "photography pending" placeholder
+   *  instead of an image — see `AboutTimeline`. Never fill this with a photo
+   *  from a different era just to avoid the placeholder. */
   image: string;
   alt: string;
+  /**
+   * Added 2026-09-16. Most content records on this site carry a `Sourced`
+   * status/note pair; `TimelineEra` didn't, which is how unverified specifics
+   * (a named-city list, a tonnage figure) ended up here with no flag on them.
+   * Optional so existing entries don't need a blanket backfill — add it where
+   * a specific claim in `description`/`deliverables` needs a caveat.
+   */
+  status?: Sourced["status"];
+  note?: string;
 }
 
 export const aboutTimeline: TimelineEra[] = [
@@ -34,10 +46,17 @@ export const aboutTimeline: TimelineEra[] = [
     deliverables: [
       "Traditional timber and bamboo pavilion engineering",
       "Civic state convocations and government dais construction",
-      "Foundational Bangalore headquarters establishment",
+      "Foundational Bengaluru headquarters establishment",
     ],
-    image: "/media/projects/2x/fc-expo-2024.webp",
-    alt: "Foundational civic event infrastructure in Karnataka",
+    // No period-accurate photography exists for 1977-1990. This previously
+    // pointed at a 2024 exhibition photo (later replaced, on the live DB
+    // record, with an unrelated 2025 conference photo) captioned as if it
+    // documented this era. Empty string renders the sitewide "photography
+    // pending" placeholder instead — see the `image` field's doc comment.
+    image: "",
+    alt: "",
+    status: "pending",
+    note: "No photograph from this era (1977-1990) has been supplied. Do not substitute a modern photo captioned as period documentation.",
   },
   {
     year: "1991",
@@ -66,6 +85,8 @@ export const aboutTimeline: TimelineEra[] = [
       "3,000-ton temporary mobile HVAC cooling division",
       "National industrial trade fair execution in New Delhi, Mumbai, and Bengaluru",
     ],
+    status: "provisional",
+    note: "The 10,000+ sq mtr stall figure and 3,000-ton HVAC figure match the approved Services pillar records (Exhibition Stalls, Mobile HVAC & Climate Control). The New Delhi/Mumbai execution claim has no corresponding record in content/projects.ts and is client-stated only — [VERIFY] before treating it as confirmed.",
     image: "/media/projects/2x/kanha-shanti-vanam-tent-city.webp",
     alt: "Exhibition stall systems and interior expo design",
   },

@@ -49,7 +49,7 @@ export function AboutPrinciples({ principles }: { principles: Principle[] }) {
           </p>
           <h2 className="t-statement text-ink text-balance font-semibold">
             How We Deliver. <br className="hidden sm:inline" />
-            <span className="text-brand-blue">The Four Uncompromised Principles.</span>
+            <span className="italic font-serif font-normal text-brand-blue">The Four Uncompromised Principles.</span>
           </h2>
           <p className="t-body text-body-light leading-relaxed max-w-[48ch]">
             When you build for heads of state, international delegations, and millions of citizens, operational discipline is the only margin that matters.
@@ -73,7 +73,7 @@ export function AboutPrinciples({ principles }: { principles: Principle[] }) {
                     Non-Negotiable
                   </span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-ink mb-2">
+                <h3 className="t-tile text-ink mb-2">
                   {p.title}
                 </h3>
                 <p className="text-sm font-medium text-brand-blue mb-4">

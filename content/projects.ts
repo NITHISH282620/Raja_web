@@ -503,6 +503,11 @@ export const activeCategories = (): ProjectCategory[] => {
  * already used elsewhere on the site — so that sector leads with its count
  * instead. A representative image is worth having; a misleading or repeated
  * one is not.
+ *
+ * Also the fallback image on the Solutions pages when a solution has no
+ * image of its own — left exactly as it was for that reason. The corrected,
+ * project-accurate banners used on the projects index live separately in
+ * `projectsCategoryBanner` below.
  */
 export const categoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
   exhibition: {
@@ -542,10 +547,64 @@ export const categoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
     },
 };
 
+/**
+ * The projects-index-only banner set.
+ *
+ * Every entry is a real, correctly attributed photograph from a build in
+ * that sector (`clearance: "client-approved"`) rather than unrelated stock —
+ * verified against the actual image content, not just its filename or a
+ * copy-pasted caption. Used exclusively by `app/(site)/projects/page.tsx`;
+ * every other page keeps reading `categoryBanner` above, untouched.
+ */
+export const projectsCategoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
+  government: {
+    src: "/media/projects/2x/world-fisheries-day-2024.webp",
+    width: 1600,
+    height: 1067,
+    alt: "Government of India officials addressing an audience from a floral-fronted dais at World Fisheries Day, beneath a branded stage backdrop.",
+    focal: "center 55%",
+    clearance: "client-approved",
+  },
+  exhibition: {
+    src: "/media/projects/2x/krishi-mela-2024-25.webp",
+    width: 1600,
+    height: 1058,
+    alt: "A capacity crowd under a large clear-span tent at an agricultural exhibition, barricaded rows and a stage in view.",
+    clearance: "client-approved",
+  },
+  conference: {
+    src: "/media/projects/2x/vidyapeeta-education-expo.webp",
+    width: 800,
+    height: 450,
+    alt: "An award presentation on a conference stage beneath a branded backdrop.",
+    clearance: "client-approved",
+  },
+  cultural: {
+    src: "/media/projects/2x/hampi-utsav-2024.webp",
+    width: 1600,
+    height: 896,
+    alt: "Costumed performers carrying ceremonial flames along a torch-lit ramp at a night cultural festival, with a large audience gathered on either side.",
+    clearance: "client-approved",
+  },
+  corporate: {
+    src: "/media/projects/2x/buildtek-silver-jubilee.webp",
+    width: 1600,
+    height: 1600,
+    alt: "A presenter on a red-carpeted stage before an illuminated 25th-anniversary backdrop, rigging and lighting overhead.",
+    clearance: "client-approved",
+  },
+};
+
 export const projectsIntro = {
   eyebrow: ["What we", "have built"] as const,
-  statement: [
-    { text: "Twenty-seven engagements. " },
+  /**
+   * The count is read from the live project list rather than spelled out here,
+   * because this collection is admin-editable — a hardcoded "Twenty-seven"
+   * previously went stale the moment a project was added or removed, reading
+   * "Twenty-seven engagements" above a stats row that already said 37.
+   */
+  statement: (count: number) => [
+    { text: `${count} engagements. ` },
     { text: "One contractor", accent: true },
     { text: "." },
   ],

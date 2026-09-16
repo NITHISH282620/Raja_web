@@ -22,7 +22,12 @@ export const careersIntro = {
     { text: "is the company", accent: true },
     { text: "." },
   ],
-  lead: "Raja does not subcontract its builds, which means the people who put up the structures are on our payroll and have usually been here a long time. If you want to work on the biggest temporary structures in the country, this is where they are built.",
+  // [VERIFY] "some of the largest" is a softened claim, not a confirmed
+  // superlative — the original wording ("the biggest... in the country") had
+  // no supporting data anywhere on the site, unlike almost every other claim
+  // in this file. Restore the stronger wording only once the client confirms
+  // it, per the 2026-09 content audit.
+  lead: "Raja does not subcontract its builds, which means the people who put up the structures are on our payroll and have usually been here a long time. If you want to work on some of the largest temporary structures built in India, this is where they're built.",
 };
 
 export interface Discipline {

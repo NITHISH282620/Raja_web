@@ -237,7 +237,7 @@ export const servicePillars: ServicePillar[] = [
     title: "Mobile HVAC & Climate Control",
     heading: "Temporary mobile HVAC and industrial climate control",
     summary:
-      "3,000 tons of owned mobile chilling equipment, high-volume air handling units, and insulated ducting stabilizing indoor temperatures at 22°C–24°C across mega hangars.",
+      "3,000 tons of owned mobile chilling equipment, high-volume air handling units, and insulated ducting stabilizing indoor temperatures at 22°C–24°C across a temporary structure.",
     body: [
       "A temporary structure during peak Indian summers is unusable without industrial-grade climate control. Raja owns and deploys 3,000 tons of mobile packaged chilling plants, precision air handling units, and textile laminar ducting.",
       "Our HVAC solutions are sized specifically to the volume of each German hangar and the expected crowd density, maintaining a comfortable 22°C to 24°C environment even when exterior ambient temperatures exceed 45°C.",

@@ -11,7 +11,7 @@ import { abs } from "@/lib/site";
 export async function generateMetadata(): Promise<Metadata> {
   const contact = await getContact();
   return {
-    title: "Contact",
+    title: "Contact, Bengaluru",
     description: `Talk to Raja Enterprises about your programme. ${contact.addressLines.join(", ")}.`,
     alternates: { canonical: abs("/contact") },
   };

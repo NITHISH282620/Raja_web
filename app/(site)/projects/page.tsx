@@ -5,7 +5,7 @@ import { PageMasthead, Band } from "@/components/PageShell";
 import { Reveal } from "@/motion/Reveal";
 import {
   CATEGORY_LABELS,
-  categoryBanner,
+  projectsCategoryBanner as categoryBanner,
   projectsIntro,
   type ProjectCategory,
 } from "@/content/projects";
@@ -15,12 +15,15 @@ import { company } from "@/content/company";
 import { abs } from "@/lib/site";
 import { isEvidence } from "@/content/media";
 
-export const metadata: Metadata = {
-  title: "Projects on Record",
-  description:
-    "Twenty-seven engagements: government programmes, trade fairs, congresses and cultural festivals across Karnataka and India, built by Raja Enterprises since 1977.",
-  alternates: { canonical: abs("/projects") },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const count = (await getProjects()).length;
+  return {
+    title: `Projects — ${count} Engagements Built by Raja Enterprises`,
+    description:
+      `${count} engagements: government programmes, trade fairs, congresses and cultural festivals across Bengaluru, Karnataka and India, built by Raja Enterprises since 1977.`,
+    alternates: { canonical: abs("/projects") },
+  };
+}
 
 /**
  * The project index.
@@ -70,7 +73,7 @@ export default async function ProjectsPage() {
       <div className="md:sticky md:top-0 z-10 w-full flex flex-col bg-paper pb-16">
         <PageMasthead
           eyebrow={projectsIntro.eyebrow}
-          statement={projectsIntro.statement}
+          statement={projectsIntro.statement(all.length)}
           lead={projectsIntro.lead}
         />
 
@@ -139,7 +142,7 @@ export default async function ProjectsPage() {
                 </div>
 
                 {/* A sector banner, never a project photograph. Where no honest
-                    frame exists — government — the band leads with the count. */}
+                    frame exists yet, the band leads with the count instead. */}
                 {banner ? (
                   <figure className="mb-10 sm:mb-16">
                     <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[2rem] bg-ink/5 sm:aspect-[24/7] shadow-xl border border-ink/5">
@@ -177,7 +180,7 @@ export default async function ProjectsPage() {
                       {String(rows.length).padStart(2, "0")}
                     </span>
                     <span className="relative z-10 text-sm sm:text-base max-w-sm text-white/70 leading-relaxed sm:text-right">
-                      Engagements for government and public-sector bodies. No representative
+                      Engagements for {CATEGORY_LABELS[cat].toLowerCase()}. No representative
                       photograph is shown here rather than one that misleads.
                     </span>
                   </div>
@@ -239,7 +242,10 @@ export default async function ProjectsPage() {
                         </div>
                         
                         <h3 className="font-display text-2xl sm:text-[1.75rem] text-ink mb-3 leading-[1.15] tracking-tight transition-colors duration-500 group-hover:text-brand-blue">
-                          {p.event}
+                          <Link href={`/projects/${p.id}`} className="focus:outline-none">
+                            <span className="absolute inset-0 z-[1]" aria-hidden="true" />
+                            {p.event}
+                          </Link>
                         </h3>
                         <p className="text-body-light text-sm sm:text-base leading-relaxed">
                           {p.client}

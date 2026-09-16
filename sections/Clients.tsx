@@ -1,121 +1,49 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, fadeUp, growRule, riseCard, release, entranceTrigger, q } from "@/motion/primitives";
 import { MOTION_OK } from "@/motion/ease";
 import type { Client } from "@/content/clients";
 import { SECTION_IDS } from "@/content/navigation";
-import { clsx } from "@/lib/clsx";
 
-/* ==========================================================================
-   PRODUCTION WIREFRAME GEOMETRY (Exact Mathematical Interlocking)
-   Flat-top hex: flat edges top/bottom, pointed vertices left/right.
-   COL_PITCH = 93px gives a tight, uniform ~2-4px interlocking chevron seam.
-   Alternate columns are dropped by HALF_ROW = 54px.
-   Hero hexagon = 158x137px, centered at (GRID_H - HERO_H) / 2 = 64.5px.
-   ========================================================================== */
-
-const HEX_W = 120;
-const HEX_H = 104;
-const COL_PITCH = 93;
-const ROW_PITCH = 108;
-const HALF_ROW = 54;
-
-const HERO_W = 158;
-const HERO_H = 137;
-const WING_GAP = 2;
-
-const COLS_PER_WING = 7;
-
-/* SVG Hexagon Path matching production wireframe */
+/** Flat-top hex badge, same silhouette the wall has always used. */
 const HEX_PATH =
   "M37 4 L83 4 Q89 4 93 10 L112 44 Q116 52 112 60 L93 94 Q89 100 83 100 L37 100 Q31 100 27 94 L8 60 Q4 52 8 44 L27 10 Q31 4 37 4 Z";
 
-/* Width & Coordinate calculations */
-const LEFT_WING_W = (COLS_PER_WING - 1) * COL_PITCH + HEX_W; // 6 * 93 + 120 = 678px
-const HERO_X = LEFT_WING_W + WING_GAP; // 678 + 2 = 680px
-const RIGHT_WING_X = HERO_X + HERO_W + WING_GAP; // 680 + 158 + 2 = 840px
-const TOTAL_TRACK_W = RIGHT_WING_X + (COLS_PER_WING - 1) * COL_PITCH + HEX_W; // 840 + 678 = 1518px
+/** Columns in the marquee. Odd count so client logos split evenly either
+ * side of the centred Raja mark, which sits over the middle on its own —
+ * it never scrolls. */
+const COLUMNS = 7;
 
-const GRID_H = ROW_PITCH + HALF_ROW + HEX_H; // 108 + 54 + 104 = 266px
-const HERO_Y = (GRID_H - HERO_H) / 2; // (266 - 137) / 2 = 64.5px
+/** How many seconds a column takes to scroll one full loop. Columns nearer
+ * the centre run a touch faster so the wall doesn't read as one mechanism
+ * moving in lockstep. */
+const columnDuration = (colIdx: number) => 22 + Math.abs(colIdx - (COLUMNS - 1) / 2) * 4;
 
-/* --------------------------------------------------------------------------
-   THE HONEYCOMB LAYOUT.
-
-   Which client sits in which hexagon is a design decision and stays in code:
-   columns 4-6 of the left wing and 0-2 of the right hold the twelve clients
-   that flank the central Raja badge, and the outer columns carry the rest.
-
-   What changed is that these are now ids resolved against the live records
-   rather than the records themselves. The wall previously imported a hardcoded
-   CLIENTS_27 array, so an admin unpublishing a client changed nothing on the
-   homepage. Resolving at render time means an absent client simply leaves its
-   position empty and the surrounding layout is untouched.
-   -------------------------------------------------------------------------- */
-
-const LEFT_COLUMN_IDS: readonly (readonly string[])[] = [
-  ["tribal-welfare", "abs-vidyapeeta"],
-  ["adichunchanagiri", "uas-bangalore"],
-  ["vaidic-dharma", "karnataka-habitat"],
-  ["csb-silk-board", "abs-business"],
-  ["govt-karnataka", "govt-india"],
-  ["ficci", "art-of-living"],
-  ["collegedunia", "isgcon-bengaluru"],
-];
-
-const RIGHT_COLUMN_IDS: readonly (readonly string[])[] = [
-  ["la-renon", "kanha-shanti"],
-  ["gte-expo", "biffes"],
-  ["tribevibe", "first-circle"],
-  ["ksmcal", "buildtek"],
-  ["mm-hills", "skyblue-events"],
-  ["ksmcal-dam-safety", "ksmcal-babu-jagjivan"],
-  ["vaidic-dharma-trust", "first-circle"],
-];
-
-/** Resolve a layout of ids against whatever the store currently publishes. */
-function resolveColumns(
-  layout: readonly (readonly string[])[],
-  byId: Map<string, Client>,
-): Client[][] {
-  return layout.map((col) => col.map((id) => byId.get(id)).filter((c): c is Client => Boolean(c)));
+/** Splits the published clients round-robin across the scrolling columns. */
+function distributeColumns(clients: Client[]): Client[][] {
+  const columns: Client[][] = Array.from({ length: COLUMNS }, () => []);
+  clients.forEach((c, i) => columns[i % COLUMNS].push(c));
+  return columns;
 }
 
-/* --- Flat-Top Hex Badge Component ----------------------------------------- */
-
-function FlatHexBadge({
+function MarqueeLogoTile({
   client,
-  isDelayed,
-  style,
   onSelect,
 }: {
   client: Client;
-  isDelayed?: boolean;
-  style: React.CSSProperties;
   onSelect?: (client: Client) => void;
 }) {
   return (
     <div
       data-logo-tile
-      data-reveal
       title={`${client.name} - ${client.event}`}
       onClick={() => onSelect?.(client)}
-      className={clsx(
-        "group absolute flex items-center justify-center transition-all duration-300",
-        "hover:scale-110 hover:-translate-y-1 hover:z-30 cursor-pointer select-none",
-        isDelayed ? "animate-float-delayed" : "animate-float"
-      )}
-      style={{
-        width: HEX_W,
-        height: HEX_H,
-        filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.07))",
-        ...style,
-      }}
+      className="group relative flex aspect-[120/104] w-full shrink-0 cursor-pointer items-center justify-center transition-transform duration-300 hover:scale-105 select-none"
     >
-      <svg viewBox="0 0 120 104" className="w-full h-full drop-shadow-sm" fill="none">
+      <svg viewBox="0 0 120 104" className="absolute inset-0 h-full w-full" fill="none">
         <path
           d={HEX_PATH}
           fill="#FFFFFF"
@@ -124,47 +52,78 @@ function FlatHexBadge({
           className="transition-colors duration-300 group-hover:stroke-brand-blue/50 group-hover:fill-[#FAFBFD]"
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center p-2.5 pointer-events-none">
+      <div className="relative flex h-full w-full items-center justify-center p-[14%] pointer-events-none">
         <Image
           src={client.logo.src}
           alt={client.name}
           width={client.logo.width}
           height={client.logo.height}
           draggable={false}
-          className="max-h-[58px] max-w-[86px] object-contain transition-transform duration-300 group-hover:scale-110"
+          className="max-h-[58%] max-w-[74%] object-contain transition-transform duration-300 group-hover:scale-110"
         />
       </div>
     </div>
   );
 }
 
-/* --- Main Clients Section ------------------------------------------------- */
+/** One scrolling column: its client list rendered twice back to back, then
+ * translated by exactly half its own height on a linear infinite loop — the
+ * seam between the two copies is where the loop resets, and because both
+ * copies are identical the reset is invisible. */
+function MarqueeColumn({
+  clients,
+  direction,
+  duration,
+}: {
+  clients: Client[];
+  direction: "up" | "down";
+  duration: number;
+}) {
+  const [selected, setSelected] = useState<Client | null>(null);
+
+  if (clients.length === 0) return <div className="w-[clamp(72px,11vw,132px)]" aria-hidden />;
+
+  return (
+    <div
+      className="marquee-col relative h-[clamp(260px,34vw,380px)] w-[clamp(72px,11vw,132px)] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,#000_12%,#000_88%,transparent)]"
+    >
+      <div
+        className="marquee-track flex flex-col gap-[clamp(14px,2vw,26px)]"
+        style={{
+          animationDuration: `${duration}s`,
+          animationDirection: direction === "down" ? "reverse" : "normal",
+        }}
+      >
+        {[...clients, ...clients].map((c, i) => (
+          <MarqueeLogoTile key={`${c.id}-${i}`} client={c} onSelect={setSelected} />
+        ))}
+      </div>
+      {selected && (
+        <div
+          role="status"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-40 w-max max-w-[200px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-[#063c5a] px-3 py-2 text-center text-[11px] text-white shadow-xl"
+        >
+          <span className="block font-semibold">{selected.name}</span>
+          <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-wider text-accent">
+            {selected.event}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function ClientsView({
   clients,
 }: {
-  /**
-   * The published client records. Previously this prop was declared
-   * `clients?: unknown[]` and destructured as `{}` — accepted and thrown away
-   * while the wall rendered a hardcoded array, which is why unpublishing a
-   * client in the admin had no effect on the homepage.
-   */
+  /** The published client records. */
   clients: Client[];
   contact?: unknown;
   events?: unknown[];
 }) {
-  // Resolve the fixed layout against what is actually published right now.
-  const byId = new Map(clients.map((c) => [c.id, c]));
-  const leftColumnsData = resolveColumns(LEFT_COLUMN_IDS, byId);
-  const rightColumnsData = resolveColumns(RIGHT_COLUMN_IDS, byId);
+  const columns = distributeColumns(clients);
   const root = useRef<HTMLElement>(null);
-  const railRef = useRef<HTMLDivElement>(null);
 
-  const [isDragging, setIsDragging] = useState(false);
-  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
-  const hasInteracted = useRef(false);
-
-  /* GSAP Entrance Reveal Animations */
   useGSAP(
     () => {
       const scope = root.current;
@@ -173,110 +132,17 @@ export function ClientsView({
       mm.add(MOTION_OK, () => {
         const tl = gsap.timeline({
           scrollTrigger: entranceTrigger(scope),
-          onComplete: () =>
-            release(q(scope, "[data-reveal], [data-reveal-rule]")),
+          onComplete: () => release(q(scope, "[data-reveal], [data-reveal-rule]")),
         });
         growRule(tl, q(scope, "[data-divider]"), { duration: 0.9 }, 0);
         fadeUp(tl, q(scope, "[data-clients-header]"), { distance: 20 }, 0.15);
-        riseCard(
-          tl,
-          q(scope, "[data-center-hexagon]"),
-          { distance: 35, scaleFrom: 0.8 },
-          0.35
-        );
-        fadeUp(
-          tl,
-          q(scope, "[data-logo-tile]"),
-          { stagger: 0.03, distance: 20, scaleFrom: 0.9 },
-          0.45
-        );
+        riseCard(tl, q(scope, "[data-center-hexagon]"), { distance: 35, scaleFrom: 0.8 }, 0.35);
+        fadeUp(tl, q(scope, "[data-marquee-wrap]"), { distance: 24 }, 0.3);
       });
       return () => mm.revert();
     },
-    { scope: root }
+    { scope: root },
   );
-
-  /* Center the view on the Raja mark at rest */
-  const centreOnMark = useCallback(() => {
-    const el = railRef.current;
-    if (!el) return;
-    const mark = el.querySelector<HTMLElement>("[data-hive-brand]");
-    if (!mark) return;
-    const markRect = mark.getBoundingClientRect();
-    const railRect = el.getBoundingClientRect();
-    const diff = (markRect.left + markRect.width / 2) - (railRect.left + railRect.width / 2);
-    el.scrollLeft += diff;
-  }, []);
-
-  useEffect(() => {
-    const el = railRef.current;
-    if (!el) return;
-
-    // Small timeout to guarantee DOM geometry calculation is ready
-    const timer = setTimeout(() => {
-      centreOnMark();
-    }, 50);
-
-    const ro = new ResizeObserver(() => {
-      if (!hasInteracted.current) {
-        centreOnMark();
-      }
-    });
-    ro.observe(el);
-
-    return () => {
-      clearTimeout(timer);
-      ro.disconnect();
-    };
-  }, [centreOnMark]);
-
-  /* Smooth Mouse & Touch Dragging Handler */
-  useEffect(() => {
-    const el = railRef.current;
-    if (!el) return;
-
-    let isDown = false;
-    let startX = 0;
-    let startScrollLeft = 0;
-
-    const onPointerDown = (e: PointerEvent) => {
-      if (e.button !== 0) return;
-      isDown = true;
-      startX = e.clientX;
-      startScrollLeft = el.scrollLeft;
-      setIsDragging(true);
-    };
-
-    const onPointerMove = (e: PointerEvent) => {
-      if (!isDown) return;
-      const dx = e.clientX - startX;
-      if (Math.abs(dx) > 4) {
-        hasInteracted.current = true;
-        el.setPointerCapture?.(e.pointerId);
-        el.scrollLeft = startScrollLeft - dx;
-      }
-    };
-
-    const onPointerUp = (e: PointerEvent) => {
-      isDown = false;
-      setIsDragging(false);
-      if (el.hasPointerCapture?.(e.pointerId)) {
-        el.releasePointerCapture(e.pointerId);
-      }
-    };
-
-    el.addEventListener("pointerdown", onPointerDown);
-    el.addEventListener("pointermove", onPointerMove);
-    el.addEventListener("pointerup", onPointerUp);
-    el.addEventListener("pointercancel", onPointerUp);
-
-    return () => {
-      el.removeEventListener("pointerdown", onPointerDown);
-      el.removeEventListener("pointermove", onPointerMove);
-      el.removeEventListener("pointerup", onPointerUp);
-      el.removeEventListener("pointercancel", onPointerUp);
-    };
-  }, []);
 
   return (
     <section
@@ -284,8 +150,31 @@ export function ClientsView({
       id={SECTION_IDS.clients}
       className="relative w-full bg-paper py-[clamp(40px,6vw,90px)] flex flex-col"
     >
+      <style jsx global>{`
+        @keyframes marquee-scroll {
+          from {
+            transform: translateY(0);
+          }
+          to {
+            transform: translateY(-50%);
+          }
+        }
+        .marquee-track {
+          animation-name: marquee-scroll;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+        .marquee-col:hover .marquee-track {
+          animation-play-state: paused;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-track {
+            animation: none;
+          }
+        }
+      `}</style>
+
       <div className="w-full">
-        {/* Top rule divider */}
         <div className="frame">
           <span
             data-divider
@@ -296,26 +185,11 @@ export function ClientsView({
 
         <div className="frame w-full">
           <div className="relative w-full py-10 sm:py-16 lg:py-20 rounded-[28px] sm:rounded-[44px] lg:rounded-[56px] bg-gradient-to-b from-white via-[#fafbfe] to-[#f0f3f7] border border-ink/8 shadow-[0_28px_80px_-20px_rgba(0,0,0,0.08)] p-4 sm:p-8 md:p-12 lg:p-16 flex flex-col items-center justify-center overflow-hidden">
-            {/* Atmospheric ambient lighting blurs */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-brand-blue/8 blur-3xl"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -right-20 top-1/4 h-80 w-80 rounded-full bg-purple-500/8 blur-3xl"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[420px] w-[420px] rounded-full bg-brand-blue/5 blur-[110px]"
-            />
+            <div aria-hidden className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-brand-blue/8 blur-3xl" />
+            <div aria-hidden className="pointer-events-none absolute -right-20 top-1/4 h-80 w-80 rounded-full bg-purple-500/8 blur-3xl" />
+            <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[420px] w-[420px] rounded-full bg-brand-blue/5 blur-[110px]" />
 
-            {/* Section Header */}
-            <div
-              data-clients-header
-              data-reveal
-              className="mx-auto max-w-[760px] text-center mb-8 sm:mb-12 lg:mb-14"
-            >
+            <div data-clients-header data-reveal className="mx-auto max-w-[760px] text-center mb-8 sm:mb-12 lg:mb-14">
               <p className="t-eyebrow text-accent font-mono tracking-[0.2em] uppercase text-xs sm:text-sm mb-3 font-medium">
                 Institutional &amp; Enterprise Trust
               </p>
@@ -323,186 +197,89 @@ export function ClientsView({
                 Partners &amp; Clients with Raja Enterprises
               </h2>
               <p className="mt-3.5 text-body-light text-sm sm:text-base md:text-lg leading-relaxed max-w-[58ch] mx-auto">
-                From government mega-summits to global corporate forums and
-                trade exhibitions &mdash; we build the ground where leaders
-                gather.
+                From government summits to corporate forums and trade exhibitions &mdash; the organisations above
+                have all built on Raja&rsquo;s ground.
               </p>
             </div>
 
-            {/* Honeycomb Container */}
-            <div className="relative w-full flex flex-col items-center">
-              <div
-                ref={railRef}
-                role="region"
-                aria-label="Partners and Clients Honeycomb Track"
-                tabIndex={0}
-                className={clsx(
-                  "hive-rail relative w-full overflow-x-auto overflow-y-hidden select-none touch-pan-y py-3 sm:py-5",
-                  "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-                  "[--comb-scale:0.70] min-[375px]:[--comb-scale:0.74] min-[440px]:[--comb-scale:0.80] sm:[--comb-scale:0.88] lg:[--comb-scale:1] xl:[--comb-scale:1.12]",
-                  isDragging ? "cursor-grabbing" : "cursor-grab",
-                  /* Soft gradient edge fade to signal scrollability */
-                  "[mask-image:linear-gradient(to_right,transparent,#000_24px,#000_calc(100%-24px),transparent)] sm:[mask-image:linear-gradient(to_right,transparent,#000_64px,#000_calc(100%-64px),transparent)]"
-                )}
-              >
-                {/* Properly sized wrapper to eliminate any phantom layout whitespace */}
-                <div
-                  className="relative shrink-0 mx-auto my-auto"
-                  style={{
-                    width: `calc(${TOTAL_TRACK_W}px * var(--comb-scale, 1))`,
-                    height: `calc(${GRID_H}px * var(--comb-scale, 1))`,
-                  }}
-                >
-                  {/* Unscaled coordinate canvas scaled with origin-top-left */}
-                  <div
-                    className="absolute top-0 left-0 origin-top-left"
-                    style={{
-                      width: TOTAL_TRACK_W,
-                      height: GRID_H,
-                      transform: "scale(var(--comb-scale, 1))",
-                    }}
-                  >
-                    {/* Left Wing Tiles (Cols 0 to 6) */}
-                    {leftColumnsData.map((col, colIdx) => {
-                      const colX = colIdx * COL_PITCH;
-                      const isOdd = colIdx % 2 === 1;
-                      const colDrop = isOdd ? HALF_ROW : 0;
-
-                      return col.map((item, rowIdx) => {
-                        const tileY = rowIdx * ROW_PITCH + colDrop;
-
-                        return (
-                          <FlatHexBadge
-                            key={`left-${colIdx}-${rowIdx}`}
-                            client={item}
-                            isDelayed={(colIdx + rowIdx) % 2 === 1}
-                            onSelect={(c) => setSelectedClient(c)}
-                            style={{
-                              left: colX,
-                              top: tileY,
-                            }}
-                          />
-                        );
-                      });
-                    })}
-
-                    {/* Central Hero Raja Hexagon (Exact Production Wireframe) */}
-                    <div
-                      data-hive-brand
-                      data-center-hexagon
-                      data-reveal
-                      className="group absolute flex items-center justify-center cursor-pointer transition-all duration-500 hover:scale-110 hover:rotate-2 select-none"
-                      style={{
-                        left: HERO_X,
-                        top: HERO_Y,
-                        width: HERO_W,
-                        height: HERO_H,
-                        filter: "drop-shadow(0 0 45px rgba(6,60,90,0.4))",
-                        zIndex: 25,
-                      }}
-                    >
-                      <svg viewBox="0 0 158 137" className="w-full h-full drop-shadow-md" fill="none">
-                        <defs>
-                          <linearGradient
-                            id="reDarkHexWireframe"
-                            x1="79"
-                            y1="0"
-                            x2="79"
-                            y2="137"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop offset="0%" stopColor="#0c2333" />
-                            <stop offset="50%" stopColor="#063c5a" />
-                            <stop offset="100%" stopColor="#031622" />
-                          </linearGradient>
-                          <linearGradient
-                            id="reBorderGlowWireframe"
-                            x1="0"
-                            y1="0"
-                            x2="158"
-                            y2="137"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
-                            <stop offset="50%" stopColor="#eb5557" stopOpacity="0.65" />
-                            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.25" />
-                          </linearGradient>
-                        </defs>
-                        <path
-                          d="M48 5 L110 5 Q117 5 122 13 L148 58 Q153 68.5 148 79 L122 124 Q117 132 110 132 L48 132 Q41 132 36 124 L10 79 Q5 68.5 10 58 L36 13 Q41 5 48 5 Z"
-                          fill="url(#reDarkHexWireframe)"
-                          stroke="url(#reBorderGlowWireframe)"
-                          strokeWidth="2.5"
-                          className="transition-all duration-500 group-hover:stroke-accent"
-                        />
-                      </svg>
-                      <div className="absolute inset-0 flex items-center justify-center p-8 pointer-events-none">
-                        <Image
-                          src="/media/brand-raja-logo.webp"
-                          alt="Raja Enterprises Logo"
-                          width={180}
-                          height={80}
-                          draggable={false}
-                          className="max-h-[60px] w-auto object-contain brightness-0 invert drop-shadow-sm transition-transform duration-500 group-hover:scale-110"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Right Wing Tiles (Cols 0 to 6) */}
-                    {rightColumnsData.map((col, colIdx) => {
-                      const colX = RIGHT_WING_X + colIdx * COL_PITCH;
-                      const isOdd = colIdx % 2 === 1;
-                      const colDrop = isOdd ? HALF_ROW : 0;
-
-                      return col.map((item, rowIdx) => {
-                        const tileY = rowIdx * ROW_PITCH + colDrop;
-
-                        return (
-                          <FlatHexBadge
-                            key={`right-${colIdx}-${rowIdx}`}
-                            client={item}
-                            isDelayed={(colIdx + rowIdx) % 2 === 0}
-                            onSelect={(c) => setSelectedClient(c)}
-                            style={{
-                              left: colX,
-                              top: tileY,
-                            }}
-                          />
-                        );
-                      });
-                    })}
-                  </div>
-                </div>
+            {/* Vertical marquee wall: alternating columns scroll up / down on
+                an infinite loop. The Raja mark is fixed over the centre
+                column and never moves. */}
+            <div data-marquee-wrap className="relative w-full">
+              <div className="flex items-center justify-center gap-[clamp(6px,1vw,16px)]">
+                {columns.map((col, i) => (
+                  <MarqueeColumn
+                    key={i}
+                    clients={col}
+                    direction={i % 2 === 0 ? "up" : "down"}
+                    duration={columnDuration(i)}
+                  />
+                ))}
               </div>
 
-              {/* Tap / Click Detail Card */}
-              {selectedClient && (
-                <div className="mx-auto mt-4 flex w-full max-w-[360px] items-center justify-between gap-3 rounded-xl bg-[#063c5a] px-4 py-3 text-xs text-white shadow-xl animate-fadeIn">
-                  <div className="flex min-w-0 flex-col">
-                    <span className="font-semibold truncate">{selectedClient.name}</span>
-                    <span className="truncate font-mono text-[10px] uppercase tracking-wider text-accent mt-0.5">
-                      {selectedClient.event}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedClient(null)}
-                    className="p-1 text-white/70 hover:text-white transition-colors"
-                    aria-label="Close details"
-                  >
-                    ✕
-                  </button>
+              {/* Central Hero Raja Hexagon — fixed, does not scroll.
+                  Centred with inset-0 + m-auto rather than the usual
+                  left/top-1/2 + -translate-1/2 trick: the entrance reveal
+                  below animates this element's transform, and GSAP leaves
+                  that as an inline style once the animation ends — which
+                  would silently overwrite a transform-based centering and
+                  leave the badge sitting low. inset/margin centering has no
+                  such conflict. */}
+              <div
+                data-center-hexagon
+                data-reveal
+                className="group pointer-events-none absolute inset-0 z-30 m-auto flex items-center justify-center select-none"
+                style={{
+                  width: "clamp(84px,13.5vw,158px)",
+                  height: "clamp(73px,11.7vw,137px)",
+                  filter: "drop-shadow(0 0 45px rgba(6,60,90,0.4))",
+                }}
+              >
+                {/* backdrop-blur has a hard edge wherever its own box ends —
+                    without a mask that edge shows as a visible ring. Masking
+                    the same element fades the blur strength itself to
+                    nothing well before the box edge, so it reads as an
+                    unbroken soft glow instead of a circle. */}
+                <span
+                  aria-hidden
+                  className="absolute -inset-20 rounded-full backdrop-blur-3xl [mask-image:radial-gradient(circle,black_0%,black_38%,transparent_72%)] [-webkit-mask-image:radial-gradient(circle,black_0%,black_38%,transparent_72%)]"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(250,251,254,0.9) 0%, rgba(250,251,254,0.75) 25%, rgba(250,251,254,0.35) 45%, rgba(250,251,254,0) 68%)",
+                  }}
+                />
+                <svg viewBox="0 0 158 137" className="relative aspect-[158/137] w-full drop-shadow-md" fill="none">
+                  <defs>
+                    <linearGradient id="reDarkHexWireframe" x1="79" y1="0" x2="79" y2="137" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#0c2333" />
+                      <stop offset="50%" stopColor="#063c5a" />
+                      <stop offset="100%" stopColor="#031622" />
+                    </linearGradient>
+                    <linearGradient id="reBorderGlowWireframe" x1="0" y1="0" x2="158" y2="137" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
+                      <stop offset="50%" stopColor="#eb5557" stopOpacity="0.65" />
+                      <stop offset="100%" stopColor="#ffffff" stopOpacity="0.25" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M48 5 L110 5 Q117 5 122 13 L148 58 Q153 68.5 148 79 L122 124 Q117 132 110 132 L48 132 Q41 132 36 124 L10 79 Q5 68.5 10 58 L36 13 Q41 5 48 5 Z"
+                    fill="url(#reDarkHexWireframe)"
+                    stroke="url(#reBorderGlowWireframe)"
+                    strokeWidth="2.5"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center p-[18%]">
+                  <Image
+                    src="/media/brand-raja-logo.webp"
+                    alt="Raja Enterprises Logo"
+                    width={180}
+                    height={80}
+                    draggable={false}
+                    className="max-h-[46%] w-auto object-contain brightness-0 invert drop-shadow-sm"
+                  />
                 </div>
-              )}
-
-              {/* Drag Left / Right Hint */}
-              <div className="mt-4 flex items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink/40">
-                <span aria-hidden="true" className="animate-pulse">&larr;</span>
-                <span>Drag</span>
-                <span aria-hidden="true" className="animate-pulse">&rarr;</span>
               </div>
             </div>
-
           </div>
         </div>
       </div>

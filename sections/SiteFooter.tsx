@@ -25,10 +25,17 @@ import { telHref } from "@/lib/enquiry";
  * business in Salt Lake City, Utah. Returning 200 is not the same as being the
  * right company, and the site was sending its visitors to three strangers.
  *
- * They are set to null rather than deleted, so putting Raja's real profiles
- * back is a one-line change per network. Anything without an href is filtered
- * out below and simply does not render. WhatsApp stays: that number is Raja's
- * own and is used elsewhere on the site.
+ * Instagram and Facebook supplied by the client 2026-09-15 and cross-checked
+ * against each other — the Facebook page (Raja Entp, company logo, "Raja
+ * Enterprises") links out to the same Instagram handle used here. The
+ * Instagram URL drops the `?stkn=` query param the client's share link
+ * carried: that token is a temporary share-tracking artifact, not part of the
+ * profile's canonical address.
+ *
+ * LinkedIn is still null rather than deleted, so adding it later is a
+ * one-line change. Anything without an href is filtered out below and simply
+ * does not render. WhatsApp stays: that number is Raja's own and is used
+ * elsewhere on the site.
  */
 const socialLinks: { name: string; href: string | null; icon: React.ReactNode }[] = [
   {
@@ -42,7 +49,7 @@ const socialLinks: { name: string; href: string | null; icon: React.ReactNode }[
   },
   {
     name: "Instagram",
-    href: null,
+    href: "https://www.instagram.com/raja.enterprises.co",
     icon: (
       <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069Zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073Zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324Zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998Zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881Z" />
@@ -51,7 +58,7 @@ const socialLinks: { name: string; href: string | null; icon: React.ReactNode }[
   },
   {
     name: "Facebook",
-    href: null,
+    href: "https://www.facebook.com/raja.entp.7",
     icon: (
       <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12Z" />
@@ -71,7 +78,7 @@ const socialLinks: { name: string; href: string | null; icon: React.ReactNode }[
 
 const disciplines = [
   "Government Summits & State Events",
-  "Clear-Span German Hangers",
+  "Clear-Span German Hangars",
   "Mega Staging, Dais & Trusses",
   "Exhibitions & Octonorm Stalls",
   "Heavy-Duty Wooden Flooring",

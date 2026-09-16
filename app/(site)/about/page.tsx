@@ -10,7 +10,7 @@ import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About Us — 49 Years of Physical Infrastructure",
-  description: `Event infrastructure contractor in Bengaluru since ${FOUNDED_YEAR}. Owned German hangers, flooring, staging and stalls, installed by an in-house crew.`,
+  description: `Event infrastructure contractor in Bengaluru since ${FOUNDED_YEAR}. Owned German hangars, flooring, staging and stalls, installed by an in-house crew.`,
   alternates: { canonical: abs("/about") },
 };
 

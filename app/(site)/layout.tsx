@@ -36,7 +36,7 @@ const description =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${company.name} — Large-scale event infrastructure since ${FOUNDED_YEAR}`,
+    default: `Event Infrastructure Company in Bengaluru — ${company.name}`,
     template: `%s — ${company.name}`,
   },
   description,

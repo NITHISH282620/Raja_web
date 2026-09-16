@@ -50,7 +50,7 @@ export function AboutMilestones({ milestones }: { milestones: MilestoneItem[] })
           </p>
           <h2 className="t-statement text-ink text-balance font-semibold">
             Hall of Monumental Moments. <br className="hidden sm:inline" />
-            <span className="text-brand-blue">Where History Stood On Our Ground.</span>
+            <span className="italic font-serif font-normal text-brand-blue">Where History Stood On Our Ground.</span>
           </h2>
           <p className="t-body text-body-light leading-relaxed max-w-[50ch]">
             When the nation watches and security protocols are paramount, government ministries, international boards, and cultural trusts rely on Raja Enterprises to build the environment.
@@ -92,7 +92,7 @@ export function AboutMilestones({ milestones }: { milestones: MilestoneItem[] })
               {/* Card Body */}
               <div className="flex flex-col justify-between flex-grow p-6 sm:p-8">
                 <div className="space-y-3 mb-6">
-                  <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-ink group-hover:text-brand-blue transition-colors duration-300">
+                  <h3 className="t-tile text-ink group-hover:text-brand-blue transition-colors duration-300">
                     {item.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-body-light leading-relaxed">
