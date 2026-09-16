@@ -20,6 +20,8 @@ import { abs, SITE_URL } from "@/lib/site";
  * Capacity figures come from the approved inventory schedule and nowhere else.
  */
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Your Client. Our Infrastructure.",
   description:

@@ -9,6 +9,8 @@ import {
 import { getStats, getPagedServices } from "@/lib/store";
 import { abs } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Event Infrastructure Services in Bengaluru — Raja Enterprises",
   description:

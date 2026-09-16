@@ -7,6 +7,8 @@ import { company } from "@/content/company";
 import { getContact, getDisciplines, pageImage } from "@/lib/store";
 import { abs } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Careers, Bengaluru",
   description:

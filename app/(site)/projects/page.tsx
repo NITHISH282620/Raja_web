@@ -15,6 +15,8 @@ import { company } from "@/content/company";
 import { abs } from "@/lib/site";
 import { isEvidence } from "@/content/media";
 
+export const dynamic = "force-static";
+
 export async function generateMetadata(): Promise<Metadata> {
   const count = (await getProjects()).length;
   return {

@@ -7,6 +7,8 @@ import { categoryBanner } from "@/content/projects";
 import { company } from "@/content/company";
 import { abs, SITE_URL } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Who We Build For — Corporate, Government, Exhibitions & Institutions",
   description:

@@ -71,3 +71,6 @@ public/uploads/
 .dev.vars
 *.tmp.mjs
 .gstack/
+
+# Local Netlify folder
+.netlify

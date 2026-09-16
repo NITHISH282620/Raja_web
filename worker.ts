@@ -5,19 +5,43 @@ import handler from "vinext/server/fetch-handler";
  *
  * It delegates everything to vinext and then applies this site's cache policy,
  * because vinext deletes `Cache-Control` and rebuilds it from its own route
- * classification. It could not classify these routes statically — every page
- * reads content from Postgres — so it fell back to `no-store`, which would put
- * every visitor's every request through the Worker and on to Neon in Singapore.
+ * classification. Public pages now carry `export const dynamic =
+ * "force-static"` (see the route files), so `--prerender-all` classifies and
+ * prerenders them correctly — but the live-served `Cache-Control` is still
+ * decided here, not by vinext's own CDN adapter, which was measured (2026-09-16)
+ * to have no externally-visible effect on this deployment's cache headers.
  *
- * The policy applied here is the one measured and validated before the move:
+ * TTL, 2026-09-16 revision (Raja is a low-traffic B2B site, not a consumer app):
  *
- *   public HTML   max-age=0, s-maxage=60, stale-while-revalidate=86400
+ *   public HTML   max-age=0, s-maxage=3600, stale-while-revalidate=86400
  *   static assets max-age=31536000, immutable
  *   admin/contact private, no-store
  *
- * Worst-case staleness for an owner edit is therefore 60 seconds, and
- * `stale-while-revalidate` means the edge answers instantly from its copy while
- * it refreshes behind the request, so the short TTL costs nothing in speed.
+ * WHY 3600 (1 hour), NOT LONGER. Content is admin-editable at any time,
+ * independent of deployment — this is a core feature of the CMS, not an edge
+ * case, so public pages are NOT immutable between deployments and a long/
+ * infinite TTL would risk visibly stale content after an edit.
+ *
+ * KNOWN LIMITATION, confirmed end-to-end 2026-09-16 (real admin login, real
+ * saveHero() edit, real Neon read, repeated checks across two colos):
+ *
+ *   revalidatePath() updates the application/data cache path but does not
+ *   currently invalidate the existing Cloudflare edge cache entry in this
+ *   deployment.
+ *
+ * The DB write and a genuinely fresh render (different cache key) were both
+ * correct immediately; the *existing* cached copy of the unmodified route was
+ * not purged, in either direction (edit and rollback), across five separate
+ * checks. Root cause not yet isolated — see the 2026-09-16 cache-purge test
+ * for the full reproduction. Do not build anything that assumes an admin
+ * save is instantly visible; it becomes visible within, at most, this TTL.
+ * 1 hour is therefore a deliberate, bounded ceiling while that gap is open:
+ * ~60x fewer cache misses than the previous 60s, while worst-case staleness
+ * after an edit stays inside a number an owner can reason about, rather than
+ * the unbounded risk a long/immutable TTL would carry with purge confirmed
+ * broken. Do not raise this further, and do not attempt another purge fix,
+ * until the edge-purge path is separately investigated and verified
+ * end-to-end.
  *
  * TWO THINGS THIS MUST NEVER DO, and how each is prevented:
  *
@@ -27,7 +51,7 @@ import handler from "vinext/server/fetch-handler";
  *   never shared.
  *
  *   Cache a failure. Only 200 and 304 are given a shared TTL; a 500 held at the
- *   edge for a minute would multiply one transient database blip into a minute
+ *   edge for an hour would multiply one transient database blip into an hour
  *   of outage for everyone.
  */
 
@@ -53,7 +77,7 @@ const STAGING_ROBOTS =
   `User-Agent: *\nDisallow: /\n\nHost: https://${PRODUCTION_HOST}\n` +
   `Sitemap: https://${PRODUCTION_HOST}/sitemap.xml\n`;
 
-const HTML_CACHE = "public, max-age=0, s-maxage=60, stale-while-revalidate=86400";
+const HTML_CACHE = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400";
 const IMMUTABLE = "public, max-age=31536000, immutable";
 const PRIVATE = "private, no-cache, no-store, max-age=0, must-revalidate";
 

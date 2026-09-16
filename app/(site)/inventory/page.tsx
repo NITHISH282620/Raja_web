@@ -6,6 +6,8 @@ import { InventoryCompliance } from "@/components/inventory/InventoryCompliance"
 import { getCatalog } from "@/lib/store";
 import { abs } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Inventory & Systems — Raja Enterprises, Bengaluru",
   description:

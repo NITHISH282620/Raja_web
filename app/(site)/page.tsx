@@ -13,6 +13,8 @@ import { Capabilities, EventsWeBuildFor, RecentExecutions, Hero, Legacy, Process
  * 08 RECENT       - Recent build showcases
  * 09 CLIENTS      - Real organizations/events + CTA
  */
+export const dynamic = "force-static";
+
 export default function Home() {
   return (
     <main id="main">

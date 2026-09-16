@@ -10,6 +10,8 @@ import { LegacyChoreographer } from "@/components/legacy/LegacyChoreographer";
 import { pageImage } from "@/lib/store";
 import { abs } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Legacy — 49 Years of Physical Execution (1977–2026)",
   description: `Raja Enterprises, established ${FOUNDED_YEAR} in Bengaluru — four decades of engineering the temporary cities and physical ground where India gathers.`,
