@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageMasthead, Band } from "@/components/PageShell";
+import { PageMasthead } from "@/components/PageShell";
 import Image from "next/image";
 import { getSolutions } from "@/lib/store";
 import { categoryBanner } from "@/content/projects";
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SolutionsIndex() {
+  const solutionsList = await getSolutions();
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -49,7 +50,7 @@ export default async function SolutionsIndex() {
 
       <div className="py-20 sm:py-28 lg:py-40 bg-paper">
         <div className="flex flex-col gap-24 sm:gap-32 lg:gap-40 mb-16 sm:mb-24 lg:mb-28">
-          {(await getSolutions()).map((s, idx) => {
+          {solutionsList.map((s, idx) => {
             const isReversed = idx % 2 !== 0;
             
             return (

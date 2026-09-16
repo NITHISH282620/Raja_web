@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { PageMasthead, Band } from "@/components/PageShell";
+import { PageMasthead } from "@/components/PageShell";
 import {
   groupedCapabilities,
   servicesIntro,
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
  * content audit, §9.
  */
 export default async function ServicesPage() {
-  const stats = await getStats();
+  const [stats, pagedServices] = await Promise.all([getStats(), getPagedServices()]);
 
   return (
     <main id="main">
@@ -47,7 +47,7 @@ export default async function ServicesPage() {
         </div>
 
         <div className="flex flex-col gap-24 sm:gap-32 lg:gap-40 mb-16 sm:mb-24 lg:mb-28">
-          {(await getPagedServices()).map((s, idx) => {
+          {pagedServices.map((s, idx) => {
             const isReversed = idx % 2 !== 0;
             
             const InnerVisual = s.image ? (

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { PageMasthead, Band } from "@/components/PageShell";
+import { PageMasthead } from "@/components/PageShell";
 import { Reveal } from "@/motion/Reveal";
 import {
   CATEGORY_LABELS,
@@ -41,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
  */
 export default async function ProjectsPage() {
   const all = await getProjects();
-  
+
   // Compute active categories dynamically from the fetched DB projects
   const seenCategories = new Set(all.map((p) => p.category));
   const categories = (Object.keys(CATEGORY_LABELS) as ProjectCategory[]).filter((c) => seenCategories.has(c));
@@ -121,7 +121,7 @@ export default async function ProjectsPage() {
       </div>
 
       <div className="relative w-full pb-32">
-        {categories.map((cat, ci) => {
+        {categories.map((cat) => {
           const rows = projectsByCategory(cat);
           const banner = categoryBanner[cat];
           return (

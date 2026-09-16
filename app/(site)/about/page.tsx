@@ -15,13 +15,23 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
+  // Six independent reads with no dependency between them — run concurrently
+  // rather than as six sequential round trips to Neon.
+  const [primary, secondary, eras, highlights, milestones, principles] = await Promise.all([
+    pageImage("about-hero-primary"),
+    pageImage("about-hero-secondary"),
+    getTimeline(),
+    getInventoryHighlights(),
+    getMilestones(),
+    getPrinciples(),
+  ]);
   return (
     <main id="main" className="relative w-full bg-paper">
-      <AboutHero primary={await pageImage("about-hero-primary")} secondary={await pageImage("about-hero-secondary")} />
-      <AboutTimeline eras={await getTimeline()} />
-      <AboutInventoryBento highlights={await getInventoryHighlights()} />
-      <AboutMilestones milestones={await getMilestones()} />
-      <AboutPrinciples principles={await getPrinciples()} />
+      <AboutHero primary={primary} secondary={secondary} />
+      <AboutTimeline eras={eras} />
+      <AboutInventoryBento highlights={highlights} />
+      <AboutMilestones milestones={milestones} />
+      <AboutPrinciples principles={principles} />
     </main>
   );
 }

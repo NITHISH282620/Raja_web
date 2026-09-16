@@ -3,6 +3,18 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     /**
+     * The Worker has no real image-optimization backend: `/_next/image`
+     * currently just 302-redirects to the original asset (confirmed by
+     * request), so every `next/image` was paying for an extra Worker
+     * invocation (~15ms CPU, over the Free plan's entire 10ms budget) to
+     * accomplish nothing — no resize, no format conversion happened either
+     * way. `unoptimized: true` makes `next/image` link straight to the
+     * source asset, matching what was actually being served, and removes
+     * that invocation entirely. All source media is already `.webp`/`.svg`,
+     * pre-sized for its slots, so there is no visual change.
+     */
+    unoptimized: true,
+    /**
      * Next 16 requires this allowlist — an unlisted `quality` prop is silently
      * snapped to the nearest allowed value. 90 is the hero poster and the
      * full-bleed case-study images; 75 stays the default for everything else.
