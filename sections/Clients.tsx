@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, fadeUp, growRule, riseCard, release, entranceTrigger, q } from "@/motion/primitives";
@@ -29,22 +29,10 @@ function distributeColumns(clients: Client[]): Client[][] {
   return columns;
 }
 
-function MarqueeLogoTile({
-  client,
-  onSelect,
-  onDeselect,
-}: {
-  client: Client;
-  onSelect?: (client: Client) => void;
-  onDeselect?: () => void;
-}) {
+function MarqueeLogoTile({ client }: { client: Client }) {
   return (
     <div
       data-logo-tile
-      title={`${client.name} - ${client.event}`}
-      onMouseEnter={() => onSelect?.(client)}
-      onMouseLeave={() => onDeselect?.()}
-      onClick={() => onSelect?.(client)}
       className="group relative flex aspect-[120/104] w-full shrink-0 cursor-pointer items-center justify-center transition-transform duration-300 hover:scale-105 select-none"
     >
       <svg viewBox="0 0 120 104" className="absolute inset-0 h-full w-full" fill="none">
@@ -83,8 +71,6 @@ function MarqueeColumn({
   direction: "up" | "down";
   duration: number;
 }) {
-  const [selected, setSelected] = useState<Client | null>(null);
-
   if (clients.length === 0) return <div className="w-[clamp(72px,11vw,132px)]" aria-hidden />;
 
   return (
@@ -99,20 +85,9 @@ function MarqueeColumn({
         }}
       >
         {[...clients, ...clients].map((c, i) => (
-          <MarqueeLogoTile key={`${c.id}-${i}`} client={c} onSelect={setSelected} onDeselect={() => setSelected(null)} />
+          <MarqueeLogoTile key={`${c.id}-${i}`} client={c} />
         ))}
       </div>
-      {selected && (
-        <div
-          role="status"
-          className="pointer-events-none absolute left-1/2 top-1/2 z-40 w-max max-w-[200px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-[#063c5a] px-3 py-2 text-center text-[11px] text-white shadow-xl"
-        >
-          <span className="block font-semibold">{selected.name}</span>
-          <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-wider text-accent">
-            {selected.event}
-          </span>
-        </div>
-      )}
     </div>
   );
 }
