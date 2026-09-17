@@ -1,7 +1,8 @@
 import "server-only";
 import { collectionRowCounts, getRecord, getSetting, isEmpty, listRecords } from "./db/content";
 
-import { projects as seedProjects, type Project } from "@/content/projects";
+import { projects as seedProjects, projectsCategoryBanners as seedCategoryBanners,
+  type Project, type ProjectCategoryBanner } from "@/content/projects";
 import { projects as seedHomepageWorks, type Project as HomepageWork } from "@/content/works";
 import { capabilities as seedCapabilities, type Capability } from "@/content/capabilities";
 import { inventoryTiles as seedInventory, type InventoryTile } from "@/content/inventory";
@@ -76,6 +77,7 @@ export const COLLECTIONS = {
   pageImages: "pageImages",
   homepageWorks: "homepageWorks",
   legacyMilestones: "legacyMilestones",
+  categoryBanners: "categoryBanners",
 } as const;
 
 /** Seeds a collection reads from when the database has nothing for it. */
@@ -106,6 +108,7 @@ const SEEDS = {
   pageImages: seedPageImages,
   homepageWorks: seedHomepageWorks,
   legacyMilestones: seedLegacyMilestones,
+  categoryBanners: seedCategoryBanners,
 } as const;
 
 type SeedOf<K extends keyof typeof SEEDS> = (typeof SEEDS)[K][number];
@@ -255,6 +258,11 @@ export async function findSolutionBySlug(slug: string): Promise<Solution | undef
  */
 export async function pageImage(id: string): Promise<PageImage | null> {
   return (await read("pageImages")).find((i) => i.id === id) ?? null;
+}
+
+/** The projects-index sector banners, admin-editable. */
+export async function getCategoryBanners(): Promise<ProjectCategoryBanner[]> {
+  return read("categoryBanners");
 }
 
 export async function copyText(id: string): Promise<string> {

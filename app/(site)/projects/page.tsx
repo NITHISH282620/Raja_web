@@ -5,11 +5,10 @@ import { PageMasthead } from "@/components/PageShell";
 import { Reveal } from "@/motion/Reveal";
 import {
   CATEGORY_LABELS,
-  projectsCategoryBanner as categoryBanner,
   projectsIntro,
   type ProjectCategory,
 } from "@/content/projects";
-import { getProjects } from "@/lib/store";
+import { getProjects, getCategoryBanners } from "@/lib/store";
 import { findPillar } from "@/content/services";
 import { company } from "@/content/company";
 import { abs } from "@/lib/site";
@@ -42,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * single row.
  */
 export default async function ProjectsPage() {
-  const all = await getProjects();
+  const [all, categoryBanners] = await Promise.all([getProjects(), getCategoryBanners()]);
 
   // Compute active categories dynamically from the fetched DB projects
   const seenCategories = new Set(all.map((p) => p.category));
@@ -125,7 +124,7 @@ export default async function ProjectsPage() {
       <div className="relative w-full pb-32">
         {categories.map((cat) => {
           const rows = projectsByCategory(cat);
-          const banner = categoryBanner[cat];
+          const banner = categoryBanners.find((b) => b.id === cat);
           return (
             <div 
               key={cat} 
@@ -149,7 +148,7 @@ export default async function ProjectsPage() {
                   <figure className="mb-10 sm:mb-16">
                     <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[2rem] bg-ink/5 sm:aspect-[24/7] shadow-xl border border-ink/5">
                       <Image
-                        src={banner.src}
+                        src={banner.image}
                         alt={banner.alt}
                         fill
                         loading="lazy"

@@ -61,6 +61,7 @@ const GROUPS: {
     label: "Projects page",
     items: [
       { href: "/admin/projects", label: "All projects", key: "projects", sub: true },
+      { href: "/admin/categoryBanners", label: "Sector banner photographs", key: "categoryBanners", sub: true },
     ],
   },
   {

@@ -144,6 +144,13 @@ export const META: Record<
     label: (d) => String(d.event ?? "Untitled"),
     meta: (d) => [d.client, d.year].filter(Boolean).join(" · "),
   },
+  categoryBanners: {
+    title: "Sector banner photographs",
+    sub: "The large photograph shown above each sector on the projects page. One per sector — set which kind of photograph it is (a real build from that sector, or only representative) so the page's caption stays honest.",
+    label: (d) => String(d.label ?? d.id ?? "Untitled"),
+    meta: (d) => String(d.clearance ?? ""),
+    thumb: (d) => (d.image as string) || null,
+  },
   events: {
     title: "Recent engagements table",
     sub: "The recent-engagements table at the foot of the homepage. Add a row each time a job completes.",

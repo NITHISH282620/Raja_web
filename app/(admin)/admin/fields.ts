@@ -283,11 +283,25 @@ export const FIELDS: Record<Collection, Field[]> = {
     { name: "width", label: "Width (%)", type: "number" },
     { name: "height", label: "Height (%)", type: "number" },
   ],
+
+  categoryBanners: [
+    { name: "label", label: "Where it appears", type: "text", hint: "A note to help you find it. Not shown on the website." },
+    { name: "image", label: "Photograph", type: "imagePath" },
+    { name: "alt", label: "Photograph description", type: "text", hint: "Say what is in the picture. Read aloud to blind visitors and used by search engines." },
+    {
+      name: "clearance",
+      label: "Photograph source",
+      type: "select",
+      options: ["client-approved", "licensed"],
+      hint: "\"Client-approved\" if this is a real photograph from that sector's own build — the card labels it \"Project photograph\". \"Licensed\" if it only represents the category (e.g. stock or a different sector's photo) — the card labels it \"Representative\" instead. Only mark it client-approved if it genuinely is.",
+    },
+  ],
 };
 
 /** A blank record for each collection, so "Add new" starts from a valid shape. */
 export const BLANKS: Record<Collection, Record<string, unknown>> = {
   pageImages: { id: "", label: "", image: "", alt: "", order: 0, status: "approved" },
+  categoryBanners: { id: "", label: "", image: "", alt: "", clearance: "client-approved", status: "approved" },
   recentEvents: { slug: "", year: "", project: "", image: "", size: "normal" },
   eventFormats: { id: "", title: "", summary: "", image: null, href: "/solutions" },
   highlights: { number: "", unit: "", label: "", description: "", tag: "", image: "" },

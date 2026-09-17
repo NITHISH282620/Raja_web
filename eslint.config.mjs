@@ -16,6 +16,8 @@ const eslintConfig = defineConfig([
     // generated code and buries the handful in code we actually wrote.
     "dist/**",
     ".vinext/**",
+    // Netlify build output — same reasoning (vendored Deno edge-runtime shims).
+    ".netlify/**",
   ]),
 ]);
 

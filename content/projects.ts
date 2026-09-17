@@ -550,50 +550,70 @@ export const categoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
 /**
  * The projects-index-only banner set.
  *
- * Every entry is a real, correctly attributed photograph from a build in
- * that sector (`clearance: "client-approved"`) rather than unrelated stock —
- * verified against the actual image content, not just its filename or a
- * copy-pasted caption. Used exclusively by `app/(site)/projects/page.tsx`;
+ * Admin-editable (2026-09-17) — same seed-then-database pattern as every other
+ * collection in `lib/store.ts`. `id` is the `ProjectCategory` it belongs to,
+ * so the page looks a banner up with `.find(b => b.id === cat)` instead of a
+ * plain object index. `clearance` stays a real field, not a fixed default: if
+ * an admin ever swaps in a photograph that is not from that sector's own
+ * build, this is what keeps the card honest about it ("Representative" vs
+ * "Project photograph" — see `app/(site)/projects/page.tsx`).
+ *
+ * Every entry below is a real, correctly attributed photograph from a build
+ * in that sector, verified against the actual image content, not just its
+ * filename or a copy-pasted caption. Used exclusively by the projects index;
  * every other page keeps reading `categoryBanner` above, untouched.
  */
-export const projectsCategoryBanner: Partial<Record<ProjectCategory, ImageAsset>> = {
-  government: {
-    src: "/media/projects/2x/world-fisheries-day-2024.webp",
-    width: 1600,
-    height: 1067,
+export interface ProjectCategoryBanner extends Sourced {
+  id: ProjectCategory;
+  /** Shown in the admin list, not on the site. */
+  label: string;
+  image: string;
+  alt: string;
+  clearance: "client-approved" | "licensed";
+}
+
+export const projectsCategoryBanners: ProjectCategoryBanner[] = [
+  {
+    id: "government",
+    label: "Projects index — Government & public sector banner",
+    image: "/media/projects/2x/world-fisheries-day-2024.webp",
     alt: "Government of India officials addressing an audience from a floral-fronted dais at World Fisheries Day, beneath a branded stage backdrop.",
-    focal: "center 55%",
     clearance: "client-approved",
+    status: "approved",
   },
-  exhibition: {
-    src: "/media/projects/2x/krishi-mela-2024-25.webp",
-    width: 1600,
-    height: 1058,
+  {
+    id: "exhibition",
+    label: "Projects index — Exhibitions & trade fairs banner",
+    image: "/media/projects/2x/krishi-mela-2024-25.webp",
     alt: "A capacity crowd under a large clear-span tent at an agricultural exhibition, barricaded rows and a stage in view.",
     clearance: "client-approved",
+    status: "approved",
   },
-  conference: {
-    src: "/media/projects/2x/vidyapeeta-education-expo.webp",
-    width: 800,
-    height: 450,
+  {
+    id: "conference",
+    label: "Projects index — Conferences & congresses banner",
+    image: "/media/projects/2x/vidyapeeta-education-expo.webp",
     alt: "An award presentation on a conference stage beneath a branded backdrop.",
     clearance: "client-approved",
+    status: "approved",
   },
-  cultural: {
-    src: "/media/projects/2x/hampi-utsav-2024.webp",
-    width: 1600,
-    height: 896,
+  {
+    id: "cultural",
+    label: "Projects index — Cultural & religious banner",
+    image: "/media/projects/2x/hampi-utsav-2024.webp",
     alt: "Costumed performers carrying ceremonial flames along a torch-lit ramp at a night cultural festival, with a large audience gathered on either side.",
     clearance: "client-approved",
+    status: "approved",
   },
-  corporate: {
-    src: "/media/projects/2x/buildtek-silver-jubilee.webp",
-    width: 1600,
-    height: 1600,
+  {
+    id: "corporate",
+    label: "Projects index — Corporate banner",
+    image: "/media/projects/2x/buildtek-silver-jubilee.webp",
     alt: "A presenter on a red-carpeted stage before an illuminated 25th-anniversary backdrop, rigging and lighting overhead.",
     clearance: "client-approved",
+    status: "approved",
   },
-};
+];
 
 export const projectsIntro = {
   eyebrow: ["What we", "have built"] as const,

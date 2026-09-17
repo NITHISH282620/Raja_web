@@ -210,16 +210,6 @@ export function LegacyView({ collage }: { collage: CollagePhoto[] }) {
                 priority={i < 4}
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              {/* Caption revealed on hover, aria-hidden since the Image's own
-                  alt already carries this text for assistive tech. */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-black/75 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              >
-                <p className="p-3 text-[11px] font-medium leading-snug text-white sm:p-4 sm:text-xs md:text-[13px]">
-                  {photo.image.alt}
-                </p>
-              </div>
             </div>
           );
         })}
