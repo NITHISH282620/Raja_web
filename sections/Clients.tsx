@@ -157,16 +157,18 @@ export function ClientsView({
       <style jsx global>{`
         @keyframes marquee-scroll {
           from {
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
           }
           to {
-            transform: translateY(-50%);
+            transform: translate3d(0, -50%, 0);
           }
         }
         .marquee-track {
           animation-name: marquee-scroll;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
+          will-change: transform;
+          backface-visibility: hidden;
         }
         .marquee-col:hover .marquee-track {
           animation-play-state: paused;
