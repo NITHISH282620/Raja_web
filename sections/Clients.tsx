@@ -32,14 +32,18 @@ function distributeColumns(clients: Client[]): Client[][] {
 function MarqueeLogoTile({
   client,
   onSelect,
+  onDeselect,
 }: {
   client: Client;
   onSelect?: (client: Client) => void;
+  onDeselect?: () => void;
 }) {
   return (
     <div
       data-logo-tile
       title={`${client.name} - ${client.event}`}
+      onMouseEnter={() => onSelect?.(client)}
+      onMouseLeave={() => onDeselect?.()}
       onClick={() => onSelect?.(client)}
       className="group relative flex aspect-[120/104] w-full shrink-0 cursor-pointer items-center justify-center transition-transform duration-300 hover:scale-105 select-none"
     >
@@ -95,7 +99,7 @@ function MarqueeColumn({
         }}
       >
         {[...clients, ...clients].map((c, i) => (
-          <MarqueeLogoTile key={`${c.id}-${i}`} client={c} onSelect={setSelected} />
+          <MarqueeLogoTile key={`${c.id}-${i}`} client={c} onSelect={setSelected} onDeselect={() => setSelected(null)} />
         ))}
       </div>
       {selected && (
