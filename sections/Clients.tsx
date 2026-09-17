@@ -22,11 +22,18 @@ const COLUMNS = 7;
  * moving in lockstep. */
 const columnDuration = (colIdx: number) => 22 + Math.abs(colIdx - (COLUMNS - 1) / 2) * 4;
 
-/** Splits the published clients round-robin across the scrolling columns. */
+/** Every column carries the full published roster — a round-robin split
+ * used to give each column only a handful of clients, which made the loop
+ * cycle short enough that the seam where it restarts was plainly visible.
+ * Each column starts at a different offset into the same list so the
+ * columns don't all show the same logos in the same order side by side. */
 function distributeColumns(clients: Client[]): Client[][] {
-  const columns: Client[][] = Array.from({ length: COLUMNS }, () => []);
-  clients.forEach((c, i) => columns[i % COLUMNS].push(c));
-  return columns;
+  if (clients.length === 0) return Array.from({ length: COLUMNS }, () => []);
+  const step = Math.max(1, Math.round(clients.length / COLUMNS));
+  return Array.from({ length: COLUMNS }, (_, i) => {
+    const offset = (i * step) % clients.length;
+    return [...clients.slice(offset), ...clients.slice(0, offset)];
+  });
 }
 
 function MarqueeLogoTile({ client }: { client: Client }) {
