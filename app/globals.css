@@ -289,3 +289,13 @@
     height: auto !important;
   }
 }
+
+
+
+/* Hide Vercel Toolbar */
+vercel-live-feedback,
+#vercel-toolbar,
+.vercel-toolbar,
+nextjs-portal {
+  display: none !important;
+}
