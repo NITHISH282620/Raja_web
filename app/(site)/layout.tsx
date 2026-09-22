@@ -31,12 +31,12 @@ const robotoMono = Roboto_Mono({
 });
 
 const description =
-  "Turnkey event infrastructure since 1977: German hangars, flooring, staging, stalls and seating, installed by our own crew from a Bengaluru yard.";
+  "Leading event management and infrastructure company in Bangalore since 1977. Specializing in German hangars, exibition stall fabrication, tent house rentals, and turnkey corporate event setups.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `Event Infrastructure Company in Bengaluru — ${company.name}`,
+    default: `Top Event Management & Infrastructure Company in Bangalore | ${company.name}`,
     template: `%s — ${company.name}`,
   },
   description,

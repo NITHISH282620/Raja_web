@@ -33,7 +33,7 @@ export const brand = {
  */
 export const hero = {
   headline: "Building the physical infrastructure\nbehind large-scale events.",
-  body: "Since 1977, Raja Enterprises has delivered the physical infrastructure for government programmes, trade fairs, exhibitions, and corporate conferences. With substantial inventory and in-house field resources, we build the venue.",
+  body: "Since 1977, Raja Enterprises has been Bangalore's premier event management partner and tent house for physical infrastructure. We deliver turnkey setups for government programmes, trade fairs, exhibitions, and corporate events. From German hangars to exhibition stall design, we build the venue using our own substantial inventory and in-house crew.",
 } as const;
 
 /**
