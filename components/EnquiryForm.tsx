@@ -24,8 +24,8 @@ import { whatsappLink, BUDGET_BANDS, EVENT_TYPES } from "@/lib/enquiry";
  */
 
 const INPUT =
-  "h-[52px] w-full rounded-[10px] border border-ink/15 bg-white px-4 text-base text-ink " +
-  "outline-none transition-colors placeholder:text-body-light/70 focus:border-brand-blue";
+  "h-[52px] w-full rounded-[10px] border border-ink/15 bg-neutral-50 px-4 text-base text-ink " +
+  "outline-none transition-all duration-300 placeholder:text-body-light/70 focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/15 focus:bg-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]";
 
 const ERRORS: Record<string, string> = {
   name: "Please tell us your name so we know who we are replying to.",
@@ -98,7 +98,7 @@ export function EnquiryForm({
       action={submitEnquiry}
       encType="multipart/form-data"
       data-analytics-form
-      className="flex flex-col gap-[clamp(18px,2.2vw,28px)]"
+      className="flex flex-col gap-[clamp(32px,3vw,44px)]"
     >
       {message && (
         <p
@@ -121,7 +121,7 @@ export function EnquiryForm({
 
       {/* ---------------------------------------------------------- who */}
       <fieldset className="flex flex-col gap-[clamp(14px,1.6vw,20px)] border-0 p-0">
-        <legend className="t-eyebrow mb-1 text-ink/45">Who you are</legend>
+        <legend className="t-eyebrow mb-4 text-brand-blue font-semibold tracking-widest text-[12px] border-b border-ink/10 pb-2 w-full">Who you are</legend>
         <div className="grid gap-[clamp(14px,1.6vw,20px)] sm:grid-cols-2">
           <Field label="Your name" name="name" required />
           <Field label="Company or department" name="organisation" />
@@ -135,10 +135,10 @@ export function EnquiryForm({
 
       {/* -------------------------------------------------------- the event */}
       <fieldset className="flex flex-col gap-[clamp(14px,1.6vw,20px)] border-0 p-0">
-        <legend className="t-eyebrow mb-1 text-ink/45">The event</legend>
+        <legend className="t-eyebrow mb-4 text-brand-blue font-semibold tracking-widest text-[12px] border-b border-ink/10 pb-2 w-full">The event</legend>
 
         <label className="flex flex-col gap-2">
-          <span className="t-eyebrow text-ink/60">Kind of event</span>
+          <span className="t-eyebrow text-ink/70 font-medium">Kind of event</span>
           <select name="event_type" className={INPUT} defaultValue="">
             <option value="">Select one</option>
             {EVENT_TYPES.map((t) => (
@@ -170,7 +170,7 @@ export function EnquiryForm({
           budget, it produces a wrong one.
         */}
         <label className="flex flex-col gap-2">
-          <span className="t-eyebrow text-ink/60">Indicative budget</span>
+          <span className="t-eyebrow text-ink/70 font-medium">Indicative budget</span>
           <select name="budget" className={INPUT} defaultValue="">
             <option value="">Select a range</option>
             {BUDGET_BANDS.map((band) => (
@@ -187,25 +187,25 @@ export function EnquiryForm({
 
       {/* ------------------------------------------------------- the brief */}
       <fieldset className="flex flex-col gap-[clamp(14px,1.6vw,20px)] border-0 p-0">
-        <legend className="t-eyebrow mb-1 text-ink/45">The brief</legend>
+        <legend className="t-eyebrow mb-4 text-brand-blue font-semibold tracking-widest text-[12px] border-b border-ink/10 pb-2 w-full">The brief</legend>
 
         <label className="flex flex-col gap-2">
-          <span className="t-eyebrow text-ink/60">Anything else</span>
+          <span className="t-eyebrow text-ink/70 font-medium">Anything else</span>
           <textarea
             name="message"
             rows={5}
             placeholder="What has to be built, what is already fixed, and what you still need decided."
-            className="w-full rounded-[10px] border border-ink/15 bg-white p-4 text-base text-ink outline-none transition-colors placeholder:text-body-light/70 focus:border-brand-blue"
+            className="w-full rounded-[10px] border border-ink/15 bg-neutral-50 p-4 text-base text-ink outline-none transition-all duration-300 placeholder:text-body-light/70 focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/15 focus:bg-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]"
           />
         </label>
 
         <label className="flex flex-col gap-2">
-          <span className="t-eyebrow text-ink/60">Attach an RFP, BOQ or event brief</span>
+          <span className="t-eyebrow text-ink/70 font-medium">Attach an RFP, BOQ or event brief</span>
           <input
             type="file"
             name="brief"
             accept={ACCEPT}
-            className="w-full rounded-[10px] border border-dashed border-ink/25 bg-white p-4 text-base text-ink file:mr-4 file:rounded-full file:border-0 file:bg-ink/[0.06] file:px-4 file:py-2 file:text-sm file:text-ink hover:border-brand-blue/60"
+            className="w-full rounded-[10px] border-2 border-dashed border-ink/20 bg-neutral-50 p-4 text-base text-ink transition-all duration-300 file:mr-4 file:rounded-full file:border-0 file:bg-brand-blue/10 file:px-4 file:py-2 file:text-sm file:font-medium file:text-brand-blue hover:border-brand-blue hover:bg-brand-blue/5 cursor-pointer"
           />
           <span className="t-body-sm text-body-light">
             Optional. PDF, Word, Excel, PowerPoint, images or ZIP, up to 8&nbsp;MB. If your
@@ -216,7 +216,7 @@ export function EnquiryForm({
 
       <button
         type="submit"
-        className="group mt-2 inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-full bg-brand-blue px-9 text-white transition-colors duration-300 hover:bg-ink sm:w-fit sm:justify-start"
+        className="group mt-4 inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-full bg-brand-blue px-9 text-white transition-all duration-300 hover:bg-ink hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-blue/30 sm:w-fit sm:justify-start"
       >
         <span className="t-body">Submit your event brief</span>
         <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
@@ -254,7 +254,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-2">
-      <span className="t-eyebrow text-ink/60">
+      <span className="t-eyebrow text-ink/70 font-medium">
         {label}
         {required && <span className="ml-1 text-accent">*</span>}
       </span>
