@@ -168,6 +168,12 @@ export function SiteFooter({ contact }: { contact: ContactSettings }) {
               India&rsquo;s largest gatherings and celebrations stand on.
             </p>
 
+            <div className="flex items-center pt-2 pb-1">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-neutral-50 px-3 py-1 text-[11px] font-semibold tracking-wider text-ink/60 uppercase">
+                ISO Certified
+              </span>
+            </div>
+
             {/* Social Media Links */}
             <div className="flex items-center gap-3 pt-1">
               {socialLinks
