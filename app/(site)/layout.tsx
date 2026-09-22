@@ -40,8 +40,13 @@ export const metadata: Metadata = {
     template: `%s — ${company.name}`,
   },
   description,
+  
   applicationName: company.name,
   keywords: [
+    "event management in bengaluru",
+    "event management",
+    "event organizers in bangalore",
+    "event planners bangalore",
     "event infrastructure",
     "German hangars",
     "exhibition stalls",
@@ -57,6 +62,7 @@ export const metadata: Metadata = {
     siteName: company.name,
     title: `${company.name} — We build moments.`,
     description,
+  
   },
   twitter: { card: "summary_large_image", title: company.name, description },
   // Preview deployments are noindex at the document level as well as in
@@ -85,6 +91,7 @@ function buildJsonLd(contact: Awaited<ReturnType<typeof getContact>>) {
     "@id": `${SITE_URL}/#organisation`,
     name: company.name,
     description,
+  
     foundingDate: String(FOUNDED_YEAR),
     areaServed: { "@type": "Country", name: "India" },
     url: SITE_URL,
