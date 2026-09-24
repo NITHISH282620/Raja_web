@@ -1,27 +1,9 @@
+"use client";
+
+import { useState } from "react";
+import { useFormStatus } from "react-dom";
 import { submitEnquiry } from "@/app/(site)/contact/actions";
 import { whatsappLink, BUDGET_BANDS, EVENT_TYPES } from "@/lib/enquiry";
-
-/**
- * The enquiry form.
- *
- * A plain server-action form: no client JavaScript, so it works before
- * hydration and on a bad connection, which for a contractor whose buyers
- * include government departments on office networks is not a hypothetical.
- *
- * The fields are the ones that make a first reply useful — what kind of event,
- * when, where, how big. A bare "message" box gets "please send details" and
- * costs a round trip.
- *
- * WHATSAPP. Raja runs customer conversations in WhatsApp, so the success state
- * hands the visitor a prefilled `wa.me` link rather than promising a callback.
- * The enquiry is already saved by then, so a visitor who never taps through is
- * still a recorded lead — and because a deep link only drafts a message in the
- * visitor's own client, nothing here claims a message was sent.
- *
- * Inputs are `text-base` (16px) rather than the site's `t-body` (14px at the
- * small end). Any input under 16px makes iOS Safari zoom the viewport on focus,
- * which on the one page that has to convert is a real cost.
- */
 
 const INPUT =
   "h-[52px] w-full rounded-[10px] border border-ink/15 bg-neutral-50 px-4 text-base text-ink " +
@@ -35,10 +17,26 @@ const ERRORS: Record<string, string> = {
   filesize: "That file is over 8 MB. Please send a smaller version, or share a link in the notes.",
 };
 
-/** The attachment types the server accepts, mirrored here so the file picker
- *  filters rather than letting someone choose a file that will be rejected. */
-const ACCEPT =
-  ".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.png,.jpg,.jpeg,.webp,.zip";
+const ACCEPT = ".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.png,.jpg,.jpeg,.webp,.zip";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="group mt-4 inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-full bg-brand-blue px-9 text-white transition-all duration-300 hover:bg-ink hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-blue/30 sm:w-fit sm:justify-start disabled:opacity-70 disabled:cursor-not-allowed"
+    >
+      <span className="t-body">{pending ? "Submitting..." : "Submit your event brief"}</span>
+      {!pending && (
+        <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+          &rarr;
+        </span>
+      )}
+    </button>
+  );
+}
 
 export function EnquiryForm({
   sent,
@@ -51,6 +49,8 @@ export function EnquiryForm({
   reference?: string;
   phone?: string | null;
 }) {
+  const [fileName, setFileName] = useState<string>("");
+
   if (sent) {
     const wa = whatsappLink(phone, { reference });
     return (
@@ -96,49 +96,54 @@ export function EnquiryForm({
   return (
     <form
       action={submitEnquiry}
-      encType="multipart/form-data"
       data-analytics-form
-      className="flex flex-col gap-[clamp(32px,3vw,44px)]"
+      className="flex flex-col gap-[clamp(32px,3vw,44px)] rounded-[15px] border border-ink/15 bg-white p-[clamp(20px,2.6vw,36px)]"
     >
       {message && (
         <p
           role="alert"
+          aria-live="polite"
           className="t-body rounded-[10px] border border-accent/40 bg-accent/10 px-4 py-3 text-ink"
         >
           {message}
         </p>
       )}
 
-      {/*
-        Honeypot. Named like a real field and hidden from people, not from
-        parsers — a bot filling every input is the cheapest spam signal there
-        is, and it costs a legitimate visitor nothing.
-      */}
       <div aria-hidden className="hidden">
         <label htmlFor="website">Website</label>
         <input id="website" name="website" tabIndex={-1} autoComplete="off" />
       </div>
 
-      {/* ---------------------------------------------------------- who */}
+      {/* 01 ABOUT YOU */}
       <fieldset className="flex flex-col gap-[clamp(14px,1.6vw,20px)] border-0 p-0">
-        <legend className="t-eyebrow mb-4 text-brand-blue font-semibold tracking-widest text-[12px] border-b border-ink/10 pb-2 w-full">Who you are</legend>
+        <div className="mb-4 border-b border-ink/10 pb-4">
+          <p className="t-eyebrow text-accent">01</p>
+          <legend className="t-work text-ink font-semibold tracking-widest text-[16px] uppercase mt-1">
+            About You
+          </legend>
+          <p className="t-body-sm text-body-light mt-1">Tell us who we should coordinate with.</p>
+        </div>
+        
         <div className="grid gap-[clamp(14px,1.6vw,20px)] sm:grid-cols-2">
           <Field label="Your name" name="name" required />
-          <Field label="Company or department" name="organisation" />
-          <Field label="Work email" name="email" type="email" />
+          <Field label="Company / Department" name="organisation" />
+          <Field label="Work Email" name="email" type="email" />
           <Field label="Phone / WhatsApp" name="phone" type="tel" />
         </div>
-        <p className="t-body-sm -mt-1 text-body-light">
-          A phone number or an email &mdash; either is enough for us to reply.
-        </p>
       </fieldset>
 
-      {/* -------------------------------------------------------- the event */}
+      {/* 02 THE EVENT */}
       <fieldset className="flex flex-col gap-[clamp(14px,1.6vw,20px)] border-0 p-0">
-        <legend className="t-eyebrow mb-4 text-brand-blue font-semibold tracking-widest text-[12px] border-b border-ink/10 pb-2 w-full">The event</legend>
+        <div className="mb-4 border-b border-ink/10 pb-4">
+          <p className="t-eyebrow text-accent">02</p>
+          <legend className="t-work text-ink font-semibold tracking-widest text-[16px] uppercase mt-1">
+            The Event
+          </legend>
+          <p className="t-body-sm text-body-light mt-1">Give us the basic site and scale information.</p>
+        </div>
 
         <label className="flex flex-col gap-2">
-          <span className="t-eyebrow text-ink/70 font-medium">Kind of event</span>
+          <span className="t-eyebrow text-ink/70 font-medium">Kind of Event</span>
           <select name="event_type" className={INPUT} defaultValue="">
             <option value="">Select one</option>
             {EVENT_TYPES.map((t) => (
@@ -154,43 +159,40 @@ export function EnquiryForm({
           <Field label="City" name="location" placeholder="Bengaluru, or wherever it is being built" />
           <Field label="Dates" name="event_date" placeholder="March 2027, or not yet fixed" />
           <Field label="Venue" name="venue" placeholder="Named venue, or open ground" />
-          <Field label="Expected attendance" name="attendance" placeholder="e.g. 5,000 over three days" />
+          <Field label="Expected Attendance" name="attendance" placeholder="e.g. 5,000 over three days" />
         </div>
 
         <Field
-          label="Scale of the build"
+          label="Scale of Build"
           name="requirement"
-          placeholder="e.g. 40,000 sq ft covered, 60 stalls, raked seating for 2,000"
+          placeholder="e.g. 40,000 sq ft covered, 60 stalls, raked seating"
         />
 
-        {/*
-          Budget band, not a figure. Buyers who will not type a number will still
-          pick a range, and a range is all the internal triage needs. "Not yet
-          decided" is offered on purpose — leaving it out does not produce a
-          budget, it produces a wrong one.
-        */}
         <label className="flex flex-col gap-2">
-          <span className="t-eyebrow text-ink/70 font-medium">Indicative budget</span>
+          <span className="t-eyebrow text-ink/70 font-medium">Indicative Budget</span>
           <select name="budget" className={INPUT} defaultValue="">
-            <option value="">Select a range</option>
+            <option value="">Not decided yet / Select a range</option>
             {BUDGET_BANDS.map((band) => (
               <option key={band} value={band}>
                 {band.replace(/^Rs /, "\u20b9 ").replace(/Rs /g, "\u20b9")}
               </option>
             ))}
           </select>
-          <span className="t-body-sm text-body-light">
-            A range is enough. It tells us which of our crews and stock to put against it.
-          </span>
         </label>
       </fieldset>
 
-      {/* ------------------------------------------------------- the brief */}
+      {/* 03 THE BRIEF */}
       <fieldset className="flex flex-col gap-[clamp(14px,1.6vw,20px)] border-0 p-0">
-        <legend className="t-eyebrow mb-4 text-brand-blue font-semibold tracking-widest text-[12px] border-b border-ink/10 pb-2 w-full">The brief</legend>
+        <div className="mb-4 border-b border-ink/10 pb-4">
+          <p className="t-eyebrow text-accent">03</p>
+          <legend className="t-work text-ink font-semibold tracking-widest text-[16px] uppercase mt-1">
+            The Brief
+          </legend>
+          <p className="t-body-sm text-body-light mt-1">Tell us anything else that will help us understand the requirement.</p>
+        </div>
 
         <label className="flex flex-col gap-2">
-          <span className="t-eyebrow text-ink/70 font-medium">Anything else</span>
+          <span className="t-eyebrow text-ink/70 font-medium">Anything Else</span>
           <textarea
             name="message"
             rows={5}
@@ -200,29 +202,46 @@ export function EnquiryForm({
         </label>
 
         <label className="flex flex-col gap-2">
-          <span className="t-eyebrow text-ink/70 font-medium">Attach an RFP, BOQ or event brief</span>
-          <input
-            type="file"
-            name="brief"
-            accept={ACCEPT}
-            className="w-full rounded-[10px] border-2 border-dashed border-ink/20 bg-neutral-50 p-4 text-base text-ink transition-all duration-300 file:mr-4 file:rounded-full file:border-0 file:bg-brand-blue/10 file:px-4 file:py-2 file:text-sm file:font-medium file:text-brand-blue hover:border-brand-blue hover:bg-brand-blue/5 cursor-pointer"
-          />
-          <span className="t-body-sm text-body-light">
-            Optional. PDF, Word, Excel, PowerPoint, images or ZIP, up to 8&nbsp;MB. If your
-            document is larger, send it on WhatsApp after submitting.
-          </span>
+          <span className="t-eyebrow text-ink/70 font-medium">File upload for RFP / BOQ / Event Brief</span>
+          <div className="relative flex flex-col items-center justify-center w-full min-h-[140px] rounded-[10px] border-2 border-dashed border-ink/20 bg-neutral-50 p-6 text-center transition-all duration-300 hover:border-brand-blue hover:bg-brand-blue/5 cursor-pointer">
+            <input
+              type="file"
+              name="brief"
+              accept={ACCEPT}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) setFileName(file.name);
+                else setFileName("");
+              }}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              aria-label="Upload document"
+            />
+            {fileName ? (
+              <div className="flex flex-col items-center gap-2 text-brand-blue">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <span className="t-body font-medium">{fileName}</span>
+                <span className="t-body-sm text-ink/50 mt-1 hover:text-ink">Click to change file</span>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-2">
+                <span className="t-body font-medium text-ink">Click or drag a file to attach</span>
+                <span className="t-body-sm text-body-light">
+                  Max 8 MB. Accepted: PDF, Word, Excel, PPT, Image, ZIP.
+                </span>
+              </div>
+            )}
+          </div>
         </label>
       </fieldset>
 
-      <button
-        type="submit"
-        className="group mt-4 inline-flex h-[54px] w-full items-center justify-center gap-3 rounded-full bg-brand-blue px-9 text-white transition-all duration-300 hover:bg-ink hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-blue/30 sm:w-fit sm:justify-start"
-      >
-        <span className="t-body">Submit your event brief</span>
-        <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
-          &rarr;
-        </span>
-      </button>
+      <div className="mt-2 flex flex-col sm:flex-row items-center gap-6">
+        <SubmitButton />
+        {/* Secondary Contact */}
+        <div className="hidden sm:block w-[1px] h-10 bg-ink/10" />
+        <a href="#contact-details" className="t-body text-ink transition-colors hover:text-brand-blue">
+          Message us on WhatsApp &rarr;
+        </a>
+      </div>
     </form>
   );
 }
