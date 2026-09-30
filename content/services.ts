@@ -403,12 +403,12 @@ export const markets: { title: string; body: string }[] = [
 export const servicesIntro = {
   eyebrow: ["What we", "build"] as const,
   statement: [
-    { text: "We do not decorate events. " },
+    { text: "We do more than decorate events. " },
     { text: "We build", accent: true },
-    { text: " the venue." },
+    { text: " the venue from the ground up." },
   ],
   lead:
-    "Raja owns the structures, the flooring, the staging and the fleet, and employs the crew that raises them. That is the whole difference between a contractor and a broker — and it is why the date holds.",
+    "Raja Enterprises owns the structures, flooring, staging and fleet, and employs the crews that install them. From prepared ground to finished venue, we deliver the physical infrastructure that makes large-scale events possible.",
 };
 
 /**

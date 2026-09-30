@@ -95,7 +95,7 @@ export async function LegacyTrust() {
                 className="font-serif italic text-white leading-[1.15] text-balance"
                 style={{ fontSize: "clamp(22px, 3.5vw, 48px)" }}
               >
-                &ldquo;We don&rsquo;t build tents to decorate a ceremony. We engineer the physical
+                &ldquo;Decoration is part of the finish. Infrastructure is what we build. We engineer the physical
                 sanctuary where human lives, heads of state, and historical moments stand safe.&rdquo;
               </blockquote>
               <p className="font-mono text-xs uppercase tracking-wider text-white/40">
